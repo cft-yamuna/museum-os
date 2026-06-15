@@ -4,7 +4,11 @@
       "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\abrah\\\\Downloads\\\\lightman-app01-main\" -Force)",
       "Bash(Select-Object Name, FullName)",
       "Read(//c/Users/abrah/Downloads/curato-source-v1.0/**)",
-      "Bash(ls -la \"C:\\\\Users\\\\abrah\\\\Downloads\\\\curato-source-v1.0\" | head -30)"
+      "Bash(ls -la \"C:\\\\Users\\\\abrah\\\\Downloads\\\\curato-source-v1.0\" | head -30)",
+      "Bash(rm \"c:/Users/abrah/Downloads/lightman-app01-main/server/seeds/002_demo_apps.ts\" && echo \"deleted\")"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\abrah\\Downloads\\lightman-app01-main\\server\\seeds"
     ]
   }
 }

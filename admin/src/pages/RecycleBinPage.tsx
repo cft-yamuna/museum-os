@@ -103,7 +103,7 @@ export function RecycleBinPage() {
 
       {/* search */}
       {!isLoading && trashedApps.length > 0 && (
-        <div className="flex items-center gap-3 bg-white rounded-2xl border border-surface-200 px-4 py-3">
+        <div className="flex items-center gap-3 card-bg rounded-2xl border border-surface-200 px-4 py-3">
           <Search className="h-4 w-4 text-surface-400 shrink-0" />
           <input
             value={q} onChange={e => setQ(e.target.value)}
@@ -117,7 +117,7 @@ export function RecycleBinPage() {
       {isLoading && <div className="flex justify-center py-20"><Spinner size="lg" className="text-surface-400" /></div>}
 
       {!isLoading && trashedApps.length === 0 && (
-        <div className="rounded-2xl bg-white border border-surface-200 p-14 text-center">
+        <div className="rounded-2xl card-bg border border-surface-200 p-14 text-center">
           <div className="h-14 w-14 rounded-2xl bg-surface-100 flex items-center justify-center mx-auto mb-5">
             <Trash2 className="h-7 w-7 text-surface-400" />
           </div>
@@ -141,7 +141,7 @@ export function RecycleBinPage() {
             const remaining = daysLeft((app as any).deleted_at || app.updated_at);
 
             return (
-              <div key={app.id} className="bg-white rounded-2xl border border-surface-200 p-5 opacity-80 hover:opacity-100 transition-opacity">
+              <div key={app.id} className="card-bg rounded-2xl border border-surface-200 p-5 opacity-80 hover:opacity-100 transition-opacity">
                 {/* Top: Icon + name */}
                 <div className="flex items-start gap-3 mb-4">
                   <div

@@ -14,7 +14,7 @@ function getBadgeClasses(phase: DeviceSyncStatus['phase']): string {
     case 'rendering':
       return 'border-blue-200 bg-blue-50 text-blue-600';
     default:
-      return 'border-surface-200 bg-white text-surface-600';
+      return 'border-surface-200 card-bg text-surface-600';
   }
 }
 

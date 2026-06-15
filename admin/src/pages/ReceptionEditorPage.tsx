@@ -232,7 +232,7 @@ export function ReceptionEditorPage() {
   if (error || !device) {
     return (
       <div className="min-h-screen page-bg flex items-center justify-center p-6">
-        <div className="max-w-md rounded-2xl border border-surface-200 bg-white p-6 text-center">
+        <div className="max-w-md rounded-2xl border border-surface-200 card-bg p-6 text-center">
           <Monitor className="mx-auto mb-3 h-9 w-9 text-surface-300" />
           <h1 className="text-lg font-bold text-surface-900">Reception device not found</h1>
           <p className="mt-2 text-sm text-surface-500">
@@ -246,7 +246,7 @@ export function ReceptionEditorPage() {
   if (!device.app_id) {
     return (
       <div className="min-h-screen page-bg flex items-center justify-center p-6">
-        <div className="max-w-md rounded-2xl border border-surface-200 bg-white p-6 text-center">
+        <div className="max-w-md rounded-2xl border border-surface-200 card-bg p-6 text-center">
           <Monitor className="mx-auto mb-3 h-9 w-9 text-surface-300" />
           <h1 className="text-lg font-bold text-surface-900">No app assigned</h1>
           <p className="mt-2 text-sm text-surface-500">
@@ -260,7 +260,7 @@ export function ReceptionEditorPage() {
   if (!app || !isReceptionApp) {
     return (
       <div className="min-h-screen page-bg flex items-center justify-center p-6">
-        <div className="max-w-md rounded-2xl border border-surface-200 bg-white p-6 text-center">
+        <div className="max-w-md rounded-2xl border border-surface-200 card-bg p-6 text-center">
           <Monitor className="mx-auto mb-3 h-9 w-9 text-surface-300" />
           <h1 className="text-lg font-bold text-surface-900">Not a reception app</h1>
           <p className="mt-2 text-sm text-surface-500">
@@ -292,7 +292,7 @@ export function ReceptionEditorPage() {
           </Button>
         </div>
 
-        <section className="rounded-2xl border border-surface-200 bg-white shadow-sm">
+        <section className="rounded-2xl border border-surface-200 card-bg shadow-sm">
           <div className="border-b border-surface-100 bg-surface-50/60 px-7 py-6">
             <h2 className="text-2xl font-bold text-surface-900">Guest Name List</h2>
             <p className="mt-2 text-base text-surface-500">
@@ -310,19 +310,19 @@ export function ReceptionEditorPage() {
                 type="button"
                 onClick={() => updateGuestNameFontSize(guestNameFontSizeRem - 0.2)}
                 disabled={fontSizeMutation.isPending || guestNameFontSizeRem <= MIN_GUEST_NAME_FONT_SIZE_REM}
-                className="flex h-12 w-12 items-center justify-center rounded-xl border border-surface-200 bg-white text-surface-700 transition-colors hover:border-primary-300 hover:text-primary-600 disabled:cursor-not-allowed disabled:opacity-40"
+                className="flex h-12 w-12 items-center justify-center rounded-xl border border-surface-200 card-bg text-surface-700 transition-colors hover:border-primary-300 hover:text-primary-600 disabled:cursor-not-allowed disabled:opacity-40"
                 aria-label="Decrease name font size"
               >
                 <Minus className="h-5 w-5" />
               </button>
-              <div className="min-w-[104px] rounded-xl border border-surface-200 bg-white px-4 py-3 text-center text-lg font-bold text-surface-900">
+              <div className="min-w-[104px] rounded-xl border border-surface-200 card-bg px-4 py-3 text-center text-lg font-bold text-surface-900">
                 {guestNameFontSizeRem.toFixed(1)}rem
               </div>
               <button
                 type="button"
                 onClick={() => updateGuestNameFontSize(guestNameFontSizeRem + 0.2)}
                 disabled={fontSizeMutation.isPending || guestNameFontSizeRem >= MAX_GUEST_NAME_FONT_SIZE_REM}
-                className="flex h-12 w-12 items-center justify-center rounded-xl border border-surface-200 bg-white text-surface-700 transition-colors hover:border-primary-300 hover:text-primary-600 disabled:cursor-not-allowed disabled:opacity-40"
+                className="flex h-12 w-12 items-center justify-center rounded-xl border border-surface-200 card-bg text-surface-700 transition-colors hover:border-primary-300 hover:text-primary-600 disabled:cursor-not-allowed disabled:opacity-40"
                 aria-label="Increase name font size"
               >
                 <Plus className="h-5 w-5" />
@@ -342,7 +342,7 @@ export function ReceptionEditorPage() {
                   value={name}
                   onChange={(e) => updateGuestName(idx, e.target.value)}
                   placeholder={`Name ${idx + 1}`}
-                  className="h-16 flex-1 rounded-2xl border border-surface-200 bg-white px-5 text-2xl font-semibold text-surface-800 placeholder:text-surface-400 focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+                  className="h-16 flex-1 rounded-2xl border border-surface-200 card-bg px-5 text-2xl font-semibold text-surface-800 placeholder:text-surface-400 focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
                 />
                 <button
                   type="button"

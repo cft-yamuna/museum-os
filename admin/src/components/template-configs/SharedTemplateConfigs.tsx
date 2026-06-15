@@ -508,7 +508,7 @@ function TouchScrollDocumentBuilder({
       ) : (
         <div className="space-y-3">
           {docs.map((doc, docIndex) => (
-            <div key={doc.id} className="border border-surface-200 rounded-2xl bg-white overflow-hidden">
+            <div key={doc.id} className="border border-surface-200 rounded-2xl card-bg overflow-hidden">
               <div className="px-4 py-3 bg-surface-50 border-b border-surface-100 flex items-center gap-3">
                 <div className="h-8 w-8 rounded-lg bg-indigo-100 flex items-center justify-center text-indigo-600 shrink-0">
                   <FileText className="h-4 w-4" />
@@ -665,7 +665,7 @@ function TouchScrollDocumentBuilder({
 
       {pickerTarget && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30" onClick={() => setPickerTarget(null)}>
-          <div className="bg-white rounded-2xl shadow-2xl w-[520px] max-h-[70vh] overflow-hidden" onClick={(e) => e.stopPropagation()}>
+          <div className="card-bg rounded-2xl shadow-2xl w-[520px] max-h-[70vh] overflow-hidden" onClick={(e) => e.stopPropagation()}>
             <div className="px-5 py-4 border-b border-surface-200">
               <h3 className="font-semibold text-surface-800">
                 {pickerTarget.variant === 'translation' ? 'Add Translation Pages' : 'Add Pages'}
@@ -898,7 +898,7 @@ export function MultiScreenConfig({ config, onChange, siteId }: ConfigPanelProps
 
 export function DiagnosticsConfig() {
   return (
-    <div className="bg-white rounded-2xl border border-surface-200 p-8 text-center" style={{ borderLeft: '3px solid #475569' }}>
+    <div className="card-bg rounded-2xl border border-surface-200 p-8 text-center" style={{ borderLeft: '3px solid #475569' }}>
       <div className="h-12 w-12 rounded-xl bg-slate-100 flex items-center justify-center mx-auto mb-4">
         <div className="h-3 w-3 rounded-full bg-slate-400" />
       </div>

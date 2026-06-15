@@ -51,7 +51,7 @@ function PoiImagePreview({ src, alt }: { src: string; alt: string }) {
 
   if (!previewSrc || failed) {
     return (
-      <div className="w-full h-[118px] rounded-md border border-surface-200 bg-white flex items-center justify-center text-[11px] text-surface-500 px-2 text-center">
+      <div className="w-full h-[118px] rounded-md border border-surface-200 card-bg flex items-center justify-center text-[11px] text-surface-500 px-2 text-center">
         Preview unavailable
       </div>
     );
@@ -61,7 +61,7 @@ function PoiImagePreview({ src, alt }: { src: string; alt: string }) {
     <img
       src={previewSrc}
       alt={alt}
-      className="w-full h-[118px] rounded-md object-cover bg-white border border-surface-200"
+      className="w-full h-[118px] rounded-md object-cover card-bg border border-surface-200"
       loading="lazy"
       onError={handleError}
     />
@@ -154,7 +154,7 @@ export function Custom08MuseumKioskConfig({ config, onChange, siteId }: ConfigPa
             const effectiveUrl = poiImageOverrides[poi.id] || poi.defaultImageUrl;
             const customOverride = poiImageOverrides[poi.id] || '';
             return (
-              <div key={poi.id} className="rounded-xl border border-surface-200 bg-white p-3 space-y-3">
+              <div key={poi.id} className="rounded-xl border border-surface-200 card-bg p-3 space-y-3">
                 <div>
                   <div className="text-sm font-semibold text-surface-700">{poi.title}</div>
                   <div className="text-xs text-surface-500">{poi.galleryId} • {poi.id}</div>

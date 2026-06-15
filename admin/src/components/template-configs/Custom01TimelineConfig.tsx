@@ -93,9 +93,9 @@ const SECTIONS: SectionDef[] = [
 
 // ── Compact styles ──
 
-const COMPACT_INPUT = 'h-8 w-full px-2.5 rounded-lg border border-surface-200 bg-white text-[13px] text-surface-800 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-400 transition-all';
+const COMPACT_INPUT = 'h-8 w-full px-2.5 rounded-lg border border-surface-200 card-bg text-[13px] text-surface-800 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-400 transition-all';
 const COMPACT_LABEL = 'block text-xs font-medium text-surface-500 mb-1 uppercase tracking-wide';
-const COMPACT_BTN = 'h-7 px-3 text-xs font-medium rounded-lg border border-surface-200 bg-white text-surface-700 hover:bg-surface-50 transition-colors cursor-pointer inline-flex items-center gap-1.5';
+const COMPACT_BTN = 'h-7 px-3 text-xs font-medium rounded-lg border border-surface-200 card-bg text-surface-700 hover:bg-surface-50 transition-colors cursor-pointer inline-flex items-center gap-1.5';
 const COMPACT_BTN_PRIMARY = 'h-7 px-3 text-xs font-medium rounded-lg border-0 bg-primary-600 text-white hover:bg-primary-700 transition-colors cursor-pointer inline-flex items-center gap-1.5';
 const COMPACT_BTN_DANGER = 'h-7 px-3 text-xs font-medium rounded-lg border-0 bg-red-50 text-red-600 hover:bg-red-100 transition-colors cursor-pointer inline-flex items-center gap-1.5';
 
@@ -152,7 +152,7 @@ function SectorCard({ config: d, milestones, onUpdateSector, onUpdateSectorId, o
   const milestoneCount = milestones.length;
 
   return (
-    <div className="border border-surface-200 rounded-lg bg-white overflow-hidden">
+    <div className="border border-surface-200 rounded-lg card-bg overflow-hidden">
       {/* Header */}
       <button
         type="button"

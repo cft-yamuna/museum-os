@@ -13,7 +13,7 @@ import type { Content, Exhibition } from '../../lib/types';
 // ==========================================
 
 export const INPUT_CLS =
-  'h-10 w-full px-3.5 rounded-xl border border-surface-200 bg-white text-sm text-surface-800 placeholder:text-surface-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-400 transition-all';
+  'h-10 w-full px-3.5 rounded-xl border border-surface-200 card-bg text-sm text-surface-800 placeholder:text-surface-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-400 transition-all';
 export const LABEL_CLS = 'block text-sm font-semibold text-surface-700 mb-1.5';
 
 // ==========================================
@@ -866,7 +866,7 @@ export function ConfigSection({
   return (
     <div
       id={id}
-      className="bg-white rounded-2xl border border-surface-200"
+      className="card-bg rounded-2xl border border-surface-200"
       style={{ borderLeft: `3px solid ${accent}`, scrollMarginTop: '84px' }}
     >
       {/* Header */}
@@ -919,7 +919,7 @@ export function SegmentedControl({
             className={clsx(
               'flex-1 h-9 px-3 rounded-lg text-sm font-medium transition-all truncate',
               value === opt.value
-                ? 'bg-white shadow-sm text-surface-900 shadow-black/5'
+                ? 'card-bg shadow-sm text-surface-900 shadow-black/5'
                 : 'text-surface-500 hover:text-surface-700',
             )}
           >

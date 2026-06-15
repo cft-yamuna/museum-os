@@ -65,7 +65,7 @@ function WelcomeSlideEditor({ slide, onChange, onRemove, images, siteId }: {
   const set = (key: string, value: string) => onChange({ ...slide, [key]: value });
 
   return (
-    <div className="border border-surface-200 rounded-xl bg-white overflow-hidden">
+    <div className="border border-surface-200 rounded-xl card-bg overflow-hidden">
       <div className="flex items-center gap-3 px-4 py-3 bg-surface-50 cursor-pointer" onClick={() => setExpanded(!expanded)}>
         <GripVertical className="h-4 w-4 text-surface-300" />
         <span className="flex-1 text-sm font-medium text-surface-700 truncate">
@@ -157,7 +157,7 @@ function InfoSlideEditor({ slide, onChange, onRemove, images, siteId }: {
   };
 
   return (
-    <div className="border border-surface-200 rounded-xl bg-white overflow-hidden">
+    <div className="border border-surface-200 rounded-xl card-bg overflow-hidden">
       <div className="flex items-center gap-3 px-4 py-3 bg-surface-50 cursor-pointer" onClick={() => setExpanded(!expanded)}>
         <GripVertical className="h-4 w-4 text-surface-300" />
         <span className="flex-1 text-sm font-medium text-surface-700 truncate">
@@ -191,7 +191,7 @@ function InfoSlideEditor({ slide, onChange, onRemove, images, siteId }: {
                 <textarea value={slide.body || ''} onChange={(e) => set('body', e.target.value)}
                   placeholder="Pre-journey information for visitors..."
                   rows={4}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-surface-200 bg-white text-sm text-surface-800 placeholder:text-surface-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-400 transition-all resize-y" />
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-surface-200 card-bg text-sm text-surface-800 placeholder:text-surface-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-400 transition-all resize-y" />
               </div>
               <ContentPicker
                 configKey="imageUrl" label="Image" items={images}
@@ -306,7 +306,7 @@ function ScreenEditor({ screen, onChange, images, videos, siteId }: {
 
   return (
     <div className="border border-surface-200 rounded-2xl bg-surface-50/50 overflow-hidden">
-      <div className="px-5 py-3 border-b border-surface-200 bg-white">
+      <div className="px-5 py-3 border-b border-surface-200 card-bg">
         <div className="flex items-center gap-3">
           <div className="h-8 w-8 rounded-lg bg-purple-100 flex items-center justify-center text-purple-600 text-xs font-bold">
             {screen.screenIndex + 1}
@@ -331,7 +331,7 @@ function ScreenEditor({ screen, onChange, images, videos, siteId }: {
 
       {screen.screenIndex === 2 && (
         <div className="px-4 pt-4">
-          <div className="rounded-2xl border border-surface-200 bg-white p-4 space-y-3">
+          <div className="rounded-2xl border border-surface-200 card-bg p-4 space-y-3">
             <div>
               <div className="text-sm font-semibold text-surface-800">Right Screen Name List</div>
               <p className="mt-1 text-xs text-surface-500">
@@ -344,19 +344,19 @@ function ScreenEditor({ screen, onChange, images, videos, siteId }: {
                 type="button"
                 onClick={() => updateGuestNameFontSize(guestNameFontSizeRem - 0.2)}
                 disabled={guestNameFontSizeRem <= MIN_GUEST_NAME_FONT_SIZE_REM}
-                className="flex h-8 w-8 items-center justify-center rounded-lg border border-surface-200 bg-white text-surface-600 hover:text-primary-600 disabled:cursor-not-allowed disabled:opacity-40"
+                className="flex h-8 w-8 items-center justify-center rounded-lg border border-surface-200 card-bg text-surface-600 hover:text-primary-600 disabled:cursor-not-allowed disabled:opacity-40"
                 aria-label="Decrease guest name font size"
               >
                 <Minus className="h-3.5 w-3.5" />
               </button>
-              <div className="min-w-[72px] rounded-lg border border-surface-200 bg-white px-2 py-1 text-center text-xs font-bold text-surface-800">
+              <div className="min-w-[72px] rounded-lg border border-surface-200 card-bg px-2 py-1 text-center text-xs font-bold text-surface-800">
                 {guestNameFontSizeRem.toFixed(1)}rem
               </div>
               <button
                 type="button"
                 onClick={() => updateGuestNameFontSize(guestNameFontSizeRem + 0.2)}
                 disabled={guestNameFontSizeRem >= MAX_GUEST_NAME_FONT_SIZE_REM}
-                className="flex h-8 w-8 items-center justify-center rounded-lg border border-surface-200 bg-white text-surface-600 hover:text-primary-600 disabled:cursor-not-allowed disabled:opacity-40"
+                className="flex h-8 w-8 items-center justify-center rounded-lg border border-surface-200 card-bg text-surface-600 hover:text-primary-600 disabled:cursor-not-allowed disabled:opacity-40"
                 aria-label="Increase guest name font size"
               >
                 <Plus className="h-3.5 w-3.5" />
@@ -411,7 +411,7 @@ function ScreenEditor({ screen, onChange, images, videos, siteId }: {
       ) : (
         <>
           {/* Tab switcher */}
-          <div className="flex border-y border-surface-200 bg-white mt-4">
+          <div className="flex border-y border-surface-200 card-bg mt-4">
             <button
               className={`flex-1 py-2.5 text-xs font-bold uppercase tracking-wider transition-colors ${tab === 'welcome' ? 'text-primary-600 border-b-2 border-primary-500' : 'text-surface-400 hover:text-surface-600'}`}
               onClick={() => setTab('welcome')}

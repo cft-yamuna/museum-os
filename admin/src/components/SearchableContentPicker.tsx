@@ -316,7 +316,7 @@ export function SearchableContentMultiPicker({
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search content..."
-              className="h-9 w-full pl-9 pr-3 rounded-xl border border-surface-300 bg-white text-sm text-surface-700 placeholder:text-surface-400 focus:outline-none focus:ring-2 focus:ring-primary-500/30"
+              className="h-9 w-full pl-9 pr-3 rounded-xl border border-surface-300 card-bg text-sm text-surface-700 placeholder:text-surface-400 focus:outline-none focus:ring-2 focus:ring-primary-500/30"
             />
           </div>
         </div>

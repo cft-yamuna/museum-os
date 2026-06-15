@@ -394,7 +394,7 @@ export function DeviceDetailPage() {
           <button
             onClick={() => powerMutation.mutate('power_on')}
             disabled={powerMutation.isPending}
-            className="h-10 px-4 inline-flex items-center gap-2 rounded-xl border border-surface-200 bg-white text-sm font-medium text-surface-700 hover:bg-emerald-50 hover:border-emerald-200 hover:text-emerald-700 transition-all disabled:opacity-50"
+            className="h-10 px-4 inline-flex items-center gap-2 rounded-xl border border-surface-200 card-bg text-sm font-medium text-surface-700 hover:bg-emerald-50 hover:border-emerald-200 hover:text-emerald-700 dark:hover:bg-emerald-500/10 dark:hover:border-emerald-500/30 dark:hover:text-emerald-300 transition-all disabled:opacity-50"
           >
             <Power className="h-4 w-4 text-emerald-500" />
             Power On
@@ -402,7 +402,7 @@ export function DeviceDetailPage() {
           <button
             onClick={() => powerMutation.mutate('restart')}
             disabled={powerMutation.isPending}
-            className="h-10 px-4 inline-flex items-center gap-2 rounded-xl border border-surface-200 bg-white text-sm font-medium text-surface-700 hover:bg-amber-50 hover:border-amber-200 hover:text-amber-700 transition-all disabled:opacity-50"
+            className="h-10 px-4 inline-flex items-center gap-2 rounded-xl border border-surface-200 card-bg text-sm font-medium text-surface-700 hover:bg-amber-50 hover:border-amber-200 hover:text-amber-700 dark:hover:bg-amber-500/10 dark:hover:border-amber-500/30 dark:hover:text-amber-300 transition-all disabled:opacity-50"
           >
             <RotateCcw className="h-4 w-4 text-amber-500" />
             Restart
@@ -410,7 +410,7 @@ export function DeviceDetailPage() {
           <button
             onClick={() => powerMutation.mutate('power_off')}
             disabled={powerMutation.isPending}
-            className="h-10 px-4 inline-flex items-center gap-2 rounded-xl border border-red-200 bg-white text-sm font-medium text-red-500 hover:bg-red-50 hover:border-red-300 transition-all disabled:opacity-50"
+            className="h-10 px-4 inline-flex items-center gap-2 rounded-xl border border-red-200 card-bg text-sm font-medium text-red-500 hover:bg-red-50 hover:border-red-300 dark:border-red-500/30 dark:hover:bg-red-500/10 dark:hover:border-red-500/50 transition-all disabled:opacity-50"
           >
             <PowerOff className="h-4 w-4" />
             Power Off

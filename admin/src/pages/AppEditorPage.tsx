@@ -1073,7 +1073,7 @@ export function AppEditorPage() {
     }
 
     return (
-      <span className="inline-flex items-center gap-1.5 rounded-full border border-surface-200 bg-white px-2.5 py-1 text-xs font-medium text-surface-500">
+      <span className="inline-flex items-center gap-1.5 rounded-full border border-surface-200 card-bg px-2.5 py-1 text-xs font-medium text-surface-500">
         Waiting for save
       </span>
     );
@@ -1186,7 +1186,7 @@ export function AppEditorPage() {
                           setTemplateType(tplKey);
                           setAppConfig({ ...(TEMPLATE_DEFAULTS[tplKey] || {}) });
                         }}
-                        className="relative text-left rounded-2xl border border-surface-200 bg-white hover:border-primary-300 hover:shadow-lg hover:shadow-black/5 transition-all duration-200 group overflow-hidden"
+                        className="relative text-left rounded-2xl border border-surface-200 card-bg hover:border-primary-300 hover:shadow-lg hover:shadow-black/5 transition-all duration-200 group overflow-hidden"
                       >
                         {/* Accent top bar using template gradient */}
                         <div className={clsx('h-[3px] w-full bg-gradient-to-r', meta.gradientFrom, meta.gradientTo)} />
@@ -1263,7 +1263,7 @@ export function AppEditorPage() {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Enter app name..."
                 autoFocus={isNew}
-                className="w-72 h-10 px-3 rounded-xl border border-surface-200 bg-white text-sm text-surface-900 placeholder:text-surface-300 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-400 transition-all"
+                className="w-72 h-10 px-3 rounded-xl border border-surface-200 card-bg text-sm text-surface-900 placeholder:text-surface-300 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-400 transition-all"
               />
               {isNew && selectedMeta && (
                 <button
@@ -1298,7 +1298,7 @@ export function AppEditorPage() {
                     {assignedDevices.map((device) => (
                       <div
                         key={device.id}
-                        className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-surface-100 bg-white px-3 py-3"
+                        className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-surface-100 card-bg px-3 py-3"
                       >
                         <div className="min-w-0">
                           <div className="text-sm font-semibold text-surface-900">

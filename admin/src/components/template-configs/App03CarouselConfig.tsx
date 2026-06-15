@@ -140,7 +140,7 @@ function DocumentEditor({ doc, index, contentItems, siteId, onChange, onRemove }
   };
 
   return (
-    <div className="border border-surface-200 rounded-2xl bg-white overflow-hidden">
+    <div className="border border-surface-200 rounded-2xl card-bg overflow-hidden">
       {/* Header */}
       <div
         className="flex items-center gap-3 px-4 py-3 bg-surface-50 cursor-pointer hover:bg-surface-100 transition-colors"
@@ -298,7 +298,7 @@ function DocumentEditor({ doc, index, contentItems, siteId, onChange, onRemove }
           {/* Content picker modal */}
           {pickerOpen && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30" onClick={() => setPickerOpen(false)}>
-              <div className="bg-white rounded-2xl shadow-2xl w-[500px] max-h-[70vh] overflow-hidden" onClick={(e) => e.stopPropagation()}>
+              <div className="card-bg rounded-2xl shadow-2xl w-[500px] max-h-[70vh] overflow-hidden" onClick={(e) => e.stopPropagation()}>
                 <div className="px-5 py-4 border-b border-surface-200">
                   <h3 className="font-semibold text-surface-800">Add Pages to "{doc.label}"</h3>
                   <p className="text-xs text-surface-400 mt-1">Select images to add as pages</p>
