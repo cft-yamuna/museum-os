@@ -1,0 +1,1 @@
+export { InteractiveMapTemplate } from './InteractiveMapTemplate';

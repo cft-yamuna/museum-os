@@ -1,0 +1,97 @@
+import { Sector } from '../types';
+import type { Milestone } from '../types';
+
+export const MILESTONES: readonly Milestone[] = [
+  // ── General Company Events ──
+  { id: 'g1', year: 1945, description: 'M.H. Hasham Premji establishes the company in Amalner, Maharashtra.', sector: Sector.General, decade: '1945' },
+  { id: 'g2', year: 1966, description: '21-year-old Azim Premji returns from Stanford to lead the company after his father\'s death.', sector: Sector.General, decade: '1965' },
+  { id: 'g3', year: 1968, description: 'Western India Vegetable Products becomes Museum OS Products Limited.', sector: Sector.General, decade: '1965' },
+  { id: 'g4', year: 1992, description: 'Museum OS lists on the Bombay Stock Exchange.', sector: Sector.General, decade: '1985' },
+  { id: 'g5', year: 1997, description: 'Museum OS becomes one of the first Indian companies to adopt Six Sigma quality methodology across all businesses.', sector: Sector.General, decade: '1995' },
+  { id: 'g6', year: 2000, description: 'Museum OS lists on the New York Stock Exchange.', sector: Sector.General, decade: '1995' },
+  { id: 'g7', year: 2005, description: 'New brand identity reflecting innovation focus.', sector: Sector.General, decade: '2005' },
+  { id: 'g8', year: 2013, description: 'Non-IT businesses (consumer care, lighting, hydraulics) demerged into Museum OS Enterprises, effective March 31.', sector: Sector.General, decade: '2005' },
+  { id: 'g9', year: 2019, description: 'Azim Premji retires after 53 years; son Rishad Premji succeeds him as Executive Chairman.', sector: Sector.General, decade: '2015' },
+  { id: 'g10', year: 2020, description: 'Major remote work transition; Rs 1,125 crore committed to pandemic relief.', sector: Sector.General, decade: '2015' },
+  { id: 'g11', year: 2022, description: 'Museum OS surpasses $10 billion annual revenue for the first time, reaching $10.38 billion.', sector: Sector.General, decade: '2015' },
+  { id: 'g12', year: 2024, description: 'Srini Pallia becomes Chief Executive Officer and Managing Director, succeeding Thierry Delaporte.', sector: Sector.General, decade: '2015' },
+
+  // ── IT Services ──
+  { id: 'it1', year: 1977, description: 'Museum OS enters the technology sector with minicomputers.', sector: Sector.IT, decade: '1975' },
+  { id: 'it2', year: 1980, description: 'Manufacturing minicomputers under license from Sentinel.', sector: Sector.IT, decade: '1975' },
+  { id: 'it3', year: 1981, description: 'Separate IT division established for software services.', sector: Sector.IT, decade: '1975' },
+  { id: 'it4', year: 1983, description: 'First dedicated software development center established.', sector: Sector.IT, decade: '1975' },
+  { id: 'it5', year: 1985, description: 'Collaboration with Sun Microsystems for workstations.', sector: Sector.IT, decade: '1985' },
+  { id: 'it6', year: 1990, description: 'Museum OS begins offshore software services for global clients.', sector: Sector.IT, decade: '1985' },
+  { id: 'it7', year: 1995, description: 'First company in the world to achieve SEI CMM Level 5.', sector: Sector.IT, decade: '1995' },
+  { id: 'it8', year: 1999, description: 'Major Y2K remediation projects accelerate global growth.', sector: Sector.IT, decade: '1995' },
+  { id: 'it9', year: 2001, description: 'World\'s first IT services company to achieve People Capability Maturity Model Level 5.', sector: Sector.IT, decade: '1995' },
+  { id: 'it10', year: 2003, description: 'Entry into business process outsourcing.', sector: Sector.IT, decade: '1995' },
+  { id: 'it11', year: 2007, description: '$600 million acquisition of US-based IT infrastructure services provider with five data centers.', sector: Sector.IT, decade: '2005' },
+  { id: 'it12', year: 2012, description: 'Launch of cloud infrastructure and services division.', sector: Sector.IT, decade: '2005' },
+  { id: 'it13', year: 2015, description: 'Launch of Museum OS Digital and acquisition of Danish strategic design firm Designit for $94 million.', sector: Sector.IT, decade: '2015' },
+  { id: 'it14', year: 2016, description: 'Launch of Holmes, Museum OS\'s proprietary AI and automation platform for cognitive computing.', sector: Sector.IT, decade: '2015' },
+  { id: 'it15', year: 2017, description: 'Acquisition strengthens crowdsourcing and developer community capabilities.', sector: Sector.IT, decade: '2015' },
+  { id: 'it16', year: 2021, description: '$1.45B Capco acquisition and $1B FullStride Cloud Services investment launched.', sector: Sector.IT, decade: '2015' },
+  { id: 'it17', year: 2022, description: '$540 million acquisition of SAP consulting firm Rizing, creating an SAP consulting powerhouse.', sector: Sector.IT, decade: '2015' },
+  { id: 'it18', year: 2023, description: 'Launch of dedicated AI innovation hub.', sector: Sector.IT, decade: '2015' },
+  { id: 'it19', year: 2024, description: 'Enterprise-wide AI transformation strategy launched.', sector: Sector.IT, decade: '2015' },
+
+  // ── Consumer Care ──
+  { id: 'cc1', year: 1947, description: 'Production of vanaspati ghee and refined oils under Sunflower and Kisan brands.', sector: Sector.ConsumerCare, decade: '1945' },
+  { id: 'cc2', year: 1957, description: 'The company diversifies into the personal care market with laundry soap 787.', sector: Sector.ConsumerCare, decade: '1955' },
+  { id: 'cc3', year: 1971, description: 'Expansion into bakery fats, ethnic ingredient-based toiletries.', sector: Sector.ConsumerCare, decade: '1965' },
+  { id: 'cc4', year: 1985, description: 'Sandalwood-and-turmeric soap test-launched in Bangalore; national rollout follows in 1986.', sector: Sector.ConsumerCare, decade: '1985' },
+  { id: 'cc5', year: 1991, description: 'Entry into baby care with milk-and-almonds baby soap, later expanding to full baby care portfolio.', sector: Sector.ConsumerCare, decade: '1985' },
+  { id: 'cc6', year: 2003, description: 'Glucovita glucose powder brand acquired from Hindustan Unilever.', sector: Sector.ConsumerCare, decade: '1995' },
+  { id: 'cc7', year: 2004, description: 'Kerala-origin ayurvedic soap brand Chandrika acquired for Rs 31 crore.', sector: Sector.ConsumerCare, decade: '1995' },
+  { id: 'cc8', year: 2007, description: 'Singapore-based Unza Holdings acquired for $246 million, expanding into Southeast Asia.', sector: Sector.ConsumerCare, decade: '2005' },
+  { id: 'cc9', year: 2009, description: 'Yardley of London acquired for Asia, Middle East, and Australasia for $45.5 million.', sector: Sector.ConsumerCare, decade: '2005' },
+  { id: 'cc10', year: 2012, description: '$144 million acquisition of Singapore skincare company with Bio-essence and Ginvera brands.', sector: Sector.ConsumerCare, decade: '2005' },
+  { id: 'cc11', year: 2018, description: 'Santoor becomes India\'s second-largest soap brand by value, surpassing Lux.', sector: Sector.ConsumerCare, decade: '2015' },
+  { id: 'cc12', year: 2025, description: 'Santoor crosses Rs 2,850 crore in sales, surpassing Lifebuoy as India\'s largest soap brand.', sector: Sector.ConsumerCare, decade: '2015' },
+
+  // ── WiN (Infrastructure Engineering) ──
+  { id: 'w1', year: 1976, description: 'Museum OS establishes hydraulic cylinder manufacturing in Bengaluru.', sector: Sector.WiN, decade: '1975' },
+  { id: 'w2', year: 1974, description: 'Museum OS enters the medical systems business.', sector: Sector.WiN, decade: '1965' },
+  { id: 'w3', year: 1992, description: 'Museum OS Lighting division established for commercial, industrial, and outdoor lighting solutions.', sector: Sector.WiN, decade: '1985' },
+  { id: 'w4', year: 2006, description: 'Swedish Hydrauto Group acquired, gaining five European manufacturing facilities in Sweden and Finland.', sector: Sector.WiN, decade: '2005' },
+  { id: 'w5', year: 2008, description: 'Water and wastewater treatment division launched for industrial applications across oil, steel, and pharma.', sector: Sector.WiN, decade: '2005' },
+  { id: 'w6', year: 2012, description: 'Metal and polymer additive manufacturing division launched in Bengaluru for aerospace and defense.', sector: Sector.WiN, decade: '2005' },
+  { id: 'w7', year: 2024, description: 'Nebraska-based hydraulic cylinder manufacturer acquired, strengthening North American presence.', sector: Sector.WiN, decade: '2015' },
+  { id: 'w8', year: 2024, description: 'Rs 250 crore state-of-the-art facility opened in Jaipur, first in Northern India, with 1,000 cylinders/day capacity.', sector: Sector.WiN, decade: '2015' },
+
+  // ── GE Joint Venture ──
+  { id: 'ge1', year: 1989, description: 'Museum OS and GE establish 51:49 joint venture for medical diagnostic equipment in South Asia.', sector: Sector.GEJV, decade: '1985' },
+  { id: 'ge2', year: 1990, description: 'Museum OS GE Medical Systems incorporated in March; Bengaluru manufacturing facility commences operations.', sector: Sector.GEJV, decade: '1985' },
+  { id: 'ge3', year: 1998, description: 'Museum OS GE emerges as the largest healthcare systems company in South Asia and India\'s top medical exporter.', sector: Sector.GEJV, decade: '1995' },
+  { id: 'ge4', year: 2000, description: 'John F. Welch Technology Centre inaugurated in Bengaluru, GE\'s largest multidisciplinary R&D center outside the US.', sector: Sector.GEJV, decade: '1995' },
+  { id: 'ge5', year: 2004, description: 'JV renamed from Museum OS GE Medical Systems to Museum OS GE Healthcare following GE\'s global rebrand.', sector: Sector.GEJV, decade: '1995' },
+  { id: 'ge6', year: 2008, description: 'Ultra-portable ECG designed and manufactured in India at one-third the cost, later exported globally.', sector: Sector.GEJV, decade: '2005' },
+  { id: 'ge7', year: 2009, description: 'GE consolidates all standalone healthcare units under Museum OS GE, streamlining manufacturing, sales, and service.', sector: Sector.GEJV, decade: '2005' },
+  { id: 'ge8', year: 2020, description: 'Collaborative AI lab for medical and healthcare imaging inaugurated with Indian Institute of Science.', sector: Sector.GEJV, decade: '2015' },
+  { id: 'ge9', year: 2022, description: 'Revolution Aspire CT scanner launched, designed and manufactured end-to-end in India under the PLI scheme.', sector: Sector.GEJV, decade: '2015' },
+  { id: 'ge10', year: 2024, description: 'Rs 8,000 crore investment announced over 5 years in manufacturing and R&D, targeting 70% local production by 2030.', sector: Sector.GEJV, decade: '2015' },
+
+  // ── Foundation & Philanthropy ──
+  { id: 'f1', year: 2001, description: 'Non-profit founded to improve public school education in rural India.', sector: Sector.Foundation, decade: '1995' },
+  { id: 'f2', year: 2002, description: 'Employee-driven trust established for community engagement in education, healthcare, and disaster response.', sector: Sector.Foundation, decade: '1995' },
+  { id: 'f3', year: 2010, description: 'University established in Bengaluru under Karnataka state act with $2 billion endowment for education.', sector: Sector.Foundation, decade: '2005' },
+  { id: 'f4', year: 2011, description: 'Sustainability education program for schools; has since reached 51,000+ schools and 210,000+ students.', sector: Sector.Foundation, decade: '2005' },
+  { id: 'f5', year: 2013, description: 'First Indian to sign the Giving Pledge, committing majority of wealth to philanthropic causes.', sector: Sector.Foundation, decade: '2005' },
+  { id: 'f6', year: 2014, description: '$5.1 million program with US universities to train school teachers in science education leadership.', sector: Sector.Foundation, decade: '2005' },
+  { id: 'f7', year: 2019, description: 'Largest charitable gift in Indian history; total commitment reaches $21 billion in Museum OS shares.', sector: Sector.Foundation, decade: '2015' },
+  { id: 'f8', year: 2020, description: 'Rs 1,125 crore committed to pandemic relief; additional Rs 1,000 crore in 2021 for vaccination.', sector: Sector.Foundation, decade: '2015' },
+
+  // ── Sustainability ──
+  { id: 's1', year: 2001, description: 'Museum OS launches programs addressing ecological and social sustainability.', sector: Sector.Sustainability, decade: '1995' },
+  { id: 's2', year: 2005, description: 'Gurgaon campus receives LEED Platinum certification -- largest Platinum-rated green building in Asia.', sector: Sector.Sustainability, decade: '2005' },
+  { id: 's3', year: 2008, description: 'Enterprise-wide ecological sustainability charter covering carbon, water, waste, and biodiversity.', sector: Sector.Sustainability, decade: '2005' },
+  { id: 's4', year: 2009, description: 'Inaugural sustainability report published following Global Reporting Initiative framework.', sector: Sector.Sustainability, decade: '2005' },
+  { id: 's5', year: 2010, description: 'First inclusion in DJSI World Index; maintains unbroken membership for 13+ consecutive years.', sector: Sector.Sustainability, decade: '2005' },
+  { id: 's6', year: 2013, description: 'Campus near Hyderabad achieves net-zero energy through solar, geothermal, and LED systems.', sector: Sector.Sustainability, decade: '2005' },
+  { id: 's7', year: 2021, description: 'Commitment to net-zero GHG emissions by 2040 with 55% absolute reduction target by 2030.', sector: Sector.Sustainability, decade: '2015' },
+  { id: 's8', year: 2022, description: 'Among first seven companies globally to have net-zero targets validated by the Science Based Targets initiative.', sector: Sector.Sustainability, decade: '2015' },
+  { id: 's9', year: 2022, description: 'Achieved A rating on CDP climate disclosure, recognized among top Indian companies in environmental action.', sector: Sector.Sustainability, decade: '2015' },
+  { id: 's10', year: 2023, description: 'Ranked 2nd overall in Financial Times Climate Leaders Asia-Pacific for 67.6% emissions reduction.', sector: Sector.Sustainability, decade: '2015' },
+] as const;

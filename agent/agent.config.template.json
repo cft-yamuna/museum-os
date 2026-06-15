@@ -1,0 +1,30 @@
+{
+  "serverUrl": "__SERVER_URL__",
+  "deviceSlug": "__DEVICE_SLUG__",
+  "healthIntervalMs": 60000,
+  "logLevel": "info",
+  "logFile": "agent.log",
+  "identityFile": ".lightman-identity.json",
+  "localServices": false,
+  "kiosk": {
+    "browserPath": "__BROWSER_PATH__",
+    "defaultUrl": "__KIOSK_URL__",
+    "extraArgs": [
+      "--start-fullscreen",
+      "--disable-translate",
+      "--disable-extensions",
+      "--autoplay-policy=no-user-gesture-required",
+      "--remote-debugging-address=127.0.0.1", "--remote-debugging-port=9222",
+      "--user-data-dir=__CHROME_DATA_DIR__"
+    ],
+    "pollIntervalMs": 10000,
+    "maxCrashesInWindow": 10,
+    "crashWindowMs": 300000,
+    "shellMode": false
+  },
+  "powerSchedule": {
+    "enableLocalCron": false,
+    "timezone": "Asia/Kolkata",
+    "shutdownWarningSeconds": 60
+  }
+}

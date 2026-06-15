@@ -1,0 +1,41 @@
+# dependencies
+node_modules/
+
+# testing
+coverage/
+
+# build outputs
+display/.next/
+display/dist/
+admin/dist/
+server/dist/
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+
+# storage
+server/storage/
+
+# typescript
+*.tsbuildinfo
+
+# vitepress
+docs/.vitepress/dist/
+docs/.vitepress/cache/
+wipro-agent-final/
+agent/node_modules/
+agent/dist/
+
+# server installers (large binaries, staged manually)
+server/installers/*.msi
+
+# production secrets (template .env.production is committed)
+.env.production.local

@@ -1,0 +1,29 @@
+.custom08-museum-kiosk .error-boundary {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+  cursor: pointer;
+  z-index: 9999;
+}
+
+.custom08-museum-kiosk .error-boundary__content {
+  text-align: center;
+}
+
+.custom08-museum-kiosk .error-boundary__title {
+  font-size: 32px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.custom08-museum-kiosk .error-boundary__message {
+  font-size: 18px;
+  color: var(--color-text-muted);
+}

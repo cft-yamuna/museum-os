@@ -1,0 +1,1 @@
+export { OscTriggerTemplate } from './OscTriggerTemplate';

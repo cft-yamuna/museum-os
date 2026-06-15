@@ -1,0 +1,135 @@
+/* ─── Font Face (unscoped) ─── */
+@font-face {
+  font-family: 'Cabinet Grotesk';
+  src: url('/display/templates/custom08/fonts/CabinetGrotesk-Variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('/display/templates/custom08/fonts/PlayfairDisplay-Variable.ttf') format('truetype');
+  font-weight: 400 900;
+  font-display: block;
+}
+
+/* ─── CSS Variables (scoped to template root) ─── */
+.custom08-museum-kiosk {
+  /* Category Colors */
+  --color-origin: #c96e69;
+  --color-origin-dim: #c96e6966;
+  --color-businesses: #0c3c75;
+  --color-businesses-dim: #0c3c7566;
+  --color-community: #0c4728;
+  --color-community-dim: #0c472866;
+
+  /* Gallery Colors */
+  --color-prologue: #7a4e31;
+  --color-hilight-experience: #c96e69;
+  --color-it-story: #0c3c75;
+  --color-consumer-care: #c16e14;
+  --color-factory-experience: #053d32;
+  --color-spirit-of-hilight: #0c4728;
+  --color-wintrol: #8484c7;
+  --color-people-garden: #3a280f;
+  --color-foundation: #094c4c;
+
+  /* Neutral Palette */
+  --color-bg: #f2f2f5;
+  --color-bg-elevated: #ffffff;
+  --color-bg-overlay: rgba(255, 255, 255, 0.85);
+  --color-surface: #eaeaef;
+  --color-surface-hover: #dfdfe6;
+  --color-text-primary: #231f20;
+  --color-text-secondary: #494949;
+  --color-text-muted: #494949;
+  --color-text-body: #231f20;
+  --color-text-remaining: #494949;
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-accent: rgba(0, 0, 0, 0.12);
+
+  /* Typography */
+  --font-family: 'Cabinet Grotesk', -apple-system, sans-serif;
+  --font-weight-thin: 200;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* Spacing (scaled for 4K) */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 40px;
+  --space-xl: 64px;
+  --space-2xl: 96px;
+
+  /* Transitions */
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 250ms;
+  --duration-normal: 500ms;
+  --duration-slow: 800ms;
+  --duration-zoom: 2400ms;
+
+  /* Borders */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-popup: 0 16px 64px rgba(0, 0, 0, 0.12), 0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-glow: 0 0 40px rgba(0, 0, 0, 0.03);
+}
+
+/* ─── Scoped Reset ─── */
+.custom08-museum-kiosk,
+.custom08-museum-kiosk *,
+.custom08-museum-kiosk *::before,
+.custom08-museum-kiosk *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ─── Touch & Kiosk Overrides ─── */
+.custom08-museum-kiosk {
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+  overflow: hidden;
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-primary);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Disable text selection and context menu for kiosk */
+.custom08-museum-kiosk img,
+.custom08-museum-kiosk svg,
+.custom08-museum-kiosk button,
+.custom08-museum-kiosk a {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.custom08-museum-kiosk button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+  touch-action: manipulation;
+}
+
+/* Scrollbar hide */
+.custom08-museum-kiosk ::-webkit-scrollbar {
+  display: none;
+}

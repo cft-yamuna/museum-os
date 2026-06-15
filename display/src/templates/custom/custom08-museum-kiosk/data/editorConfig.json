@@ -1,0 +1,811 @@
+{
+  "colorStates": {
+    "prologue": {
+      "default": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": null,
+        "elementFills": {
+          "prologue-polygon-1": "#841a1a",
+          "prologue-g-1-g-1-g-1-g-1-polygon-1": "#b33737"
+        }
+      },
+      "category_active": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": "#845a43",
+        "textVisibility": "visible",
+        "textFill": null,
+        "elementFills": {
+          "prologue-g-1-g-1-g-1-g-1-polygon-1": "#7d4040",
+          "Proluge-2-g-1-g-1-polygon-12": "#95715b",
+          "Proluge-2-g-1-g-1-polygon-4": "#95715b",
+          "Proluge-2-polygon-1": "#95715b",
+          "Proluge-2-polygon-2": "#7a5e52",
+          "Proluge-2-g-1-g-1-polygon-3": "#7a5e52",
+          "Proluge-2-g-1-g-1-polygon-5": "#7a5e52",
+          "Proluge-2-g-1-g-1-path-1": "#95715b",
+          "Proluge-2-g-1-g-1-polygon-2": "#95715b",
+          "Proluge-2-g-1-path-1": "#b6957a",
+          "Proluge-2-g-1-g-1-path-11": "#94715c"
+        }
+      },
+      "category_inactive": {
+        "visibility": "hidden",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": "#969696"
+      },
+      "gallery_active": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": "#845a43",
+        "textVisibility": "visible",
+        "textFill": null,
+        "elementFills": {
+          "Proluge-2-g-1-g-1-polygon-12": "#764d33",
+          "Proluge-2-g-1-path-1": "#9c684a",
+          "Proluge-2-g-1-g-1-path-1": "#764d33",
+          "Proluge-2-g-1-g-1-polygon-2": "#764d33",
+          "Proluge-2-g-1-g-1-polygon-3": "#684c3c",
+          "Proluge-2-g-1-g-1-polygon-5": "#664a37",
+          "Proluge-2-polygon-1": "#6e462f",
+          "Proluge-2-g-1-g-1-polygon-4": "#7f523d",
+          "Proluge-2-g-1-g-1-path-11": "#764d33"
+        }
+      },
+      "gallery_inactive": {
+        "visibility": "visible",
+        "opacity": 0.47,
+        "fillOverride": "#634329",
+        "textVisibility": "visible",
+        "textFill": "#969696",
+        "elementFills": {
+          "Proluge-2-g-1-path-1": "#cdb8a7",
+          "Proluge-2-g-1-g-1-path-1": "#b89f91",
+          "Proluge-2-g-1-g-1-polygon-2": "#b89f91",
+          "Proluge-2-g-1-g-1-polygon-3": "#a8938a",
+          "Proluge-2-g-1-g-1-polygon-12": "#b89f90",
+          "Proluge-2-g-1-g-1-polygon-4": "#b89f91",
+          "Proluge-2-polygon-1": "#b89f91",
+          "Proluge-2-g-1-g-1-polygon-5": "#a69489",
+          "Proluge-2-g-1-g-1-path-11": "#b89f91"
+        }
+      }
+    },
+    "hilight-experience": {
+      "default": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": null,
+        "elementFills": null
+      },
+      "category_active": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": "#845a43",
+        "textVisibility": "visible",
+        "textFill": null,
+        "elementFills": {
+          "gallery_hilight_experience-polygon-7": "#d38a86",
+          "gallery_hilight_experience-polygon-4": "#91585a",
+          "gallery_hilight_experience-polygon-2": "#aa6363",
+          "gallery_hilight_experience-polygon-3": "#925858",
+          "gallery_hilight_experience-polygon-1": "#aa6363",
+          "gallery_hilight_experience-polygon-6": "#864d4c",
+          "gallery_hilight_experience-polygon-5": "#aa6363",
+          "gallery_Foundation-polygon-1": "#ab6363"
+        }
+      },
+      "category_inactive": {
+        "visibility": "hidden",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": "#969696",
+        "elementFills": null
+      },
+      "gallery_active": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": "#845a43",
+        "textVisibility": "visible",
+        "textFill": null,
+        "elementFills": {
+          "gallery_hilight_experience-polygon-7": "#b73f3d",
+          "gallery_hilight_experience-polygon-1": "#8c4140",
+          "gallery_hilight_experience-polygon-3": "#6b393a",
+          "gallery_hilight_experience-polygon-2": "#8c4140",
+          "gallery_hilight_experience-polygon-4": "#6b3839",
+          "gallery_hilight_experience-polygon-6": "#814443",
+          "gallery_hilight_experience-polygon-5": "#b73f3d",
+          "gallery_Foundation-polygon-1": "#8c4140"
+        }
+      },
+      "gallery_inactive": {
+        "visibility": "visible",
+        "opacity": 0.47,
+        "fillOverride": "#5b1414",
+        "textVisibility": "visible",
+        "textFill": "#969696",
+        "elementFills": {
+          "gallery_hilight_experience-polygon-2": "#c99b9c",
+          "gallery_hilight_experience-polygon-7": "#e3b4b2",
+          "gallery_hilight_experience-polygon-1": "#c99c9b",
+          "gallery_hilight_experience-polygon-3": "#b99595",
+          "gallery_hilight_experience-polygon-4": "#b99595",
+          "gallery_hilight_experience-polygon-5": "#c99c9b",
+          "gallery_hilight_experience-polygon-6": "#bc9d9b",
+          "gallery_Foundation-polygon-1": "#c99c9c"
+        }
+      }
+    },
+    "people-garden": {
+      "default": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": null
+      },
+      "category_active": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": null,
+        "elementFills": {
+          "gallery_people_garden-2-path-1": "#7c674b"
+        }
+      },
+      "category_inactive": {
+        "visibility": "hidden",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": "#969696"
+      },
+      "gallery_active": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": null,
+        "elementFills": {
+          "gallery_people_garden-2-path-1": "#69533b"
+        }
+      },
+      "gallery_inactive": {
+        "visibility": "visible",
+        "opacity": 0.47,
+        "fillOverride": "#3a280f",
+        "textVisibility": "visible",
+        "textFill": "#969696",
+        "elementFills": {
+          "gallery_people_garden-2-path-1": "#9c8772"
+        }
+      }
+    },
+    "it-story": {
+      "default": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": null
+      },
+      "category_active": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": null,
+        "elementFills": {
+          "gallery_IT_Story-polygon-5": "#769cd2",
+          "gallery_IT_Story-polygon-3": "#5f7ea2",
+          "gallery_IT_Story-polygon-4": "#617ea3",
+          "gallery_IT_Story-polygon-1": "#607ea4",
+          "gallery_IT_Story-polygon-2": "#596f84",
+          "Proluge-2-g-1-g-1-path-11": "#546b82",
+          "gallery_spirit_of_hiLight-g-1-polygon-2": "#5f7ba0",
+          "gallery_Foundation-polygon-4": "transparent"
+        }
+      },
+      "category_inactive": {
+        "visibility": "hidden",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": "#969696"
+      },
+      "gallery_active": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": null,
+        "elementFills": {
+          "gallery_IT_Story-polygon-5": "#3d57b4",
+          "gallery_IT_Story-polygon-1": "#284e83",
+          "gallery_IT_Story-polygon-2": "#1b3858",
+          "gallery_IT_Story-polygon-3": "#264e80",
+          "gallery_IT_Story-polygon-4": "#1b3858",
+          "gallery_wintrol-polygon-2": "#20487f",
+          "gallery_wintrol-polygon-3": "#1b3858",
+          "gallery_wintrol-polygon-1": "#1b3858",
+          "Proluge-2-g-1-g-1-path-11": "#1b3859",
+          "gallery_spirit_of_hiLight-g-1-polygon-2": "#284e81",
+          "gallery_Foundation-polygon-4": "transparent"
+        }
+      },
+      "gallery_inactive": {
+        "visibility": "visible",
+        "opacity": 0.45,
+        "fillOverride": "#0c3c75",
+        "textVisibility": "visible",
+        "textFill": "#969696",
+        "elementFills": {
+          "gallery_IT_Story-polygon-5": "#a7bee1",
+          "gallery_IT_Story-polygon-1": "#8ca2bb",
+          "gallery_IT_Story-polygon-2": "#8896a6",
+          "gallery_IT_Story-polygon-3": "#8ca2bc",
+          "gallery_IT_Story-polygon-4": "#8ca2bc",
+          "Proluge-2-g-1-g-1-path-11": "#92a2b1",
+          "gallery_spirit_of_hiLight-g-1-polygon-2": "#9aacc4",
+          "gallery_Foundation-polygon-4": "transparent"
+        }
+      }
+    },
+    "consumer-care": {
+      "default": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": null
+      },
+      "category_active": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": null,
+        "elementFills": {
+          "gallery_consumer_care-polygon-2": "#5a8078",
+          "gallery_consumer_care-path-1": "#f5c990",
+          "gallery_consumer_care-polygon-1": "#d49f67",
+          "gallery_consumer_care-polygon-21": "#dfa161"
+        }
+      },
+      "category_inactive": {
+        "visibility": "hidden",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": "#969696"
+      },
+      "gallery_active": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": null,
+        "elementFills": {
+          "gallery_consumer_care-path-1": "#db8e28",
+          "gallery_consumer_care-polygon-1": "#bc713f",
+          "gallery_consumer_care-polygon-21": "#bc713f"
+        }
+      },
+      "gallery_inactive": {
+        "visibility": "visible",
+        "opacity": 0.45,
+        "fillOverride": "#c16e14",
+        "textVisibility": "visible",
+        "textFill": "#969696",
+        "elementFills": {
+          "gallery_consumer_care-path-1": "#f9deb8",
+          "gallery_consumer_care-polygon-1": "#d69e63",
+          "gallery_consumer_care-polygon-21": "#eac29a"
+        }
+      }
+    },
+    "factory-experience": {
+      "default": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": null
+      },
+      "category_active": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": null,
+        "elementFills": {
+          "gallery_FACTORY_Experience-polygon-3": "#1f5549",
+          "gallery_FACTORY_Experience-polygon-1": "#587c74"
+        }
+      },
+      "category_inactive": {
+        "visibility": "hidden",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": "#969696"
+      },
+      "gallery_active": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": null,
+        "elementFills": {
+          "gallery_FACTORY_Experience-polygon-2": "#2a573f",
+          "gallery_FACTORY_Experience-polygon-3": "#225046",
+          "gallery_FACTORY_Experience-polygon-1": "#29564d",
+          "gallery_consumer_care-polygon-2": "#225046"
+        }
+      },
+      "gallery_inactive": {
+        "visibility": "visible",
+        "opacity": 0.45,
+        "fillOverride": "#053d32",
+        "textVisibility": "visible",
+        "textFill": "#969696",
+        "elementFills": {
+          "gallery_FACTORY_Experience-polygon-2": "#a9c6c0",
+          "gallery_consumer_care-polygon-2": "#95ada6",
+          "gallery_FACTORY_Experience-polygon-1": "#96aea7"
+        }
+      }
+    },
+    "spirit-of-hilight": {
+      "default": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": null,
+        "elementFills": null
+      },
+      "category_active": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": null,
+        "elementFills": {
+          "gallery_spirit_of_hiLight-g-1-polygon-2": "#39634d",
+          "gallery_spirit_of_hiLight-g-1-polygon-21": "#3a644e",
+          "gallery_spirit_of_hiLight-g-1-polygon-1": "#3b6c52"
+        }
+      },
+      "category_inactive": {
+        "visibility": "hidden",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": "#969696"
+      },
+      "gallery_active": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": null,
+        "elementFills": {
+          "gallery_spirit_of_hiLight-g-1-polygon-2": "#205237",
+          "gallery_spirit_of_hiLight-g-1-polygon-21": "#205235",
+          "gallery_spirit_of_hiLight-g-1-polygon-1": "#285d3f"
+        }
+      },
+      "gallery_inactive": {
+        "visibility": "visible",
+        "opacity": 0.45,
+        "fillOverride": "#0c4728",
+        "textVisibility": "visible",
+        "textFill": "#969696",
+        "elementFills": {
+          "gallery_spirit_of_hiLight-g-1-polygon-2": "#7d978a",
+          "gallery_spirit_of_hiLight-g-1-polygon-21": "#7d978a",
+          "gallery_spirit_of_hiLight-g-1-polygon-1": "#809f8d"
+        }
+      }
+    },
+    "wintrol": {
+      "default": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": null
+      },
+      "category_active": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": null,
+        "elementFills": {
+          "gallery_wintrol-path-1": "#8686c8",
+          "gallery_wintrol-polygon-2": "#5f7ea2",
+          "gallery_wintrol-polygon-3": "#596e86",
+          "gallery_wintrol-polygon-1": "#617ea3"
+        }
+      },
+      "category_inactive": {
+        "visibility": "hidden",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": "#969696"
+      },
+      "gallery_active": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": null,
+        "elementFills": {
+          "gallery_wintrol-path-1": "#5352a2",
+          "gallery_wintrol-polygon-2": "#8b8fc2",
+          "gallery_wintrol-polygon-3": "#878bbc",
+          "gallery_wintrol-polygon-1": "#868abb"
+        }
+      },
+      "gallery_inactive": {
+        "visibility": "visible",
+        "opacity": 0.45,
+        "fillOverride": "#8484c7",
+        "textVisibility": "visible",
+        "textFill": "#969696",
+        "elementFills": {
+          "gallery_wintrol-path-1": "#b0b1d9",
+          "gallery_wintrol-polygon-2": "#8ca2bc",
+          "gallery_wintrol-polygon-3": "#8597a7",
+          "gallery_wintrol-polygon-1": "#8ca2bc"
+        }
+      }
+    },
+    "foundation": {
+      "default": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": null
+      },
+      "category_active": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": null,
+        "elementFills": {
+          "gallery_Foundation-polygon-41": "#4c7078",
+          "gallery_Foundation-polygon-4": "#4b6f77",
+          "gallery_IT_Story-polygon-41": "transparent",
+          "gallery_Foundation-polygon-3": "#4c7077",
+          "gallery_Foundation-polygon-2": "#496d74",
+          "gallery_Foundation-polygon-1": "#4e7077"
+        }
+      },
+      "category_inactive": {
+        "visibility": "hidden",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": "#969696",
+        "elementFills": null
+      },
+      "gallery_active": {
+        "visibility": "visible",
+        "opacity": 1,
+        "fillOverride": null,
+        "textVisibility": "visible",
+        "textFill": null,
+        "elementFills": {
+          "gallery_Foundation-polygon-41": "#1d4a56",
+          "gallery_Foundation-polygon-4": "#1d4a56",
+          "gallery_IT_Story-polygon-41": "transparent",
+          "gallery_Foundation-polygon-3": "#1c4955",
+          "gallery_Foundation-polygon-2": "#1c4956",
+          "gallery_Foundation-polygon-1": "#146174"
+        }
+      },
+      "gallery_inactive": {
+        "visibility": "visible",
+        "opacity": 0.45,
+        "fillOverride": "#094c4c",
+        "textVisibility": "visible",
+        "textFill": "#969696",
+        "elementFills": {
+          "gallery_Foundation-polygon-41": "#71907f",
+          "gallery_Foundation-polygon-4": "#71907f",
+          "gallery_IT_Story-polygon-41": "transparent",
+          "gallery_Foundation-polygon-3": "#7b929a",
+          "gallery_Foundation-polygon-2": "#7c959a",
+          "gallery_Foundation-polygon-1": "#7d939a"
+        }
+      }
+    }
+  },
+  "pois": [
+    {
+      "id": "poi-1772036034252",
+      "galleryId": "prologue",
+      "title": "The Right Fit",
+      "description": "",
+      "imageUrl": "/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.32.11_PM.jpg",
+      "icon": "star",
+      "iconColor": "#634329",
+      "positionX": 23.63,
+      "positionY": 55.59,
+      "sortOrder": 0,
+      "photoPosition": "top"
+    },
+    {
+      "id": "poi-1772181330319",
+      "galleryId": "prologue",
+      "title": "NATION BUILDING: KHADI WALL",
+      "description": "",
+      "imageUrl": "/display/templates/custom08/images/highlights/Screenshot_2026-03-05_at_7.23.12_PM.png",
+      "icon": "star",
+      "iconColor": "#634329",
+      "positionX": 33.36,
+      "positionY": 63.52,
+      "sortOrder": 2,
+      "photoPosition": "top"
+    },
+    {
+      "id": "poi-1772181400936",
+      "galleryId": "hilight-experience",
+      "title": "SPIRIT OF MUSEUM OS PILLARS",
+      "description": "",
+      "imageUrl": "/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.32.36_PM.jpg",
+      "icon": "star",
+      "iconColor": "#634329",
+      "positionX": 44.89,
+      "positionY": 55.82,
+      "sortOrder": 3,
+      "photoPosition": "top"
+    },
+    {
+      "id": "poi-1772430171886",
+      "galleryId": "factory-experience",
+      "title": "FLIP WALL",
+      "description": "",
+      "imageUrl": "/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.33.15_PM.jpg",
+      "icon": "star",
+      "iconColor": "#1c544b",
+      "positionX": 7.39,
+      "positionY": 58.1,
+      "sortOrder": 3,
+      "photoPosition": "left"
+    },
+    {
+      "id": "poi-1772430200870",
+      "galleryId": "consumer-care",
+      "title": "SANTOOR STORY",
+      "description": "",
+      "imageUrl": "/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.33.27_PM.jpg",
+      "icon": "star",
+      "iconColor": "#c27a34",
+      "positionX": 7.34,
+      "positionY": 45.91,
+      "sortOrder": 4,
+      "photoPosition": "top"
+    },
+    {
+      "id": "poi-1772430204779",
+      "galleryId": "consumer-care",
+      "title": "YARDLEY",
+      "description": "",
+      "imageUrl": "/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.33.34_PM.jpg",
+      "icon": "star",
+      "iconColor": "#c27b2f",
+      "positionX": 8.96,
+      "positionY": 31.12,
+      "sortOrder": 5,
+      "photoPosition": "top"
+    },
+    {
+      "id": "poi-1772430251324",
+      "galleryId": "wintrol",
+      "title": "HYDRAULIC RM",
+      "description": "",
+      "imageUrl": "/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.33.42_PM.jpg",
+      "icon": "star",
+      "iconColor": "#2e2e89",
+      "positionX": 14.66,
+      "positionY": 36.22,
+      "sortOrder": 6,
+      "photoPosition": "top"
+    },
+    {
+      "id": "poi-1772430280146",
+      "galleryId": "wintrol",
+      "title": "INDUSTRIAL AUTOMATION",
+      "description": "",
+      "imageUrl": "/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.33.50_PM.jpg",
+      "icon": "star",
+      "iconColor": "#2c2d88",
+      "positionX": 23.75,
+      "positionY": 32.34,
+      "sortOrder": 7,
+      "photoPosition": "top"
+    },
+    {
+      "id": "poi-1772430333021",
+      "galleryId": "it-story",
+      "title": "CHRONICLES OF INNOVATION",
+      "description": "",
+      "imageUrl": "/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.33.58_PM.jpg",
+      "icon": "star",
+      "iconColor": "#284b79",
+      "positionX": 17.92,
+      "positionY": 46.84,
+      "sortOrder": 8,
+      "photoPosition": "top"
+    },
+    {
+      "id": "poi-1772430370010",
+      "galleryId": "it-story",
+      "title": "WIPOD CAR",
+      "description": "",
+      "imageUrl": "/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.34.04_PM.jpg",
+      "icon": "star",
+      "iconColor": "#284979",
+      "positionX": 27.1,
+      "positionY": 29.32,
+      "sortOrder": 9,
+      "photoPosition": "top"
+    },
+    {
+      "id": "poi-1772430398314",
+      "galleryId": "it-story",
+      "title": "WEDA ROBOT DISPLAY",
+      "description": "",
+      "imageUrl": "/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.34.11_PM.jpg",
+      "icon": "star",
+      "iconColor": "#2a4978",
+      "positionX": 29.12,
+      "positionY": 21.5,
+      "sortOrder": 10,
+      "photoPosition": "top"
+    },
+    {
+      "id": "poi-1772430401054",
+      "galleryId": "it-story",
+      "title": "MUSEUM OS BRAND REFRESH",
+      "description": "",
+      "imageUrl": "/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.34.20_PM.jpg",
+      "icon": "star",
+      "iconColor": "#2b4978",
+      "positionX": 37.47,
+      "positionY": 25.09,
+      "sortOrder": 11,
+      "photoPosition": "top"
+    },
+    {
+      "id": "poi-1772718082274",
+      "galleryId": "prologue",
+      "title": "Dr. GUBANOO PREMJI",
+      "description": "",
+      "imageUrl": "/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.31.58_PM.jpg",
+      "icon": "star",
+      "iconColor": "#634329",
+      "positionX": 28.65,
+      "positionY": 57.89,
+      "sortOrder": 12,
+      "photoPosition": "top"
+    },
+    {
+      "id": "poi-1774375663657",
+      "galleryId": "people-garden",
+      "title": "New POI",
+      "description": "",
+      "imageUrl": "/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.32.59_PM.jpg",
+      "icon": "star",
+      "iconColor": "#634329",
+      "positionX": 14.3,
+      "positionY": 56.37,
+      "sortOrder": 14,
+      "photoPosition": "bottom"
+    },
+    {
+      "id": "poi-1774375697109",
+      "galleryId": "people-garden",
+      "title": "New POI",
+      "description": "",
+      "imageUrl": "/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.32.48_PM.jpg",
+      "icon": "star",
+      "iconColor": "#634329",
+      "positionX": 16.94,
+      "positionY": 50.51,
+      "sortOrder": 15,
+      "photoPosition": "left"
+    },
+    {
+      "id": "poi-1774375871086",
+      "galleryId": "spirit-of-hilight",
+      "title": "New POI",
+      "description": "",
+      "imageUrl": "/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.34.57_PM.jpg",
+      "icon": "star",
+      "iconColor": "#0a2e19",
+      "positionX": 33.2,
+      "positionY": 28.6,
+      "sortOrder": 16,
+      "photoPosition": "top"
+    },
+    {
+      "id": "poi-1774375878010",
+      "galleryId": "spirit-of-hilight",
+      "title": "New POI",
+      "description": "",
+      "imageUrl": "/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.35.03_PM.jpg",
+      "icon": "star",
+      "iconColor": "#0b4827",
+      "positionX": 36.71,
+      "positionY": 40.16,
+      "sortOrder": 17,
+      "photoPosition": "top"
+    },
+    {
+      "id": "poi-1774376005681",
+      "galleryId": "foundation",
+      "title": "New POI",
+      "description": "",
+      "imageUrl": "/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.35.16_PM.jpg",
+      "icon": "star",
+      "iconColor": "#094c4d",
+      "positionX": 40.92,
+      "positionY": 36.29,
+      "sortOrder": 18,
+      "photoPosition": "top"
+    },
+    {
+      "id": "poi-1774376010227",
+      "galleryId": "foundation",
+      "title": "New POI",
+      "description": "",
+      "imageUrl": "/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.35.23_PM.jpg",
+      "icon": "star",
+      "iconColor": "#094c4d",
+      "positionX": 44.62,
+      "positionY": 33.61,
+      "sortOrder": 19,
+      "photoPosition": "top"
+    }
+  ],
+  "customIcons": [],
+  "outlineAssignments": {},
+  "categoryOverrides": {
+    "origin": {
+      "viewingTime": "45–60 min"
+    },
+    "businesses": {
+      "viewingTime": "90–120 min"
+    },
+    "culture": {
+      "viewingTime": "20–30 min"
+    },
+    "philanthropy": {
+      "viewingTime": "15–20 min"
+    }
+  },
+  "elementPlacements": [],
+  "handHintEnabled": {
+    "origin": true,
+    "businesses": true,
+    "community": true
+  }
+}

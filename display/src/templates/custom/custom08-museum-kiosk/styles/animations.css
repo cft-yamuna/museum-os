@@ -1,0 +1,133 @@
+/* ─── Shared Transition Classes ─── */
+
+/* Fade in/out */
+.custom08-museum-kiosk .fade-enter {
+  opacity: 0;
+}
+
+.custom08-museum-kiosk .fade-enter-active {
+  opacity: 1;
+  transition: opacity var(--duration-normal) var(--ease-smooth);
+}
+
+.custom08-museum-kiosk .fade-exit {
+  opacity: 1;
+}
+
+.custom08-museum-kiosk .fade-exit-active {
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-smooth);
+}
+
+/* Slide up from bottom */
+.custom08-museum-kiosk .slide-up-enter {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.custom08-museum-kiosk .slide-up-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity var(--duration-normal) var(--ease-cinematic),
+    transform var(--duration-normal) var(--ease-cinematic);
+}
+
+/* Scale in */
+.custom08-museum-kiosk .scale-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.custom08-museum-kiosk .scale-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity var(--duration-normal) var(--ease-bounce),
+    transform var(--duration-normal) var(--ease-bounce);
+}
+
+/* ─── Keyframe Animations (prefixed with c08- to avoid global conflicts) ─── */
+
+@keyframes c08-fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes c08-fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes c08-fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes c08-pulseGlow {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+@keyframes c08-breathe {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes c08-subtleFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes c08-ripple {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* Touch press feedback */
+.custom08-museum-kiosk .touch-press {
+  transition: transform 100ms var(--ease-smooth);
+}
+
+.custom08-museum-kiosk .touch-press:active {
+  transform: scale(0.96);
+}

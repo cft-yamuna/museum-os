@@ -1,0 +1,23 @@
+.custom01-hilight-timeline,
+.custom01-hilight-timeline *,
+.custom01-hilight-timeline *::before,
+.custom01-hilight-timeline *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.custom01-hilight-timeline {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #d2cdc5;
+  font-family: 'Arial Black', 'Arial', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+  touch-action: pan-x pan-y;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}

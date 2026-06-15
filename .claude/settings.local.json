@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\abrah\\\\Downloads\\\\lightman-app01-main\" -Force)",
+      "Bash(Select-Object Name, FullName)",
+      "Read(//c/Users/abrah/Downloads/curato-source-v1.0/**)",
+      "Bash(ls -la \"C:\\\\Users\\\\abrah\\\\Downloads\\\\curato-source-v1.0\" | head -30)"
+    ]
+  }
+}

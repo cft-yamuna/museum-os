@@ -1,0 +1,58 @@
+/* ─── Gallery Card: floating info card on gallery-view ─── */
+
+.custom08-museum-kiosk .gallery-card {
+  position: absolute;
+  z-index: 50;
+  width: 180px;
+  background: rgba(255, 255, 255, 0.95);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border-radius: 8px;
+  padding: 6px 7px 5px;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.08),
+    0 1px 4px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  opacity: 0;
+  transform: translateY(12px);
+  animation: c08-galleryCardIn 0.8s var(--ease-cinematic) 0.2s forwards;
+  pointer-events: none;
+}
+
+@keyframes c08-galleryCardIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Star icon ─── */
+.custom08-museum-kiosk .gallery-card__star {
+  position: absolute;
+  top: 4px;
+  right: 7px;
+  width: 20px;
+  height: 20px;
+  color: var(--gallery-color, #999);
+  opacity: 0.85;
+}
+
+/* ─── Title ─── */
+.custom08-museum-kiosk .gallery-card__title {
+  font-size: 12px;
+  font-weight: var(--font-weight-extrabold);
+  color: var(--gallery-color, var(--color-text-primary));
+  letter-spacing: -0.2px;
+  line-height: 1.15;
+  margin-bottom: 2px;
+  padding-right: 26px;
+}
+
+/* ─── Description ─── */
+.custom08-museum-kiosk .gallery-card__desc {
+  font-size: 10px;
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-body);
+  line-height: 1.25;
+  margin: 0;
+}

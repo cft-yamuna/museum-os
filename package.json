@@ -1,0 +1,29 @@
+{
+  "name": "lightman-app01",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "bash dev.sh",
+    "setup": "bash setup.sh",
+    "dev:display": "cd display && npm run dev",
+    "dev:admin": "cd admin && npm run dev",
+    "dev:server": "cd server && npm run dev",
+    "dev:agent": "cd agent && npm run dev",
+    "build:display": "cd display && npm run build",
+    "build:admin": "cd admin && npm run build",
+    "build:server": "cd server && npm run build",
+    "build:agent": "cd agent && npm run build:package",
+    "db:export:json": "cd server && npm run db:export:json --",
+    "db:import:json": "cd server && npm run db:import:json --",
+    "build:docs": "cd docs && npm run build",
+    "build": "npm run build:display && npm run build:admin && npm run build:server && npm run build:agent && npm run build:docs",
+    "docs:dev": "cd docs && npm run dev",
+    "docs:build": "cd docs && npm run build",
+    "docs:preview": "cd docs && npm run preview",
+    "test:branding": "node scripts/check-branding.mjs",
+    "migrate": "cd server && npm run migrate",
+    "seed": "cd server && npm run seed",
+    "test": "cd display && npx vitest run && cd ../agent && npx vitest run",
+    "test:watch": "cd display && npx vitest"
+  }
+}

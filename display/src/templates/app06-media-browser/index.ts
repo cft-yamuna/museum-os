@@ -1,0 +1,1 @@
+export { MediaBrowserTemplate } from './MediaBrowserTemplate';

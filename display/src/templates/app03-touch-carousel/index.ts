@@ -1,0 +1,1 @@
+export { TouchCarouselTemplate } from './TouchCarouselTemplate';

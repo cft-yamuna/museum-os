@@ -1,0 +1,24 @@
+.custom08-museum-kiosk .back-button {
+  position: absolute;
+  bottom: var(--space-xl);
+  left: var(--space-xl);
+  z-index: 60;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  -webkit-transition: transform 100ms var(--ease-smooth);
+  transition: transform 100ms var(--ease-smooth);
+  animation: c08-fadeIn 0.5s var(--ease-smooth) both;
+}
+
+.custom08-museum-kiosk .back-button:active {
+  transform: scale(0.93);
+}
+
+.custom08-museum-kiosk .back-button__icon {
+  display: block;
+  width: 40px;
+  height: auto;
+  pointer-events: none;
+}

@@ -1,0 +1,22 @@
+/* ─── MuseumScene: single combined SVG with togglable layers ─── */
+
+.custom08-museum-kiosk .museum-scene {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 50;
+  background: #f2f2f5;
+  overflow: hidden;
+}
+
+.custom08-museum-kiosk .museum-scene[data-screen="screensaver"] {
+  cursor: pointer;
+}
+
+.custom08-museum-kiosk .museum-scene__svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}

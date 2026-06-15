@@ -1,0 +1,48 @@
+services:
+  # Database is managed separately (existing container with its own volume).
+  # This definition is here for reference / fresh installs only.
+  # To start it: docker compose --profile full up -d
+  lightman-db:
+    image: postgres:16-alpine
+    container_name: lightman-db
+    restart: unless-stopped
+    network_mode: host
+    profiles: ["full"]
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env.production}
+      POSTGRES_DB: ${POSTGRES_DB:-lightman}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:  
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  lightman-app:
+    build: .
+    container_name: lightman-app
+    restart: unless-stopped
+    network_mode: host
+    ports:
+      - "${PORT:-3401}:${PORT:-3401}"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      NODE_ENV: production
+      PORT: ${PORT:-3401}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@host.docker.internal:5432/${POSTGRES_DB:-lightman}
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env.production}
+      JWT_EXPIRY: ${JWT_EXPIRY:-24h}
+      CORS_ORIGIN: ${CORS_ORIGIN:-*}
+      STORAGE_PATH: /app/server/storage
+      BACKUP_DIR: /app/server/backups
+    volumes:
+      - ${HOST_STORAGE_PATH:-./server/storage}:/app/server/storage
+      - ${HOST_AGENT_PATH:-./agent}:/app/agent
+      - backups:/app/server/backups
+
+volumes:
+  pgdata:
+  backups:

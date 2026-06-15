@@ -1,0 +1,1 @@
+export { MonophoneAudioTemplate } from './MonophoneAudioTemplate';

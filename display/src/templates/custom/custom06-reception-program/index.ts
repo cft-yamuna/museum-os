@@ -1,0 +1,1 @@
+export { ReceptionProgramTemplate } from './ReceptionProgramTemplate';

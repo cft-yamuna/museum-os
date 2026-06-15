@@ -1,0 +1,1 @@
+export { MuseumKioskTemplate } from './MuseumKioskTemplate';
