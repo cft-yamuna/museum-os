@@ -5,7 +5,7 @@ param(
     [Parameter(Mandatory = $true)][string]$BrowserPath,
     [Parameter(Mandatory = $true)][string]$MultiConfigPath,
     [Parameter(Mandatory = $true)][string]$FallbackUrl,
-    [string]$LogFile = "C:\ProgramData\Lightman\logs\shell.log"
+    [string]$LogFile = "C:\ProgramData\Museumos\logs\shell.log"
 )
 
 $ErrorActionPreference = "Stop"
@@ -88,7 +88,7 @@ if (-not (Test-Path $MultiConfigPath)) {
         "--proxy-bypass-list=*",
         "--remote-debugging-address=127.0.0.1",
         "--remote-debugging-port=9222",
-        "--user-data-dir=C:\ProgramData\Lightman\chrome-kiosk",
+        "--user-data-dir=C:\ProgramData\Museumos\chrome-kiosk",
         $FallbackUrl
     ) -PassThru
     if ($fallback) { Wait-Process -Id $fallback.Id -ErrorAction SilentlyContinue }
@@ -112,7 +112,7 @@ if ($entries.Count -le 0) {
         "--proxy-bypass-list=*",
         "--remote-debugging-address=127.0.0.1",
         "--remote-debugging-port=9222",
-        "--user-data-dir=C:\ProgramData\Lightman\chrome-kiosk",
+        "--user-data-dir=C:\ProgramData\Museumos\chrome-kiosk",
         $FallbackUrl
     ) -PassThru
     if ($fallback) { Wait-Process -Id $fallback.Id -ErrorAction SilentlyContinue }
@@ -140,7 +140,7 @@ for ($i = 0; $i -lt $entries.Count; $i++) {
 
     $screenSlot = [Array]::IndexOf($screens, $screen)
     if ($screenSlot -lt 0) { $screenSlot = $entryIndex }
-    $userDataDir = "C:\ProgramData\Lightman\chrome-kiosk-screen-$screenSlot"
+    $userDataDir = "C:\ProgramData\Museumos\chrome-kiosk-screen-$screenSlot"
     New-Item -ItemType Directory -Path $userDataDir -Force | Out-Null
 
     $x = [int]$screen.Bounds.X
@@ -190,7 +190,7 @@ if ($processes.Count -eq 0) {
         "--proxy-bypass-list=*",
         "--remote-debugging-address=127.0.0.1",
         "--remote-debugging-port=9222",
-        "--user-data-dir=C:\ProgramData\Lightman\chrome-kiosk",
+        "--user-data-dir=C:\ProgramData\Museumos\chrome-kiosk",
         $FallbackUrl
     ) -PassThru
     if ($fallback) { Wait-Process -Id $fallback.Id -ErrorAction SilentlyContinue }

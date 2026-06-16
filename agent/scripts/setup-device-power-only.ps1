@@ -6,36 +6,36 @@
 #   powershell -ExecutionPolicy Bypass -File .\setup-device-power-only.ps1 -DeviceSlug "kiosk-01" -Server "http://192.168.10.100:3401"
 #
 # One-liner usage (when script is hosted):
-#   $env:LIGHTMAN_DEVICE_SLUG='kiosk-01'
+#   $env:MUSEUMOS_DEVICE_SLUG='kiosk-01'
 #   # Optional overrides (defaults: kiosk / Light123)
-#   $env:LIGHTMAN_AUTOLOGIN_USERNAME='kiosk'
-#   $env:LIGHTMAN_AUTOLOGIN_PASSWORD='Light123'
+#   $env:MUSEUMOS_AUTOLOGIN_USERNAME='kiosk'
+#   $env:MUSEUMOS_AUTOLOGIN_PASSWORD='Light123'
 #   irm 'http://192.168.10.100:3401/power.ps1' | iex
 
 param(
     [Parameter(Mandatory=$false)]
-    [string]$DeviceSlug = $env:LIGHTMAN_DEVICE_SLUG,
+    [string]$DeviceSlug = $env:MUSEUMOS_DEVICE_SLUG,
 
     [Parameter(Mandatory=$false)]
-    [string]$Server = $(if ($env:LIGHTMAN_SERVER_URL) { $env:LIGHTMAN_SERVER_URL } else { '__LIGHTMAN_SERVER_URL__' }),
+    [string]$Server = $(if ($env:MUSEUMOS_SERVER_URL) { $env:MUSEUMOS_SERVER_URL } else { '__MUSEUMOS_SERVER_URL__' }),
 
     [Parameter(Mandatory=$false)]
-    [string]$InstallDir = 'C:\Program Files\Lightman\PowerAgent',
+    [string]$InstallDir = 'C:\Program Files\Museumos\PowerAgent',
 
     [Parameter(Mandatory=$false)]
-    [string]$ServiceName = 'LightmanPowerAgent',
+    [string]$ServiceName = 'MuseumosPowerAgent',
 
     [Parameter(Mandatory=$false)]
-    [string]$LogDir = 'C:\ProgramData\Lightman\logs',
+    [string]$LogDir = 'C:\ProgramData\Museumos\logs',
 
     [Parameter(Mandatory=$false)]
-    [string]$NssmDir = 'C:\ProgramData\Lightman\nssm',
+    [string]$NssmDir = 'C:\ProgramData\Museumos\nssm',
 
     [Parameter(Mandatory=$false)]
     [string]$Timezone = 'Asia/Kolkata',
 
     [Parameter(Mandatory=$false)]
-    [string]$SourceAgentDir = $env:LIGHTMAN_AGENT_DIR,
+    [string]$SourceAgentDir = $env:MUSEUMOS_AGENT_DIR,
 
     [Parameter(Mandatory=$false)]
     [string]$AdminEmail = 'admin@museumos.local',
@@ -47,23 +47,23 @@ param(
     [bool]$InstallSsh = $true,
 
     [Parameter(Mandatory=$false)]
-    [string]$EnableAutoLogin = $(if ($env:LIGHTMAN_ENABLE_AUTOLOGIN) { $env:LIGHTMAN_ENABLE_AUTOLOGIN } else { 'true' }),
+    [string]$EnableAutoLogin = $(if ($env:MUSEUMOS_ENABLE_AUTOLOGIN) { $env:MUSEUMOS_ENABLE_AUTOLOGIN } else { 'true' }),
 
     [Parameter(Mandatory=$false)]
-    [string]$DisableSleep = $(if ($env:LIGHTMAN_DISABLE_SLEEP) { $env:LIGHTMAN_DISABLE_SLEEP } else { 'true' }),
+    [string]$DisableSleep = $(if ($env:MUSEUMOS_DISABLE_SLEEP) { $env:MUSEUMOS_DISABLE_SLEEP } else { 'true' }),
 
     [Parameter(Mandatory=$false)]
-    [string]$AutoLoginUsername = $(if ($env:LIGHTMAN_AUTOLOGIN_USERNAME) { $env:LIGHTMAN_AUTOLOGIN_USERNAME } else { 'kiosk' }),
+    [string]$AutoLoginUsername = $(if ($env:MUSEUMOS_AUTOLOGIN_USERNAME) { $env:MUSEUMOS_AUTOLOGIN_USERNAME } else { 'kiosk' }),
 
     [Parameter(Mandatory=$false)]
-    [string]$AutoLoginPassword = $(if ($env:LIGHTMAN_AUTOLOGIN_PASSWORD) { $env:LIGHTMAN_AUTOLOGIN_PASSWORD } else { 'Light123' })
+    [string]$AutoLoginPassword = $(if ($env:MUSEUMOS_AUTOLOGIN_PASSWORD) { $env:MUSEUMOS_AUTOLOGIN_PASSWORD } else { 'Light123' })
 )
 
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
 
-$DefaultServer = '__LIGHTMAN_SERVER_URL__'
-if (-not $Server -or $Server -eq '__LIGHTMAN_SERVER_URL__') {
+$DefaultServer = '__MUSEUMOS_SERVER_URL__'
+if (-not $Server -or $Server -eq '__MUSEUMOS_SERVER_URL__') {
     $Server = $DefaultServer
 }
 
@@ -421,7 +421,7 @@ function Install-Agent-FromServer {
         throw 'Server did not return a downloadable agent package.'
     }
 
-    $tempTar = Join-Path $env:TEMP 'lightman-power-agent.tar.gz'
+    $tempTar = Join-Path $env:TEMP 'museumos-power-agent.tar.gz'
     $downloadUrl = "$Server$($check.data.download_url)"
     Invoke-WebRequest -Uri $downloadUrl -OutFile $tempTar -Headers $headers -UseBasicParsing
 
@@ -485,7 +485,7 @@ function Ensure-Nssm {
     }
 
     if (-not $downloaded) {
-        throw 'Unable to download NSSM. Please place nssm.exe manually at C:\ProgramData\Lightman\nssm\nssm.exe'
+        throw 'Unable to download NSSM. Please place nssm.exe manually at C:\ProgramData\Museumos\nssm\nssm.exe'
     }
 
     Expand-Archive -Path $zipPath -DestinationPath $extractPath -Force
@@ -513,7 +513,7 @@ function Write-PowerOnlyConfig {
         healthIntervalMs = 60000
         logLevel = 'info'
         logFile = 'agent.log'
-        identityFile = '.lightman-identity.json'
+        identityFile = '.museumos-identity.json'
         localServices = $false
         powerSchedule = @{
             enableLocalCron = $false
@@ -525,7 +525,7 @@ function Write-PowerOnlyConfig {
     $json = $config | ConvertTo-Json -Depth 6
     [System.IO.File]::WriteAllText($configPath, $json, [System.Text.UTF8Encoding]::new($false))
 
-    $identityPath = Join-Path $InstallDir '.lightman-identity.json'
+    $identityPath = Join-Path $InstallDir '.museumos-identity.json'
     if (Test-Path $identityPath) {
         Remove-Item $identityPath -Force
     }
@@ -871,7 +871,7 @@ function Ensure-SshdAdminKeyConfig {
 }
 
 function Install-ServerAuthorizedKeys {
-    $tmpKeys = Join-Path $env:TEMP 'lightman-authorized_keys'
+    $tmpKeys = Join-Path $env:TEMP 'museumos-authorized_keys'
     $destDir = 'C:\ProgramData\ssh'
     $destKeys = Join-Path $destDir 'administrators_authorized_keys'
     Remove-Item $tmpKeys -Force -ErrorAction SilentlyContinue
@@ -904,7 +904,7 @@ function Install-OpenSshFromZip {
     $localZipCandidates = @(
         (Join-Path $InstallDir 'scripts\OpenSSH-Win64.zip'),
         $(if ($PSScriptRoot) { Join-Path $PSScriptRoot 'OpenSSH-Win64.zip' } else { $null }),
-        'C:\Program Files\Lightman\Agent\scripts\OpenSSH-Win64.zip'
+        'C:\Program Files\Museumos\Agent\scripts\OpenSSH-Win64.zip'
     ) | Where-Object { $_ -and (Test-Path $_) }
     $localZip = $localZipCandidates | Select-Object -First 1
 

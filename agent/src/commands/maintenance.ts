@@ -73,11 +73,11 @@ export function registerMaintenanceCommands(
       return { enabled: false, message: 'Only available on Windows' };
     }
 
-    const shellBat = resolve(process.cwd(), 'lightman-shell.bat');
+    const shellBat = resolve(process.cwd(), 'museumos-shell.bat');
     logger.warn(`ENABLE SHELL: Switching Windows shell to ${shellBat}`);
 
     try {
-      // Set shell to lightman-shell.bat
+      // Set shell to museumos-shell.bat
       execSync(
         `reg add "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon" /v Shell /d "\\"${shellBat}\\"" /f`,
         { stdio: 'ignore', timeout: 10_000 }

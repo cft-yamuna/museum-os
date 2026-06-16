@@ -45,8 +45,8 @@ RUN cd display && npm run build
 FROM node:20-alpine AS runner
 
 # Create non-root user
-RUN addgroup -g 1001 -S lightman && \
-    adduser -S lightman -u 1001 -G lightman
+RUN addgroup -g 1001 -S museumos && \
+    adduser -S museumos -u 1001 -G museumos
 
 WORKDIR /app
 
@@ -69,8 +69,8 @@ COPY --from=builder /app/demo-media demo-media
 COPY --from=builder /app/agent/scripts agent/scripts
 
 # Set ownership and switch to non-root user
-RUN chown -R lightman:lightman /app
-USER lightman
+RUN chown -R museumos:museumos /app
+USER museumos
 
 EXPOSE 3401
 

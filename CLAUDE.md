@@ -12,8 +12,8 @@ Museum OS is a museum display management platform consisting of a server, admin 
 - **Agent** (`agent/`) — Node.js daemon installed on Windows/Linux museum display machines
 
 ### Infrastructure
-- **Server**: Docker container `lightman-app` on `wipro-poweredge-r360` (Tailscale: `100.124.40.69`, LAN: `192.168.10.100`)
-- **Database**: PostgreSQL 16 in Docker container `lightman-db`
+- **Server**: Docker container `museumos-app` on `wipro-poweredge-r360` (Tailscale: `100.124.40.69`, LAN: `192.168.10.100`)
+- **Database**: PostgreSQL 16 in Docker container `museumos-db`
 - **Devices**: Windows 11 Pro kiosk machines on `192.168.10.10x` range
 - **Site ID**: `e74b5c5f-dd1c-4d0a-9520-9f4cac3881b2` (needed for API calls)
 
@@ -26,22 +26,22 @@ Museum OS is a museum display management platform consisting of a server, admin 
 | PostgreSQL | 5432 |
 
 ### Docker Build & Run
-Multi-stage build: deps → builder (compiles server TS, builds admin + display Vite) → runner (Node 20 Alpine, non-root `lightman` user). Runs migrations and seeds on startup.
+Multi-stage build: deps → builder (compiles server TS, builds admin + display Vite) → runner (Node 20 Alpine, non-root `museumos` user). Runs migrations and seeds on startup.
 
 ```bash
 # Build
-docker build -t lightman-app .
+docker build -t museumos-app .
 
 # Run
-docker run -d --name lightman-app --net=host \
-  -v /home/wipro/lightman-app01/server/storage:/app/server/storage \
-  -v /home/wipro/lightman-app01/agent:/app/agent \
-  -e DATABASE_URL='postgresql://postgres:postgres123@127.0.0.1:5432/lightman' \
+docker run -d --name museumos-app --net=host \
+  -v /home/wipro/museumos-app01/server/storage:/app/server/storage \
+  -v /home/wipro/museumos-app01/agent:/app/agent \
+  -e DATABASE_URL='postgresql://postgres:postgres123@127.0.0.1:5432/museumos' \
   -e NODE_ENV=production \
   -e JWT_SECRET='CHANGE_ME_TO_A_STRONG_RANDOM_STRING_AT_LEAST_32_CHARS' \
   -e CORS_ORIGIN='*' \
   --restart unless-stopped \
-  lightman-app
+  museumos-app
 ```
 
 ### Environment Variables
@@ -125,7 +125,7 @@ powershell -ep bypass -c "irm 'http://192.168.10.100:3401/setup.ps1' | iex"
 1. Edit agent code locally
 2. Bump version in `agent/package.json`
 3. `git push origin main`
-4. SSH to server: `cd ~/lightman-app01 && git pull origin main`
+4. SSH to server: `cd ~/museumos-app01 && git pull origin main`
 5. Build agent: `cd agent && npm install && npm run build && npm prune --omit=dev`
 6. Create tarball and upload for both platforms:
 ```bash
@@ -138,10 +138,10 @@ tar -czf /tmp/agent.tar.gz dist/ node_modules/ package.json agent.config.json
 
 ### Server Rebuild (for admin UI, display, or server API changes)
 ```bash
-cd ~/lightman-app01
+cd ~/museumos-app01
 git pull origin main
-docker build -t lightman-app .
-docker stop lightman-app && docker rm lightman-app
+docker build -t museumos-app .
+docker stop museumos-app && docker rm museumos-app
 # Then run the docker run command above
 ```
 

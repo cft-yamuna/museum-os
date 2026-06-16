@@ -22,14 +22,14 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-$InstallRoot = 'C:\Program Files\Lightman'
+$InstallRoot = 'C:\Program Files\Museumos'
 $AgentInstallDir = Join-Path $InstallRoot 'Agent'
 $PowerInstallDir = Join-Path $InstallRoot 'PowerAgent'
 $AgentBackupDir = "${AgentInstallDir}-backup"
-$DataDir = 'C:\ProgramData\Lightman'
+$DataDir = 'C:\ProgramData\Museumos'
 $NssmExe = Join-Path $DataDir 'nssm\nssm.exe'
-$LightmanServices = @('LightmanAgent', 'LightmanPowerAgent')
-$LightmanTasks = @('LIGHTMAN Agent', 'LIGHTMAN Kiosk Browser', 'LIGHTMAN Guardian')
+$MuseumosServices = @('MuseumosAgent', 'MuseumosPowerAgent')
+$MuseumosTasks = @('MUSEUMOS Agent', 'MUSEUMOS Kiosk Browser', 'MUSEUMOS Guardian')
 
 function Write-Step([string]$Text) {
     Write-Host ''
@@ -196,11 +196,11 @@ if ($RestoreComputerName) {
 }
 
 Write-Step '[1/9] Stopping and removing Museum OS services...'
-foreach ($serviceName in $LightmanServices) {
+foreach ($serviceName in $MuseumosServices) {
     Stop-And-Delete-Service -Name $serviceName
 }
 try {
-    $extraServices = Get-Service -DisplayName 'LIGHTMAN*' -ErrorAction SilentlyContinue
+    $extraServices = Get-Service -DisplayName 'MUSEUMOS*' -ErrorAction SilentlyContinue
     foreach ($svc in $extraServices) {
         Stop-And-Delete-Service -Name $svc.Name
     }
@@ -208,7 +208,7 @@ try {
 }
 
 Write-Step '[2/9] Removing Museum OS scheduled tasks...'
-foreach ($taskName in $LightmanTasks) {
+foreach ($taskName in $MuseumosTasks) {
     try {
         $task = Get-ScheduledTask -TaskName $taskName -ErrorAction SilentlyContinue
         if ($task) {
@@ -233,7 +233,7 @@ $HKCUWinlogon = 'HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Winlogon'
 $currentShell = (Get-ItemProperty -Path $HKLMWinlogon -Name 'Shell' -ErrorAction SilentlyContinue).Shell
 $originalShell = (Get-ItemProperty -Path $HKLMWinlogon -Name 'Shell_Original' -ErrorAction SilentlyContinue).Shell_Original
 
-if ($currentShell -and $currentShell -like '*lightman*') {
+if ($currentShell -and $currentShell -like '*museumos*') {
     Set-ItemProperty -Path $HKLMWinlogon -Name 'Shell' -Value $(if ($originalShell) { $originalShell } else { 'explorer.exe' })
 } elseif ($originalShell) {
     Set-ItemProperty -Path $HKLMWinlogon -Name 'Shell' -Value $originalShell
@@ -324,10 +324,10 @@ if ($ResetNetworkSettings) {
 }
 
 Write-Step '[6/9] Removing Museum OS firewall rules and SSH (optional)...'
-try { Remove-NetFirewallRule -DisplayName 'LIGHTMAN Agent WebSocket' -ErrorAction SilentlyContinue | Out-Null } catch {}
+try { Remove-NetFirewallRule -DisplayName 'MUSEUMOS Agent WebSocket' -ErrorAction SilentlyContinue | Out-Null } catch {}
 try {
     Get-NetFirewallRule -ErrorAction SilentlyContinue |
-        Where-Object { $_.DisplayName -like 'LIGHTMAN*' } |
+        Where-Object { $_.DisplayName -like 'MUSEUMOS*' } |
         Remove-NetFirewallRule -ErrorAction SilentlyContinue | Out-Null
 } catch {
 }

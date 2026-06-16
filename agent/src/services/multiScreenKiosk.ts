@@ -8,8 +8,8 @@ import type { Logger } from '../lib/logger.js';
 import { resolveDetectedScreen, resolveScreenMap } from '../lib/screenMap.js';
 
 const SHELL_MULTI_CONFIG_PATH = process.platform === 'win32'
-  ? 'C:\\ProgramData\\Lightman\\kiosk-multi.json'
-  : '/tmp/lightman-kiosk-multi.json';
+  ? 'C:\\ProgramData\\Museumos\\kiosk-multi.json'
+  : '/tmp/museumos-kiosk-multi.json';
 
 interface ScreenInstance {
   hardwareId: string;
@@ -157,7 +157,7 @@ export class MultiScreenKioskManager {
     screenIndex: number = 0
   ): Promise<void> {
     const sep = process.platform === 'win32' ? '\\' : '/';
-    const basePath = process.platform === 'win32' ? 'C:\\ProgramData\\Lightman' : '/tmp/lightman';
+    const basePath = process.platform === 'win32' ? 'C:\\ProgramData\\Museumos' : '/tmp/museumos';
     const userDataDir = `${basePath}${sep}chrome-kiosk-screen-${screen.index}`;
 
     const args = [

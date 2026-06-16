@@ -60,6 +60,8 @@ class AdminWebSocket {
   }
 
   private scheduleReconnect(): void {
+    // Don't reconnect after an explicit disconnect() (token cleared on logout).
+    if (!this.token) return;
     if (this.reconnectTimer) return;
     this.reconnectTimer = setTimeout(() => {
       this.reconnectTimer = null;

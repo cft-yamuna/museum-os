@@ -10,7 +10,7 @@ const EXCLUDED_TABLES = new Set([
 const DEFAULT_CHUNK_SIZE = 500;
 
 export interface DbJsonExportPayload {
-  format: 'lightman-db-json-v1';
+  format: 'museumos-db-json-v1';
   exportedAt: string;
   tables: Record<string, Record<string, unknown>[]>;
   tableOrder: string[];
@@ -27,7 +27,7 @@ export async function buildDbJsonExportPayload(db: Knex): Promise<DbJsonExportPa
   const tables = await getAppTables(db);
   const tableOrder = await getInsertOrder(db, tables);
   const payload: DbJsonExportPayload = {
-    format: 'lightman-db-json-v1',
+    format: 'museumos-db-json-v1',
     exportedAt: new Date().toISOString(),
     tables: {},
     tableOrder,
@@ -66,7 +66,7 @@ export async function importDbJsonPayload(db: Knex, payloadInput: Partial<DbJson
 }
 
 export function normalizePayload(parsed: Partial<DbJsonExportPayload>): DbJsonExportPayload {
-  if (parsed.format !== 'lightman-db-json-v1' || !parsed.tables || !parsed.tableOrder) {
+  if (parsed.format !== 'museumos-db-json-v1' || !parsed.tables || !parsed.tableOrder) {
     throw new Error('Unsupported JSON dump format');
   }
 

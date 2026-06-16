@@ -3,7 +3,7 @@
 // IndexedDB-based with in-memory fallback
 // ==========================================
 
-const DB_NAME = 'lightman-cache';
+const DB_NAME = 'museumos-cache';
 const STORE_NAME = 'entries';
 const DB_VERSION = 1;
 const DEFAULT_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours

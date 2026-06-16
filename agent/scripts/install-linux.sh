@@ -4,9 +4,9 @@
 #   sudo bash install-linux.sh --slug f-av01 --server http://192.168.10.100:3401
 set -euo pipefail
 
-INSTALL_DIR="/opt/lightman/agent"
-LOG_DIR="/var/log/lightman"
-SERVICE_NAME="lightman-agent"
+INSTALL_DIR="/opt/museumos/agent"
+LOG_DIR="/var/log/museumos"
+SERVICE_NAME="museumos-agent"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 AGENT_DIR="$(dirname "$SCRIPT_DIR")"
 
@@ -66,12 +66,12 @@ echo "  Server URL  : $SERVER"
 echo ""
 
 # --- Create user/group ---
-if ! id -u lightman &> /dev/null; then
-    echo "[1/7] Creating lightman user and group..."
-    groupadd --system lightman
-    useradd --system --gid lightman --home-dir /opt/lightman --shell /usr/sbin/nologin lightman
+if ! id -u museumos &> /dev/null; then
+    echo "[1/7] Creating museumos user and group..."
+    groupadd --system museumos
+    useradd --system --gid museumos --home-dir /opt/museumos --shell /usr/sbin/nologin museumos
 else
-    echo "[1/7] User 'lightman' already exists, skipping."
+    echo "[1/7] User 'museumos' already exists, skipping."
 fi
 
 # --- Create directories ---
@@ -102,19 +102,19 @@ bash "$SCRIPT_DIR/setup.sh" \
 
 # --- Set permissions ---
 echo "[6/7] Setting permissions..."
-chown -R lightman:lightman "$INSTALL_DIR"
-chown -R lightman:lightman "$LOG_DIR"
+chown -R museumos:museumos "$INSTALL_DIR"
+chown -R museumos:museumos "$LOG_DIR"
 chmod 750 "$INSTALL_DIR"
 chmod 750 "$LOG_DIR"
 
 # --- Install systemd service ---
 echo "[7/7] Installing systemd service..."
-cp "$SCRIPT_DIR/lightman-agent.service" "/etc/systemd/system/${SERVICE_NAME}.service"
+cp "$SCRIPT_DIR/museumos-agent.service" "/etc/systemd/system/${SERVICE_NAME}.service"
 systemctl daemon-reload
 systemctl enable "$SERVICE_NAME"
 
 # --- Install logrotate config ---
-cp "$SCRIPT_DIR/lightman-agent.logrotate" "/etc/logrotate.d/${SERVICE_NAME}" 2>/dev/null || true
+cp "$SCRIPT_DIR/museumos-agent.logrotate" "/etc/logrotate.d/${SERVICE_NAME}" 2>/dev/null || true
 
 echo ""
 echo "=== Installation Complete ==="

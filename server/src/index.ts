@@ -13,6 +13,7 @@ import { disconnectAllDALI } from './services/dali.js';
 import { initAgentWs, closeAgentWs } from './services/agentWs.js';
 import { startHealthAggregator, stopHealthAggregator } from './services/healthAggregator.js';
 import { startTokenCleanup, stopTokenCleanup } from './services/tokenRevocation.js';
+import { startBackupService, stopBackupService } from './services/backupService.js';
 import { initStorage } from './services/storageBackend.js';
 import fs from 'fs';
 
@@ -55,6 +56,7 @@ const server = app.listen(port, async () => {
       startSSSPMonitor();
       startHealthAggregator();
       startTokenCleanup();
+      startBackupService();
     } else {
       console.warn('  Database:    NOT connected (check DATABASE_URL)');
     }
@@ -75,6 +77,7 @@ function shutdown(signal: string) {
     stopSSSPMonitor();
     stopHealthAggregator();
     stopTokenCleanup();
+    stopBackupService();
     disconnectAllDALI();
     closeDisplayWs();
     closeAdminWs();

@@ -36,8 +36,8 @@ const filesToCheck = [
 ];
 
 const legacyBrandPatterns = [
-  /\bLIGHTMAN\b/,
-  /\bLightman\b/,
+  /\bMUSEUMOS\b/,
+  /\bMuseumos\b/,
   /\bhiLight\b/,
   /\bHiLight\b/,
   /\bHilight\b/,

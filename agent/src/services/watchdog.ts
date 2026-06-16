@@ -19,8 +19,8 @@ const DEFAULT_CONFIG: WatchdogConfig = {
 
 const CHROME_CACHE_CLEANUP_INTERVAL_MS = 24 * 60 * 60 * 1000; // Once per day
 const CHROME_CACHE_DIR = process.platform === 'win32'
-  ? 'C:\\ProgramData\\Lightman\\chrome-kiosk\\Default\\Cache'
-  : '/tmp/lightman-chrome-cache';
+  ? 'C:\\ProgramData\\Museumos\\chrome-kiosk\\Default\\Cache'
+  : '/tmp/museumos-chrome-cache';
 
 interface RecoveryStats {
   kioskRestarts: number;
@@ -121,7 +121,7 @@ export class Watchdog {
       try {
         const files = readdirSync(dir);
         for (const file of files) {
-          if (!file.startsWith('lightman-')) continue;
+          if (!file.startsWith('museumos-')) continue;
           try {
             const filePath = join(dir, file);
             const stat = statSync(filePath);
@@ -234,13 +234,34 @@ export class Watchdog {
       }
     }
 
-    // Rule: High disk usage — cleanup
+    // Rule: High disk usage — cleanup, then escalate if it didn't help.
     if (health.diskPercent > this.config.highDiskThresholdPercent) {
       if (this.canAct('high_disk', this.config.highDiskCooldownMs)) {
         this.logger.warn(`Watchdog: high disk usage (${health.diskPercent}%), running cleanup`);
         this.stats = { ...this.stats, diskCleanups: this.stats.diskCleanups + 1 };
         this.setCooldown('high_disk', this.config.highDiskCooldownMs);
-        await this.runDiskCleanup();
+        const result = await this.runDiskCleanup();
+
+        // Verify the cleanup actually freed space. runDiskCleanup only removes
+        // stale /tmp files (and is a no-op on Windows), so a genuinely full disk
+        // can survive it — re-check and escalate to an operator-visible alert
+        // instead of silently waiting out the cooldown.
+        const after = await this.healthMonitor.collect();
+        if (after.diskPercent > this.config.highDiskThresholdPercent) {
+          this.logger.error(
+            `Watchdog: disk still ${after.diskPercent}% after cleanup ` +
+              `(freed ${result.freedBytes} bytes, ${result.deletedFiles} files) — escalating`
+          );
+          this.wsClient.send({
+            type: 'agent:disk-critical',
+            payload: {
+              diskPercent: after.diskPercent,
+              freedBytes: result.freedBytes,
+              deletedFiles: result.deletedFiles,
+            },
+            timestamp: Date.now(),
+          });
+        }
       }
     }
 

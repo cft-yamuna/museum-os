@@ -46,5 +46,5 @@ cd ../server
 
 echo ""
 echo "  Deploy complete!"
-echo "  Restart the server: sudo systemctl restart lightman"
+echo "  Restart the server: sudo systemctl restart museumos"
 echo ""

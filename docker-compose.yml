@@ -1,48 +1,47 @@
 services:
-  # Database is managed separately (existing container with its own volume).
-  # This definition is here for reference / fresh installs only.
-  # To start it: docker compose --profile full up -d
-  lightman-db:
+  museumos-db:
     image: postgres:16-alpine
-    container_name: lightman-db
+    container_name: museumos-db
     restart: unless-stopped
     network_mode: host
-    profiles: ["full"]
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env.production}
-      POSTGRES_DB: ${POSTGRES_DB:-lightman}
+      POSTGRES_DB: ${POSTGRES_DB:-museumos}
     volumes:
       - pgdata:/var/lib/postgresql/data
-    healthcheck:  
+    healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
       interval: 5s
       timeout: 3s
       retries: 5
 
-  lightman-app:
+  museumos-app:
     build: .
-    container_name: lightman-app
+    container_name: museumos-app
     restart: unless-stopped
     network_mode: host
-    ports:
-      - "${PORT:-3401}:${PORT:-3401}"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+    depends_on:
+      museumos-db:
+        condition: service_healthy
     environment:
       NODE_ENV: production
       PORT: ${PORT:-3401}
-      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@host.docker.internal:5432/${POSTGRES_DB:-lightman}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@127.0.0.1:5432/${POSTGRES_DB:-museumos}
       JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env.production}
       JWT_EXPIRY: ${JWT_EXPIRY:-24h}
       CORS_ORIGIN: ${CORS_ORIGIN:-*}
       STORAGE_PATH: /app/server/storage
+      # Local JSON backups — Docker DB stays primary, these are a host-side duplicate.
       BACKUP_DIR: /app/server/backups
+      BACKUP_ENABLED: ${BACKUP_ENABLED:-true}
+      BACKUP_CRON: ${BACKUP_CRON:-0 */6 * * *}
+      BACKUP_KEEP: ${BACKUP_KEEP:-14}
     volumes:
       - ${HOST_STORAGE_PATH:-./server/storage}:/app/server/storage
       - ${HOST_AGENT_PATH:-./agent}:/app/agent
-      - backups:/app/server/backups
+      # Bind-mount to a real host folder so the JSON backups are saved locally.
+      - ${HOST_BACKUP_PATH:-./server/backups}:/app/server/backups
 
 volumes:
   pgdata:
-  backups:

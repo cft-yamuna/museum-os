@@ -2,7 +2,7 @@ import { WebSocketServer, WebSocket } from 'ws';
 import type { Server } from 'http';
 import { URL } from 'url';
 import { getDb } from '../lib/db.js';
-import { pushToDeviceSubscribers } from './adminWs.js';
+import { pushToDeviceSubscribers, pushToAdmins } from './adminWs.js';
 import { publishEvent as mqttPublishEvent } from './mqttClient.js';
 import { sendToDevice } from './displayWs.js';
 import { normalizeMacAddress } from './deviceWake.js';
@@ -413,6 +413,15 @@ function handleAgentMessage(deviceId: string, msg: WsMessage): void {
       }
       break;
     }
+    case 'agent:disk-critical': {
+      // The agent's automatic disk cleanup ran but couldn't free enough space.
+      if (msg.payload) {
+        raiseDiskAlert(deviceId, msg.payload).catch((err: unknown) =>
+          console.error(`[AgentWS] Disk alert error: ${deviceId}`, err)
+        );
+      }
+      break;
+    }
     case 'agent:command_result': {
       const commandId = msg.payload?.id as string;
 
@@ -534,6 +543,53 @@ function handleAgentMessage(deviceId: string, msg: WsMessage): void {
         `[AgentWS] Unknown message type from ${deviceId}: ${msg.type}`
       );
   }
+}
+
+/**
+ * Raise a persistent alert when an agent reports its disk is critically full and
+ * automatic cleanup couldn't free enough space. Deduplicated to one open alert
+ * per device per 30 minutes so a stuck device doesn't spam the alerts table.
+ */
+async function raiseDiskAlert(
+  deviceId: string,
+  payload: Record<string, unknown>
+): Promise<void> {
+  const db = getDb();
+
+  const recent = await db('alerts')
+    .where({ device_id: deviceId, type: 'disk_space' })
+    .where('is_acknowledged', false)
+    .where('created_at', '>', new Date(Date.now() - 30 * 60_000))
+    .first();
+  if (recent) return;
+
+  const device = await db('devices')
+    .where({ id: deviceId })
+    .first('site_id', 'display_name', 'slug');
+  if (!device) return;
+
+  const name = device.display_name || device.slug || deviceId;
+  const diskPercent = Number(payload.diskPercent) || 0;
+  const severity = diskPercent >= 95 ? 'critical' : 'high';
+  const message = `${name}: disk critically full (${diskPercent.toFixed(0)}% used, automatic cleanup did not free enough space)`;
+
+  await db('alerts').insert({
+    site_id: device.site_id,
+    device_id: deviceId,
+    type: 'disk_space',
+    severity,
+    message,
+  });
+
+  const alertEvent = {
+    type: 'device:alert' as const,
+    payload: { deviceId, type: 'disk_space', severity, message, ...payload },
+    timestamp: Date.now(),
+  };
+  pushToAdmins(alertEvent, device.site_id);
+  pushToDeviceSubscribers(deviceId, alertEvent);
+
+  console.warn(`[AgentWS] Disk alert raised for ${deviceId}: ${diskPercent}%`);
 }
 
 function cleanupPendingCommands(deviceId: string): void {

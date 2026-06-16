@@ -10,8 +10,8 @@ import type { Logger } from '../lib/logger.js';
  * target URL before launching Chrome. Agent writes, shell reads.
  */
 const URL_SIDECAR_FILE = process.platform === 'win32'
-  ? 'C:\\ProgramData\\Lightman\\kiosk-url.txt'
-  : '/tmp/lightman-kiosk-url.txt';
+  ? 'C:\\ProgramData\\Museumos\\kiosk-url.txt'
+  : '/tmp/museumos-kiosk-url.txt';
 
 export class KioskManager {
   private config: KioskConfig;
@@ -189,7 +189,7 @@ export class KioskManager {
   private async shellLaunch(targetUrl: string): Promise<KioskStatus> {
     this.currentUrl = targetUrl;
 
-    // Shell mode: Chrome is managed by lightman-shell.bat.
+    // Shell mode: Chrome is managed by museumos-shell.bat.
     // Shell reads slug from agent.config.json directly.
     // Agent NEVER kills Chrome on startup - only on explicit navigate().
     if (this.isChromeRunning()) {

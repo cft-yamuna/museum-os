@@ -45,14 +45,29 @@ function getAgentVersion(): string {
   }
 }
 
-/** Copy scripts/lightman-shell.bat → lightman-shell.bat (agent root) if they differ.
+/** Best-effort local diagnostics file an on-site technician can read (via SSH or
+ *  the filesystem) when a device is stuck before it can reach the server — e.g.
+ *  during first-boot provisioning when the server is unreachable or unpaired. */
+function writeProvisioningStatus(status: Record<string, unknown>): void {
+  try {
+    writeFileSync(
+      resolve(process.cwd(), 'provisioning-status.json'),
+      JSON.stringify({ ...status, updatedAt: new Date().toISOString() }, null, 2),
+      'utf-8'
+    );
+  } catch {
+    // Diagnostics only — never block startup on it.
+  }
+}
+
+/** Copy scripts/museumos-shell.bat → museumos-shell.bat (agent root) if they differ.
  *  Covers the OTA chicken-and-egg: old agent code runs install(), so the bat
  *  only gets synced once the NEW agent starts up. */
 function syncShellBat(logger: Logger): void {
   if (process.platform !== 'win32') return;
   try {
-    const src = resolve(process.cwd(), 'scripts', 'lightman-shell.bat');
-    const dst = resolve(process.cwd(), 'lightman-shell.bat');
+    const src = resolve(process.cwd(), 'scripts', 'museumos-shell.bat');
+    const dst = resolve(process.cwd(), 'museumos-shell.bat');
     if (!existsSync(src)) return;
     const srcBuf = readFileSync(src);
     if (existsSync(dst)) {
@@ -60,7 +75,7 @@ function syncShellBat(logger: Logger): void {
       if (srcBuf.equals(dstBuf)) return;
     }
     copyFileSync(src, dst);
-    logger.info('Synced lightman-shell.bat to install root');
+    logger.info('Synced museumos-shell.bat to install root');
   } catch (err) {
     logger.warn('Failed to sync shell bat:', err);
   }
@@ -71,6 +86,9 @@ interface DisplayCacheRefreshRequest {
   reason: string;
   requestId?: string;
 }
+
+/** How long a freshly-installed version must run before it's considered healthy. */
+const UPDATE_CONFIRM_DELAY_MS = 2 * 60 * 1000;
 
 async function main(): Promise<void> {
   // 1. Load config
@@ -83,6 +101,25 @@ async function main(): Promise<void> {
   syncShellBat(logger);
   logger.info(`Server: ${config.serverUrl}`);
   logger.info(`Device slug: ${config.deviceSlug}`);
+
+  // 1a. Crash-loop guard: if a freshly-installed agent version keeps failing to
+  // boot, roll back to the previous one before doing anything risky.
+  const updater = new Updater(logger);
+  const bootCheck = updater.registerBootAttempt();
+  if (bootCheck.shouldRollback) {
+    logger.error(
+      `[Updater] v${bootCheck.version} failed to confirm after ${bootCheck.attempts} boots — rolling back`
+    );
+    try {
+      await updater.rollback();
+      logger.info('[Updater] Rolled back to previous version.');
+    } catch (err) {
+      logger.error('[Updater] Rollback failed:', err);
+    }
+    updater.clearPendingUpdate();
+    logger.info('[Updater] Restarting into previous version...');
+    process.exit(0);
+  }
 
   // 1b. Start local server & display services (dev mode only)
   let serviceLauncher: ServiceLauncher | null = null;
@@ -104,21 +141,56 @@ async function main(): Promise<void> {
   // This prevents NSSM restart loops that kill Chrome (blinking screen).
   let identity: Identity | null = null;
   const MAX_PROVISION_ATTEMPTS = 999;
+  const provisionStartedAt = Date.now();
   for (let attempt = 1; attempt <= MAX_PROVISION_ATTEMPTS; attempt++) {
+    writeProvisioningStatus({
+      state: 'provisioning',
+      attempt,
+      serverUrl: config.serverUrl,
+      deviceSlug: config.deviceSlug,
+    });
     try {
       const result = await provision(config, logger);
       identity = result.identity;
       logger.info(
         `Device ID: ${identity.deviceId} (${result.fromCache ? 'cached' : 'new'})`
       );
+      writeProvisioningStatus({
+        state: 'ok',
+        deviceId: identity.deviceId,
+        fromCache: result.fromCache,
+        serverUrl: config.serverUrl,
+        deviceSlug: config.deviceSlug,
+      });
       break;
     } catch (err) {
-      logger.error(`Provisioning attempt ${attempt} failed:`, err);
+      const message = err instanceof Error ? err.message : String(err);
+      const elapsedSec = Math.round((Date.now() - provisionStartedAt) / 1000);
+      logger.error(
+        `Provisioning attempt ${attempt} failed (server ${config.serverUrl}, ${elapsedSec}s elapsed): ${message}`
+      );
       if (attempt < MAX_PROVISION_ATTEMPTS) {
         const waitSec = Math.min(30, attempt * 5);
+        writeProvisioningStatus({
+          state: 'failed',
+          attempt,
+          error: message,
+          elapsedSec,
+          nextRetrySec: waitSec,
+          serverUrl: config.serverUrl,
+          deviceSlug: config.deviceSlug,
+        });
         logger.info(`Retrying provisioning in ${waitSec}s...`);
         await new Promise((r) => setTimeout(r, waitSec * 1000));
       } else {
+        writeProvisioningStatus({
+          state: 'exhausted',
+          attempt,
+          error: message,
+          elapsedSec,
+          serverUrl: config.serverUrl,
+          deviceSlug: config.deviceSlug,
+        });
         logger.error('All provisioning attempts exhausted. Exiting.');
         process.exit(1);
       }
@@ -445,8 +517,8 @@ async function main(): Promise<void> {
   // Register Phase 20 network commands
   registerNetworkCommands(commandExecutor.register.bind(commandExecutor), logger, config.serverUrl);
 
-  // Create Updater and register OTA update commands (Phase 20)
-  const updater = new Updater(logger);
+  // Register OTA update commands (Phase 20). Reuses the `updater` created early
+  // for the crash-loop guard.
   registerUpdateCommands(commandExecutor.register.bind(commandExecutor), updater, liveWsClient, logger, config.serverUrl, identity);
 
   // Auto-updater: polls server every 5 minutes for new agent versions
@@ -459,6 +531,15 @@ async function main(): Promise<void> {
     currentVersion: getAgentVersion(),
   });
   autoUpdater.start();
+
+  // Once a freshly-installed version has run stably, confirm it so future
+  // restarts (or crashes) don't roll it back.
+  if (bootCheck.pending) {
+    logger.info(
+      `[Updater] Pending update v${bootCheck.version} (boot ${bootCheck.attempts}) — confirming in ${Math.round(UPDATE_CONFIRM_DELAY_MS / 1000)}s`
+    );
+    setTimeout(() => updater.confirmUpdate(), UPDATE_CONFIRM_DELAY_MS);
+  }
 
   // Register RPi-specific commands when running on Raspberry Pi
   if (isRaspberryPi()) {

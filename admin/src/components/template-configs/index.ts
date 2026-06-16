@@ -12,6 +12,7 @@ import { Custom01TimelineConfig } from './Custom01TimelineConfig';
 import { Custom06ReceptionConfig } from './Custom06ReceptionConfig';
 import { Custom07OscConfig } from './Custom07OscConfig';
 import { Custom08MuseumKioskConfig } from './Custom08MuseumKioskConfig';
+import { CustomBuilderConfig } from './CustomBuilderConfig';
 
 // ==========================================
 // Config Panel Registry
@@ -51,6 +52,9 @@ export const CONFIG_PANELS: Record<string, ComponentType<ConfigPanelProps>> = {
   'custom06-reception-program': Custom06ReceptionConfig,
   'custom07-osc': Custom07OscConfig,
   'custom08-museum-kiosk': Custom08MuseumKioskConfig,
+
+  // Visual builder (data-driven, config-only)
+  'custom-builder': CustomBuilderConfig,
 };
 
 // Re-export shared types

@@ -1,14 +1,14 @@
 # Museum OS Agent package uploader for Windows/PowerShell.
 #
 # Run from repo root:
-#   powershell -ExecutionPolicy Bypass -File .\scripts\auto-deploy-agent.ps1 -Force -Platforms windows -LightmanUrl http://localhost:3401
+#   powershell -ExecutionPolicy Bypass -File .\scripts\auto-deploy-agent.ps1 -Force -Platforms windows -MuseumosUrl http://localhost:3401
 #
 # Run from admin/:
-#   powershell -ExecutionPolicy Bypass -File ..\scripts\auto-deploy-agent.ps1 -Force -Platforms windows -LightmanUrl http://localhost:3401
+#   powershell -ExecutionPolicy Bypass -File ..\scripts\auto-deploy-agent.ps1 -Force -Platforms windows -MuseumosUrl http://localhost:3401
 
 param(
-    [string]$LightmanDir = "",
-    [string]$LightmanUrl = "",
+    [string]$MuseumosDir = "",
+    [string]$MuseumosUrl = "",
     [string]$AdminEmail = "",
     [string]$AdminPassword = "",
     [string]$Platforms = "",
@@ -83,19 +83,19 @@ function Invoke-Tool {
     }
 }
 
-if (-not $LightmanDir) {
-    $LightmanDir = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
+if (-not $MuseumosDir) {
+    $MuseumosDir = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 }
 
-$LightmanUrl = Resolve-Default $LightmanUrl "LIGHTMAN_URL" "http://localhost:3401"
+$MuseumosUrl = Resolve-Default $MuseumosUrl "MUSEUMOS_URL" "http://localhost:3401"
 $AdminEmail = Resolve-Default $AdminEmail "ADMIN_EMAIL" "admin@museumos.local"
 $AdminPassword = Resolve-Default $AdminPassword "ADMIN_PASSWORD" "admin123"
 $Platforms = Resolve-Default $Platforms "PLATFORMS" "windows"
 $forceDeploy = $Force.IsPresent -or ([Environment]::GetEnvironmentVariable("FORCE_DEPLOY") -eq "1")
 
-$AgentDir = Join-Path $LightmanDir "agent"
-$DisplayDir = Join-Path $LightmanDir "display"
-$DeployStateFile = Join-Path $LightmanDir ".agent-deploy-hash"
+$AgentDir = Join-Path $MuseumosDir "agent"
+$DisplayDir = Join-Path $MuseumosDir "display"
+$DeployStateFile = Join-Path $MuseumosDir ".agent-deploy-hash"
 
 $git = Resolve-OptionalTool @("git.exe", "git")
 $node = Resolve-Tool @("node.exe", "node")
@@ -103,7 +103,7 @@ $npm = Resolve-Tool @("npm.cmd", "npm")
 $tar = Resolve-Tool @("tar.exe", "tar")
 $curl = Resolve-Tool @("curl.exe")
 
-Set-Location $LightmanDir
+Set-Location $MuseumosDir
 
 if ($Pull -and $git -and -not $PullBranch) {
     try {
@@ -119,7 +119,7 @@ if ($Pull -and -not $SkipPull -and $git) {
     $pull = Start-Process `
         -FilePath $git `
         -ArgumentList @("pull", "--ff-only", "origin", $PullBranch) `
-        -WorkingDirectory $LightmanDir `
+        -WorkingDirectory $MuseumosDir `
         -NoNewWindow `
         -Wait `
         -PassThru
@@ -195,7 +195,7 @@ try {
     }
 
     $safeVersion = $deployVersion -replace '[^a-zA-Z0-9._+-]', '_'
-    $tarball = Join-Path $env:TEMP "lightman-agent-$safeVersion.tar.gz"
+    $tarball = Join-Path $env:TEMP "museumos-agent-$safeVersion.tar.gz"
     Remove-Item -LiteralPath $tarball -Force -ErrorAction SilentlyContinue
 
     Write-Log "Creating tarball..."
@@ -218,15 +218,15 @@ try {
 $tarballSizeKb = [Math]::Round((Get-Item $tarball).Length / 1KB)
 Write-Log "Tarball created: $tarball (${tarballSizeKb}KB)"
 
-Write-Log "Logging in to $LightmanUrl..."
+Write-Log "Logging in to $MuseumosUrl..."
 $loginBody = @{
     email = $AdminEmail
     password = $AdminPassword
 } | ConvertTo-Json -Compress
-$login = Invoke-RestMethod "$LightmanUrl/api/auth/login" -Method Post -ContentType "application/json" -Body $loginBody -TimeoutSec 30
+$login = Invoke-RestMethod "$MuseumosUrl/api/auth/login" -Method Post -ContentType "application/json" -Body $loginBody -TimeoutSec 30
 $token = $login.data.token
 if (-not $token) {
-    throw "Could not get admin token from $LightmanUrl"
+    throw "Could not get admin token from $MuseumosUrl"
 }
 
 $uploadOk = $true
@@ -234,7 +234,7 @@ $platformList = $Platforms.Split(",") | ForEach-Object { $_.Trim() } | Where-Obj
 
 foreach ($platform in $platformList) {
     Write-Log "Uploading for platform: $platform..."
-    $resultText = & $curl -sf "$LightmanUrl/api/agent/upload" `
+    $resultText = & $curl -sf "$MuseumosUrl/api/agent/upload" `
         -H "Authorization: Bearer $token" `
         -F "file=@$tarball" `
         -F "version=$deployVersion" `

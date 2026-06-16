@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'lightman-server',
+      name: 'museumos-server',
       script: './dist/index.js',
       cwd: __dirname,
       instances: 1,

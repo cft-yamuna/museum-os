@@ -8,12 +8,12 @@ if [ $# -eq 0 ]; then
   echo "Usage: $0 <backup_file.sql.gz>"
   echo ""
   echo "Available backups:"
-  ls -lh ./backups/lightman_*.sql.gz 2>/dev/null || echo "  No backups found"
+  ls -lh ./backups/museumos_*.sql.gz 2>/dev/null || echo "  No backups found"
   exit 1
 fi
 
 BACKUP_FILE="$1"
-DB_URL="${DATABASE_URL:-postgresql://lightman:lightman@localhost:5432/lightman}"
+DB_URL="${DATABASE_URL:-postgresql://museumos:museumos@localhost:5432/museumos}"
 
 if [ ! -f "$BACKUP_FILE" ]; then
   echo "Error: Backup file not found: $BACKUP_FILE"

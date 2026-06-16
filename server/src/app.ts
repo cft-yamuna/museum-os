@@ -36,6 +36,7 @@ import dbTransferRoutes from './routes/dbTransfer.js';
 import receptionRoutes from './routes/reception.js';
 import powerRoutes from './routes/power.js';
 import analyticsRoutes from './routes/analytics.js';
+import proofOfPlayRoutes from './routes/proofOfPlay.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -58,7 +59,7 @@ function getServedUninstallScript(): { script: string; scriptPath: string } {
 function getServedPowerScript(serverUrl: string): { script: string; scriptPath: string } {
   const scriptPath = path.resolve(__dirname, '../../agent/scripts/setup-device-power-only.ps1');
   let script = readFileSync(scriptPath, 'utf-8');
-  script = script.replace(/__LIGHTMAN_SERVER_URL__/g, serverUrl);
+  script = script.replace(/__MUSEUMOS_SERVER_URL__/g, serverUrl);
   return { script, scriptPath };
 }
 
@@ -86,11 +87,11 @@ $Server = '${serverUrl}'
 $Slug = '${slug ?? ''}'
 $MainSetupUrl = '${serverUrl}/setup-main.ps1${slugQuery}'
 $SshSetupUrl = '${serverUrl}/ssh.ps1'
-$TempDir = Join-Path $env:TEMP ('lightman-bootstrap-' + [guid]::NewGuid().ToString('N'))
+$TempDir = Join-Path $env:TEMP ('museumos-bootstrap-' + [guid]::NewGuid().ToString('N'))
 $MainSetupPath = Join-Path $TempDir 'setup-main.ps1'
 $SshSetupPath = Join-Path $TempDir 'ssh.ps1'
-$ServiceName = 'LightmanAgent'
-$SetupCompleteFile = 'C:\\Program Files\\Lightman\\Agent\\.lightman-setup-complete'
+$ServiceName = 'MuseumosAgent'
+$SetupCompleteFile = 'C:\\Program Files\\Museumos\\Agent\\.museumos-setup-complete'
 
 function Invoke-DownloadedScript {
     param(
@@ -208,7 +209,7 @@ function getUninstallBootstrapScript(
 
   return `$ErrorActionPreference = 'Stop'
 $UninstallUrl = '${serverUrl}/uninstall-main.ps1'
-$TempDir = Join-Path $env:TEMP ('lightman-uninstall-' + [guid]::NewGuid().ToString('N'))
+$TempDir = Join-Path $env:TEMP ('museumos-uninstall-' + [guid]::NewGuid().ToString('N'))
 $UninstallPath = Join-Path $TempDir 'uninstall-main.ps1'
 $Parameters = @{
 ${parameterEntries.join('\n')}
@@ -264,7 +265,7 @@ function getPowerBootstrapScript(
 
   return `$ErrorActionPreference = 'Stop'
 $PowerUrl = '${serverUrl}/power-main.ps1'
-$TempDir = Join-Path $env:TEMP ('lightman-power-' + [guid]::NewGuid().ToString('N'))
+$TempDir = Join-Path $env:TEMP ('museumos-power-' + [guid]::NewGuid().ToString('N'))
 $PowerPath = Join-Path $TempDir 'power-main.ps1'
 $Parameters = @{
 ${parameterEntries.join('\n')}
@@ -355,6 +356,7 @@ export function createApp(): express.Application {
   app.use('/api/schedules', schedulesRoutes);
   app.use('/api/power', powerRoutes);
   app.use('/api/analytics', analyticsRoutes);
+  app.use('/api/proof-of-play', proofOfPlayRoutes);
   app.use('/api/alerts', alertsRoutes);
   app.use('/api/audit-logs', auditLogsRoutes);
   app.use('/api/lighting', lightingRoutes);
@@ -907,7 +909,7 @@ function Ensure-SshdAdminKeyConfig {
 }
 
 function Install-ServerAuthorizedKeys {
-    $tmpKeys = Join-Path $env:TEMP 'lightman-authorized_keys'
+    $tmpKeys = Join-Path $env:TEMP 'museumos-authorized_keys'
     $destDir = 'C:\\ProgramData\\ssh'
     $destKeys = Join-Path $destDir 'administrators_authorized_keys'
     Remove-Item $tmpKeys -Force -ErrorAction SilentlyContinue
@@ -937,7 +939,7 @@ function Install-OpenSshFromZip {
     $zipPath = Join-Path $env:TEMP 'OpenSSH-Win64.zip'
     $extractRoot = Join-Path $env:TEMP ('OpenSSH-Win64-' + [guid]::NewGuid().ToString('N'))
     $targetDir = 'C:\\Program Files\\OpenSSH-Win64'
-    $localZip = 'C:\\Program Files\\Lightman\\Agent\\scripts\\OpenSSH-Win64.zip'
+    $localZip = 'C:\\Program Files\\Museumos\\Agent\\scripts\\OpenSSH-Win64.zip'
 
     Remove-Item $zipPath -Force -ErrorAction SilentlyContinue
     Remove-Item $extractRoot -Recurse -Force -ErrorAction SilentlyContinue
@@ -1091,7 +1093,7 @@ if ($s -and $s.Status -eq 'Running') {
   // --- Fix agent config: set shellMode=true, auto-login, restart service ---
   app.get('/fix.ps1', (_req: express.Request, res: express.Response) => {
     res.set('Content-Type', 'text/plain; charset=utf-8');
-    res.send(`$p = "C:\\Program Files\\Lightman\\Agent\\agent.config.json"
+    res.send(`$p = "C:\\Program Files\\Museumos\\Agent\\agent.config.json"
 $c = Get-Content $p -Raw | ConvertFrom-Json
 $c.kiosk | Add-Member -NotePropertyName shellMode -NotePropertyValue $true -Force
 $json = $c | ConvertTo-Json -Depth 5
@@ -1117,8 +1119,8 @@ Set-ItemProperty -Path $winlogon -Name 'DefaultDomainName' -Value $env:COMPUTERN
 Set-ItemProperty -Path $winlogon -Name 'DefaultPassword' -Value $KioskPassword
 Write-Host "Auto-login configured for $KioskUsername" -ForegroundColor Green
 taskkill /im chrome.exe /f 2>$null | Out-Null
-net stop LightmanAgent 2>$null | Out-Null
-net start LightmanAgent
+net stop MuseumosAgent 2>$null | Out-Null
+net start MuseumosAgent
 `);
   });
 

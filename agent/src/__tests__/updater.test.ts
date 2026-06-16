@@ -16,6 +16,7 @@ const mockStatSync = vi.fn(() => ({ mtimeMs: Date.now() }));
 let realWriteFileSync: typeof import('fs').writeFileSync;
 let realMkdirSync: typeof import('fs').mkdirSync;
 let realRmSync: typeof import('fs').rmSync;
+let realExistsSync: typeof import('fs').existsSync;
 
 vi.mock('fs', async () => {
   const actual = await vi.importActual<typeof import('fs')>('fs');
@@ -23,6 +24,7 @@ vi.mock('fs', async () => {
   realWriteFileSync = actual.writeFileSync;
   realMkdirSync = actual.mkdirSync;
   realRmSync = actual.rmSync;
+  realExistsSync = actual.existsSync;
   return {
     ...actual,
     existsSync: (...args: unknown[]) => mockExistsSync(...args as [string]),
@@ -97,7 +99,7 @@ describe('Updater', () => {
   });
 
   it('getStatus() returns current status with spread (immutability)', () => {
-    const updater = new Updater(logger as never, '/opt/lightman');
+    const updater = new Updater(logger as never, '/opt/museumos');
     const status1 = updater.getStatus();
     const status2 = updater.getStatus();
 
@@ -107,7 +109,7 @@ describe('Updater', () => {
   });
 
   it('verify() accepts correct SHA256 checksum', async () => {
-    const updater = new Updater(logger as never, '/opt/lightman');
+    const updater = new Updater(logger as never, '/opt/museumos');
 
     // Create a real temp file
     const content = 'test update content for checksum verification';
@@ -123,7 +125,7 @@ describe('Updater', () => {
   });
 
   it('verify() rejects incorrect checksum', async () => {
-    const updater = new Updater(logger as never, '/opt/lightman');
+    const updater = new Updater(logger as never, '/opt/museumos');
 
     // Create a real temp file
     const content = 'test update content';
@@ -146,7 +148,7 @@ describe('Updater', () => {
 
     mockExistsSync.mockReturnValue(false);
 
-    const updater = new Updater(logger as never, '/opt/lightman');
+    const updater = new Updater(logger as never, '/opt/museumos');
 
     await expect(updater.install('/tmp/bad.tar.gz', '2.0.0')).rejects.toThrow('Failed to extract tarball');
     expect(updater.getStatus()).toMatchObject({ phase: 'error', error: 'Extraction failed' });
@@ -155,7 +157,7 @@ describe('Updater', () => {
   it('rollback() throws when no backup exists', async () => {
     mockExistsSync.mockReturnValue(false);
 
-    const updater = new Updater(logger as never, '/opt/lightman');
+    const updater = new Updater(logger as never, '/opt/museumos');
 
     await expect(updater.rollback()).rejects.toThrow('No backup version available for rollback');
   });
@@ -176,7 +178,7 @@ describe('Updater', () => {
       return { mtimeMs: mtime };
     });
 
-    const updater = new Updater(logger as never, '/opt/lightman');
+    const updater = new Updater(logger as never, '/opt/museumos');
     updater.cleanDownloads();
 
     // Should remove the 2 oldest (1000 and 2000), keep 3000, 4000, 5000
@@ -186,7 +188,7 @@ describe('Updater', () => {
   it('cleanDownloads() does nothing when downloads dir does not exist', () => {
     mockExistsSync.mockReturnValue(false);
 
-    const updater = new Updater(logger as never, '/opt/lightman');
+    const updater = new Updater(logger as never, '/opt/museumos');
     updater.cleanDownloads();
 
     expect(mockRmSync).not.toHaveBeenCalled();
@@ -200,9 +202,95 @@ describe('Updater', () => {
     ]);
     mockStatSync.mockReturnValue({ mtimeMs: Date.now() });
 
-    const updater = new Updater(logger as never, '/opt/lightman');
+    const updater = new Updater(logger as never, '/opt/museumos');
     updater.cleanDownloads();
 
     expect(mockRmSync).not.toHaveBeenCalled();
+  });
+});
+
+// ═════════════════════════════════════════════════════════════════════════════
+// Updater crash-loop guard (auto-rollback of a bad update)
+// ═════════════════════════════════════════════════════════════════════════════
+
+describe('Updater crash-loop guard', () => {
+  let logger: ReturnType<typeof createMockLogger>;
+  let Updater: typeof import('../services/updater.js').Updater;
+  let baseDir: string;
+
+  beforeEach(async () => {
+    logger = createMockLogger();
+    Updater = (await import('../services/updater.js')).Updater;
+
+    if (!realExistsSync) {
+      const actual = await vi.importActual<typeof import('fs')>('fs');
+      realExistsSync = actual.existsSync;
+      realMkdirSync = actual.mkdirSync;
+      realRmSync = actual.rmSync;
+    }
+
+    baseDir = join(os.tmpdir(), `updater-guard-${Date.now()}-${Math.floor(Math.random() * 1e6)}`);
+    realMkdirSync(baseDir, { recursive: true });
+
+    // The guard round-trips a real state file, so delegate the mocked fs
+    // primitives it relies on to the real implementations.
+    mockExistsSync.mockReset().mockImplementation((p: string) => realExistsSync(String(p)));
+    mockRmSync
+      .mockReset()
+      .mockImplementation((p: string, opts?: object) => realRmSync(String(p), opts as object));
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    try {
+      realRmSync(baseDir, { recursive: true, force: true });
+    } catch {
+      // ignore
+    }
+  });
+
+  it('registerBootAttempt() reports not-pending when there is no marker', () => {
+    const updater = new Updater(logger as never, baseDir);
+    expect(updater.registerBootAttempt()).toEqual({
+      pending: false,
+      shouldRollback: false,
+      attempts: 0,
+    });
+  });
+
+  it('counts boot attempts and triggers rollback once the budget is exceeded', () => {
+    const updater = new Updater(logger as never, baseDir);
+    updater.markPendingUpdate('2.0.0');
+
+    expect(updater.registerBootAttempt()).toMatchObject({
+      pending: true,
+      shouldRollback: false,
+      version: '2.0.0',
+      attempts: 1,
+    });
+    expect(updater.registerBootAttempt().attempts).toBe(2);
+    expect(updater.registerBootAttempt().attempts).toBe(3);
+    // 4th boot exceeds MAX_BOOT_ATTEMPTS (3) → rollback is due.
+    expect(updater.registerBootAttempt()).toMatchObject({ shouldRollback: true, attempts: 4 });
+  });
+
+  it('confirmUpdate() stops future boots from rolling back', () => {
+    const updater = new Updater(logger as never, baseDir);
+    updater.markPendingUpdate('2.0.0');
+    updater.registerBootAttempt();
+    updater.confirmUpdate();
+
+    expect(updater.registerBootAttempt()).toEqual({
+      pending: false,
+      shouldRollback: false,
+      attempts: 0,
+    });
+  });
+
+  it('clearPendingUpdate() removes the marker', () => {
+    const updater = new Updater(logger as never, baseDir);
+    updater.markPendingUpdate('2.0.0');
+    updater.clearPendingUpdate();
+    expect(updater.registerBootAttempt().pending).toBe(false);
   });
 });

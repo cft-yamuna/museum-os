@@ -2,11 +2,11 @@
 # Runs every 5 minutes via Task Scheduler.
 # Restarts the NSSM service if it's down. Checks Chrome kiosk health.
 
-$LogDir = "C:\ProgramData\Lightman\logs"
+$LogDir = "C:\ProgramData\Museumos\logs"
 $LogFile = Join-Path $LogDir "guardian.log"
-$ServiceName = "LightmanAgent"
-$NssmExe = "C:\ProgramData\Lightman\nssm\nssm.exe"
-$ConfigPath = "C:\Program Files\Lightman\Agent\agent.config.json"
+$ServiceName = "MuseumosAgent"
+$NssmExe = "C:\ProgramData\Museumos\nssm\nssm.exe"
+$ConfigPath = "C:\Program Files\Museumos\Agent\agent.config.json"
 
 function Write-GuardianLog($msg) {
     $ts = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
@@ -42,7 +42,7 @@ try {
     # 1. Check Museum OS service
     $svc = Get-Service -Name $ServiceName -ErrorAction SilentlyContinue
     if (-not $svc) {
-        $svc = Get-Service -DisplayName "LIGHTMAN*" -ErrorAction SilentlyContinue | Select-Object -First 1
+        $svc = Get-Service -DisplayName "MUSEUMOS*" -ErrorAction SilentlyContinue | Select-Object -First 1
     }
 
     if (-not $svc) {
@@ -79,7 +79,7 @@ try {
     $browserProcess = Get-BrowserProcessName
     $browser = Get-Process -Name $browserProcess -ErrorAction SilentlyContinue
     if (-not $browser) {
-        $vbsPath = "C:\Program Files\Lightman\Agent\launch-kiosk.vbs"
+        $vbsPath = "C:\Program Files\Museumos\Agent\launch-kiosk.vbs"
         if (Test-Path $vbsPath) {
             Start-Sleep -Seconds 10
             $browserRecheck = Get-Process -Name $browserProcess -ErrorAction SilentlyContinue

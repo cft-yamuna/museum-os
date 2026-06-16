@@ -13,7 +13,7 @@ import {
 
 const TEST_USER = {
   id: 'a0000000-0000-0000-0000-000000000010',
-  email: 'testuser@lightman.local',
+  email: 'testuser@museumos.local',
   name: 'Test User',
   role: 'operator',
   site_ids: [TEST_SITE_ID],
@@ -75,7 +75,7 @@ describe('Routes: /api/users', () => {
 
   describe('POST /api/users', () => {
     const validBody = {
-      email: 'newuser@lightman.local',
+      email: 'newuser@museumos.local',
       password: 'securepass123',
       name: 'New User',
       role: 'operator',

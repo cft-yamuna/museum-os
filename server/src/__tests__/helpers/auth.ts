@@ -28,7 +28,7 @@ export const SUPER_ADMIN: TestUser = {
 
 export const SITE_ADMIN: TestUser = {
   id: 'a0000000-0000-0000-0000-000000000002',
-  email: 'siteadmin@lightman.local',
+  email: 'siteadmin@museumos.local',
   name: 'Site Admin',
   role: 'site_admin',
   site_ids: ['b0000000-0000-0000-0000-000000000001'],
@@ -36,7 +36,7 @@ export const SITE_ADMIN: TestUser = {
 
 export const CONTENT_MANAGER: TestUser = {
   id: 'a0000000-0000-0000-0000-000000000003',
-  email: 'content@lightman.local',
+  email: 'content@museumos.local',
   name: 'Content Manager',
   role: 'content_manager',
   site_ids: ['b0000000-0000-0000-0000-000000000001'],
@@ -44,7 +44,7 @@ export const CONTENT_MANAGER: TestUser = {
 
 export const OPERATOR: TestUser = {
   id: 'a0000000-0000-0000-0000-000000000004',
-  email: 'operator@lightman.local',
+  email: 'operator@museumos.local',
   name: 'Operator',
   role: 'operator',
   site_ids: ['b0000000-0000-0000-0000-000000000001'],

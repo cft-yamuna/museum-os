@@ -3,6 +3,7 @@ import type { Server } from 'http';
 import { URL } from 'url';
 import { getDb } from '../lib/db.js';
 import { pushToDeviceSubscribers, pushToAdmins } from './adminWs.js';
+import { recordPlayEvent } from './playEvents.js';
 
 // --- Types ---
 interface DisplayClient {
@@ -326,7 +327,62 @@ function handleClientMessage(deviceId: string, msg: WsMessage): void {
           payload: { deviceId, ...msg.payload },
           timestamp: Date.now(),
         });
+        // App-level proof-of-play: the device started showing this app revision.
+        const renderClient = clients.get(deviceId);
+        if (renderClient) {
+          void recordPlayEvent({
+            siteId: renderClient.siteId,
+            deviceId,
+            appId: msg.payload.instanceId as string | undefined,
+            templateType: msg.payload.templateType as string | undefined,
+            source: 'app',
+          });
+        }
       }
+      break;
+    }
+    case 'display:play': {
+      // Item-level proof-of-play emitted by looping templates (slideshow,
+      // builder, fallback) when a specific asset starts showing.
+      const playClient = clients.get(deviceId);
+      if (playClient && msg.payload) {
+        const p = msg.payload;
+        void recordPlayEvent({
+          siteId: playClient.siteId,
+          deviceId,
+          appId: p.appId as string | undefined,
+          templateType: p.templateType as string | undefined,
+          contentId: p.contentId as string | undefined,
+          playlistId: p.playlistId as string | undefined,
+          title: p.title as string | undefined,
+          contentUrl: p.contentUrl as string | undefined,
+          source: (p.source as string | undefined) || 'item',
+          durationSec: p.durationSec as number | undefined,
+        });
+      }
+      break;
+    }
+    case 'display:media-error': {
+      // The display rendered a revision but some visible media failed to load
+      // (404, decode error) or timed out — the screen is blank/degraded.
+      const mediaClient = clients.get(deviceId);
+      if (mediaClient) {
+        raiseMediaAlert(deviceId, mediaClient.siteId, msg.payload || {}).catch(
+          (err: unknown) =>
+            console.error(`[DisplayWS] Media alert error: ${deviceId}`, err)
+        );
+      }
+      break;
+    }
+    case 'display:fallback-active': {
+      // Device switched to fallback content (no app assigned, or assigned media
+      // failed). Forward to admins for live visibility — the persistent content
+      // alert (if any) is already raised by the display:media-error path.
+      pushToDeviceSubscribers(deviceId, {
+        type: 'display:fallback-active',
+        payload: { deviceId, ...(msg.payload || {}) },
+        timestamp: Date.now(),
+      });
       break;
     }
     default:
@@ -334,4 +390,60 @@ function handleClientMessage(deviceId: string, msg: WsMessage): void {
         `[DisplayWS] Unknown message type from ${deviceId}: ${msg.type}`
       );
   }
+}
+
+/**
+ * Raise a persistent alert when a display reports that visible media failed to
+ * load. Deduplicates against any unacknowledged media alert for the same device
+ * in the last 30 minutes so a flapping kiosk doesn't spam the alerts table.
+ */
+async function raiseMediaAlert(
+  deviceId: string,
+  siteId: string,
+  payload: Record<string, unknown>
+): Promise<void> {
+  const db = getDb();
+
+  const recentAlert = await db('alerts')
+    .where({ device_id: deviceId, type: 'content_sync_failed' })
+    .where('is_acknowledged', false)
+    .where('created_at', '>', new Date(Date.now() - 30 * 60_000))
+    .first();
+  if (recentAlert) return;
+
+  const device = await db('devices')
+    .where({ id: deviceId })
+    .first('display_name', 'slug');
+  const name = device?.display_name || device?.slug || deviceId;
+
+  const failed = Number(payload.mediaFailed) || 0;
+  const timedOut = Boolean(payload.mediaTimedOut);
+  const detail = timedOut
+    ? 'media timed out loading'
+    : `${failed} media item(s) failed to load`;
+  const message = `${name}: display content did not render (${detail})`;
+
+  await db('alerts').insert({
+    site_id: siteId,
+    device_id: deviceId,
+    type: 'content_sync_failed',
+    severity: 'high',
+    message,
+  });
+
+  const alertEvent = {
+    type: 'device:alert' as const,
+    payload: {
+      deviceId,
+      type: 'content_sync_failed',
+      severity: 'high',
+      message,
+      ...payload,
+    },
+    timestamp: Date.now(),
+  };
+  pushToAdmins(alertEvent, siteId);
+  pushToDeviceSubscribers(deviceId, alertEvent);
+
+  console.warn(`[DisplayWS] Media alert raised for ${deviceId}: ${detail}`);
 }

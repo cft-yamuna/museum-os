@@ -33,7 +33,7 @@ Full details of every installation: see **Museum-OS-App-Catalog.md**
 ## Project Structure
 
 ```
-lightman-app01/
+museumos-app01/
 ├── server/          Express + PostgreSQL backend (port 3401)
 ├── admin/           React admin dashboard (port 3402)
 ├── display/         React display client — runs on museum devices (port 3403)
@@ -52,7 +52,7 @@ lightman-app01/
 
 ### 1. Database
 ```bash
-createdb lightman
+createdb museumos
 cd server
 cp .env.example .env          # edit DATABASE_URL if needed
 npm install

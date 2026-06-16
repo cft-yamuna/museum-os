@@ -13,7 +13,7 @@ let testPasswordHash: string;
 
 const TEST_USER = {
   id: 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee',
-  email: 'test@lightman.local',
+  email: 'test@museumos.local',
   name: 'Test User',
   role: 'super_admin',
   password_hash: '',
@@ -73,7 +73,7 @@ describe('POST /api/auth/login', () => {
 
     const res = await request(app)
       .post('/api/auth/login')
-      .send({ email: 'nobody@lightman.local', password: 'password123' });
+      .send({ email: 'nobody@museumos.local', password: 'password123' });
     expect(res.status).toBe(401);
   });
 

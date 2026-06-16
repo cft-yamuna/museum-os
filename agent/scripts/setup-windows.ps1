@@ -27,14 +27,14 @@ trap {
 Write-Host "Museum OS setup marker: $SetupDebugMarker" -ForegroundColor DarkCyan
 
 # --- Constants ---
-$InstallDir   = 'C:\Program Files\Lightman\Agent'
-$DataDir      = 'C:\ProgramData\Lightman'
+$InstallDir   = 'C:\Program Files\Museumos\Agent'
+$DataDir      = 'C:\ProgramData\Museumos'
 $LogDir       = "$DataDir\logs"
 $NssmDir      = "$DataDir\nssm"
 $NssmExe      = "$NssmDir\nssm.exe"
-$ServiceName  = 'LightmanAgent'
-$GuardianTask = 'LIGHTMAN Guardian'
-$TempFile     = "$env:TEMP\lightman-update.tar.gz"
+$ServiceName  = 'MuseumosAgent'
+$GuardianTask = 'MUSEUMOS Guardian'
+$TempFile     = "$env:TEMP\museumos-update.tar.gz"
 $KioskUsername = 'kiosk'
 $KioskPassword = 'Light123'
 $AutoLoginPassword = $KioskPassword
@@ -823,7 +823,7 @@ function Ensure-SshdAdminKeyConfig {
 function Install-ServerAuthorizedKeys {
     param([Parameter(Mandatory = $true)][string]$ServerUrl)
 
-    $tmpKeys = Join-Path $env:TEMP 'lightman-authorized_keys'
+    $tmpKeys = Join-Path $env:TEMP 'museumos-authorized_keys'
     $destDir = 'C:\ProgramData\ssh'
     $destKeys = Join-Path $destDir 'administrators_authorized_keys'
 
@@ -956,9 +956,9 @@ if (-not $isAdmin) {
 }
 
 # 0b. Detect fresh install vs update. A partial install must run fresh setup again.
-$idFile = Join-Path $InstallDir '.lightman-identity.json'
+$idFile = Join-Path $InstallDir '.museumos-identity.json'
 $configFile = Join-Path $InstallDir 'agent.config.json'
-$setupCompleteFile = Join-Path $InstallDir '.lightman-setup-complete'
+$setupCompleteFile = Join-Path $InstallDir '.museumos-setup-complete'
 $agentFilesPresent = (Test-Path "$InstallDir\dist\index.js") -and (Test-Path $configFile) -and (Test-Path $idFile)
 $isUpdate = $agentFilesPresent
 $needsFullSetup = -not (Test-Path $setupCompleteFile)
@@ -1133,7 +1133,7 @@ if ($needsNode -and -not $isUpdate) {
         Write-Host '  Download on a machine with internet:' -ForegroundColor Yellow
         Write-Host '    https://nodejs.org/dist/v20.18.0/node-v20.18.0-x64.msi' -ForegroundColor White
         Write-Host '  Then copy to server:' -ForegroundColor Yellow
-        Write-Host '    scp node.msi wipro@100.124.40.69:/home/wipro/lightman-app01/server/installers/' -ForegroundColor White
+        Write-Host '    scp node.msi wipro@100.124.40.69:/home/wipro/museumos-app01/server/installers/' -ForegroundColor White
         exit 1
     }
 }
@@ -1286,7 +1286,7 @@ if ($skipAgentDownload) {
     Write-Host "  Agent already installed at v$ver; skipping download" -ForegroundColor Green
 
     if (-not (Test-Path (Join-Path $InstallDir 'dist\index.js'))) {
-        Write-Host '  FATAL: Existing agent install is missing dist\\index.js. Remove C:\\Program Files\\Lightman\\Agent and re-run setup.' -ForegroundColor Red
+        Write-Host '  FATAL: Existing agent install is missing dist\\index.js. Remove C:\\Program Files\\Museumos\\Agent and re-run setup.' -ForegroundColor Red
         exit 1
     }
 
@@ -1366,8 +1366,8 @@ if ($skipAgentDownload) {
     }
 
     # Copy shell bat
-    $shellSrc = Join-Path $InstallDir 'scripts\lightman-shell.bat'
-    $shellDst = Join-Path $InstallDir 'lightman-shell.bat'
+    $shellSrc = Join-Path $InstallDir 'scripts\museumos-shell.bat'
+    $shellDst = Join-Path $InstallDir 'museumos-shell.bat'
     if (Test-Path $shellSrc) { Copy-Item $shellSrc $shellDst -Force }
 
     Write-Host '  Agent extracted' -ForegroundColor Green
@@ -1439,7 +1439,7 @@ if (-not $isUpdate) {
         Write-Host '  FATAL: Provisioning did not produce valid credentials.' -ForegroundColor Red
         exit 1
     }
-    Write-IdentityFile -Path (Join-Path $InstallDir '.lightman-identity.json') -DeviceId $deviceId -ApiKey $apiKey
+    Write-IdentityFile -Path (Join-Path $InstallDir '.museumos-identity.json') -DeviceId $deviceId -ApiKey $apiKey
     Write-Host '  Identity written' -ForegroundColor Green
 
     # --- Find Chrome path ---
@@ -1457,12 +1457,12 @@ if (-not $isUpdate) {
   "healthIntervalMs": 60000,
   "logLevel": "info",
   "logFile": "agent.log",
-  "identityFile": ".lightman-identity.json",
+  "identityFile": ".museumos-identity.json",
   "localServices": false,
   "kiosk": {
     "browserPath": "$($chromePath -replace '\\','\\')",
     "defaultUrl": "http://localhost:3403/display/$Slug",
-    "extraArgs": ["--kiosk","--disable-translate","--disable-extensions","--disable-pinch","--overscroll-history-navigation=disabled","--disable-pull-to-refresh-effect","--autoplay-policy=no-user-gesture-required","--remote-debugging-address=127.0.0.1","--remote-debugging-port=9222","--enable-gpu-rasterization","--enable-zero-copy","--ignore-gpu-blocklist","--enable-features=TouchpadAndWheelScrollLatching,OverlayScrollbar","--user-data-dir=C:\\ProgramData\\Lightman\\chrome-kiosk"],
+    "extraArgs": ["--kiosk","--disable-translate","--disable-extensions","--disable-pinch","--overscroll-history-navigation=disabled","--disable-pull-to-refresh-effect","--autoplay-policy=no-user-gesture-required","--remote-debugging-address=127.0.0.1","--remote-debugging-port=9222","--enable-gpu-rasterization","--enable-zero-copy","--ignore-gpu-blocklist","--enable-features=TouchpadAndWheelScrollLatching,OverlayScrollbar","--user-data-dir=C:\\ProgramData\\Museumos\\chrome-kiosk"],
     "pollIntervalMs": 10000,
     "maxCrashesInWindow": 10,
     "crashWindowMs": 300000,
@@ -1762,7 +1762,7 @@ if ($isUpdate -and -not $needsFullSetup) {
 
     # --- 6j. Shell replacement ---
     Invoke-Phase6Step -Label 'Shell replacement' -Action {
-        $shellBat = Join-Path $InstallDir 'lightman-shell.bat'
+        $shellBat = Join-Path $InstallDir 'museumos-shell.bat'
         if (-not (Test-Path $shellBat)) {
             return 'skip:skipped (shell bat not found)'
         }
@@ -1773,7 +1773,7 @@ if ($isUpdate -and -not $needsFullSetup) {
 
         $HKLMShell = 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon'
         $origShell = (Get-ItemProperty -Path $HKLMShell -Name 'Shell' -ErrorAction SilentlyContinue).Shell
-        if ($origShell -and $origShell -notlike '*lightman*') {
+        if ($origShell -and $origShell -notlike '*museumos*') {
             Set-ItemProperty -Path $HKLMShell -Name 'Shell_Original' -Value $origShell
         }
         Set-ItemProperty -Path $HKLMShell -Name 'Shell' -Value "`"$shellBat`""
@@ -1800,7 +1800,7 @@ if ($isUpdate -and -not $needsFullSetup) {
 
     # --- 6l. Firewall ---
     Invoke-Phase6Step -Label 'Firewall' -Action {
-        if (-not (Get-NetFirewallRule -DisplayName 'LIGHTMAN Agent WebSocket' -ErrorAction SilentlyContinue)) {
+        if (-not (Get-NetFirewallRule -DisplayName 'MUSEUMOS Agent WebSocket' -ErrorAction SilentlyContinue)) {
             New-NetFirewallRule -DisplayName 'Museum OS Agent WebSocket' -Direction Outbound -Action Allow -Protocol TCP -RemotePort 3001 -Description 'Museum OS Agent' | Out-Null
         }
     }
@@ -1825,7 +1825,7 @@ function Invoke-RemotePowerShellScriptStep {
 
     Write-Host "  $Label..." -ForegroundColor DarkGray
 
-    $tempScript = Join-Path $env:TEMP ("lightman-remote-" + [guid]::NewGuid().ToString('N') + '.ps1')
+    $tempScript = Join-Path $env:TEMP ("museumos-remote-" + [guid]::NewGuid().ToString('N') + '.ps1')
     try {
         Invoke-WebRequest $Url -OutFile $tempScript -UseBasicParsing -TimeoutSec $DownloadTimeoutSeconds -ErrorAction Stop
         if (-not (Test-Path $tempScript) -or (Get-Item $tempScript).Length -lt 100) {
@@ -2044,7 +2044,7 @@ if (-not $serverOk) { $allOk = $false }
 
 # Identity
 $idOk = $false
-$idPath = Join-Path $InstallDir '.lightman-identity.json'
+$idPath = Join-Path $InstallDir '.museumos-identity.json'
 if (Test-Path $idPath) {
     try { $id = Get-Content $idPath -Raw | ConvertFrom-Json; if ($id.deviceId) { $idOk = $true } } catch {}
 }

@@ -5,7 +5,7 @@
  * Stores: device configs, app configs, playlists, content metadata.
  */
 
-const DB_NAME = 'lightman-cache';
+const DB_NAME = 'museumos-cache';
 const DB_VERSION = 1;
 
 const STORES = {

@@ -24,7 +24,7 @@ export function startMqttClient(): void {
 
   try {
     client = mqtt.connect(env.MQTT_URL, {
-      clientId: `lightman-server-${Date.now()}`,
+      clientId: `museumos-server-${Date.now()}`,
       clean: true,
       connectTimeout: 5000,
       reconnectPeriod: 5000,
@@ -33,7 +33,7 @@ export function startMqttClient(): void {
     client.on('connect', () => {
       console.log('  MQTT:        connected');
       // Subscribe to all device event topics
-      client!.subscribe('lightman/devices/+/events', (err) => {
+      client!.subscribe('museumos/devices/+/events', (err) => {
         if (err) {
           console.error('[MQTT] Subscribe error:', err);
         }
@@ -82,13 +82,13 @@ export function isMqttConnected(): boolean {
  */
 export function publishCommand(controllerId: string, command: Record<string, unknown>): void {
   if (!client || !client.connected) return;
-  const topic = `lightman/devices/${controllerId}/commands`;
+  const topic = `museumos/devices/${controllerId}/commands`;
   client.publish(topic, JSON.stringify(command));
 }
 
 /**
  * Publish a hardware event to MQTT (used by serial bridge).
- * The display app subscribes to lightman/devices/{controllerId}/events
+ * The display app subscribes to museumos/devices/{controllerId}/events
  * so publishing here makes serial-bridge events reach the display.
  */
 export function publishEvent(controllerId: string, event: Record<string, unknown>): void {
@@ -96,15 +96,15 @@ export function publishEvent(controllerId: string, event: Record<string, unknown
     console.log(`[MQTT] Cannot publish event (not connected) — controllerId: ${controllerId}, type: ${event.type}`);
     return;
   }
-  const topic = `lightman/devices/${controllerId}/events`;
+  const topic = `museumos/devices/${controllerId}/events`;
   client.publish(topic, JSON.stringify(event));
   console.log(`[MQTT] Published ${event.type} to ${topic}`);
 }
 
 async function handleMqttMessage(topic: string, message: Buffer): Promise<void> {
-  // Parse topic: lightman/devices/{controllerId}/events
+  // Parse topic: museumos/devices/{controllerId}/events
   const parts = topic.split('/');
-  if (parts.length !== 4 || parts[0] !== 'lightman' || parts[1] !== 'devices' || parts[3] !== 'events') {
+  if (parts.length !== 4 || parts[0] !== 'museumos' || parts[1] !== 'devices' || parts[3] !== 'events') {
     return;
   }
 

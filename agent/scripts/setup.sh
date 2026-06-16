@@ -4,7 +4,7 @@
 #
 # Usage:
 #   sudo bash setup.sh --slug f-av01 --server http://192.168.10.100:3401
-#   sudo bash setup.sh --slug f-av01 --server http://192.168.10.100:3401 --timezone Asia/Kolkata --dir /opt/lightman/agent
+#   sudo bash setup.sh --slug f-av01 --server http://192.168.10.100:3401 --timezone Asia/Kolkata --dir /opt/museumos/agent
 #
 # This script MUST be run once on every new device installation.
 # It clears any cached identity so the device provisions fresh.
@@ -18,7 +18,7 @@ AGENT_DIR="$(dirname "$SCRIPT_DIR")"
 SLUG=""
 SERVER=""
 TIMEZONE="Asia/Kolkata"
-INSTALL_DIR="/opt/lightman/agent"
+INSTALL_DIR="/opt/museumos/agent"
 
 # ── Parse arguments ──
 while [[ $# -gt 0 ]]; do
@@ -56,10 +56,10 @@ echo "  Timezone:    $TIMEZONE"
 echo ""
 
 # ── 1. Clear cached identity (CRITICAL — prevents old device credentials leaking) ──
-IDENTITY_FILE="$INSTALL_DIR/.lightman-identity.json"
+IDENTITY_FILE="$INSTALL_DIR/.museumos-identity.json"
 if [[ -f "$IDENTITY_FILE" ]]; then
     rm -f "$IDENTITY_FILE"
-    echo "[OK] Cleared old identity cache (.lightman-identity.json)"
+    echo "[OK] Cleared old identity cache (.museumos-identity.json)"
 else
     echo "[OK] No existing identity cache found (clean install)"
 fi
@@ -78,7 +78,7 @@ elif command -v chromium-browser &>/dev/null; then
 elif command -v google-chrome &>/dev/null; then
     BROWSER_PATH="google-chrome"
 fi
-CHROME_DATA_DIR="/opt/lightman/chrome-kiosk"
+CHROME_DATA_DIR="/opt/museumos/chrome-kiosk"
 
 # ── 4. Find template ──
 TEMPLATE="$AGENT_DIR/agent.config.template.json"

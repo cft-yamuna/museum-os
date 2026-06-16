@@ -5,7 +5,7 @@ dotenv.config();
 
 const config: Knex.Config = {
   client: 'pg',
-  connection: process.env.DATABASE_URL || 'postgresql://lightman:lightman@localhost:5432/lightman',
+  connection: process.env.DATABASE_URL || 'postgresql://museumos:museumos@localhost:5432/museumos',
   pool: {
     min: 2,
     max: 10,

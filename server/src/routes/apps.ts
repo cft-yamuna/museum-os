@@ -35,6 +35,8 @@ const TEMPLATE_TYPES = [
   'custom06-reception-program',
   'custom07-osc',
   'custom08-museum-kiosk',
+  // Visual builder (data-driven, config-only)
+  'custom-builder',
 ] as const;
 
 const createAppSchema = z.object({

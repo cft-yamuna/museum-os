@@ -278,6 +278,12 @@ export interface DeviceInfo {
   orientation?: 'landscape' | 'portrait';
 }
 
+export interface FallbackContent {
+  playlistId: string;
+  name: string;
+  items: Array<{ id: string; type: string; url: string; duration?: number }>;
+}
+
 export interface DeviceConfig {
   device: DeviceInfo;
   assignedApp?: {
@@ -289,6 +295,9 @@ export interface DeviceConfig {
     url: string;
     config: AnyAppConfig;
   } | null;
+  // What to show when no app is assigned or the assigned app's media fails to
+  // load — resolved server-side (device override → site default).
+  fallback?: FallbackContent | null;
 }
 
 // ==========================================
@@ -357,6 +366,93 @@ export interface ReceptionTimelineItem {
   color?: string;
 }
 
+// ==========================================
+// CUSTOM BUILDER — data-driven visual layout (no hardware I/O)
+// ==========================================
+export interface BuilderTextElement {
+  type: 'text';
+  text: string;
+  fontSize?: number;        // px at the design (1080p) scale
+  fontFamily?: string;
+  fontWeight?: number;
+  color?: string;
+  align?: 'left' | 'center' | 'right';
+  valign?: 'top' | 'middle' | 'bottom';
+  background?: string;
+  lineHeight?: number;
+  padding?: number;
+}
+export interface BuilderImageElement {
+  type: 'image';
+  url: string;
+  fit?: 'cover' | 'contain';
+}
+export interface BuilderVideoElement {
+  type: 'video';
+  url: string;
+  fit?: 'cover' | 'contain';
+  muted?: boolean;
+  loop?: boolean;
+}
+export interface BuilderSlideshowElement {
+  type: 'slideshow';
+  items: Array<{ url: string; type?: 'image' | 'video'; duration?: number }>;
+  fit?: 'cover' | 'contain';
+  defaultDuration?: number;  // seconds per image
+}
+export interface BuilderClockElement {
+  type: 'clock';
+  format?: '12h' | '24h';
+  showDate?: boolean;
+  showSeconds?: boolean;
+  fontSize?: number;
+  color?: string;
+  fontFamily?: string;
+  align?: 'left' | 'center' | 'right';
+}
+export interface BuilderWebElement {
+  type: 'web';
+  url: string;
+}
+export interface BuilderShapeElement {
+  type: 'shape';
+  color?: string;
+  radius?: number;
+}
+export type BuilderElement =
+  | BuilderTextElement
+  | BuilderImageElement
+  | BuilderVideoElement
+  | BuilderSlideshowElement
+  | BuilderClockElement
+  | BuilderWebElement
+  | BuilderShapeElement;
+
+export interface BuilderRegion {
+  id: string;
+  // Position/size as percentages of the screen (0-100) so layouts scale to any
+  // resolution/orientation.
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  zIndex?: number;
+  element: BuilderElement;
+}
+
+export interface BuilderBackground {
+  color?: string;
+  gradient?: string;
+  imageUrl?: string;
+  fit?: 'cover' | 'contain';
+}
+
+export interface BuilderConfig extends AppConfig {
+  templateType: 'custom-builder';
+  background?: BuilderBackground;
+  regions: BuilderRegion[];
+}
+
 export type AnyAppConfig =
   | VideoLoopConfig
   | SlideshowConfig
@@ -368,7 +464,8 @@ export type AnyAppConfig =
   | MediaExplorerConfig
   | ProximityConfig
   | MultiScreenConfig
-  | ReceptionProgramConfig;
+  | ReceptionProgramConfig
+  | BuilderConfig;
 
 // ==========================================
 // WebSocket Event Types

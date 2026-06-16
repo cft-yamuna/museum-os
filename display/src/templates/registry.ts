@@ -29,6 +29,12 @@ import { OscTriggerTemplate } from './custom/custom07-osc';
 import { MuseumKioskTemplate } from './custom/custom08-museum-kiosk';
 
 // ==========================================
+// Template Imports — Visual Builder (data-driven)
+// ==========================================
+
+import { BuilderTemplate } from './custom-builder';
+
+// ==========================================
 // Template Registry
 // ==========================================
 
@@ -51,6 +57,8 @@ export const TEMPLATE_REGISTRY: Record<string, ComponentType<any>> = {
   'custom06-reception-program': ReceptionProgramTemplate,
   'custom07-osc': OscTriggerTemplate,
   'custom08-museum-kiosk': MuseumKioskTemplate,
+  // Visual builder (data-driven, config-only)
+  'custom-builder': BuilderTemplate,
 };
 
 // ==========================================

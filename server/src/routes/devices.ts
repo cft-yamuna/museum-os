@@ -3,6 +3,7 @@ import { Router, Request, Response } from 'express';
 import crypto from 'node:crypto';
 import { z } from 'zod';
 import { getDb } from '../lib/db.js';
+import { assemblePlaylist } from '../lib/playlistAssembly.js';
 import { NotFoundError, ForbiddenError, ConflictError } from '../lib/errors.js';
 import { sendSuccess, sendCreated, sendError } from '../lib/response.js';
 import { validateBody, validateQuery } from '../middleware/validate.js';
@@ -776,6 +777,40 @@ router.get('/:id/config', authDevice, async (req, res, next) => {
       };
     }
 
+    // Resolve a fallback playlist (device override → site default) so the
+    // display has something to show instead of a blank screen when no app is
+    // assigned or the assigned app's media fails to load. Always included so
+    // the display can switch to it on a media failure, not just a missing app.
+    let fallback: {
+      playlistId: string;
+      name: string;
+      items: Array<{ id: string; type: string; url: string; duration: number }>;
+    } | null = null;
+    let fallbackPlaylistId =
+      typeof config.fallbackPlaylistId === 'string' ? config.fallbackPlaylistId : null;
+    if (!fallbackPlaylistId) {
+      const site = await db('sites').where({ id: device.site_id }).first('config');
+      const siteConfig = (site?.config || {}) as Record<string, unknown>;
+      if (typeof siteConfig.fallbackPlaylistId === 'string') {
+        fallbackPlaylistId = siteConfig.fallbackPlaylistId;
+      }
+    }
+    if (fallbackPlaylistId) {
+      const assembled = await assemblePlaylist(db, fallbackPlaylistId);
+      if (assembled && assembled.items.length > 0) {
+        fallback = {
+          playlistId: assembled.id,
+          name: assembled.name,
+          items: assembled.items.map((it) => ({
+            id: it.id,
+            type: it.content.type,
+            url: it.url,
+            duration: it.duration,
+          })),
+        };
+      }
+    }
+
     const payload = {
       device: {
         id: device.id,
@@ -788,6 +823,7 @@ router.get('/:id/config', authDevice, async (req, res, next) => {
         orientation: config.orientation || 'landscape',
       },
       assignedApp,
+      fallback,
     };
 
     sendSuccess(res, payload);

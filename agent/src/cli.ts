@@ -3,7 +3,7 @@
  * Museum OS Agent CLI
  *
  * Usage:
- *   npm install -g lightman-agent
+ *   npm install -g museumos-agent
  *   museum-os-agent install --slug F-AV01 --server http://192.168.1.54:3401
  *   museum-os-agent install --slug F-AV01 --server http://... --shell-replace
  *   museum-os-agent start
@@ -130,28 +130,28 @@ function cmdInstall(args: Record<string, string | boolean>): void {
 function cmdStart(): void {
   if (IS_WINDOWS) {
     console.log('Starting Museum OS agent service...');
-    run('net start LightmanAgent');
+    run('net start MuseumosAgent');
   } else {
     console.log('Starting Museum OS agent service...');
-    run('sudo systemctl start lightman-agent');
+    run('sudo systemctl start museumos-agent');
   }
 }
 
 function cmdStop(): void {
   if (IS_WINDOWS) {
     console.log('Stopping Museum OS agent service...');
-    run('net stop LightmanAgent');
+    run('net stop MuseumosAgent');
   } else {
     console.log('Stopping Museum OS agent service...');
-    run('sudo systemctl stop lightman-agent');
+    run('sudo systemctl stop museumos-agent');
   }
 }
 
 function cmdStatus(): void {
   if (IS_WINDOWS) {
-    run('sc query LightmanAgent');
+    run('sc query MuseumosAgent');
   } else {
-    run('sudo systemctl status lightman-agent --no-pager');
+    run('sudo systemctl status museumos-agent --no-pager');
   }
 }
 
@@ -177,7 +177,7 @@ function cmdUninstall(): void {
 
 function cmdUpdate(): void {
   console.log('Updating Museum OS agent package to latest...');
-  run('npm install -g lightman-agent@latest');
+  run('npm install -g museumos-agent@latest');
   console.log('Update complete. Restart the service to apply:');
   console.log('  museum-os-agent stop && museum-os-agent start');
 }

@@ -22,6 +22,7 @@ import {
   Activity,
   ChevronRight,
   Database,
+  Film,
 } from 'lucide-react';
 import { api } from '../lib/api';
 import { useSiteStore } from '../stores/site';
@@ -310,6 +311,94 @@ function IntegrationForm({ site }: { site: Site }) {
   );
 }
 
+// -- Fallback Content Form --------------------------------------------------
+
+interface PlaylistSummary {
+  id: string;
+  name: string;
+  item_count?: number;
+}
+
+function FallbackContentForm({ site }: { site: Site }) {
+  const addToast = useToastStore((s) => s.addToast);
+  const queryClient = useQueryClient();
+
+  const { data: playlists = [], isLoading } = useQuery({
+    queryKey: ['playlists', site.id],
+    queryFn: () => api.get<PlaylistSummary[]>(`/playlists?site_id=${site.id}`),
+  });
+
+  const rawFallback = site.config?.fallbackPlaylistId;
+  const currentFallback = typeof rawFallback === 'string' ? rawFallback : '';
+  const [selected, setSelected] = useState(currentFallback);
+
+  useEffect(() => {
+    // Resync when the active site (and thus its config) changes.
+    setSelected(currentFallback);
+  }, [currentFallback]);
+
+  const mutation = useMutation({
+    mutationFn: () => {
+      const mergedConfig: Record<string, unknown> = { ...(site.config || {}) };
+      if (selected) {
+        mergedConfig.fallbackPlaylistId = selected;
+      } else {
+        delete mergedConfig.fallbackPlaylistId;
+      }
+      return api.put<Site>(`/sites/${site.id}`, { config: mergedConfig });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['sites'] });
+      queryClient.invalidateQueries({ queryKey: ['site', site.id] });
+      addToast('success', 'Fallback content updated');
+    },
+    onError: (err: Error) => addToast('error', err.message),
+  });
+
+  return (
+    <Section
+      icon={Film}
+      title="Fallback Content"
+      subtitle="Plays on any device in this site when no app is assigned or its media fails to load"
+    >
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          mutation.mutate();
+        }}
+        className="space-y-5 max-w-xl"
+      >
+        <Field
+          icon={Film}
+          label="Fallback Playlist"
+          hint="Shown instead of a blank screen on every device in this site that has no app assigned or whose media fails to load."
+        >
+          <select
+            value={selected}
+            onChange={(e) => setSelected(e.target.value)}
+            className={INPUT_CLASS}
+            disabled={isLoading}
+          >
+            <option value="">None (show waiting screen)</option>
+            {playlists.map((p) => (
+              <option key={p.id} value={p.id}>
+                {p.name}
+                {typeof p.item_count === 'number' ? ` (${p.item_count} items)` : ''}
+              </option>
+            ))}
+          </select>
+        </Field>
+
+        <div className="pt-2">
+          <Button type="submit" loading={mutation.isPending}>
+            Save Fallback Content
+          </Button>
+        </div>
+      </form>
+    </Section>
+  );
+}
+
 // -- System Information (read-only) -----------------------------------------
 
 const ADMIN_VERSION = __APP_VERSION__;
@@ -585,6 +674,7 @@ export function SettingsPage() {
       </div>
 
       <SiteInfoForm site={site} />
+      <FallbackContentForm site={site} />
       <IntegrationForm site={site} />
       <SystemInfo site={site} />
       <DataTransferSection />

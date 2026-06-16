@@ -5,25 +5,25 @@ Wants=postgresql.service
 
 [Service]
 Type=simple
-User=lightman
-Group=lightman
-WorkingDirectory=/opt/lightman/server
+User=museumos
+Group=museumos
+WorkingDirectory=/opt/museumos/server
 ExecStart=/usr/bin/node dist/index.js
 Restart=always
 RestartSec=5
 Environment=NODE_ENV=production
-EnvironmentFile=/opt/lightman/server/.env
+EnvironmentFile=/opt/museumos/server/.env
 
 # Security hardening
 NoNewPrivileges=true
 ProtectSystem=strict
 ProtectHome=true
-ReadWritePaths=/opt/lightman/server/storage /opt/lightman/server/backups /opt/lightman/server/logs
+ReadWritePaths=/opt/museumos/server/storage /opt/museumos/server/backups /opt/museumos/server/logs
 
 # Logging
 StandardOutput=journal
 StandardError=journal
-SyslogIdentifier=lightman
+SyslogIdentifier=museumos
 
 [Install]
 WantedBy=multi-user.target

@@ -20,15 +20,15 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$InstallDir    = "C:\Program Files\Lightman\Agent"
-$LogDir        = "C:\ProgramData\Lightman\logs"
-$ChromeData    = "C:\ProgramData\Lightman\chrome-kiosk"
-$NssmDir       = "C:\ProgramData\Lightman\nssm"
+$InstallDir    = "C:\Program Files\Museumos\Agent"
+$LogDir        = "C:\ProgramData\Museumos\logs"
+$ChromeData    = "C:\ProgramData\Museumos\chrome-kiosk"
+$NssmDir       = "C:\ProgramData\Museumos\nssm"
 $NssmExe       = "$NssmDir\nssm.exe"
-$ServiceName   = "LightmanAgent"
-$GuardianTask  = "LIGHTMAN Guardian"
-$KioskTask     = "LIGHTMAN Kiosk Browser"
-$AgentTask     = "LIGHTMAN Agent"
+$ServiceName   = "MuseumosAgent"
+$GuardianTask  = "MUSEUMOS Guardian"
+$KioskTask     = "MUSEUMOS Kiosk Browser"
+$AgentTask     = "MUSEUMOS Agent"
 $KioskUsername = "kiosk"
 $KioskPassword = "Light123"
 $ScriptDir     = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -132,10 +132,10 @@ if (Test-Path $NssmExe) {
     & $NssmExe stop $ServiceName 2>$null
     & $NssmExe remove $ServiceName confirm 2>$null
 }
-foreach ($sn in @($ServiceName, "lightmanagent.exe", "LightmanAgent.exe")) {
+foreach ($sn in @($ServiceName, "museumosagent.exe", "MuseumosAgent.exe")) {
     sc.exe stop $sn 2>$null; sc.exe delete $sn 2>$null
 }
-$oldSvc = Get-Service -DisplayName "LIGHTMAN*" -ErrorAction SilentlyContinue
+$oldSvc = Get-Service -DisplayName "MUSEUMOS*" -ErrorAction SilentlyContinue
 if ($oldSvc) { Stop-Service -Name $oldSvc.Name -Force -ErrorAction SilentlyContinue; sc.exe delete $oldSvc.Name 2>$null }
 
 # Remove scheduled tasks (from previous task-scheduler-based installs)
@@ -168,10 +168,10 @@ Start-Sleep -Seconds 2
 # Remove old files (keep NSSM and logs)
 Write-Host "[0d] Removing old agent files..." -ForegroundColor Yellow
 Remove-Item -Path $InstallDir -Recurse -Force -ErrorAction SilentlyContinue
-Remove-Item -Path "C:\ProgramData\Lightman\kiosk-url.txt" -Force -ErrorAction SilentlyContinue
+Remove-Item -Path "C:\ProgramData\Museumos\kiosk-url.txt" -Force -ErrorAction SilentlyContinue
 
 # Remove firewall rule
-Remove-NetFirewallRule -DisplayName "LIGHTMAN Agent WebSocket" -ErrorAction SilentlyContinue
+Remove-NetFirewallRule -DisplayName "MUSEUMOS Agent WebSocket" -ErrorAction SilentlyContinue
 
 $ErrorActionPreference = "Stop"
 Start-Sleep -Seconds 2
@@ -355,7 +355,7 @@ if ($LASTEXITCODE -ne 0) { Write-Host "  FATAL: NSSM install failed!" -Foregroun
 Start-Sleep -Seconds 2
 $svcCheck = Get-Service -Name $ServiceName -ErrorAction SilentlyContinue
 if (-not $svcCheck) {
-    $svcCheck = Get-Service -DisplayName "LIGHTMAN*" -ErrorAction SilentlyContinue | Select-Object -First 1
+    $svcCheck = Get-Service -DisplayName "MUSEUMOS*" -ErrorAction SilentlyContinue | Select-Object -First 1
 }
 if (-not $svcCheck) {
     Write-Host "  FATAL: Service was not created!" -ForegroundColor Red
@@ -394,7 +394,7 @@ else { Write-Host "  Port 3403 not yet up (may take a moment)" -ForegroundColor 
 
 # Wait until provisioning is complete (auto-provision or manual pairing)
 Write-Host "[11b/19] Waiting for device provisioning/pairing..." -ForegroundColor Yellow
-$identityPath = Join-Path $InstallDir ".lightman-identity.json"
+$identityPath = Join-Path $InstallDir ".museumos-identity.json"
 $deadline = if ($PairingTimeoutSeconds -gt 0) { (Get-Date).AddSeconds($PairingTimeoutSeconds) } else { $null }
 $paired = $false
 $lastHint = ""
@@ -438,7 +438,7 @@ Write-Host "  Provisioning/pairing complete" -ForegroundColor Green
 # --- 12. Firewall ---
 Write-Host "[12/19] Configuring firewall..." -ForegroundColor Yellow
 $ErrorActionPreference = "Continue"
-if (-not (Get-NetFirewallRule -DisplayName "LIGHTMAN Agent WebSocket" -ErrorAction SilentlyContinue)) {
+if (-not (Get-NetFirewallRule -DisplayName "MUSEUMOS Agent WebSocket" -ErrorAction SilentlyContinue)) {
     New-NetFirewallRule -DisplayName "Museum OS Agent WebSocket" -Direction Outbound -Action Allow -Protocol TCP -RemotePort 3001 -Description "Museum OS Agent" | Out-Null
     Write-Host "  Created"
 } else { Write-Host "  Already exists" }
@@ -583,8 +583,8 @@ if ($ShellReplace) {
     Write-Host "[17/19] SHELL REPLACEMENT..." -ForegroundColor Magenta
 
     # Copy shell BAT (reads slug from agent.config.json - single source of truth)
-    $shellSource = Join-Path $ScriptDir "lightman-shell.bat"
-    $shellTarget = Join-Path $InstallDir "lightman-shell.bat"
+    $shellSource = Join-Path $ScriptDir "museumos-shell.bat"
+    $shellTarget = Join-Path $InstallDir "museumos-shell.bat"
     if (Test-Path $shellSource) { Copy-Item $shellSource $shellTarget -Force }
 
     # No sidecar file needed - shell BAT reads directly from agent.config.json
@@ -595,10 +595,10 @@ if ($ShellReplace) {
     Set-ItemProperty -Path $ShellReg -Name "Shell" -Value """$shellTarget"""
     $HKLMShell = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
     $orig = (Get-ItemProperty -Path $HKLMShell -Name "Shell" -ErrorAction SilentlyContinue).Shell
-    if ($orig -and $orig -notlike "*lightman*") { Set-ItemProperty -Path $HKLMShell -Name "Shell_Original" -Value $orig }
+    if ($orig -and $orig -notlike "*museumos*") { Set-ItemProperty -Path $HKLMShell -Name "Shell_Original" -Value $orig }
     Set-ItemProperty -Path $HKLMShell -Name "Shell" -Value """$shellTarget"""
 
-    Write-Host "  Shell replaced -> lightman-shell.bat" -ForegroundColor Green
+    Write-Host "  Shell replaced -> museumos-shell.bat" -ForegroundColor Green
     Write-Host "  Recovery: scripts\restore-desktop.ps1" -ForegroundColor Yellow
 
     # Remove kiosk task if exists
@@ -642,7 +642,7 @@ Write-Host "[19/19] Verification..." -ForegroundColor Yellow
 Start-Sleep -Seconds 3
 
 $finalSvc = Get-Service -Name $ServiceName -ErrorAction SilentlyContinue
-if (-not $finalSvc) { $finalSvc = Get-Service -DisplayName "LIGHTMAN*" -ErrorAction SilentlyContinue | Select-Object -First 1 }
+if (-not $finalSvc) { $finalSvc = Get-Service -DisplayName "MUSEUMOS*" -ErrorAction SilentlyContinue | Select-Object -First 1 }
 $svcStatus = if ($finalSvc) { "$($finalSvc.Status)" } else { "NOT FOUND" }
 
 $cfgOk = $false

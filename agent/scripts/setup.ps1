@@ -60,10 +60,10 @@ function Get-KioskBrowserPath {
 }
 
 # 1. Clear cached identity (CRITICAL - prevents old device credentials leaking)
-$IdentityFile = Join-Path $InstallDir ".lightman-identity.json"
+$IdentityFile = Join-Path $InstallDir ".museumos-identity.json"
 if (Test-Path $IdentityFile) {
     Remove-Item $IdentityFile -Force
-    Write-Host "[OK] Cleared old identity cache (.lightman-identity.json)" -ForegroundColor Green
+    Write-Host "[OK] Cleared old identity cache (.museumos-identity.json)" -ForegroundColor Green
 } else {
     Write-Host "[OK] No existing identity cache found (clean install)" -ForegroundColor DarkGray
 }
@@ -80,7 +80,7 @@ try {
     exit 1
 }
 
-$ChromeDataDir = "C:\ProgramData\Lightman\chrome-kiosk"
+$ChromeDataDir = "C:\ProgramData\Museumos\chrome-kiosk"
 
 # 4. Read template
 $TemplatePath = Join-Path $AgentDir "agent.config.template.json"

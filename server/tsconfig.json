@@ -18,10 +18,6 @@
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
     "isolatedModules": false,
-    "paths": {
-      "@/*": ["./src/*"]
-    },
-    "baseUrl": ".",
     "typeRoots": ["./node_modules/@types", "./src/types"],
     "types": ["node"]
   },

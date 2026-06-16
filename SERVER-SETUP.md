@@ -9,7 +9,7 @@
 - Windows machine (Server IP: 192.168.0.253)
 - Docker Desktop installed
 - Node.js v20+ installed
-- The `lightman-app01` folder on the machine
+- The `museumos-app01` folder on the machine
 
 ---
 
@@ -18,19 +18,19 @@
 Open PowerShell as Administrator:
 
 ```powershell
-docker run -d --name lightman-db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres123 -e POSTGRES_DB=lightman -p 5432:5432 --restart unless-stopped postgres:16-alpine
+docker run -d --name museumos-db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres123 -e POSTGRES_DB=museumos -p 5432:5432 --restart unless-stopped postgres:16-alpine
 ```
 
 Verify it's running:
 
 ```powershell
-docker ps --filter "name=lightman-db"
+docker ps --filter "name=museumos-db"
 ```
 
 ### Step 2: Install Server Dependencies
 
 ```powershell
-cd C:\Users\Administrator\Desktop\lightman-app01\server
+cd C:\Users\Administrator\Desktop\museumos-app01\server
 npm install
 ```
 
@@ -39,14 +39,14 @@ npm install
 Make sure `server\.env` has:
 
 ```
-DATABASE_URL=postgresql://postgres:postgres123@localhost:5432/lightman
+DATABASE_URL=postgresql://postgres:postgres123@localhost:5432/museumos
 ```
 
 ### Step 4: Run Database Migrations
 
 ```powershell
-cd C:\Users\Administrator\Desktop\lightman-app01\server
-$env:DATABASE_URL="postgresql://postgres:postgres123@localhost:5432/lightman"
+cd C:\Users\Administrator\Desktop\museumos-app01\server
+$env:DATABASE_URL="postgresql://postgres:postgres123@localhost:5432/museumos"
 npx knex migrate:latest --knexfile src/lib/knexfile.ts
 ```
 
@@ -65,7 +65,7 @@ Default admin credentials:
 ### Step 6: Start the Server
 
 ```powershell
-cd C:\Users\Administrator\Desktop\lightman-app01\server
+cd C:\Users\Administrator\Desktop\museumos-app01\server
 npm run dev
 ```
 
@@ -81,7 +81,7 @@ Server URLs:
 ### Prerequisites
 
 - Slave device connected to server via LAN cable (192.168.0.x subnet)
-- The `lightman-app01` folder copied to the slave device
+- The `museumos-app01` folder copied to the slave device
 - PowerShell running as Administrator
 
 ---
@@ -108,7 +108,7 @@ Click **Apply Changes** and boot into Windows.
 Open PowerShell as Administrator on the slave device:
 
 ```powershell
-cd C:\path\to\lightman-app01\agent
+cd C:\path\to\museumos-app01\agent
 .\configure-wol.ps1
 ```
 
@@ -123,7 +123,7 @@ This script:
 ### Step 3: Run the Device Setup Script
 
 ```powershell
-cd C:\path\to\lightman-app01\agent
+cd C:\path\to\museumos-app01\agent
 .\setup-device-local.ps1 -DeviceSlug "kiosk-01"
 ```
 
@@ -169,17 +169,17 @@ From the admin panel (http://192.168.0.253:3401):
 ### Start/Stop Database
 
 ```powershell
-docker start lightman-db       # Start DB
-docker stop lightman-db        # Stop DB
-docker ps --filter "name=lightman-db"  # Check status
-docker logs lightman-db        # View DB logs
+docker start museumos-db       # Start DB
+docker stop museumos-db        # Stop DB
+docker ps --filter "name=museumos-db"  # Check status
+docker logs museumos-db        # View DB logs
 ```
 
 ### Reset Database (keep container)
 
 ```powershell
-cd C:\Users\Administrator\Desktop\lightman-app01\server
-$env:DATABASE_URL="postgresql://postgres:postgres123@localhost:5432/lightman"
+cd C:\Users\Administrator\Desktop\museumos-app01\server
+$env:DATABASE_URL="postgresql://postgres:postgres123@localhost:5432/museumos"
 npx knex migrate:rollback --all --knexfile src/lib/knexfile.ts
 npx knex migrate:latest --knexfile src/lib/knexfile.ts
 npx knex seed:run --knexfile src/lib/knexfile.ts
@@ -188,9 +188,9 @@ npx knex seed:run --knexfile src/lib/knexfile.ts
 ### Nuke Database (start completely fresh)
 
 ```powershell
-docker stop lightman-db
-docker rm lightman-db
-docker run -d --name lightman-db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres123 -e POSTGRES_DB=lightman -p 5432:5432 --restart unless-stopped postgres:16-alpine
+docker stop museumos-db
+docker rm museumos-db
+docker run -d --name museumos-db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres123 -e POSTGRES_DB=museumos -p 5432:5432 --restart unless-stopped postgres:16-alpine
 # Then run Step 4 and Step 5 from Part A
 ```
 
@@ -203,13 +203,13 @@ The project has 4 main apps. Each needs its own `npm install`.
 ### 1. Server (Backend API)
 
 ```
-Location: lightman-app01/server/
+Location: museumos-app01/server/
 Tech:     Node.js + Express + TypeScript + PostgreSQL
 Port:     3401
 ```
 
 ```powershell
-cd C:\Users\Administrator\Desktop\lightman-app01\server
+cd C:\Users\Administrator\Desktop\museumos-app01\server
 npm install
 npm run dev          # Development (auto-reload)
 npm run build        # Production build
@@ -218,13 +218,13 @@ npm run build        # Production build
 ### 2. Admin Panel (Web Dashboard)
 
 ```
-Location: lightman-app01/admin/
+Location: museumos-app01/admin/
 Tech:     React + Vite + TypeScript + TailwindCSS
 Port:     5173 (dev) / served by server in production
 ```
 
 ```powershell
-cd C:\Users\Administrator\Desktop\lightman-app01\admin
+cd C:\Users\Administrator\Desktop\museumos-app01\admin
 npm install
 npm run dev          # Development (http://localhost:5173)
 npm run build        # Production build (output: admin/dist/)
@@ -233,13 +233,13 @@ npm run build        # Production build (output: admin/dist/)
 ### 3. Display App (Kiosk/Screen Frontend)
 
 ```
-Location: lightman-app01/display/
+Location: museumos-app01/display/
 Tech:     React + Vite + TypeScript
 Port:     5174 (dev) / served by server in production
 ```
 
 ```powershell
-cd C:\Users\Administrator\Desktop\lightman-app01\display
+cd C:\Users\Administrator\Desktop\museumos-app01\display
 npm install
 npm run dev          # Development (http://localhost:5174)
 npm run build        # Production build (output: display/dist/)
@@ -248,14 +248,14 @@ npm run build        # Production build (output: display/dist/)
 ### 4. Agent (Runs on Slave Devices)
 
 ```
-Location: lightman-app01/agent/
+Location: museumos-app01/agent/
 Tech:     Node.js + TypeScript
 Purpose:  Connects slave device to server, manages kiosk browser,
           handles power commands, reports health
 ```
 
 ```powershell
-cd C:\Users\Administrator\Desktop\lightman-app01\agent
+cd C:\Users\Administrator\Desktop\museumos-app01\agent
 npm install
 npx tsx src/index.ts          # Manual start
 # Or use the setup script which installs it as a Windows service
@@ -264,7 +264,7 @@ npx tsx src/index.ts          # Manual start
 ### Install All at Once
 
 ```powershell
-cd C:\Users\Administrator\Desktop\lightman-app01
+cd C:\Users\Administrator\Desktop\museumos-app01
 cd server && npm install && cd ..
 cd admin && npm install && cd ..
 cd display && npm install && cd ..
@@ -274,7 +274,7 @@ cd agent && npm install && cd ..
 ### Build All for Production
 
 ```powershell
-cd C:\Users\Administrator\Desktop\lightman-app01
+cd C:\Users\Administrator\Desktop\museumos-app01
 cd server && npm run build && cd ..
 cd admin && npm run build && cd ..
 cd display && npm run build && cd ..
@@ -283,9 +283,9 @@ cd display && npm run build && cd ..
 ### Docker Build (Full Production Image)
 
 ```powershell
-cd C:\Users\Administrator\Desktop\lightman-app01
-docker build -t lightman-app .
-docker run -d --name lightman-server -p 3401:3401 -e DATABASE_URL="postgresql://postgres:postgres123@host.docker.internal:5432/lightman" -e JWT_SECRET="lightman-dev-secret-key-change-in-production-32chars" --restart unless-stopped lightman-app
+cd C:\Users\Administrator\Desktop\museumos-app01
+docker build -t museumos-app .
+docker run -d --name museumos-server -p 3401:3401 -e DATABASE_URL="postgresql://postgres:postgres123@host.docker.internal:5432/museumos" -e JWT_SECRET="museumos-dev-secret-key-change-in-production-32chars" --restart unless-stopped museumos-app
 ```
 
 ---

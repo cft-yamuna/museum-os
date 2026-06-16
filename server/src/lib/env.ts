@@ -10,6 +10,16 @@ const envSchema = z.object({
   JWT_SECRET: z.string().min(16, 'JWT_SECRET must be at least 16 characters'),
   JWT_EXPIRY: z.string().default('24h'),
   STORAGE_PATH: z.string().default('./storage'),
+  // Local JSON backups (host-side duplicate of the Docker DB — Docker stays primary)
+  BACKUP_DIR: z.string().default('./backups'),
+  BACKUP_ENABLED: z
+    .enum(['true', 'false'])
+    .default('true')
+    .transform((v) => v === 'true'),
+  // Cron expression for automatic backups (default: every 6 hours, on the hour)
+  BACKUP_CRON: z.string().default('0 */6 * * *'),
+  // Number of timestamped backup files to keep (older ones are pruned)
+  BACKUP_KEEP: z.coerce.number().int().min(1).max(1000).default(14),
   MQTT_URL: z.string().optional(),
   CORS_ORIGIN: z.string().default('http://localhost:3402'),
   WOL_BROADCASTS: z.string().optional(),

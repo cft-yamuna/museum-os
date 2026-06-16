@@ -6,7 +6,7 @@
 set -euo pipefail
 
 BACKUP_DIR="${BACKUP_DIR:-./backups}"
-DB_URL="${DATABASE_URL:-postgresql://lightman:lightman@localhost:5432/lightman}"
+DB_URL="${DATABASE_URL:-postgresql://museumos:museumos@localhost:5432/museumos}"
 RETENTION_DAYS=30
 
 # Create backup directory
@@ -14,7 +14,7 @@ mkdir -p "$BACKUP_DIR"
 
 # Generate filename with timestamp
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-BACKUP_FILE="$BACKUP_DIR/lightman_${TIMESTAMP}.sql.gz"
+BACKUP_FILE="$BACKUP_DIR/museumos_${TIMESTAMP}.sql.gz"
 
 echo "[Backup] Starting database backup..."
 echo "[Backup] Target: $BACKUP_FILE"
@@ -28,8 +28,8 @@ echo "[Backup] Complete: $BACKUP_FILE ($SIZE)"
 
 # Clean up old backups
 echo "[Backup] Removing backups older than ${RETENTION_DAYS} days..."
-find "$BACKUP_DIR" -name "lightman_*.sql.gz" -mtime +$RETENTION_DAYS -delete
+find "$BACKUP_DIR" -name "museumos_*.sql.gz" -mtime +$RETENTION_DAYS -delete
 
 # Count remaining backups
-COUNT=$(find "$BACKUP_DIR" -name "lightman_*.sql.gz" | wc -l)
+COUNT=$(find "$BACKUP_DIR" -name "museumos_*.sql.gz" | wc -l)
 echo "[Backup] $COUNT backup(s) retained"

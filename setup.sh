@@ -22,11 +22,11 @@ sudo apt install -y git curl ca-certificates gnupg openssl
 echo "Cloning Museum OS (issues-resolved branch)..."
 
 cd ~
-rm -rf lightman-app01
+rm -rf museumos-app01
 
-git clone --branch issues-resolved --single-branch https://$GIT_USERNAME:$GIT_TOKEN@github.com/sagrkv/lightman-app01.git
+git clone --branch issues-resolved --single-branch https://$GIT_USERNAME:$GIT_TOKEN@github.com/sagrkv/museumos-app01.git
 
-cd lightman-app01 || { echo "Clone failed"; exit 1; }
+cd museumos-app01 || { echo "Clone failed"; exit 1; }
 
 # -------------------------------
 # 4. Install Docker (official)
@@ -57,16 +57,16 @@ sudo usermod -aG docker $USER
 # 6. Create network
 # -------------------------------
 echo "Creating Docker network..."
-docker network create lightman-network || true
+docker network create museumos-network || true
 
 # -------------------------------
 # 7. Start PostgreSQL
 # -------------------------------
 echo "Starting PostgreSQL..."
 
-docker rm -f lightman-db || true
+docker rm -f museumos-db || true
 
-docker run -d --name lightman-db --network lightman-network -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres123 -e POSTGRES_DB=lightman -p 5432:5432 --restart unless-stopped postgres:16-alpine
+docker run -d --name museumos-db --network museumos-network -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres123 -e POSTGRES_DB=museumos -p 5432:5432 --restart unless-stopped postgres:16-alpine
 
 # -------------------------------
 # 8. Fix Dockerfile issues
@@ -81,39 +81,39 @@ sed -i 's/tsc -b && //' admin/package.json
 # -------------------------------
 echo "Building Docker images..."
 
-docker build -t lightman-app .
-docker build -f admin/Dockerfile -t lightman-admin .
+docker build -t museumos-app .
+docker build -f admin/Dockerfile -t museumos-admin .
 
 # -------------------------------
 # 10. Run app containers
 # -------------------------------
 echo "Starting Museum OS app..."
 
-docker rm -f lightman-app || true
-docker rm -f lightman-admin || true
+docker rm -f museumos-app || true
+docker rm -f museumos-admin || true
 
-docker volume create lightman_storage || true
-docker volume create lightman_backups || true
+docker volume create museumos_storage || true
+docker volume create museumos_backups || true
 
 JWT_SECRET=$(openssl rand -hex 32)
-docker run -d --name lightman-app \
-  --network lightman-network \
+docker run -d --name museumos-app \
+  --network museumos-network \
   -p 3401:3401 \
-  -e DATABASE_URL=postgresql://postgres:postgres123@lightman-db:5432/lightman \
+  -e DATABASE_URL=postgresql://postgres:postgres123@museumos-db:5432/museumos \
   -e JWT_SECRET="$JWT_SECRET" \
-  -v lightman_storage:/app/server/storage \
-  -v lightman_backups:/app/server/backups \
+  -v museumos_storage:/app/server/storage \
+  -v museumos_backups:/app/server/backups \
   --restart unless-stopped \
-  lightman-app
+  museumos-app
 
 echo "Starting Museum OS admin..."
 
-docker run -d --name lightman-admin \
-  --network lightman-network \
+docker run -d --name museumos-admin \
+  --network museumos-network \
   -p 3402:3402 \
-  -e VITE_PROXY_TARGET=http://lightman-app:3401 \
+  -e VITE_PROXY_TARGET=http://museumos-app:3401 \
   --restart unless-stopped \
-  lightman-admin
+  museumos-admin
 
 # -------------------------------
 # 11. Open firewall

@@ -1,0 +1,12 @@
+/var/log/museumos/*.log {
+    daily
+    rotate 7
+    compress
+    delaycompress
+    missingok
+    notifempty
+    create 0640 museumos museumos
+    postrotate
+        systemctl reload museumos-agent > /dev/null 2>&1 || true
+    endscript
+}

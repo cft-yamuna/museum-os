@@ -140,6 +140,10 @@ export class AutoUpdater {
       await this.updater.install(filePath, version);
       this.updater.cleanDownloads();
 
+      // Mark this version pending so a crash-loop on first boot triggers an
+      // automatic rollback (see Updater.registerBootAttempt in startup).
+      this.updater.markPendingUpdate(version);
+
       // Restart
       this.wsClient.send({
         type: 'agent:update_status',

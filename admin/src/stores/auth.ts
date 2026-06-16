@@ -5,7 +5,7 @@ import { adminWs } from '../lib/ws';
 // Restore session from sessionStorage on load
 function loadSession(): { token: string | null; user: User | null } {
   try {
-    const raw = sessionStorage.getItem('lightman_auth');
+    const raw = sessionStorage.getItem('museumos_auth');
     if (raw) {
       const parsed = JSON.parse(raw);
       return { token: parsed.token || null, user: parsed.user || null };
@@ -18,9 +18,9 @@ function loadSession(): { token: string | null; user: User | null } {
 
 function saveSession(token: string | null, user: User | null): void {
   if (token && user) {
-    sessionStorage.setItem('lightman_auth', JSON.stringify({ token, user }));
+    sessionStorage.setItem('museumos_auth', JSON.stringify({ token, user }));
   } else {
-    sessionStorage.removeItem('lightman_auth');
+    sessionStorage.removeItem('museumos_auth');
   }
 }
 

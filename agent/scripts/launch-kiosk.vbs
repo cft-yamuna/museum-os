@@ -7,7 +7,7 @@ Set objShell = CreateObject("WScript.Shell")
 Set objFSO = CreateObject("Scripting.FileSystemObject")
 
 ' --- Configuration ---
-configPath = "C:\Program Files\Lightman\Agent\agent.config.json"
+configPath = "C:\Program Files\Museumos\Agent\agent.config.json"
 maxWaitSeconds = 120  ' Max time to wait for agent service
 checkIntervalMs = 5000 ' Check every 5 seconds
 
@@ -51,7 +51,7 @@ Do While waitedMs < (maxWaitSeconds * 1000)
     End If
 
     ' Check if Museum OS service is running
-    Set colServices = objWMI.ExecQuery("SELECT State FROM Win32_Service WHERE DisplayName LIKE 'LIGHTMAN%'")
+    Set colServices = objWMI.ExecQuery("SELECT State FROM Win32_Service WHERE DisplayName LIKE 'MUSEUMOS%'")
     serviceRunning = False
     For Each svc In colServices
         If LCase(svc.State) = "running" Then
@@ -83,7 +83,7 @@ chromeArgs = "--kiosk --noerrdialogs --disable-infobars --disable-session-crashe
 
 userDataDir = ExtractJsonValue(jsonText, "user-data-dir")
 If userDataDir = "" Then
-    userDataDir = "C:\ProgramData\Lightman\chrome-kiosk"
+    userDataDir = "C:\ProgramData\Museumos\chrome-kiosk"
 End If
 chromeArgs = chromeArgs & " --user-data-dir=""" & userDataDir & """"
 

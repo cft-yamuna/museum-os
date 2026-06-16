@@ -7,6 +7,7 @@ import { api } from '../lib/api';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Site } from '../lib/types';
 import { adminWs } from '../lib/ws';
+import { ErrorBoundary } from '../components/ui/ErrorBoundary';
 import { BRAND_MONOGRAM, BRAND_NAME, BRAND_TAGLINE } from '../lib/brand';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
@@ -21,6 +22,7 @@ import {
   Group,
   Power,
   Activity,
+  PlayCircle,
   Bell,
   ScrollText,
   Users,
@@ -60,6 +62,7 @@ const navItems: NavItem[] = [
   { to: '/groups', icon: Group, label: 'Groups', section: 'Content' },
   { to: '/power', icon: Power, label: 'Power & Startup', section: 'System' },
   { to: '/analytics', icon: Activity, label: 'Analytics', section: 'System' },
+  { to: '/proof-of-play', icon: PlayCircle, label: 'Proof of Play', roles: ['super_admin', 'site_admin', 'content_manager'], section: 'System' },
   { to: '/alerts', icon: Bell, label: 'Alerts', section: 'System' },
   { to: '/logs', icon: ScrollText, label: 'Logs', section: 'System' },
   { to: '/users', icon: Users, label: 'Users', roles: ['super_admin'], section: 'System' },
@@ -471,7 +474,9 @@ export function MainLayout() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.16 }}
           >
-            <Outlet />
+            <ErrorBoundary variant="route" resetKey={location.pathname}>
+              <Outlet />
+            </ErrorBoundary>
           </motion.div>
         </main>
       </div>

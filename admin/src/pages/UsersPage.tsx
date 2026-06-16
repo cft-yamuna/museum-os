@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   Search,
@@ -142,38 +142,22 @@ interface UserFormDialogProps {
 }
 
 function UserFormDialog({ open, editUser, sites, loading, onSubmit, onClose }: UserFormDialogProps) {
-  const [form, setForm] = useState<UserFormData>(EMPTY_FORM);
+  // The parent remounts this dialog on every open via a changing `key`
+  // (see `formKey` in openCreate/openEdit), so the form state is seeded once
+  // from `editUser` in the initializer below — no render-time side effects or
+  // effects needed.
+  const [form, setForm] = useState<UserFormData>(() =>
+    editUser
+      ? {
+          name: editUser.name,
+          email: editUser.email,
+          password: '',
+          role: editUser.role,
+          site_ids: editUser.site_ids ? [...editUser.site_ids] : [],
+        }
+      : { ...EMPTY_FORM }
+  );
   const [errors, setErrors] = useState<Partial<Record<keyof UserFormData, string>>>({});
-
-  // Reset form when dialog opens
-  const prevOpen = useState(open)[0];
-  if (open && !prevOpen) {
-    // handled via key prop externally
-  }
-
-  // We use a key-based reset instead; see the parent component.
-  // But we still need to initialize when editUser changes within the dialog lifecycle.
-  // This is handled by the parent passing a fresh `key` on each open.
-
-  const handleOpen = useCallback(() => {
-    if (editUser) {
-      setForm({
-        name: editUser.name,
-        email: editUser.email,
-        password: '',
-        role: editUser.role,
-        site_ids: editUser.site_ids ? [...editUser.site_ids] : [],
-      });
-    } else {
-      setForm({ ...EMPTY_FORM });
-    }
-    setErrors({});
-  }, [editUser]);
-
-  // Initialize on mount (dialog opened)
-  useState(() => {
-    handleOpen();
-  });
 
   const updateField = <K extends keyof UserFormData>(key: K, value: UserFormData[K]) => {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -384,26 +368,22 @@ export function UsersPage() {
   const [confirmDelete, setConfirmDelete] = useState<User | null>(null);
   const [confirmToggle, setConfirmToggle] = useState<User | null>(null);
 
-  // ---- Access guard ----
-  if (!currentUser || currentUser.role !== 'super_admin') {
-    return (
-      <EmptyState
-        icon={ShieldAlert}
-        title="Access Denied"
-        description="Only Super Admins can manage users."
-      />
-    );
-  }
+  // Access is gated by `isSuperAdmin` below. All hooks must run unconditionally
+  // first (rules of hooks), so the access-denied guard renders after them and
+  // the data queries stay disabled for non-admins.
+  const isSuperAdmin = currentUser?.role === 'super_admin';
 
   // ---- Queries ----
   const { data: users = [], isLoading: usersLoading } = useQuery({
     queryKey: ['users'],
     queryFn: () => api.get<User[]>('/users'),
+    enabled: isSuperAdmin,
   });
 
   const { data: sites = [] } = useQuery({
     queryKey: ['sites'],
     queryFn: () => api.get<Site[]>('/sites'),
+    enabled: isSuperAdmin,
   });
 
   // ---- Mutations ----
@@ -548,6 +528,17 @@ export function UsersPage() {
       .map((id) => siteMap.get(id) || id)
       .join(', ');
   };
+
+  // ---- Access guard (after all hooks; rules of hooks) ----
+  if (!isSuperAdmin) {
+    return (
+      <EmptyState
+        icon={ShieldAlert}
+        title="Access Denied"
+        description="Only Super Admins can manage users."
+      />
+    );
+  }
 
   // ---- Render ----
   return (

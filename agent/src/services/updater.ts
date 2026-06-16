@@ -1,4 +1,4 @@
-import { createWriteStream, createReadStream, existsSync, mkdirSync, renameSync, rmSync, readdirSync, statSync, cpSync } from 'fs';
+import { createWriteStream, createReadStream, existsSync, mkdirSync, renameSync, rmSync, readdirSync, statSync, cpSync, readFileSync, writeFileSync } from 'fs';
 import { resolve, join, dirname } from 'path';
 import { createHash } from 'crypto';
 import { pipeline } from 'stream/promises';
@@ -9,10 +9,10 @@ import { platform } from 'os';
 import type { Logger } from '../lib/logger.js';
 
 interface UpdatePaths {
-  current: string;   // /opt/lightman/agent/
-  staging: string;   // /opt/lightman/agent-staging/
-  backup: string;    // /opt/lightman/agent-backup/
-  downloads: string; // /opt/lightman/agent-downloads/
+  current: string;   // /opt/museumos/agent/
+  staging: string;   // /opt/museumos/agent-staging/
+  backup: string;    // /opt/museumos/agent-backup/
+  downloads: string; // /opt/museumos/agent-downloads/
 }
 
 interface UpdateStatus {
@@ -22,15 +22,30 @@ interface UpdateStatus {
   error?: string;
 }
 
+/**
+ * Persisted across restarts (and across the agent dir swap, since it lives in
+ * the base dir) to detect a freshly-installed version that crash-loops on boot.
+ */
+interface UpdateState {
+  version: string;
+  bootAttempts: number;
+  confirmed: boolean;
+  installedAt: number;
+}
+
+/** Boots a pending update may attempt before it is rolled back. */
+const MAX_BOOT_ATTEMPTS = 3;
+
 export class Updater {
   private readonly logger: Logger;
   private readonly paths: UpdatePaths;
+  private readonly statePath: string;
   private status: UpdateStatus = { phase: 'idle' };
 
   constructor(logger: Logger, basePath?: string) {
     this.logger = logger;
     // Derive base from agent's actual location: process.cwd() is the agent dir,
-    // parent is the base (e.g. /opt/lightman or C:\Program Files\Lightman)
+    // parent is the base (e.g. /opt/museumos or C:\Program Files\Museumos)
     const base = basePath || dirname(process.cwd());
     this.paths = {
       current: resolve(base, 'agent'),
@@ -38,6 +53,8 @@ export class Updater {
       backup: resolve(base, 'agent-backup'),
       downloads: resolve(base, 'agent-downloads'),
     };
+    // Lives in the base dir so it survives the agent dir swap/rollback.
+    this.statePath = resolve(base, '.agent-update-state.json');
     this.logger.info(`[Updater] Base path: ${base}`);
     this.logger.info(`[Updater] Current: ${this.paths.current}`);
   }
@@ -166,7 +183,7 @@ export class Updater {
     // Preserve device-specific config files: copy from current into staging
     // so they survive the swap. The tarball ships a template config that must
     // NOT overwrite the device's real identity and settings.
-    const preserveFiles = ['agent.config.json', '.lightman-identity.json'];
+    const preserveFiles = ['agent.config.json', '.museumos-identity.json'];
     for (const file of preserveFiles) {
       const src = join(this.paths.current, file);
       const dst = join(this.paths.staging, file);
@@ -203,13 +220,13 @@ export class Updater {
         // Copy shell scripts to install root (parent of agent dir) so the
         // Windows shell replacement picks up updated bat files on next boot.
         const installRoot = dirname(this.paths.current);
-        const shellBat = join(this.paths.current, 'scripts', 'lightman-shell.bat');
+        const shellBat = join(this.paths.current, 'scripts', 'museumos-shell.bat');
         if (existsSync(shellBat)) {
           try {
-            cpSync(shellBat, join(installRoot, 'lightman-shell.bat'), { force: true });
-            this.logger.info(`[Updater] Copied lightman-shell.bat to ${installRoot}`);
+            cpSync(shellBat, join(installRoot, 'museumos-shell.bat'), { force: true });
+            this.logger.info(`[Updater] Copied museumos-shell.bat to ${installRoot}`);
           } catch (copyErr) {
-            this.logger.warn(`[Updater] Could not copy lightman-shell.bat to install root: ${copyErr instanceof Error ? copyErr.message : String(copyErr)}`);
+            this.logger.warn(`[Updater] Could not copy museumos-shell.bat to install root: ${copyErr instanceof Error ? copyErr.message : String(copyErr)}`);
           }
         }
 
@@ -279,6 +296,81 @@ export class Updater {
     }
 
     this.logger.info('Rollback complete');
+  }
+
+  // --- Crash-loop guard (auto-rollback of a bad update) ---
+
+  private readState(): UpdateState | null {
+    try {
+      if (!existsSync(this.statePath)) return null;
+      return JSON.parse(readFileSync(this.statePath, 'utf-8')) as UpdateState;
+    } catch {
+      return null;
+    }
+  }
+
+  private writeState(state: UpdateState | null): void {
+    try {
+      if (state === null) {
+        if (existsSync(this.statePath)) rmSync(this.statePath, { force: true });
+      } else {
+        writeFileSync(this.statePath, JSON.stringify(state), 'utf-8');
+      }
+    } catch (err) {
+      this.logger.warn(
+        `[Updater] Could not persist update state: ${err instanceof Error ? err.message : String(err)}`
+      );
+    }
+  }
+
+  /**
+   * Record that `version` was just installed and is awaiting a healthy boot.
+   * Call this right after a successful install(), before restarting.
+   */
+  markPendingUpdate(version: string): void {
+    this.writeState({ version, bootAttempts: 0, confirmed: false, installedAt: Date.now() });
+    this.logger.info(`[Updater] Marked update v${version} pending confirmation`);
+  }
+
+  /**
+   * Increment the boot-attempt counter for a pending (unconfirmed) update.
+   * Call this once, early in startup, before any risky initialization.
+   * Returns whether the attempt budget is exhausted and a rollback is due.
+   */
+  registerBootAttempt(maxAttempts = MAX_BOOT_ATTEMPTS): {
+    pending: boolean;
+    shouldRollback: boolean;
+    version?: string;
+    attempts: number;
+  } {
+    const state = this.readState();
+    if (!state || state.confirmed) {
+      return { pending: false, shouldRollback: false, attempts: 0 };
+    }
+    state.bootAttempts += 1;
+    this.writeState(state);
+    return {
+      pending: true,
+      shouldRollback: state.bootAttempts > maxAttempts,
+      version: state.version,
+      attempts: state.bootAttempts,
+    };
+  }
+
+  /**
+   * Mark the pending update as healthy so future restarts don't roll it back.
+   * Call this after the agent has run stably for a while.
+   */
+  confirmUpdate(): void {
+    const state = this.readState();
+    if (!state || state.confirmed) return;
+    this.writeState(null);
+    this.logger.info(`[Updater] Confirmed update v${state.version} after healthy boot`);
+  }
+
+  /** Clear the pending-update marker (e.g. after a rollback). */
+  clearPendingUpdate(): void {
+    this.writeState(null);
   }
 
   /**

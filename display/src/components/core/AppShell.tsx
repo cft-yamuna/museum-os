@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef, createContext, useContext } from 'react';
-import type { AnyAppConfig, DeviceConfig, WSEvent, WSConfigUpdated } from '@/lib/types';
+import type { AnyAppConfig, DeviceConfig, FallbackContent, WSEvent, WSConfigUpdated } from '@/lib/types';
 import type { ConnectionState } from '@/lib/ws';
 import { config } from '@/lib/config';
 import { getDeviceConfig } from '@/lib/api';
@@ -10,6 +10,7 @@ import { useWebSocket } from '@/hooks/useWebSocket';
 import { useWatchdog } from '@/hooks/useWatchdog';
 import { LoadingScreen } from './LoadingScreen';
 import { ErrorScreen } from './ErrorScreen';
+import { FallbackPlaylist, type FallbackActiveInfo } from './FallbackPlaylist';
 
 // ==========================================
 // Types
@@ -248,55 +249,71 @@ function isVisibleMediaElement(element: HTMLImageElement | HTMLVideoElement): bo
   return style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0';
 }
 
-function waitForMediaElement(element: HTMLImageElement | HTMLVideoElement): Promise<void> {
+// Resolves `true` if the element loaded successfully, `false` if it errored.
+function waitForMediaElement(element: HTMLImageElement | HTMLVideoElement): Promise<boolean> {
   if (element instanceof HTMLImageElement) {
+    // `complete` is true after BOTH successful and failed loads;
+    // naturalWidth === 0 means the image failed to decode/load.
     if (element.complete) {
-      return Promise.resolve();
+      return Promise.resolve(element.naturalWidth > 0);
     }
 
     return new Promise((resolve) => {
-      const done = () => {
-        element.removeEventListener('load', done);
-        element.removeEventListener('error', done);
-        resolve();
-      };
-      element.addEventListener('load', done, { once: true });
-      element.addEventListener('error', done, { once: true });
+      element.addEventListener('load', () => resolve(true), { once: true });
+      element.addEventListener('error', () => resolve(false), { once: true });
     });
   }
 
-  if (element.readyState >= 2 || (!element.currentSrc && !element.src)) {
-    return Promise.resolve();
+  if (element.readyState >= 2) {
+    return Promise.resolve(true);
+  }
+  if (!element.currentSrc && !element.src) {
+    // No source to load yet — treat as ready so we don't block on an empty slot.
+    return Promise.resolve(true);
   }
 
   return new Promise((resolve) => {
-    const done = () => {
-      element.removeEventListener('loadeddata', done);
-      element.removeEventListener('canplay', done);
-      element.removeEventListener('error', done);
-      resolve();
-    };
-    element.addEventListener('loadeddata', done, { once: true });
-    element.addEventListener('canplay', done, { once: true });
-    element.addEventListener('error', done, { once: true });
+    element.addEventListener('loadeddata', () => resolve(true), { once: true });
+    element.addEventListener('canplay', () => resolve(true), { once: true });
+    element.addEventListener('error', () => resolve(false), { once: true });
   });
 }
 
-async function waitForVisibleMedia(timeoutMs = 12000): Promise<void> {
+interface MediaReadiness {
+  total: number;
+  failed: number;
+  timedOut: boolean;
+}
+
+async function waitForVisibleMedia(timeoutMs = 12000): Promise<MediaReadiness> {
   const media = Array.from(document.querySelectorAll('img, video'))
     .filter((element): element is HTMLImageElement | HTMLVideoElement => {
       return element instanceof HTMLImageElement || element instanceof HTMLVideoElement;
     })
     .filter((element) => isVisibleMediaElement(element));
 
-  if (media.length === 0) return;
+  if (media.length === 0) return { total: 0, failed: 0, timedOut: false };
 
+  let failed = 0;
+  let settled = 0;
+  const tracked = media.map((element) =>
+    waitForMediaElement(element).then((ok) => {
+      settled += 1;
+      if (!ok) failed += 1;
+    })
+  );
+
+  let timer: ReturnType<typeof setTimeout> | null = null;
   await Promise.race([
-    Promise.all(media.map((element) => waitForMediaElement(element))).then(() => undefined),
+    Promise.all(tracked).then(() => undefined),
     new Promise<void>((resolve) => {
-      setTimeout(resolve, timeoutMs);
+      timer = setTimeout(resolve, timeoutMs);
     }),
   ]);
+  if (timer) clearTimeout(timer);
+
+  // Anything that didn't settle before the timeout is treated as not-ready.
+  return { total: media.length, failed, timedOut: settled < media.length };
 }
 
 function AppShellInner(props: AppShellProps) {
@@ -313,6 +330,10 @@ function AppShellInner(props: AppShellProps) {
   const [isIdle, setIsIdle] = useState(false);
   const [orientation, setOrientation] = useState<'landscape' | 'portrait'>('landscape');
   const [pendingRenderAck, setPendingRenderAck] = useState<PendingRenderAck | null>(null);
+  // Fallback content (resolved server-side) + whether we've switched to it
+  // because the assigned app's media failed to load.
+  const [fallback, setFallback] = useState<FallbackContent | null>(null);
+  const [fallbackActive, setFallbackActive] = useState(false);
 
   const mountedRef = useRef(true);
   const fetchRetryCountRef = useRef(0);
@@ -340,6 +361,11 @@ function AppShellInner(props: AppShellProps) {
   useWatchdog({ enabled: true });
 
   const applyDeviceConfigPayload = useCallback((deviceConfig: DeviceConfig) => {
+    // Refresh fallback content and give the (re)assigned app a fresh chance to
+    // render its own media before we'd switch to the fallback again.
+    setFallback(deviceConfig.fallback ?? null);
+    setFallbackActive(false);
+
     const assignedApp = deviceConfig.assignedApp;
     const hasAssignedApp = Boolean(
       assignedApp
@@ -659,22 +685,56 @@ function AppShellInner(props: AppShellProps) {
         }
       }
 
-      await waitForVisibleMedia();
+      const media = await waitForVisibleMedia();
       await waitForNextPaint();
 
       if (cancelled) return;
+
+      // A revision with broken/timed-out media still renders, but the screen is
+      // blank/degraded — report that explicitly so the server doesn't treat it
+      // as a healthy render.
+      const mediaOk = media.failed === 0 && !media.timedOut;
 
       ws.send('display:revision-rendered', {
         requestId,
         revision: pendingRenderAck.revision,
         templateType: pendingRenderAck.templateType,
         instanceId: pendingRenderAck.instanceId || instanceId,
+        mediaTotal: media.total,
+        mediaFailed: media.failed,
+        mediaTimedOut: media.timedOut,
+        mediaOk,
       });
+
+      if (!mediaOk) {
+        ws.send('display:media-error', {
+          revision: pendingRenderAck.revision,
+          templateType: pendingRenderAck.templateType,
+          instanceId: pendingRenderAck.instanceId || instanceId,
+          mediaTotal: media.total,
+          mediaFailed: media.failed,
+          mediaTimedOut: media.timedOut,
+        });
+        log.warn('Visible media failed to load for revision', {
+          requestId,
+          revision: pendingRenderAck.revision,
+          mediaTotal: media.total,
+          mediaFailed: media.failed,
+          mediaTimedOut: media.timedOut,
+        });
+
+        // Switch to the fallback playlist instead of leaving a blank/broken
+        // screen. Resets on the next config update so the real app gets retried.
+        if (fallback && fallback.items.length > 0) {
+          setFallbackActive(true);
+        }
+      }
 
       log.info('Reported rendered revision to server', {
         requestId,
         revision: pendingRenderAck.revision,
         templateType: pendingRenderAck.templateType,
+        mediaOk,
       });
 
       setPendingRenderAck((current) => {
@@ -692,7 +752,28 @@ function AppShellInner(props: AppShellProps) {
     return () => {
       cancelled = true;
     };
-  }, [activeRevision, appConfig, instanceId, log, pendingRenderAck, templateType, ws]);
+  }, [activeRevision, appConfig, fallback, instanceId, log, pendingRenderAck, templateType, ws]);
+
+  // ---- Fallback reporting ----
+
+  const reportFallbackActive = useCallback((info: FallbackActiveInfo) => {
+    const payload: Record<string, unknown> = {
+      reason: info.reason,
+      playlistId: info.playlistId,
+      itemCount: info.itemCount,
+    };
+    ws.send('display:fallback-active', payload);
+    log.warn('Showing fallback content', payload);
+  }, [log, ws]);
+
+  const reportFallbackPlay = useCallback((info: { contentUrl: string; title?: string }) => {
+    ws.send('display:play', {
+      source: 'fallback',
+      playlistId: fallback?.playlistId,
+      contentUrl: info.contentUrl,
+      title: info.title,
+    });
+  }, [fallback, ws]);
 
   // ---- Loading state ----
 
@@ -718,8 +799,27 @@ function AppShellInner(props: AppShellProps) {
   // ---- Render children ----
 
   if (!appConfig || !templateType || !instanceId) {
+    if (fallback && fallback.items.length > 0) {
+      return React.createElement(FallbackPlaylist, {
+        content: fallback,
+        reason: 'no-app',
+        onActive: reportFallbackActive,
+        onItemPlay: reportFallbackPlay,
+      });
+    }
     return React.createElement(LoadingScreen, {
       message: 'Waiting for app assignment...',
+    });
+  }
+
+  // Assigned app rendered but its media failed to load — show the fallback
+  // playlist instead of a blank/broken screen (reset on the next config update).
+  if (fallbackActive && fallback && fallback.items.length > 0) {
+    return React.createElement(FallbackPlaylist, {
+      content: fallback,
+      reason: 'media-error',
+      onActive: reportFallbackActive,
+      onItemPlay: reportFallbackPlay,
     });
   }
 

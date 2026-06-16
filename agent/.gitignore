@@ -1,5 +1,7 @@
 # ── Device-specific files (generated per installation, NEVER commit) ──
-.lightman-identity.json
+.museumos-identity.json
+.agent-update-state.json
+provisioning-status.json
 
 # ── Build output ──
 dist/

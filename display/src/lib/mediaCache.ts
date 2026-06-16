@@ -6,7 +6,7 @@
  * Falls back gracefully if Cache API is not available.
  */
 
-const CACHE_NAME = 'lightman-media-v1';
+const CACHE_NAME = 'museumos-media-v1';
 
 function isCacheApiAvailable(): boolean {
   return typeof caches !== 'undefined';

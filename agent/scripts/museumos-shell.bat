@@ -14,16 +14,16 @@ REM   5. Launches Chrome fullscreen
 REM   6. If Chrome crashes, relaunches in 3 seconds (infinite loop)
 REM ================================================================
 
-set INSTALL_DIR=C:\Program Files\Lightman\Agent
+set INSTALL_DIR=C:\Program Files\Museumos\Agent
 set CONFIG_FILE=%INSTALL_DIR%\agent.config.json
-set URL_SIDECAR=C:\ProgramData\Lightman\kiosk-url.txt
-set MULTI_SIDECAR=C:\ProgramData\Lightman\kiosk-multi.json
+set URL_SIDECAR=C:\ProgramData\Museumos\kiosk-url.txt
+set MULTI_SIDECAR=C:\ProgramData\Museumos\kiosk-multi.json
 set MULTI_LAUNCHER=%INSTALL_DIR%\scripts\launch-multi-kiosk.ps1
-set CHROME_DATA=C:\ProgramData\Lightman\chrome-kiosk
-set LOG_FILE=C:\ProgramData\Lightman\logs\shell.log
+set CHROME_DATA=C:\ProgramData\Museumos\chrome-kiosk
+set LOG_FILE=C:\ProgramData\Museumos\logs\shell.log
 
 REM Ensure directories exist
-if not exist "C:\ProgramData\Lightman\logs" mkdir "C:\ProgramData\Lightman\logs"
+if not exist "C:\ProgramData\Museumos\logs" mkdir "C:\ProgramData\Museumos\logs"
 if not exist "%CHROME_DATA%" mkdir "%CHROME_DATA%"
 
 echo [%date% %time%] ===== Museum OS Shell starting ===== >> "%LOG_FILE%"

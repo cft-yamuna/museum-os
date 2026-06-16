@@ -5,7 +5,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-INSTALL_DIR="/opt/lightman/agent"
+INSTALL_DIR="/opt/museumos/agent"
 
 # --- Pre-checks ---
 if [[ $EUID -ne 0 ]]; then
@@ -77,33 +77,33 @@ if ! grep -q "bcm2835_wdt" /etc/modules 2>/dev/null; then
   echo "bcm2835_wdt" >> /etc/modules
 fi
 
-# Set watchdog device permissions for lightman user
+# Set watchdog device permissions for museumos user
 if [[ -e /dev/watchdog ]]; then
-  chown root:lightman /dev/watchdog
+  chown root:museumos /dev/watchdog
   chmod 660 /dev/watchdog
-  echo "  Set /dev/watchdog permissions for lightman group"
+  echo "  Set /dev/watchdog permissions for museumos group"
 fi
 
 # --- tmpfs for logs (reduce SD card wear) ---
 echo "[RPi 5/6] Configuring tmpfs for logs..."
-FSTAB_ENTRY="tmpfs /var/log/lightman tmpfs defaults,noatime,nosuid,nodev,noexec,mode=0750,size=50M,uid=lightman,gid=lightman 0 0"
-if ! grep -q "/var/log/lightman" /etc/fstab 2>/dev/null; then
+FSTAB_ENTRY="tmpfs /var/log/museumos tmpfs defaults,noatime,nosuid,nodev,noexec,mode=0750,size=50M,uid=museumos,gid=museumos 0 0"
+if ! grep -q "/var/log/museumos" /etc/fstab 2>/dev/null; then
   echo "$FSTAB_ENTRY" >> /etc/fstab
   mount -a 2>/dev/null || true
-  echo "  Added tmpfs mount for /var/log/lightman"
+  echo "  Added tmpfs mount for /var/log/museumos"
 fi
 
 # --- Sudoers for agent power commands ---
 echo "[RPi 6/6] Configuring sudoers..."
-SUDOERS_FILE="/etc/sudoers.d/lightman-agent"
+SUDOERS_FILE="/etc/sudoers.d/museumos-agent"
 cat > "$SUDOERS_FILE" << 'SUDOERS'
 # Museum OS Agent - allow power commands without password
-lightman ALL=(ALL) NOPASSWD: /sbin/shutdown
-lightman ALL=(ALL) NOPASSWD: /sbin/reboot
-lightman ALL=(ALL) NOPASSWD: /usr/bin/vcgencmd
+museumos ALL=(ALL) NOPASSWD: /sbin/shutdown
+museumos ALL=(ALL) NOPASSWD: /sbin/reboot
+museumos ALL=(ALL) NOPASSWD: /usr/bin/vcgencmd
 SUDOERS
 chmod 440 "$SUDOERS_FILE"
-echo "  Installed sudoers for lightman agent"
+echo "  Installed sudoers for museumos agent"
 
 echo ""
 echo "=== Raspberry Pi Setup Complete ==="

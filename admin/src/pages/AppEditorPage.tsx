@@ -193,6 +193,15 @@ const TEMPLATE_META: Record<string, {
     gradientTo: 'to-teal-600',
     description: 'Interactive SVG map navigation with categories & galleries.',
   },
+  'custom-builder': {
+    label: 'BUILDER',
+    shortLabel: 'Visual Builder',
+    icon: LayoutGrid,
+    color: '#8b5cf6',
+    gradientFrom: 'from-violet-500',
+    gradientTo: 'to-purple-600',
+    description: 'Design a custom layout visually — text, media, slideshows, clock. No coding.',
+  },
 };
 
 function getTemplateMeta(type: string) {
@@ -227,7 +236,7 @@ const TEMPLATE_GROUPS = [
   },
   {
     group: 'Custom',
-    items: ['custom01-hilight-timeline', 'custom06-reception-program', 'custom07-osc', 'custom08-museum-kiosk'],
+    items: ['custom01-hilight-timeline', 'custom06-reception-program', 'custom07-osc', 'custom08-museum-kiosk', 'custom-builder'],
   },
   {
     group: 'System',
@@ -277,6 +286,7 @@ const TEMPLATE_DEFAULTS: Record<string, Record<string, unknown>> = {
   'custom01-hilight-timeline': { inactivityTimeoutSec: 15, idle: null, dandelionAnimationMode: 'breathing', dandelionAnimationParams: { scale: 1.05, duration: 3, delaySpread: 3 }, dandelionScaleMin: 0.8, dandelionScaleMax: 1.5, timelineData: null },
   'custom01-wipro-timeline': { inactivityTimeoutSec: 15, idle: null, dandelionAnimationMode: 'breathing', dandelionAnimationParams: { scale: 1.05, duration: 3, delaySpread: 3 }, dandelionScaleMin: 0.8, dandelionScaleMax: 1.5, timelineData: null },
   'custom08-museum-kiosk': { idleTimeoutMs: 60000, idle: null, poiImageOverrides: {} },
+  'custom-builder': { background: { color: '#000000' }, regions: [] },
   'diagnostics': {},
 };
 
