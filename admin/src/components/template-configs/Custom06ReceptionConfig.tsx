@@ -308,7 +308,7 @@ function ScreenEditor({ screen, onChange, images, videos, siteId }: {
     <div className="border border-surface-200 rounded-2xl bg-surface-50/50 overflow-hidden">
       <div className="px-5 py-3 border-b border-surface-200 card-bg">
         <div className="flex items-center gap-3">
-          <div className="h-8 w-8 rounded-lg bg-purple-100 flex items-center justify-center text-purple-600 text-xs font-bold">
+          <div className="h-8 w-8 rounded-lg bg-purple-100 dark:bg-purple-500/15 flex items-center justify-center text-purple-600 dark:text-purple-300 text-xs font-bold">
             {screen.screenIndex + 1}
           </div>
           <input type="text" value={screen.screenLabel || ''} onChange={(e) => onChange({ ...screen, screenLabel: e.target.value })}

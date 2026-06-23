@@ -176,8 +176,8 @@ export function DeviceCreatePage() {
         {/* Right: Hardware */}
         <div className="bryzos-card rounded-2xl overflow-hidden">
           <div className="px-5 py-4 border-b border-[var(--glass-border)] flex items-center gap-3">
-            <div className="h-10 w-10 rounded-lg bg-amber-100 flex items-center justify-center shrink-0">
-              <Cpu className="h-5 w-5 text-amber-600" />
+            <div className="h-10 w-10 rounded-lg bg-amber-100 dark:bg-amber-500/15 flex items-center justify-center shrink-0">
+              <Cpu className="h-5 w-5 text-amber-600 dark:text-amber-300" />
             </div>
             <h2 className="text-lg font-bold text-surface-900">Hardware</h2>
           </div>

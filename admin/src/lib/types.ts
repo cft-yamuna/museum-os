@@ -395,6 +395,41 @@ export interface ZoneHealth {
   health_pct: number;
 }
 
+// Visitor-engagement analytics types
+export interface EngagementSummary {
+  hours: number;
+  tz: string;
+  total_interactions: number;
+  total_sessions: number;
+  avg_dwell_sec: number;
+  busiest_hour: number | null;
+  top_exhibits: { id: string; name: string; color: string | null; interactions: number }[];
+}
+
+export interface ExhibitEngagement {
+  zone_id: string;
+  name: string;
+  color: string | null;
+  sessions: number;
+  dwell_seconds: number;
+  avg_dwell_sec: number;
+  interactions: number;
+}
+
+export interface EngagementHeatmap {
+  hours: number;
+  tz: string;
+  zones: { id: string; name: string; color: string | null }[];
+  hour_labels: number[];
+  cells: Record<string, number[]>;
+}
+
+export interface BusiestHour {
+  hour: number;
+  interactions: number;
+  sessions: number;
+}
+
 // Power / staggered-startup types
 export interface PowerPlanStep {
   index: number;

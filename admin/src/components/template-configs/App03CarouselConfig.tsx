@@ -146,7 +146,7 @@ function DocumentEditor({ doc, index, contentItems, siteId, onChange, onRemove }
         className="flex items-center gap-3 px-4 py-3 bg-surface-50 cursor-pointer hover:bg-surface-100 transition-colors"
         onClick={() => setExpanded(!expanded)}
       >
-        <div className="h-8 w-8 rounded-lg bg-indigo-100 flex items-center justify-center text-indigo-600 shrink-0">
+        <div className="h-8 w-8 rounded-lg bg-indigo-100 dark:bg-indigo-500/15 flex items-center justify-center text-indigo-600 dark:text-indigo-300 shrink-0">
           <FileText className="h-4 w-4" />
         </div>
         <div className="flex-1 min-w-0">
@@ -159,7 +159,7 @@ function DocumentEditor({ doc, index, contentItems, siteId, onChange, onRemove }
         </div>
         <button
           onClick={(e) => { e.stopPropagation(); onRemove(); }}
-          className="p-1.5 text-red-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors"
+          className="p-1.5 text-red-400 hover:text-red-600 rounded-lg hover:bg-red-50 dark:hover:text-red-300 dark:hover:bg-red-500/10 transition-colors"
         >
           <Trash2 className="h-3.5 w-3.5" />
         </button>
@@ -402,7 +402,7 @@ function DocumentBuilder({ config, onChange, contentItems, siteId }: {
 
   return (
     <div className="space-y-4">
-      <div className="rounded-xl bg-indigo-50 border border-indigo-100 p-3 text-sm text-indigo-700">
+      <div className="rounded-xl bg-indigo-50 border border-indigo-100 p-3 text-sm text-indigo-700 dark:bg-indigo-500/10 dark:border-indigo-500/20 dark:text-indigo-300">
         Create documents and add pages (images) to each. The <strong>homepage</strong> shows document thumbnails
         side by side. Tap to open the <strong>splitscreen reader</strong> with zoomed content on the left and a
         page overview on the right.

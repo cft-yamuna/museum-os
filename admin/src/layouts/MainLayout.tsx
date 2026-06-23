@@ -39,6 +39,7 @@ import {
   Trash2,
   ChevronDown,
   MapPin,
+  Footprints,
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -63,6 +64,7 @@ const navItems: NavItem[] = [
   { to: '/power', icon: Power, label: 'Power & Startup', section: 'System' },
   { to: '/analytics', icon: Activity, label: 'Analytics', section: 'System' },
   { to: '/proof-of-play', icon: PlayCircle, label: 'Proof of Play', roles: ['super_admin', 'site_admin', 'content_manager'], section: 'System' },
+  { to: '/engagement', icon: Footprints, label: 'Engagement', roles: ['super_admin', 'site_admin', 'content_manager'], section: 'System' },
   { to: '/alerts', icon: Bell, label: 'Alerts', section: 'System' },
   { to: '/logs', icon: ScrollText, label: 'Logs', section: 'System' },
   { to: '/users', icon: Users, label: 'Users', roles: ['super_admin'], section: 'System' },

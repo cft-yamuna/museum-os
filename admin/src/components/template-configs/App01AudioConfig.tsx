@@ -117,7 +117,7 @@ function ButtonEditor({ buttons, contentItems, siteId, appName, onChange }: {
                 <span className="text-sm font-semibold text-surface-700">Button {btn.buttonId}</span>
               </div>
               <button type="button" onClick={() => removeButton(index)}
-                className="p-1.5 text-surface-300 hover:text-red-500 transition-colors rounded-lg hover:bg-red-50">
+                className="p-1.5 text-surface-300 hover:text-red-500 transition-colors rounded-lg hover:bg-red-50 dark:hover:bg-red-500/10">
                 <Trash2 className="h-3.5 w-3.5" />
               </button>
             </div>

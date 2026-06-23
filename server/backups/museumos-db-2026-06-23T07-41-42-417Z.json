@@ -1,6 +1,6 @@
 {
   "format": "museumos-db-json-v1",
-  "exportedAt": "2026-06-23T07:47:26.371Z",
+  "exportedAt": "2026-06-23T07:41:42.296Z",
   "tables": {
     "revoked_tokens": [
       {
@@ -118,7 +118,6 @@
       }
     ],
     "device_groups": [],
-    "engagement_rollup": [],
     "exhibitions": [],
     "floors": [
       {
@@ -1439,26 +1438,6 @@
         "cpu_temp": null,
         "uptime": 1142,
         "recorded_at": "2026-06-23T07:41:42.226Z"
-      },
-      {
-        "id": "74c49fed-8908-4cd3-a644-001284d77f56",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "cpu_usage": 3.6,
-        "mem_percent": 39.26,
-        "disk_percent": 16.82,
-        "cpu_temp": null,
-        "uptime": 1382,
-        "recorded_at": "2026-06-23T07:46:12.208Z"
-      },
-      {
-        "id": "6a20e4f1-1696-415d-a5ec-52742130c4df",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "cpu_usage": 3.61,
-        "mem_percent": 39.14,
-        "disk_percent": 16.82,
-        "cpu_temp": null,
-        "uptime": 1442,
-        "recorded_at": "2026-06-23T07:47:26.283Z"
       }
     ],
     "device_logs": [
@@ -7010,336 +6989,6 @@
         "device_timestamp": "1782200476252",
         "created_at": "2026-06-23T07:41:28.364Z",
         "source": "agent"
-      },
-      {
-        "id": "cf8c2ac2-a823-41de-adf2-ab4cc755cdd2",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "info",
-        "message": "[Screens] Detected 1 display(s)",
-        "context": {},
-        "device_timestamp": "1782200488631",
-        "created_at": "2026-06-23T07:41:58.358Z",
-        "source": "agent"
-      },
-      {
-        "id": "8408e406-dcd7-4a7f-9294-7eff23c672a9",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "info",
-        "message": "[Screens] Detected 1 display(s)",
-        "context": {},
-        "device_timestamp": "1782200508568",
-        "created_at": "2026-06-23T07:41:58.358Z",
-        "source": "agent"
-      },
-      {
-        "id": "2d7c1f8d-5640-4b48-9d76-b797629ec4c4",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "info",
-        "message": "[Screens] Detected 1 display(s)",
-        "context": {},
-        "device_timestamp": "1782200528579",
-        "created_at": "2026-06-23T07:42:28.357Z",
-        "source": "agent"
-      },
-      {
-        "id": "cb9606c1-3238-451e-88de-4191d8ded5d4",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "info",
-        "message": "[Screens] Detected 1 display(s)",
-        "context": {},
-        "device_timestamp": "1782200548651",
-        "created_at": "2026-06-23T07:42:58.372Z",
-        "source": "agent"
-      },
-      {
-        "id": "551a5c66-4827-41b0-8992-083a1481383c",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "info",
-        "message": "[Screens] Detected 1 display(s)",
-        "context": {},
-        "device_timestamp": "1782200568596",
-        "created_at": "2026-06-23T07:42:58.372Z",
-        "source": "agent"
-      },
-      {
-        "id": "5e7a3e6b-2639-4a28-824a-b623da894fc7",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "info",
-        "message": "[Screens] Detected 1 display(s)",
-        "context": {},
-        "device_timestamp": "1782200588596",
-        "created_at": "2026-06-23T07:43:28.374Z",
-        "source": "agent"
-      },
-      {
-        "id": "47c4eb74-130d-4a25-b950-ed603d2ae0b4",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "info",
-        "message": "[Screens] Detected 1 display(s)",
-        "context": {},
-        "device_timestamp": "1782200608689",
-        "created_at": "2026-06-23T07:43:58.381Z",
-        "source": "agent"
-      },
-      {
-        "id": "4bc4ea39-06fc-4545-b6ea-d9b7ff686a6f",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "info",
-        "message": "[Screens] Detected 1 display(s)",
-        "context": {},
-        "device_timestamp": "1782200628618",
-        "created_at": "2026-06-23T07:43:58.381Z",
-        "source": "agent"
-      },
-      {
-        "id": "1bb05c52-2d6e-4287-9b92-d148b39d80b3",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "info",
-        "message": "[Screens] Detected 1 display(s)",
-        "context": {},
-        "device_timestamp": "1782200648620",
-        "created_at": "2026-06-23T07:44:28.399Z",
-        "source": "agent"
-      },
-      {
-        "id": "76c2ab36-d4b1-4870-a881-2415bfd8dadb",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "info",
-        "message": "[Screens] Detected 1 display(s)",
-        "context": {},
-        "device_timestamp": "1782200668685",
-        "created_at": "2026-06-23T07:44:58.408Z",
-        "source": "agent"
-      },
-      {
-        "id": "a726b9c0-8a91-4117-a27f-4cbffd00f1bf",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "info",
-        "message": "[Screens] Detected 1 display(s)",
-        "context": {},
-        "device_timestamp": "1782200688649",
-        "created_at": "2026-06-23T07:44:58.408Z",
-        "source": "agent"
-      },
-      {
-        "id": "4d53a390-9230-4803-b7c5-2631516c1596",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "info",
-        "message": "[Screens] Detected 1 display(s)",
-        "context": {},
-        "device_timestamp": "1782200708617",
-        "created_at": "2026-06-23T07:45:28.406Z",
-        "source": "agent"
-      },
-      {
-        "id": "ceb79fe1-3989-48e7-bcdb-dd8defcd88af",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "info",
-        "message": "[Screens] Detected 1 display(s)",
-        "context": {},
-        "device_timestamp": "1782200728686",
-        "created_at": "2026-06-23T07:45:58.410Z",
-        "source": "agent"
-      },
-      {
-        "id": "37548931-508c-4508-bd27-6ca973a5983a",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "info",
-        "message": "[Screens] Detected 1 display(s)",
-        "context": {},
-        "device_timestamp": "1782200748653",
-        "created_at": "2026-06-23T07:45:58.410Z",
-        "source": "agent"
-      },
-      {
-        "id": "65e18e14-e751-4ac9-a97e-9670adca9f9c",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "info",
-        "message": "[Screens] Detected 1 display(s)",
-        "context": {},
-        "device_timestamp": "1782200768659",
-        "created_at": "2026-06-23T07:46:28.406Z",
-        "source": "agent"
-      },
-      {
-        "id": "33af229e-5dc1-4212-93d8-ac51d7e728e6",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "info",
-        "message": "[Screens] Detected 1 display(s)",
-        "context": {},
-        "device_timestamp": "1782200788711",
-        "created_at": "2026-06-23T07:46:58.413Z",
-        "source": "agent"
-      },
-      {
-        "id": "486dd92e-db9a-40c1-a6b0-0db5a896ad4b",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "warn",
-        "message": "WebSocket closed: 1006 ",
-        "context": {},
-        "device_timestamp": "1782200800147",
-        "created_at": "2026-06-23T07:46:58.413Z",
-        "source": "agent"
-      },
-      {
-        "id": "067bbb63-2c41-4e56-87b2-9eac9b90705e",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "info",
-        "message": "Reconnecting in 1381ms (attempt 1)",
-        "context": {},
-        "device_timestamp": "1782200800148",
-        "created_at": "2026-06-23T07:46:58.413Z",
-        "source": "agent"
-      },
-      {
-        "id": "429c611d-d967-40d1-91ce-0cf5b436781a",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "warn",
-        "message": "WS proxy error: socket hang up",
-        "context": {},
-        "device_timestamp": "1782200808182",
-        "created_at": "2026-06-23T07:46:58.413Z",
-        "source": "agent"
-      },
-      {
-        "id": "c69f9bff-2778-4ad3-95ab-87858c5931e1",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "info",
-        "message": "[Screens] Detected 1 display(s)",
-        "context": {},
-        "device_timestamp": "1782200808660",
-        "created_at": "2026-06-23T07:46:58.413Z",
-        "source": "agent"
-      },
-      {
-        "id": "3130bb8f-d3d1-44d0-98be-eb9ee459167d",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "error",
-        "message": "WebSocket error:",
-        "context": {},
-        "device_timestamp": "1782200808661",
-        "created_at": "2026-06-23T07:46:58.413Z",
-        "source": "agent"
-      },
-      {
-        "id": "1288d47a-f707-4448-aaad-6360244eb86c",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "warn",
-        "message": "WebSocket closed: 1006 ",
-        "context": {},
-        "device_timestamp": "1782200808661",
-        "created_at": "2026-06-23T07:46:58.413Z",
-        "source": "agent"
-      },
-      {
-        "id": "622ed089-02b8-47a6-8fcb-1b736c67444e",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "info",
-        "message": "Reconnecting in 1935ms (attempt 2)",
-        "context": {},
-        "device_timestamp": "1782200808661",
-        "created_at": "2026-06-23T07:46:58.413Z",
-        "source": "agent"
-      },
-      {
-        "id": "bb985dc4-6deb-4834-aefe-1b5d424a552c",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "warn",
-        "message": "WS proxy error: socket hang up",
-        "context": {},
-        "device_timestamp": "1782200810203",
-        "created_at": "2026-06-23T07:46:58.413Z",
-        "source": "agent"
-      },
-      {
-        "id": "0a33a1b9-64c1-452c-9131-99b406d9cfa5",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "error",
-        "message": "WebSocket error:",
-        "context": {},
-        "device_timestamp": "1782200810616",
-        "created_at": "2026-06-23T07:46:58.413Z",
-        "source": "agent"
-      },
-      {
-        "id": "d7732a10-458c-4d28-b217-83f14be1469e",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "warn",
-        "message": "WebSocket closed: 1006 ",
-        "context": {},
-        "device_timestamp": "1782200810617",
-        "created_at": "2026-06-23T07:46:58.413Z",
-        "source": "agent"
-      },
-      {
-        "id": "5707c4bb-e234-4bfa-b4ba-860a418d700e",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "info",
-        "message": "Reconnecting in 4718ms (attempt 3)",
-        "context": {},
-        "device_timestamp": "1782200810618",
-        "created_at": "2026-06-23T07:46:58.413Z",
-        "source": "agent"
-      },
-      {
-        "id": "3e51d398-675f-4ac2-9697-65ec64528dcf",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "warn",
-        "message": "WS proxy error: socket hang up",
-        "context": {},
-        "device_timestamp": "1782200814237",
-        "created_at": "2026-06-23T07:46:58.413Z",
-        "source": "agent"
-      },
-      {
-        "id": "e3016a30-cb81-44bc-88f5-87238968c41b",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "info",
-        "message": "WebSocket connected",
-        "context": {},
-        "device_timestamp": "1782200815353",
-        "created_at": "2026-06-23T07:46:58.413Z",
-        "source": "agent"
-      },
-      {
-        "id": "8c6fbd33-837f-45ea-ac1d-f339d9b115ff",
-        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
-        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
-        "level": "info",
-        "message": "Server acknowledged connection",
-        "context": {},
-        "device_timestamp": "1782200815378",
-        "created_at": "2026-06-23T07:46:58.413Z",
-        "source": "agent"
       }
     ],
     "devices": [
@@ -7354,7 +7003,7 @@
         "capabilities": null,
         "ip_address": "192.168.0.101",
         "status": "online",
-        "last_seen": "2026-06-23T07:47:03.453Z",
+        "last_seen": "2026-06-23T07:41:30.605Z",
         "x_position": null,
         "y_position": null,
         "config": {
@@ -7381,7 +7030,7 @@
           ]
         },
         "created_at": "2026-06-22T13:57:02.745Z",
-        "updated_at": "2026-06-23T07:47:03.453Z",
+        "updated_at": "2026-06-23T07:41:30.606Z",
         "app_id": "b3aa429f-a786-4b00-8430-66f1ca6d3d91",
         "slug": "museum",
         "pairing_code": null,
@@ -7389,14 +7038,14 @@
         "agent_connected": true,
         "agent_version": "1.0.65",
         "last_health": {
-          "uptime": 1442,
+          "uptime": 1142,
           "cpuTemp": null,
-          "memUsed": 6596030464,
+          "memUsed": 6642024448,
           "network": {
             "ip": "192.168.0.101",
             "mac": "fc:4c:ea:18:18:e8",
             "interface": "Ethernet",
-            "serverLatencyMs": 79
+            "serverLatencyMs": 102
           },
           "screens": [
             {
@@ -7411,34 +7060,31 @@
           ],
           "cpuCores": 20,
           "cpuModel": "Intel Core™ i5-14500T",
-          "cpuUsage": 3.61,
-          "diskUsed": 85555335168,
+          "cpuUsage": 3.53,
+          "diskUsed": 85554466816,
           "hostname": "LM-MUSEUM",
           "memTotal": 16851456000,
           "platform": "windows",
           "diskTotal": 508762779648,
           "osVersion": "Microsoft Windows 11 Pro 10.0.26200",
-          "memPercent": 39.14,
+          "memPercent": 39.42,
           "diskPercent": 16.82,
           "nodeVersion": "v24.14.1",
           "screenCount": 1,
           "agentVersion": "1.0.65",
-          "systemUptime": 1454
+          "systemUptime": 1154
         },
         "parent_id": null,
         "power_order": null
       }
     ],
     "exhibition_assignments": [],
-    "interaction_events": [],
-    "play_events": [],
-    "presence_events": []
+    "play_events": []
   },
   "tableOrder": [
     "revoked_tokens",
     "sites",
     "device_groups",
-    "engagement_rollup",
     "exhibitions",
     "floors",
     "users",
@@ -7456,8 +7102,6 @@
     "device_logs",
     "devices",
     "exhibition_assignments",
-    "interaction_events",
-    "play_events",
-    "presence_events"
+    "play_events"
   ]
 }

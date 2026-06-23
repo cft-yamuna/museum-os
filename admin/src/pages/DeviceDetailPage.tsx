@@ -449,8 +449,10 @@ export function DeviceDetailPage() {
         </div>
       )}
 
-      {/* Pairing code banner */}
-      {device.pairing_code && device.status !== 'online' && (
+      {/* Pairing code banner — show whenever a pairing code is pending, even if
+          the agent has already marked the device online (the display browser can
+          still be waiting to pair). */}
+      {device.pairing_code && (
         <div className="border border-amber-500/20 rounded-3xl bg-amber-500/5 px-5 py-4 flex items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <Radio className="h-5 w-5 text-amber-500 shrink-0" />
@@ -649,7 +651,7 @@ export function DeviceDetailPage() {
               <button
                 onClick={() => simulateMutation.mutate('clear')}
                 disabled={simulateMutation.isPending}
-                className="rounded-lg border border-emerald-200 px-3 py-2 text-sm font-medium text-emerald-600 hover:bg-emerald-50 disabled:opacity-50"
+                className="rounded-lg border border-emerald-200 px-3 py-2 text-sm font-medium text-emerald-600 hover:bg-emerald-50 dark:border-emerald-500/30 dark:text-emerald-300 dark:hover:bg-emerald-500/10 disabled:opacity-50"
               >
                 Clear
               </button>
@@ -1080,7 +1082,7 @@ export function DeviceDetailPage() {
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-surface-500 uppercase">Agent</span>
               {device.agent_connected ? (
-                <span className="inline-flex items-center gap-1.5 text-sm text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full font-medium">
+                <span className="inline-flex items-center gap-1.5 text-sm text-emerald-600 bg-emerald-50 dark:text-emerald-300 dark:bg-emerald-500/10 px-2.5 py-1 rounded-full font-medium">
                   <span className="h-2 w-2 rounded-full bg-emerald-400" />
                   Connected
                 </span>

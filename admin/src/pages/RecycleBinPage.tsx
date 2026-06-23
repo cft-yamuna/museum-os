@@ -177,7 +177,7 @@ export function RecycleBinPage() {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setRestoreTarget(app)}
-                    className="flex-1 h-9 flex items-center justify-center gap-1.5 rounded-xl border border-emerald-200 font-medium text-emerald-600 hover:bg-emerald-50 transition-colors"
+                    className="flex-1 h-9 flex items-center justify-center gap-1.5 rounded-xl border border-emerald-200 font-medium text-emerald-600 hover:bg-emerald-50 dark:border-emerald-500/30 dark:text-emerald-300 dark:hover:bg-emerald-500/10 transition-colors"
                     style={{ fontSize: '14px' }}
                   >
                     <RotateCcw className="h-3.5 w-3.5" />
@@ -185,7 +185,7 @@ export function RecycleBinPage() {
                   </button>
                   <button
                     onClick={() => setPermDelTarget(app)}
-                    className="flex-1 h-9 flex items-center justify-center gap-1.5 rounded-xl border border-red-200 font-medium text-red-500 hover:bg-red-50 transition-colors"
+                    className="flex-1 h-9 flex items-center justify-center gap-1.5 rounded-xl border border-red-200 font-medium text-red-500 hover:bg-red-50 dark:border-red-500/30 dark:hover:bg-red-500/10 transition-colors"
                     style={{ fontSize: '14px' }}
                   >
                     <Trash2 className="h-3.5 w-3.5" />

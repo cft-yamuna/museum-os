@@ -129,6 +129,11 @@ vi.mock('../../services/healthAggregator.js', () => ({
   stopHealthAggregator: vi.fn(),
 }));
 
+vi.mock('../../services/engagementAggregator.js', () => ({
+  startEngagementAggregator: vi.fn(),
+  stopEngagementAggregator: vi.fn(),
+}));
+
 vi.mock('../../services/dali.js', () => ({
   getDALIClient: vi.fn().mockReturnValue(null),
   disconnectAllDALI: vi.fn(),

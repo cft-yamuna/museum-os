@@ -12,6 +12,7 @@ import { startSSSPMonitor, stopSSSPMonitor } from './services/ssspMonitor.js';
 import { disconnectAllDALI } from './services/dali.js';
 import { initAgentWs, closeAgentWs } from './services/agentWs.js';
 import { startHealthAggregator, stopHealthAggregator } from './services/healthAggregator.js';
+import { startEngagementAggregator, stopEngagementAggregator } from './services/engagementAggregator.js';
 import { startTokenCleanup, stopTokenCleanup } from './services/tokenRevocation.js';
 import { startBackupService, stopBackupService } from './services/backupService.js';
 import { initStorage } from './services/storageBackend.js';
@@ -55,6 +56,7 @@ const server = app.listen(port, async () => {
       startProjectorMonitor();
       startSSSPMonitor();
       startHealthAggregator();
+      startEngagementAggregator();
       startTokenCleanup();
       startBackupService();
     } else {
@@ -76,6 +78,7 @@ function shutdown(signal: string) {
     stopProjectorMonitor();
     stopSSSPMonitor();
     stopHealthAggregator();
+    stopEngagementAggregator();
     stopTokenCleanup();
     stopBackupService();
     disconnectAllDALI();

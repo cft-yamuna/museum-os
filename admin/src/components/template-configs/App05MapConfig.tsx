@@ -102,7 +102,7 @@ function SectionEditor({ sections, onChange }: { sections: SectionEntry[]; onCha
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-surface-500 uppercase tracking-wider">Section {index + 1}</span>
             <button type="button" onClick={() => removeSection(index)}
-              className="p-1.5 text-surface-300 hover:text-red-500 transition-colors rounded-lg hover:bg-red-50">
+              className="p-1.5 text-surface-300 hover:text-red-500 transition-colors rounded-lg hover:bg-red-50 dark:hover:bg-red-500/10">
               <Trash2 className="h-3.5 w-3.5" />
             </button>
           </div>

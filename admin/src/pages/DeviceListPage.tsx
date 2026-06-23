@@ -31,11 +31,11 @@ import {
 
 // Status configuration
 const STATUS_CONFIG: Record<Device['status'], { dot: string; bg: string; text: string; label: string }> = {
-  online: { dot: 'bg-emerald-600', bg: 'bg-emerald-50', text: 'text-emerald-700', label: 'Online' },
-  error: { dot: 'bg-red-600', bg: 'bg-red-50', text: 'text-red-700', label: 'Error' },
+  online: { dot: 'bg-emerald-600', bg: 'bg-emerald-50 dark:bg-emerald-500/10', text: 'text-emerald-700 dark:text-emerald-300', label: 'Online' },
+  error: { dot: 'bg-red-600', bg: 'bg-red-50 dark:bg-red-500/10', text: 'text-red-700 dark:text-red-300', label: 'Error' },
   offline: { dot: 'bg-surface-400', bg: 'bg-surface-100', text: 'text-surface-600', label: 'Offline' },
   unavailable: { dot: 'bg-surface-400', bg: 'bg-surface-100', text: 'text-surface-500', label: 'Unavailable' },
-  restarting: { dot: 'bg-blue-500', bg: 'bg-blue-50', text: 'text-blue-700', label: 'Restarting' },
+  restarting: { dot: 'bg-blue-500', bg: 'bg-blue-50 dark:bg-blue-500/10', text: 'text-blue-700 dark:text-blue-300', label: 'Restarting' },
 };
 
 function StatusDot({ status }: { status: Device['status'] }) {
@@ -393,7 +393,7 @@ export function DeviceListPage() {
             <button
               onClick={() => setBulkDeleteConfirm(true)}
               disabled={bulkLoading}
-              className="card-bg inline-flex h-9 items-center gap-1.5 rounded-md border border-red-200 px-3 text-sm font-semibold text-red-700 transition-colors hover:bg-red-50 disabled:opacity-50"
+              className="card-bg inline-flex h-9 items-center gap-1.5 rounded-md border border-red-200 px-3 text-sm font-semibold text-red-700 transition-colors hover:bg-red-50 dark:border-red-500/30 dark:text-red-300 dark:hover:bg-red-500/10 disabled:opacity-50"
               title="Delete selected devices"
             >
               <Trash2 className="h-4 w-4" />
@@ -519,7 +519,7 @@ export function DeviceListPage() {
                   </td>
                   <td className="px-4 py-3.5 hidden md:table-cell">
                     {device.agent_connected ? (
-                      <span className="inline-flex items-center gap-1.5 rounded px-2 py-1 text-xs font-semibold bg-emerald-50 text-emerald-700">
+                      <span className="inline-flex items-center gap-1.5 rounded px-2 py-1 text-xs font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">
                         <span className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
                         Online
                       </span>
@@ -549,7 +549,7 @@ export function DeviceListPage() {
                       <button
                         onClick={() => setDeleteTarget(device)}
                         aria-label={`Delete ${device.display_name}`}
-                        className="admin-focus flex h-8 w-8 items-center justify-center rounded-md text-surface-400 transition-colors hover:bg-red-50 hover:text-red-700"
+                        className="admin-focus flex h-8 w-8 items-center justify-center rounded-md text-surface-400 transition-colors hover:bg-red-50 hover:text-red-700 dark:hover:bg-red-500/10 dark:hover:text-red-300"
                         title="Delete device"
                       >
                         <Trash2 className="h-4 w-4" />

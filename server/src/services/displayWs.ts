@@ -4,6 +4,7 @@ import { URL } from 'url';
 import { getDb } from '../lib/db.js';
 import { pushToDeviceSubscribers, pushToAdmins } from './adminWs.js';
 import { recordPlayEvent } from './playEvents.js';
+import { recordInteractionEvent } from './interactionEvents.js';
 
 // --- Types ---
 interface DisplayClient {
@@ -358,6 +359,26 @@ function handleClientMessage(deviceId: string, msg: WsMessage): void {
           contentUrl: p.contentUrl as string | undefined,
           source: (p.source as string | undefined) || 'item',
           durationSec: p.durationSec as number | undefined,
+        });
+      }
+      break;
+    }
+    case 'display:interaction': {
+      // Visitor touch interaction (tap/navigate/button/etc.) reported by a
+      // display template — recorded for visitor-engagement analytics. The
+      // payload may carry a coalesced `count` for high-frequency events; we
+      // store one row per message (the count is advisory for now).
+      const interactionClient = clients.get(deviceId);
+      if (interactionClient && msg.payload) {
+        const p = msg.payload;
+        void recordInteractionEvent({
+          siteId: interactionClient.siteId,
+          deviceId,
+          appId: p.appId as string | undefined,
+          templateType:
+            (p.templateType as string | undefined) ?? interactionClient.templateType,
+          eventType: (p.eventType as string) || 'other',
+          target: p.target as string | undefined,
         });
       }
       break;

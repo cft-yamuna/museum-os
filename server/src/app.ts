@@ -37,6 +37,7 @@ import receptionRoutes from './routes/reception.js';
 import powerRoutes from './routes/power.js';
 import analyticsRoutes from './routes/analytics.js';
 import proofOfPlayRoutes from './routes/proofOfPlay.js';
+import engagementRoutes from './routes/engagement.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -357,6 +358,7 @@ export function createApp(): express.Application {
   app.use('/api/power', powerRoutes);
   app.use('/api/analytics', analyticsRoutes);
   app.use('/api/proof-of-play', proofOfPlayRoutes);
+  app.use('/api/engagement', engagementRoutes);
   app.use('/api/alerts', alertsRoutes);
   app.use('/api/audit-logs', auditLogsRoutes);
   app.use('/api/lighting', lightingRoutes);

@@ -1076,7 +1076,7 @@ export function AppEditorPage() {
 
     if (!device.agent_connected) {
       return (
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-300">
           Agent offline
         </span>
       );
@@ -1123,7 +1123,7 @@ export function AppEditorPage() {
             {!isNew && (
               <button
                 onClick={() => setDeleteConfirmOpen(true)}
-                className="h-9 w-9 rounded-lg flex items-center justify-center border border-red-200 text-red-400 hover:text-red-600 hover:bg-red-50 transition-all"
+                className="h-9 w-9 rounded-lg flex items-center justify-center border border-red-200 text-red-400 hover:text-red-600 hover:bg-red-50 dark:border-red-500/30 dark:hover:text-red-300 dark:hover:bg-red-500/10 transition-all"
                 title="Delete app"
               >
                 <Trash2 className="h-4 w-4" />

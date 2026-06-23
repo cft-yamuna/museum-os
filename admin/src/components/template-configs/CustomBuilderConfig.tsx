@@ -55,7 +55,7 @@ interface BuilderBackground {
 }
 
 const INPUT =
-  'h-9 w-full rounded-md border border-surface-300 bg-white px-2 text-sm text-surface-800 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20';
+  'h-9 w-full rounded-md border border-surface-300 card-bg px-2 text-sm text-surface-800 placeholder:text-surface-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20';
 const LABEL = 'block text-xs font-semibold text-surface-500 mb-1';
 
 const ELEMENT_TYPES: Array<{ type: ElementType; label: string; icon: typeof Type }> = [
@@ -583,7 +583,7 @@ export function CustomBuilderConfig({ config, onChange, siteId }: ConfigPanelPro
                   <button type="button" title="Send backward" onClick={() => moveZ(selected.id, -1)} className="rounded p-1 text-surface-500 hover:bg-surface-100">
                     <ArrowDown className="h-4 w-4" />
                   </button>
-                  <button type="button" title="Delete" onClick={() => deleteRegion(selected.id)} className="rounded p-1 text-red-500 hover:bg-red-50">
+                  <button type="button" title="Delete" onClick={() => deleteRegion(selected.id)} className="rounded p-1 text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10">
                     <Trash2 className="h-4 w-4" />
                   </button>
                 </div>

@@ -19,6 +19,7 @@ import { FloorMapPage } from './pages/FloorMapPage';
 import { AlertsPage } from './pages/AlertsPage';
 import { AnalyticsPage } from './pages/AnalyticsPage';
 import { ProofOfPlayPage } from './pages/ProofOfPlayPage';
+import { EngagementPage } from './pages/EngagementPage';
 import { PowerPage } from './pages/PowerPage';
 import { LogsPage } from './pages/LogsPage';
 import { UsersPage } from './pages/UsersPage';
@@ -97,6 +98,7 @@ export default function App() {
             <Route path="power" element={<PowerPage />} />
             <Route path="analytics" element={<AnalyticsPage />} />
             <Route path="proof-of-play" element={<ProofOfPlayPage />} />
+            <Route path="engagement" element={<EngagementPage />} />
             <Route path="alerts" element={<AlertsPage />} />
             <Route path="logs" element={<LogsPage />} />
             <Route path="users" element={<UsersPage />} />

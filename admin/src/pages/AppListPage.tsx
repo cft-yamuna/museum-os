@@ -347,7 +347,7 @@ function AppCard({
           className={clsx(
             'mt-0.5 shrink-0 rounded px-2 py-0.5 text-[10px] font-bold',
             app.is_active
-              ? 'bg-emerald-50 text-emerald-600'
+              ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-300'
               : 'bg-surface-100 text-surface-500'
           )}
         >
@@ -380,7 +380,7 @@ function AppCard({
         <button
           onClick={(e) => { e.stopPropagation(); onDelete(); }}
           aria-label={`Delete ${app.name}`}
-          className="flex w-11 items-center justify-center text-surface-400 transition-colors hover:bg-red-50 hover:text-red-700"
+          className="flex w-11 items-center justify-center text-surface-400 transition-colors hover:bg-red-50 hover:text-red-700 dark:hover:bg-red-500/10 dark:hover:text-red-300"
           title="Delete"
         >
           <Trash2 className="h-3.5 w-3.5" />

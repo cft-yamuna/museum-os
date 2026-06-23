@@ -347,7 +347,7 @@ export function ReceptionEditorPage() {
                 <button
                   type="button"
                   onClick={() => removeGuestName(idx)}
-                  className="flex h-16 w-16 items-center justify-center rounded-2xl border border-red-200 text-red-400 transition-colors hover:bg-red-50 hover:text-red-600"
+                  className="flex h-16 w-16 items-center justify-center rounded-2xl border border-red-200 text-red-400 transition-colors hover:bg-red-50 hover:text-red-600 dark:border-red-500/30 dark:hover:bg-red-500/10 dark:hover:text-red-300"
                   aria-label={`Remove name ${idx + 1}`}
                 >
                   <Trash2 className="h-6 w-6" />

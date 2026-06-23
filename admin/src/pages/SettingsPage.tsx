@@ -69,16 +69,16 @@ function Section({ icon: Icon, title, subtitle, action, danger, children }: Sect
       {...fadeIn}
       className={
         danger
-          ? 'rounded-md border border-red-200 bg-red-50/60'
+          ? 'rounded-md border border-red-200 bg-red-50/60 dark:border-red-500/30 dark:bg-red-500/10'
           : 'admin-card'
       }
     >
       <div className="flex items-center justify-between border-b border-[var(--glass-border)] px-5 py-4">
         <div className="flex items-center gap-3">
           <div className={`flex h-9 w-9 items-center justify-center rounded-md ${
-            danger ? 'bg-red-100' : 'bg-primary-100'
+            danger ? 'bg-red-100 dark:bg-red-500/15' : 'bg-primary-100'
           }`}>
-            <Icon className={`h-4.5 w-4.5 ${danger ? 'text-red-600' : 'text-primary-700'}`} />
+            <Icon className={`h-4.5 w-4.5 ${danger ? 'text-red-600 dark:text-red-300' : 'text-primary-700'}`} />
           </div>
           <div>
             <h2 className="text-base font-semibold leading-tight text-surface-900">{title}</h2>
@@ -543,7 +543,7 @@ function DataTransferSection() {
         </p>
 
         {disabled && (
-          <div className="rounded-md border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-700">
+          <div className="rounded-md border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-700 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-300">
             Only Super Admins can export or import database JSON.
           </div>
         )}

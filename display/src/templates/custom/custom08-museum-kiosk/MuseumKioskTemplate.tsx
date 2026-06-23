@@ -1,5 +1,8 @@
+import { useCallback } from 'react';
 import { useNavigationState } from './hooks/useNavigationState';
 import { useIdleTimeout } from './hooks/useIdleTimeout';
+import { useInteractionTelemetry } from '../../../hooks/useInteractionTelemetry';
+import type { CategoryId, GalleryId } from './types';
 import { MuseumMap } from './components/MuseumMap/MuseumMap';
 import { Screensaver } from './components/Screensaver/Screensaver';
 import { CategoryCircles } from './components/CategoryCircles/CategoryCircles';
@@ -34,9 +37,39 @@ export function MuseumKioskTemplate({ config }: MuseumKioskTemplateProps) {
     resetToScreensaver,
   } = useNavigationState();
 
+  const track = useInteractionTelemetry();
+
+  // Wrap navigation handlers to emit engagement telemetry at the moments the
+  // visitor actually acts. No extra input listeners are added — these fire only
+  // on real semantic actions, so the render/animation hot paths are untouched.
+  const handleTapScreensaver = useCallback(() => {
+    track('screensaver-wake');
+    tapScreensaver();
+  }, [track, tapScreensaver]);
+
+  const handleSelectCategory = useCallback((categoryId: CategoryId) => {
+    track('navigate', { target: categoryId });
+    selectCategory(categoryId);
+  }, [track, selectCategory]);
+
+  const handleSelectGallery = useCallback((galleryId: GalleryId) => {
+    track('navigate', { target: galleryId });
+    selectGallery(galleryId);
+  }, [track, selectGallery]);
+
+  const handleGoBack = useCallback(() => {
+    track('button-press', { target: 'back' });
+    goBack();
+  }, [track, goBack]);
+
+  const handleResetToScreensaver = useCallback(() => {
+    track('idle-reset');
+    resetToScreensaver();
+  }, [track, resetToScreensaver]);
+
   useIdleTimeout(
     state.screen === 'screensaver',
-    resetToScreensaver,
+    handleResetToScreensaver,
     config.idleTimeoutMs
   );
 
@@ -56,8 +89,8 @@ export function MuseumKioskTemplate({ config }: MuseumKioskTemplateProps) {
           {/* Map layer -- always visible, zoom controlled by state */}
           <MuseumMap
             viewState={state}
-            onSelectCategory={selectCategory}
-            onSelectGallery={selectGallery}
+            onSelectCategory={handleSelectCategory}
+            onSelectGallery={handleSelectGallery}
             onDeselectGallery={deselectGallery}
             poiImageOverrides={poiImageOverrides}
           />
@@ -65,20 +98,20 @@ export function MuseumKioskTemplate({ config }: MuseumKioskTemplateProps) {
           {/* Screensaver overlay */}
           <Screensaver
             visible={isScreensaver}
-            onTap={tapScreensaver}
+            onTap={handleTapScreensaver}
           />
 
           {/* Categories panel: persistent on screensaver + categories for smooth transition */}
           {(isScreensaver || isCategories) && (
             <div className="categories-panel" data-state={isCategories ? 'open' : 'idle'}>
-              <CategoryCircles visible={isCategories} onSelect={selectCategory} />
+              <CategoryCircles visible={isCategories} onSelect={handleSelectCategory} />
             </div>
           )}
 
           {/* Back button (visible on category-view and gallery-view) */}
           <BackButton
             visible={isCategoryView || isGalleryView}
-            onTap={goBack}
+            onTap={handleGoBack}
           />
 
           {/* Category info panel (visible on category-view and gallery-view) */}

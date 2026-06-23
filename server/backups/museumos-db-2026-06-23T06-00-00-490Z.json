@@ -1,0 +1,2663 @@
+{
+  "format": "museumos-db-json-v1",
+  "exportedAt": "2026-06-23T06:00:00.380Z",
+  "tables": {
+    "revoked_tokens": [
+      {
+        "jti": "f012081b-3784-44ed-9e5c-19266acbf5b5",
+        "expires_at": "2026-06-23T10:25:53.000Z",
+        "revoked_at": "2026-06-22T10:39:54.353Z"
+      },
+      {
+        "jti": "2618eb5e-22e3-4fd0-ac8c-06d6ec012fe0",
+        "expires_at": "2026-06-23T10:39:54.000Z",
+        "revoked_at": "2026-06-22T10:53:54.028Z"
+      },
+      {
+        "jti": "047a3576-da27-4e7c-b747-e22fa9501905",
+        "expires_at": "2026-06-23T10:53:54.000Z",
+        "revoked_at": "2026-06-22T11:07:54.335Z"
+      },
+      {
+        "jti": "8c196e1f-5ee3-4f8f-bebc-8fe31e91cd99",
+        "expires_at": "2026-06-23T11:07:54.000Z",
+        "revoked_at": "2026-06-22T11:21:54.345Z"
+      },
+      {
+        "jti": "868c8777-0d31-418c-bb27-fbf4867bf3f1",
+        "expires_at": "2026-06-23T11:21:54.000Z",
+        "revoked_at": "2026-06-22T11:35:54.342Z"
+      },
+      {
+        "jti": "53448137-403b-4893-aefe-253c6136493e",
+        "expires_at": "2026-06-23T11:35:54.000Z",
+        "revoked_at": "2026-06-22T11:49:54.349Z"
+      },
+      {
+        "jti": "232527f9-4c0b-4dc7-a01d-3c79153aa830",
+        "expires_at": "2026-06-23T11:49:54.000Z",
+        "revoked_at": "2026-06-22T12:19:04.354Z"
+      },
+      {
+        "jti": "3ff2e255-d9ab-4906-b744-12f549ac3aac",
+        "expires_at": "2026-06-23T12:19:04.000Z",
+        "revoked_at": "2026-06-22T12:33:04.381Z"
+      },
+      {
+        "jti": "d31ab016-00fe-42d8-aa00-1397f082a2e5",
+        "expires_at": "2026-06-23T12:33:04.000Z",
+        "revoked_at": "2026-06-22T12:47:04.354Z"
+      },
+      {
+        "jti": "81eee7d0-c17e-4268-a743-cd7e9dceae0e",
+        "expires_at": "2026-06-23T12:47:04.000Z",
+        "revoked_at": "2026-06-22T13:01:04.342Z"
+      },
+      {
+        "jti": "ecf1eadb-9274-4c66-9224-38a21551c6d2",
+        "expires_at": "2026-06-23T13:01:04.000Z",
+        "revoked_at": "2026-06-22T13:15:31.340Z"
+      },
+      {
+        "jti": "eaa97611-a30b-4e9f-8c15-4e6867e7c982",
+        "expires_at": "2026-06-23T13:15:31.000Z",
+        "revoked_at": "2026-06-22T13:29:31.341Z"
+      },
+      {
+        "jti": "f0d8dc6e-090c-4a06-8882-c82d990d68d5",
+        "expires_at": "2026-06-23T13:29:31.000Z",
+        "revoked_at": "2026-06-22T13:43:31.342Z"
+      },
+      {
+        "jti": "2c983ef5-4f6c-4b73-9499-0b0fbb55b7b4",
+        "expires_at": "2026-06-23T13:43:31.000Z",
+        "revoked_at": "2026-06-22T13:57:31.342Z"
+      }
+    ],
+    "sites": [
+      {
+        "id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "name": "Museum OS",
+        "code": "hilight-museum",
+        "address": "",
+        "timezone": "Asia/Kolkata",
+        "config": {},
+        "is_active": true,
+        "created_at": "2026-06-16T07:01:12.298Z",
+        "updated_at": "2026-06-16T07:01:12.298Z"
+      }
+    ],
+    "device_groups": [],
+    "exhibitions": [],
+    "floors": [
+      {
+        "id": "e1e471ca-5bbc-4578-a461-bc8002836139",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "name": "Ground Floor",
+        "level": 0,
+        "background_image": null,
+        "width": 1920,
+        "height": 1080,
+        "config": {},
+        "created_at": "2026-06-16T07:01:12.304Z"
+      }
+    ],
+    "users": [
+      {
+        "id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "email": "admin@museumos.local",
+        "password_hash": "$2b$12$sqLgMll2ZGgDQAd2H.JoPO/S7wbevysRcdr0neGFNk0ImlgwmAX2a",
+        "name": "Admin",
+        "role": "super_admin",
+        "site_ids": [
+          "62331086-f259-45d6-9099-90c0755e1f40"
+        ],
+        "is_active": true,
+        "last_login": "2026-06-22T13:56:50.880Z",
+        "created_at": "2026-06-16T07:01:12.461Z",
+        "updated_at": "2026-06-16T07:01:12.461Z",
+        "token_valid_after": "2026-06-16T07:14:02.301Z",
+        "must_change_password": false
+      }
+    ],
+    "agent_versions": [
+      {
+        "id": "cb44d880-219b-4342-aaf0-fe4cf78fefed",
+        "filename": "1782123558364-museumos-agent-1.0.65_20260622154744.tar.gz",
+        "version": "1.0.65+20260622154744",
+        "platform": "windows",
+        "checksum": "9942a387758d49a2c402931a981e1a2fa2257197c98455a1d2e244aa4cf80b71",
+        "file_size": "30640021",
+        "uploaded_by": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "created_at": "2026-06-22T10:19:18.940Z"
+      }
+    ],
+    "apps": [
+      {
+        "id": "04eb41d6-6dfb-48f6-ad5e-04c07b94924a",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "name": "video",
+        "template_type": "app04-media-loop",
+        "config": {
+          "fit": "cover",
+          "mode": "video-loop",
+          "muted": false,
+          "volume": 100,
+          "fadeType": "fade-black",
+          "videoUrl": "/storage/62331086-f259-45d6-9099-90c0755e1f40/video/3e4ae7c0-cf1e-4082-86e8-b939b2b18dbc/v1/One%20Plus%20Engagement%20Discussion%20_%20Microsoft%20Teams%20-%20Google%20Chrome%202025-12-11%2012-53-17.mp4",
+          "audioOutput": "screen",
+          "subtitlesUrl": "",
+          "pauseDuration": 0,
+          "slideInterval": 8,
+          "backgroundColor": "#000000",
+          "subtitlesEnabled": false
+        },
+        "is_active": true,
+        "created_by": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "created_at": "2026-06-22T10:30:43.881Z",
+        "updated_at": "2026-06-22T10:30:43.881Z",
+        "deleted_at": null
+      }
+    ],
+    "audit_logs": [
+      {
+        "id": "6b5ec0a4-21ba-4018-b64d-abe385df66eb",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-16T07:13:36.377Z"
+      },
+      {
+        "id": "3b28da9f-968c-4607-91b7-ce07a70dee00",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.password_changed",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "forced": true
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-16T07:14:02.311Z"
+      },
+      {
+        "id": "2b8112df-c002-44fc-96e1-759e2fcb2abf",
+        "user_id": null,
+        "site_id": null,
+        "action": "auth.login_failed",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@hilight.local",
+          "reason": "Invalid email or password",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-16T15:29:17.367Z"
+      },
+      {
+        "id": "e00dad60-7614-46d9-a1d2-9437897f5a60",
+        "user_id": null,
+        "site_id": null,
+        "action": "auth.login_failed",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@hilight.local",
+          "reason": "Invalid email or password",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-16T15:30:02.170Z"
+      },
+      {
+        "id": "d487c2d7-718f-4b76-beb8-4b1a3204f98b",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login_failed",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "reason": "Invalid email or password",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-16T15:31:37.099Z"
+      },
+      {
+        "id": "7e75c310-4507-4a0e-95a9-8b648596b40e",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login_failed",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "reason": "Invalid email or password",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-16T15:32:05.789Z"
+      },
+      {
+        "id": "7567269b-aeea-459e-ba8c-51aa624d1c28",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login_failed",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "reason": "Invalid email or password",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-16T15:32:17.673Z"
+      },
+      {
+        "id": "f027d47f-8dd0-443c-979f-436fc79e3f7d",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-16T15:33:06.448Z"
+      },
+      {
+        "id": "c26dd28d-a93a-4e16-ac15-ededc66ca37f",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-17T08:13:10.866Z"
+      },
+      {
+        "id": "552786c4-045c-48e5-84c0-e818358ef196",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-22T10:07:48.058Z"
+      },
+      {
+        "id": "53168cc8-8219-43ea-9ac6-5c154972d460",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-22T10:16:44.722Z"
+      },
+      {
+        "id": "f38d598a-5f61-46b7-b04d-fdadba73e3b6",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-22T10:19:17.063Z"
+      },
+      {
+        "id": "a0aeee88-0bfb-42f1-a215-4e43689b78ae",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-22T10:19:41.578Z"
+      },
+      {
+        "id": "b5cdebac-0cab-423a-991a-cafe8005ae20",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-22T10:23:09.460Z"
+      },
+      {
+        "id": "dcc3e861-d7db-4e84-86bb-63ba9aa29948",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-22T10:25:53.994Z"
+      },
+      {
+        "id": "bf85c4a7-065b-4d51-a0f7-5337caf51f6c",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "action": "app.created",
+        "entity_type": "app",
+        "entity_id": "04eb41d6-6dfb-48f6-ad5e-04c07b94924a",
+        "details": {
+          "name": "video",
+          "template_type": "app04-media-loop"
+        },
+        "ip_address": null,
+        "created_at": "2026-06-22T10:30:43.889Z"
+      },
+      {
+        "id": "61e12301-2b1f-46db-bba0-2e835f6d6dcd",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "action": "device.app_changed",
+        "entity_type": "device",
+        "entity_id": "3311ae25-e291-4850-a70a-5c261f0231ef",
+        "details": {
+          "new_app_id": "04eb41d6-6dfb-48f6-ad5e-04c07b94924a",
+          "old_app_id": null
+        },
+        "ip_address": null,
+        "created_at": "2026-06-22T10:31:00.115Z"
+      },
+      {
+        "id": "9aef80ff-7b91-474c-8540-440c045868ce",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "action": "device.config_updated",
+        "entity_type": "device",
+        "entity_id": "3311ae25-e291-4850-a70a-5c261f0231ef",
+        "details": {
+          "config": {
+            "com_port": null,
+            "orientation": "landscape"
+          }
+        },
+        "ip_address": null,
+        "created_at": "2026-06-22T10:31:16.798Z"
+      },
+      {
+        "id": "86e7b122-f421-4cde-a843-56ef496aeb6c",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-22T10:43:23.444Z"
+      },
+      {
+        "id": "a17cfe62-9f85-403b-85d6-cd7ad0c4f52f",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "action": "device.simulate_fault",
+        "entity_type": "device",
+        "entity_id": "3311ae25-e291-4850-a70a-5c261f0231ef",
+        "details": {
+          "fault": "clear"
+        },
+        "ip_address": null,
+        "created_at": "2026-06-22T10:52:35.100Z"
+      },
+      {
+        "id": "5c3eb671-df55-428a-933e-05b7fcd62ea8",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-22T10:53:45.149Z"
+      },
+      {
+        "id": "bdf5cd36-765b-4871-baa8-a613e20310dc",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "action": "device.app_changed",
+        "entity_type": "device",
+        "entity_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "details": {
+          "new_app_id": "04eb41d6-6dfb-48f6-ad5e-04c07b94924a",
+          "old_app_id": null
+        },
+        "ip_address": null,
+        "created_at": "2026-06-22T10:59:50.023Z"
+      },
+      {
+        "id": "d74e5961-305f-4700-89b9-659390300736",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-22T12:06:21.638Z"
+      },
+      {
+        "id": "1dc19c50-991d-4230-a48f-4a8186991b15",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-22T12:06:42.183Z"
+      },
+      {
+        "id": "34fab5dc-1e8d-47fc-99fe-9b76dfaf6b7f",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-22T12:07:04.966Z"
+      },
+      {
+        "id": "fcf495a1-ec47-4f15-850c-d28d1173eb96",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-22T12:07:23.335Z"
+      },
+      {
+        "id": "95c8a884-b436-4c53-86ae-b5b61e1ccab2",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-22T12:07:59.849Z"
+      },
+      {
+        "id": "6907ab4c-c830-408e-9636-8b0b87eb7125",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-22T12:08:48.053Z"
+      },
+      {
+        "id": "bdfbb535-2672-43b0-a452-2d455a346a61",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "action": "device.wake",
+        "entity_type": "device",
+        "entity_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "details": {
+          "source": "last_health",
+          "mac_address": "FC:4C:EA:18:18:E8"
+        },
+        "ip_address": null,
+        "created_at": "2026-06-22T12:53:15.126Z"
+      },
+      {
+        "id": "b536291a-4c5c-4e52-bec4-a79f61877e23",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "action": "device.power_on",
+        "entity_type": "device",
+        "entity_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "details": {
+          "delivered": false
+        },
+        "ip_address": null,
+        "created_at": "2026-06-22T12:53:15.126Z"
+      },
+      {
+        "id": "91fd2ee3-aeef-4cdf-9b1e-c1db38685826",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-22T12:56:19.415Z"
+      },
+      {
+        "id": "38252ad2-ce09-4cb7-8e88-b5adbd795252",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-22T13:03:47.310Z"
+      },
+      {
+        "id": "4cd8d11d-e8bf-451c-b6dc-0f23b2167ea4",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-22T13:04:56.634Z"
+      },
+      {
+        "id": "eda2220a-1222-4da1-9474-0049c3c6878f",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-22T13:56:50.887Z"
+      }
+    ],
+    "content": [
+      {
+        "id": "3e4ae7c0-cf1e-4082-86e8-b939b2b18dbc",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "name": "One Plus Engagement Discussion _ Microsoft Teams - Google Chrome 2025-12-11 12-53-17",
+        "type": "video",
+        "description": null,
+        "current_version": 1,
+        "is_active": true,
+        "created_by": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "created_at": "2026-06-22T10:29:28.537Z",
+        "updated_at": "2026-06-22T10:29:28.537Z"
+      }
+    ],
+    "content_versions": [
+      {
+        "id": "99b8173e-0428-40f1-89d4-343c08d34254",
+        "content_id": "3e4ae7c0-cf1e-4082-86e8-b939b2b18dbc",
+        "version_number": 1,
+        "file_path": "62331086-f259-45d6-9099-90c0755e1f40/video/3e4ae7c0-cf1e-4082-86e8-b939b2b18dbc/v1/One Plus Engagement Discussion _ Microsoft Teams - Google Chrome 2025-12-11 12-53-17.mp4",
+        "file_size": "947415685",
+        "hash": "2dc2b045d85b47bbb89ae78f974dcac148c18a3138389b3d5eafcefc8d51e9dc",
+        "metadata": {
+          "mimeType": "video/mp4",
+          "originalName": "One Plus Engagement Discussion _ Microsoft Teams - Google Chrome 2025-12-11 12-53-17.mp4"
+        },
+        "created_by": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "created_at": "2026-06-22T10:29:45.316Z"
+      }
+    ],
+    "playlists": [],
+    "playlist_items": [],
+    "schedules": [],
+    "alerts": [
+      {
+        "id": "0f41caf6-b6d5-4439-9687-3a14f7543b6b",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "type": "device_offline",
+        "severity": "high",
+        "message": "Device museum went offline",
+        "is_acknowledged": false,
+        "acknowledged_by": null,
+        "acknowledged_at": null,
+        "created_at": "2026-06-23T05:51:45.967Z"
+      }
+    ],
+    "device_group_members": [],
+    "device_health": [
+      {
+        "id": "2567db2b-959e-4fbf-a18b-ee8a26342270",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "cpu_usage": 8.1,
+        "mem_percent": 24,
+        "disk_percent": 19.8,
+        "cpu_temp": null,
+        "uptime": 64,
+        "recorded_at": "2026-06-22T13:59:37.466Z"
+      },
+      {
+        "id": "dc4c45db-a4b5-4a27-870b-968b20679ee2",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "cpu_usage": 1,
+        "mem_percent": 44.69,
+        "disk_percent": 21.08,
+        "cpu_temp": null,
+        "uptime": 301,
+        "recorded_at": "2026-06-23T05:52:15.922Z"
+      },
+      {
+        "id": "f4944be1-5aff-4322-861b-b6730475a98e",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "cpu_usage": 1.05,
+        "mem_percent": 44.63,
+        "disk_percent": 21.08,
+        "cpu_temp": null,
+        "uptime": 601,
+        "recorded_at": "2026-06-23T05:56:45.841Z"
+      }
+    ],
+    "device_logs": [
+      {
+        "id": "5358fff0-dc10-4b01-b2cb-f745ed5b4b3f",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Log forwarder started (interval: 30000ms, maxBatch: 100)",
+        "context": {},
+        "device_timestamp": "1782136635975",
+        "created_at": "2026-06-22T13:57:41.585Z",
+        "source": "agent"
+      },
+      {
+        "id": "b39f7f44-d6a2-4bd9-8ed8-e064caba4800",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "KioskManager: shell mode enabled - Chrome lifecycle managed by Windows shell",
+        "context": {},
+        "device_timestamp": "1782136635975",
+        "created_at": "2026-06-22T13:57:41.585Z",
+        "source": "agent"
+      },
+      {
+        "id": "8e2d3775-6b97-4998-96c0-25f6d864800b",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782136636876",
+        "created_at": "2026-06-22T13:57:41.585Z",
+        "source": "agent"
+      },
+      {
+        "id": "ffb92972-4a8f-4492-847e-4179d805cb0b",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[MultiKiosk] Updated detected screens: 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782136636876",
+        "created_at": "2026-06-22T13:57:41.585Z",
+        "source": "agent"
+      },
+      {
+        "id": "e9fcc574-4ddc-4c4d-994d-d7990658b3c7",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[AutoUpdate] Started — checking every 300s (current: v1.0.65)",
+        "context": {},
+        "device_timestamp": "1782136636877",
+        "created_at": "2026-06-22T13:57:41.585Z",
+        "source": "agent"
+      },
+      {
+        "id": "ca636151-17ab-41bd-bf1c-4f95d9031ddf",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Health monitor started (interval: 60000ms)",
+        "context": {},
+        "device_timestamp": "1782136636886",
+        "created_at": "2026-06-22T13:57:41.585Z",
+        "source": "agent"
+      },
+      {
+        "id": "a8648ca6-29b0-4a13-b982-b01ccb29c87c",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Watchdog started (interval: 60000ms)",
+        "context": {},
+        "device_timestamp": "1782136636887",
+        "created_at": "2026-06-22T13:57:41.585Z",
+        "source": "agent"
+      },
+      {
+        "id": "6e2cead2-7768-44e0-93a6-60e5bb9fa89d",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "PowerScheduler: local cron scheduler disabled by policy",
+        "context": {},
+        "device_timestamp": "1782136636887",
+        "created_at": "2026-06-22T13:57:41.585Z",
+        "source": "agent"
+      },
+      {
+        "id": "ef158625-b39e-4342-bf7c-48637acc5324",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Museum OS Agent running.",
+        "context": {},
+        "device_timestamp": "1782136636887",
+        "created_at": "2026-06-22T13:57:41.585Z",
+        "source": "agent"
+      },
+      {
+        "id": "b2dca643-e4de-4444-9851-51d90f07e796",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Display static server listening on port 3403 (proxy → http://192.168.0.100:3401)",
+        "context": {},
+        "device_timestamp": "1782136636893",
+        "created_at": "2026-06-22T13:57:41.585Z",
+        "source": "agent"
+      },
+      {
+        "id": "eed69699-df2d-426d-a047-d56054689645",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "WebSocket connected",
+        "context": {},
+        "device_timestamp": "1782136636903",
+        "created_at": "2026-06-22T13:57:41.585Z",
+        "source": "agent"
+      },
+      {
+        "id": "3ddce146-6700-4a8a-9101-b245ef999eef",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Server acknowledged connection",
+        "context": {},
+        "device_timestamp": "1782136637013",
+        "created_at": "2026-06-22T13:57:41.585Z",
+        "source": "agent"
+      },
+      {
+        "id": "351be371-5971-4633-ab9c-aa0b17319de8",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[SERIAL] No com_port configured on this device â€” serial bridge not started",
+        "context": {},
+        "device_timestamp": "1782136637948",
+        "created_at": "2026-06-22T13:57:41.585Z",
+        "source": "agent"
+      },
+      {
+        "id": "692d485c-52c4-4287-bb80-5caa222b78b8",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[OSC] No OSC config on this device â€” OSC bridge not started",
+        "context": {},
+        "device_timestamp": "1782136637948",
+        "created_at": "2026-06-22T13:57:41.585Z",
+        "source": "agent"
+      },
+      {
+        "id": "eafda4c3-2482-4b7c-bdcd-22f6d1b945f6",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Presence] Template is not presence-enabled - sensor not started",
+        "context": {},
+        "device_timestamp": "1782136637948",
+        "created_at": "2026-06-22T13:57:41.585Z",
+        "source": "agent"
+      },
+      {
+        "id": "73df0805-5245-47de-b737-5d5c233367da",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Shell mode: skipping Chrome launch (managed by Windows shell)",
+        "context": {},
+        "device_timestamp": "1782136637949",
+        "created_at": "2026-06-22T13:57:41.585Z",
+        "source": "agent"
+      },
+      {
+        "id": "674c0a21-f08e-4047-aa83-2be205ab7e86",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Shell mode: Chrome not running. Shell BAT will launch it.",
+        "context": {},
+        "device_timestamp": "1782136638035",
+        "created_at": "2026-06-22T13:57:41.585Z",
+        "source": "agent"
+      },
+      {
+        "id": "939710e4-511c-4ea5-a2ce-f84066d5d929",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[DisplayCache] Cleared active revision because no app is assigned (reason=startup-sync)",
+        "context": {},
+        "device_timestamp": "1782136638118",
+        "created_at": "2026-06-22T13:57:41.585Z",
+        "source": "agent"
+      },
+      {
+        "id": "06c364a2-24d2-4b9d-960c-e7071753eec2",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782136657680",
+        "created_at": "2026-06-22T13:57:41.585Z",
+        "source": "agent"
+      },
+      {
+        "id": "07eb9edc-c09a-424a-a2f8-1f81358d449f",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "SIGINT received. Shutting down...",
+        "context": {},
+        "device_timestamp": "1782136661200",
+        "created_at": "2026-06-22T13:57:41.585Z",
+        "source": "agent"
+      },
+      {
+        "id": "0e315d41-4681-4be0-a08f-071daa0357b1",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Log forwarder started (interval: 30000ms, maxBatch: 100)",
+        "context": {},
+        "device_timestamp": "1782136689292",
+        "created_at": "2026-06-22T13:58:39.293Z",
+        "source": "agent"
+      },
+      {
+        "id": "d1ba9a76-01df-4c19-97ea-1a582a8adb17",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "KioskManager: shell mode enabled - Chrome lifecycle managed by Windows shell",
+        "context": {},
+        "device_timestamp": "1782136689293",
+        "created_at": "2026-06-22T13:58:39.293Z",
+        "source": "agent"
+      },
+      {
+        "id": "86916637-1799-4dc0-962b-3e6c7494f79e",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782136690761",
+        "created_at": "2026-06-22T13:58:39.293Z",
+        "source": "agent"
+      },
+      {
+        "id": "dfaf6b4c-d112-4876-831d-52ccb47b3c12",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[MultiKiosk] Updated detected screens: 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782136690762",
+        "created_at": "2026-06-22T13:58:39.293Z",
+        "source": "agent"
+      },
+      {
+        "id": "c2bd9581-6df6-493d-8275-6885146845dd",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[AutoUpdate] Started — checking every 300s (current: v1.0.65)",
+        "context": {},
+        "device_timestamp": "1782136690763",
+        "created_at": "2026-06-22T13:58:39.293Z",
+        "source": "agent"
+      },
+      {
+        "id": "8316c893-35fa-40a2-8ed0-9fcf2f2ed470",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Health monitor started (interval: 60000ms)",
+        "context": {},
+        "device_timestamp": "1782136690769",
+        "created_at": "2026-06-22T13:58:39.293Z",
+        "source": "agent"
+      },
+      {
+        "id": "b56a4cb1-e921-4fc8-9563-dc1424f47294",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Watchdog started (interval: 60000ms)",
+        "context": {},
+        "device_timestamp": "1782136690770",
+        "created_at": "2026-06-22T13:58:39.293Z",
+        "source": "agent"
+      },
+      {
+        "id": "86f8ac7f-09b6-403a-bc30-f0b77bf45eb7",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "PowerScheduler: local cron scheduler disabled by policy",
+        "context": {},
+        "device_timestamp": "1782136690771",
+        "created_at": "2026-06-22T13:58:39.293Z",
+        "source": "agent"
+      },
+      {
+        "id": "c056b1a7-eb87-422a-91ed-62d603ecc1c8",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Museum OS Agent running.",
+        "context": {},
+        "device_timestamp": "1782136690771",
+        "created_at": "2026-06-22T13:58:39.293Z",
+        "source": "agent"
+      },
+      {
+        "id": "f507fa19-1b81-476a-ba31-6bdbbb2d7aab",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Display static server listening on port 3403 (proxy → http://192.168.0.100:3401)",
+        "context": {},
+        "device_timestamp": "1782136690782",
+        "created_at": "2026-06-22T13:58:39.293Z",
+        "source": "agent"
+      },
+      {
+        "id": "b35f3151-5841-46b0-ab1a-3e4685100539",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "WebSocket connected",
+        "context": {},
+        "device_timestamp": "1782136690793",
+        "created_at": "2026-06-22T13:58:39.293Z",
+        "source": "agent"
+      },
+      {
+        "id": "92b4bc9d-476d-4072-b8ae-701882330fd0",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Server acknowledged connection",
+        "context": {},
+        "device_timestamp": "1782136690800",
+        "created_at": "2026-06-22T13:58:39.293Z",
+        "source": "agent"
+      },
+      {
+        "id": "5081f84f-92d3-4c57-89e6-7c1c72c0b11e",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[SERIAL] No com_port configured on this device â€” serial bridge not started",
+        "context": {},
+        "device_timestamp": "1782136691826",
+        "created_at": "2026-06-22T13:58:39.293Z",
+        "source": "agent"
+      },
+      {
+        "id": "92f72a5f-d24c-44fa-b65b-f534a380bfce",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[OSC] No OSC config on this device â€” OSC bridge not started",
+        "context": {},
+        "device_timestamp": "1782136691827",
+        "created_at": "2026-06-22T13:58:39.293Z",
+        "source": "agent"
+      },
+      {
+        "id": "ae11b54e-0584-464b-8f39-fe1fe36f05cf",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Presence] Template is not presence-enabled - sensor not started",
+        "context": {},
+        "device_timestamp": "1782136691827",
+        "created_at": "2026-06-22T13:58:39.293Z",
+        "source": "agent"
+      },
+      {
+        "id": "fbc00611-3339-4a9a-a8c7-ba1d608a5ef8",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Shell mode: skipping Chrome launch (managed by Windows shell)",
+        "context": {},
+        "device_timestamp": "1782136691828",
+        "created_at": "2026-06-22T13:58:39.293Z",
+        "source": "agent"
+      },
+      {
+        "id": "2cbbd4b6-9a7c-45bf-a4fa-bd70c4954017",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Shell mode: Chrome not running. Shell BAT will launch it.",
+        "context": {},
+        "device_timestamp": "1782136691971",
+        "created_at": "2026-06-22T13:58:39.293Z",
+        "source": "agent"
+      },
+      {
+        "id": "f345ada5-523e-4ae7-85f1-9f853530f94c",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782136711778",
+        "created_at": "2026-06-22T13:58:39.293Z",
+        "source": "agent"
+      },
+      {
+        "id": "1b9e2d64-2902-4561-8e2b-bd191007422b",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782136731525",
+        "created_at": "2026-06-22T13:59:09.293Z",
+        "source": "agent"
+      },
+      {
+        "id": "f7a2b07b-cb8a-4221-88eb-ae2cc5cfac6f",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782136752298",
+        "created_at": "2026-06-22T13:59:39.303Z",
+        "source": "agent"
+      },
+      {
+        "id": "c3d18ed5-7f52-4517-ad9d-4b169baf0662",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782136771649",
+        "created_at": "2026-06-22T13:59:39.303Z",
+        "source": "agent"
+      },
+      {
+        "id": "bb4731c3-9a01-492d-9866-b4b402aecc64",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782136791680",
+        "created_at": "2026-06-22T14:00:09.308Z",
+        "source": "agent"
+      },
+      {
+        "id": "d5eb846a-8d84-4881-a167-0d061f07c8ed",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782136812428",
+        "created_at": "2026-06-22T14:00:39.322Z",
+        "source": "agent"
+      },
+      {
+        "id": "90379152-d49c-4cae-9743-1268b864630e",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782136831657",
+        "created_at": "2026-06-22T14:00:39.322Z",
+        "source": "agent"
+      },
+      {
+        "id": "050df955-511b-4151-9a40-e5379dd8b2cd",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782136851646",
+        "created_at": "2026-06-22T14:01:09.322Z",
+        "source": "agent"
+      },
+      {
+        "id": "de3ed44b-6012-4aec-bdd6-a97fb2184c78",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782136872389",
+        "created_at": "2026-06-22T14:01:39.331Z",
+        "source": "agent"
+      },
+      {
+        "id": "737e4daa-990c-47fb-82fe-f8bc5dcd2964",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782136891702",
+        "created_at": "2026-06-22T14:01:39.331Z",
+        "source": "agent"
+      },
+      {
+        "id": "88b8c7be-fc9e-4a9c-bcae-0efc35856bdd",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193631017",
+        "created_at": "2026-06-23T05:52:15.601Z",
+        "source": "agent"
+      },
+      {
+        "id": "137568e3-98fc-457c-8991-5913b91d1c6b",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193637048",
+        "created_at": "2026-06-23T05:52:15.601Z",
+        "source": "agent"
+      },
+      {
+        "id": "df879623-b06f-4fac-b33a-6e822b840da0",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782193637486",
+        "created_at": "2026-06-23T05:52:15.601Z",
+        "source": "agent"
+      },
+      {
+        "id": "49722bdd-b1b8-47d2-9e40-b5c504c52ccd",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "error",
+        "message": "[AutoUpdate] Error: fetch failed",
+        "context": {},
+        "device_timestamp": "1782193638004",
+        "created_at": "2026-06-23T05:52:15.601Z",
+        "source": "agent"
+      },
+      {
+        "id": "f5c49f13-01c8-4aca-b4aa-f160664e1ab2",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "error",
+        "message": "WebSocket error:",
+        "context": {},
+        "device_timestamp": "1782193639948",
+        "created_at": "2026-06-23T05:52:15.601Z",
+        "source": "agent"
+      },
+      {
+        "id": "31f5ac01-9571-4636-8c40-f88134e99749",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "WebSocket closed: 1006 ",
+        "context": {},
+        "device_timestamp": "1782193639950",
+        "created_at": "2026-06-23T05:52:15.601Z",
+        "source": "agent"
+      },
+      {
+        "id": "68b41a83-a9c5-447a-bc7c-b4089e6c0522",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Reconnecting in 1751ms (attempt 2)",
+        "context": {},
+        "device_timestamp": "1782193639951",
+        "created_at": "2026-06-23T05:52:15.601Z",
+        "source": "agent"
+      },
+      {
+        "id": "35b5959b-515d-4c29-a3bd-b0624b091e90",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193643061",
+        "created_at": "2026-06-23T05:52:15.601Z",
+        "source": "agent"
+      },
+      {
+        "id": "4c0917c7-8460-44e6-8b28-a384adcf65b4",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193649081",
+        "created_at": "2026-06-23T05:52:15.601Z",
+        "source": "agent"
+      },
+      {
+        "id": "8ee6d762-02df-4f6f-b330-98ed96f7c182",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193655108",
+        "created_at": "2026-06-23T05:52:15.601Z",
+        "source": "agent"
+      },
+      {
+        "id": "666f275f-f99d-417b-ab05-475bddc19b2e",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782193657736",
+        "created_at": "2026-06-23T05:52:15.611Z",
+        "source": "agent"
+      },
+      {
+        "id": "224f8b71-cf9d-4ec4-a514-64113979b3da",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193661147",
+        "created_at": "2026-06-23T05:52:15.611Z",
+        "source": "agent"
+      },
+      {
+        "id": "f3ca0fb1-2ca4-4afe-9352-21ec90606be1",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "error",
+        "message": "WebSocket error:",
+        "context": {},
+        "device_timestamp": "1782193662711",
+        "created_at": "2026-06-23T05:52:15.611Z",
+        "source": "agent"
+      },
+      {
+        "id": "2e1dd541-b130-4e12-906f-fe4685cb5bdb",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "WebSocket closed: 1006 ",
+        "context": {},
+        "device_timestamp": "1782193662714",
+        "created_at": "2026-06-23T05:52:15.611Z",
+        "source": "agent"
+      },
+      {
+        "id": "9ba859b3-f1c4-4966-9bae-d7d5d9e0373e",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Reconnecting in 2149ms (attempt 3)",
+        "context": {},
+        "device_timestamp": "1782193662715",
+        "created_at": "2026-06-23T05:52:15.611Z",
+        "source": "agent"
+      },
+      {
+        "id": "1f6eb813-ade3-4953-a9b7-d591574769ee",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193667182",
+        "created_at": "2026-06-23T05:52:15.611Z",
+        "source": "agent"
+      },
+      {
+        "id": "4d6ddb35-d1d4-45ea-82a7-23b9d22c8ff5",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193673203",
+        "created_at": "2026-06-23T05:52:15.611Z",
+        "source": "agent"
+      },
+      {
+        "id": "5f9ac139-8d31-469a-9f04-53ce8b89581a",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782193677536",
+        "created_at": "2026-06-23T05:52:15.611Z",
+        "source": "agent"
+      },
+      {
+        "id": "3d87f0c0-9dbe-4ef4-8eb6-0479ea37ac65",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193679221",
+        "created_at": "2026-06-23T05:52:15.611Z",
+        "source": "agent"
+      },
+      {
+        "id": "0d866322-1ce9-47e0-bb1b-b5290db25dd4",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193685234",
+        "created_at": "2026-06-23T05:52:15.611Z",
+        "source": "agent"
+      },
+      {
+        "id": "1c759a83-c271-492b-b6f3-c1b8a1f79e5d",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "error",
+        "message": "WebSocket error:",
+        "context": {},
+        "device_timestamp": "1782193685915",
+        "created_at": "2026-06-23T05:52:15.611Z",
+        "source": "agent"
+      },
+      {
+        "id": "046d4ad5-4b09-4812-83e4-091bc0f64fa1",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "WebSocket closed: 1006 ",
+        "context": {},
+        "device_timestamp": "1782193685916",
+        "created_at": "2026-06-23T05:52:15.611Z",
+        "source": "agent"
+      },
+      {
+        "id": "a8e9d4a7-9fe3-459e-b10f-123b5a48d64a",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Reconnecting in 9844ms (attempt 4)",
+        "context": {},
+        "device_timestamp": "1782193685918",
+        "created_at": "2026-06-23T05:52:15.611Z",
+        "source": "agent"
+      },
+      {
+        "id": "32ef08a3-d6cb-4ec5-a7d3-5113cf44a98a",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193691270",
+        "created_at": "2026-06-23T05:52:15.615Z",
+        "source": "agent"
+      },
+      {
+        "id": "764e2cd7-2011-42ed-87cb-fc12d5eb0156",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193697298",
+        "created_at": "2026-06-23T05:52:15.615Z",
+        "source": "agent"
+      },
+      {
+        "id": "cfa3a2ea-7785-43cf-9497-95c4fb852013",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782193697546",
+        "created_at": "2026-06-23T05:52:15.615Z",
+        "source": "agent"
+      },
+      {
+        "id": "6c7ab159-95a1-4bc0-b067-3fd15ce3f99d",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193703315",
+        "created_at": "2026-06-23T05:52:15.615Z",
+        "source": "agent"
+      },
+      {
+        "id": "50b3201b-463e-48df-88fa-b02efa2c6f02",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: connect ECONNREFUSED 192.168.0.100:3401",
+        "context": {},
+        "device_timestamp": "1782193708379",
+        "created_at": "2026-06-23T05:52:15.615Z",
+        "source": "agent"
+      },
+      {
+        "id": "70004986-9ecb-4977-86dc-0bef831780d5",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "error",
+        "message": "WebSocket error:",
+        "context": {},
+        "device_timestamp": "1782193710816",
+        "created_at": "2026-06-23T05:52:15.615Z",
+        "source": "agent"
+      },
+      {
+        "id": "56807ac4-92cb-4439-b4c2-388ce0158b98",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "WebSocket closed: 1006 ",
+        "context": {},
+        "device_timestamp": "1782193710818",
+        "created_at": "2026-06-23T05:52:15.615Z",
+        "source": "agent"
+      },
+      {
+        "id": "67a43d16-9666-435e-8bba-f189996a713d",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Reconnecting in 17647ms (attempt 5)",
+        "context": {},
+        "device_timestamp": "1782193710819",
+        "created_at": "2026-06-23T05:52:15.615Z",
+        "source": "agent"
+      },
+      {
+        "id": "78f42f2b-8467-44c3-8bea-b74d4a03182a",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193714402",
+        "created_at": "2026-06-23T05:52:15.615Z",
+        "source": "agent"
+      },
+      {
+        "id": "2c40047a-4cc4-4052-8917-7065c75af8bc",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782193717736",
+        "created_at": "2026-06-23T05:52:15.626Z",
+        "source": "agent"
+      },
+      {
+        "id": "417854e2-4d8a-4f2e-8451-3fd3c0bbcffd",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193720752",
+        "created_at": "2026-06-23T05:52:15.626Z",
+        "source": "agent"
+      },
+      {
+        "id": "e5fad365-0f31-4cfd-80e2-7dbf88da4d39",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193726868",
+        "created_at": "2026-06-23T05:52:15.626Z",
+        "source": "agent"
+      },
+      {
+        "id": "f80683de-ad1b-400a-8951-c44176806042",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193732880",
+        "created_at": "2026-06-23T05:52:15.626Z",
+        "source": "agent"
+      },
+      {
+        "id": "326b1de2-88d0-4b8f-b25d-39b470a37983",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782193737564",
+        "created_at": "2026-06-23T05:52:15.626Z",
+        "source": "agent"
+      },
+      {
+        "id": "f6cdb7c7-5c12-485d-a9c0-dc0e78a61cd6",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193738896",
+        "created_at": "2026-06-23T05:52:15.626Z",
+        "source": "agent"
+      },
+      {
+        "id": "4ea8281d-edfc-4bf1-adb1-4e34f40d770d",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193744915",
+        "created_at": "2026-06-23T05:52:15.626Z",
+        "source": "agent"
+      },
+      {
+        "id": "48273b81-d882-495c-960e-f07be6dc26a1",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "error",
+        "message": "WebSocket error:",
+        "context": {},
+        "device_timestamp": "1782193749513",
+        "created_at": "2026-06-23T05:52:15.631Z",
+        "source": "agent"
+      },
+      {
+        "id": "fe57ba86-d838-4425-bb9b-42dc20d34eae",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "WebSocket closed: 1006 ",
+        "context": {},
+        "device_timestamp": "1782193749515",
+        "created_at": "2026-06-23T05:52:15.631Z",
+        "source": "agent"
+      },
+      {
+        "id": "13651dc9-758f-4cf8-90e3-be0971f2fe69",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Reconnecting in 21723ms (attempt 6)",
+        "context": {},
+        "device_timestamp": "1782193749517",
+        "created_at": "2026-06-23T05:52:15.631Z",
+        "source": "agent"
+      },
+      {
+        "id": "7772dfef-7e7d-49e7-aa70-e232830893e7",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193750947",
+        "created_at": "2026-06-23T05:52:15.631Z",
+        "source": "agent"
+      },
+      {
+        "id": "3ca9e511-bae8-4759-b6c8-f32312788570",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193756967",
+        "created_at": "2026-06-23T05:52:15.631Z",
+        "source": "agent"
+      },
+      {
+        "id": "f9b8e33d-46f0-4fa6-834a-ca5d57f9b092",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782193757582",
+        "created_at": "2026-06-23T05:52:15.631Z",
+        "source": "agent"
+      },
+      {
+        "id": "f4123a03-402c-49e6-b89e-5289ed133738",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193762997",
+        "created_at": "2026-06-23T05:52:15.631Z",
+        "source": "agent"
+      },
+      {
+        "id": "30a54932-36e7-4d0c-a892-f82a53136a70",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193769015",
+        "created_at": "2026-06-23T05:52:15.631Z",
+        "source": "agent"
+      },
+      {
+        "id": "cadc993c-0931-4857-9cf8-40a8c0f6c747",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193775048",
+        "created_at": "2026-06-23T05:52:15.631Z",
+        "source": "agent"
+      },
+      {
+        "id": "722a7b80-72df-4bea-982e-7e50d2707424",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782193777738",
+        "created_at": "2026-06-23T05:52:15.638Z",
+        "source": "agent"
+      },
+      {
+        "id": "5a72e5d2-0b8c-450d-b3db-605713b3e403",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193781100",
+        "created_at": "2026-06-23T05:52:15.638Z",
+        "source": "agent"
+      },
+      {
+        "id": "1146f157-8fe3-4e95-aa38-d69c05d2740f",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193787130",
+        "created_at": "2026-06-23T05:52:15.638Z",
+        "source": "agent"
+      },
+      {
+        "id": "89a09832-c0b8-4dd6-bd3b-a2aaba65e55e",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "error",
+        "message": "WebSocket error:",
+        "context": {},
+        "device_timestamp": "1782193792277",
+        "created_at": "2026-06-23T05:52:15.638Z",
+        "source": "agent"
+      },
+      {
+        "id": "ea6ac68e-60b2-43f7-80ac-42aa965f717d",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "WebSocket closed: 1006 ",
+        "context": {},
+        "device_timestamp": "1782193792279",
+        "created_at": "2026-06-23T05:52:15.638Z",
+        "source": "agent"
+      },
+      {
+        "id": "77ff78ba-7d78-430a-b7a4-942c0e4bbec5",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Reconnecting in 34725ms (attempt 7)",
+        "context": {},
+        "device_timestamp": "1782193792280",
+        "created_at": "2026-06-23T05:52:15.638Z",
+        "source": "agent"
+      },
+      {
+        "id": "3f9635cb-70eb-4e66-a52b-133733239207",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193793166",
+        "created_at": "2026-06-23T05:52:15.638Z",
+        "source": "agent"
+      },
+      {
+        "id": "bdf38adb-3041-4510-aa6a-06f1377f431a",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782193797611",
+        "created_at": "2026-06-23T05:52:15.638Z",
+        "source": "agent"
+      },
+      {
+        "id": "a6a082b1-df61-4e31-947c-9646b8a79811",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193799196",
+        "created_at": "2026-06-23T05:52:15.638Z",
+        "source": "agent"
+      },
+      {
+        "id": "296c0dd0-6f71-48d8-a27b-3d9b7a8d464c",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193805231",
+        "created_at": "2026-06-23T05:52:15.638Z",
+        "source": "agent"
+      },
+      {
+        "id": "27fcf1e1-ecb7-49d7-83a9-69777784b869",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193811266",
+        "created_at": "2026-06-23T05:52:15.640Z",
+        "source": "agent"
+      },
+      {
+        "id": "4157f0ab-b230-41f2-ab6d-a78df76134cc",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193817288",
+        "created_at": "2026-06-23T05:52:15.640Z",
+        "source": "agent"
+      },
+      {
+        "id": "0b9dea7e-88ab-4631-8191-0525ac702281",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782193817611",
+        "created_at": "2026-06-23T05:52:15.640Z",
+        "source": "agent"
+      },
+      {
+        "id": "deb54d9d-b92e-43be-97c3-a73cf5c646ba",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193823306",
+        "created_at": "2026-06-23T05:52:15.640Z",
+        "source": "agent"
+      },
+      {
+        "id": "bf822f7c-9b63-45ee-ac6d-14738a0dcd8a",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193829331",
+        "created_at": "2026-06-23T05:52:15.640Z",
+        "source": "agent"
+      },
+      {
+        "id": "ad1645bf-54bf-4653-a2ec-07136eb904d6",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193835340",
+        "created_at": "2026-06-23T05:52:15.640Z",
+        "source": "agent"
+      },
+      {
+        "id": "d10a9712-72cb-447d-83f3-6c0d9abe54cd",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782193837769",
+        "created_at": "2026-06-23T05:52:15.651Z",
+        "source": "agent"
+      },
+      {
+        "id": "f5d5679c-b3e8-4dcc-895b-a04599299e48",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193841365",
+        "created_at": "2026-06-23T05:52:15.651Z",
+        "source": "agent"
+      },
+      {
+        "id": "97a0bca9-5379-44de-9947-257354453fe5",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193847386",
+        "created_at": "2026-06-23T05:52:15.651Z",
+        "source": "agent"
+      },
+      {
+        "id": "40c5188c-11aa-479a-b66d-0d2a091b1558",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "error",
+        "message": "WebSocket error:",
+        "context": {},
+        "device_timestamp": "1782193848081",
+        "created_at": "2026-06-23T05:52:15.651Z",
+        "source": "agent"
+      },
+      {
+        "id": "1da92fde-198c-4a2d-a0c3-cb725553f93b",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "WebSocket closed: 1006 ",
+        "context": {},
+        "device_timestamp": "1782193848084",
+        "created_at": "2026-06-23T05:52:15.651Z",
+        "source": "agent"
+      },
+      {
+        "id": "03f4b908-8cd5-4fc2-aba3-9a7fa729cb66",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Reconnecting in 86292ms (attempt 8)",
+        "context": {},
+        "device_timestamp": "1782193848085",
+        "created_at": "2026-06-23T05:52:15.651Z",
+        "source": "agent"
+      },
+      {
+        "id": "97739209-fedc-4d7d-971a-ddb68a1caa6b",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193853398",
+        "created_at": "2026-06-23T05:52:15.651Z",
+        "source": "agent"
+      },
+      {
+        "id": "de1da1de-949a-4274-9d69-b3a54fa68b5e",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782193857623",
+        "created_at": "2026-06-23T05:52:15.651Z",
+        "source": "agent"
+      },
+      {
+        "id": "bd7b5bfa-a0c3-4c0d-81d2-2d88baad90ce",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193859435",
+        "created_at": "2026-06-23T05:52:15.651Z",
+        "source": "agent"
+      },
+      {
+        "id": "2b8643a9-37ad-44a2-b878-4be68a652c31",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193865451",
+        "created_at": "2026-06-23T05:52:15.651Z",
+        "source": "agent"
+      },
+      {
+        "id": "e9dabee8-eae2-48f4-9adb-5692f1a5adff",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193871485",
+        "created_at": "2026-06-23T05:52:15.653Z",
+        "source": "agent"
+      },
+      {
+        "id": "58e55bd8-2801-4c83-95c0-7d1724969ebb",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782193877637",
+        "created_at": "2026-06-23T05:52:15.653Z",
+        "source": "agent"
+      },
+      {
+        "id": "881f1b56-e4b2-41f7-9e58-81076062f702",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193877638",
+        "created_at": "2026-06-23T05:52:15.653Z",
+        "source": "agent"
+      },
+      {
+        "id": "93201b53-0627-430c-b838-e263cda5eb4c",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193883667",
+        "created_at": "2026-06-23T05:52:15.653Z",
+        "source": "agent"
+      },
+      {
+        "id": "ae918d23-c29a-41a1-8159-add21210bb13",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193889700",
+        "created_at": "2026-06-23T05:52:15.653Z",
+        "source": "agent"
+      },
+      {
+        "id": "c0e7b78a-2e72-47a8-b564-75687e55b66f",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193892728",
+        "created_at": "2026-06-23T05:52:15.653Z",
+        "source": "agent"
+      },
+      {
+        "id": "1b17e98b-e361-4ca8-81d8-bed86a9dc25d",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193895786",
+        "created_at": "2026-06-23T05:52:15.653Z",
+        "source": "agent"
+      },
+      {
+        "id": "986a914d-6238-4418-8ef6-05cb1207b3b6",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "error",
+        "message": "[AutoUpdate] Error: fetch failed",
+        "context": {},
+        "device_timestamp": "1782193897279",
+        "created_at": "2026-06-23T05:52:15.661Z",
+        "source": "agent"
+      },
+      {
+        "id": "bec0d829-8768-465f-96b7-58b818ead2bc",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782193897815",
+        "created_at": "2026-06-23T05:52:15.661Z",
+        "source": "agent"
+      },
+      {
+        "id": "9f56919e-a0cc-4060-afe1-6b479729a52d",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193898835",
+        "created_at": "2026-06-23T05:52:15.661Z",
+        "source": "agent"
+      },
+      {
+        "id": "85afed57-72e6-4c7d-a501-4dfaab7ce933",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "HTTP proxy error: socket hang up",
+        "context": {},
+        "device_timestamp": "1782193901873",
+        "created_at": "2026-06-23T05:52:15.661Z",
+        "source": "agent"
+      },
+      {
+        "id": "295d22c3-32c4-4304-ada2-28025d7dc364",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782193917652",
+        "created_at": "2026-06-23T05:52:15.661Z",
+        "source": "agent"
+      },
+      {
+        "id": "6b7ecac9-5ad4-4251-b3fc-afc66a4e4761",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "WebSocket connected",
+        "context": {},
+        "device_timestamp": "1782193934402",
+        "created_at": "2026-06-23T05:52:38.310Z",
+        "source": "agent"
+      },
+      {
+        "id": "5038519c-27c5-40cc-956a-87fe8243be5d",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "Discarding stale queued message: agent:health",
+        "context": {},
+        "device_timestamp": "1782193934405",
+        "created_at": "2026-06-23T05:52:38.310Z",
+        "source": "agent"
+      },
+      {
+        "id": "a6d1bf92-82ad-4ba3-9110-7554ffa3454f",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "Discarding stale queued message: agent:logs",
+        "context": {},
+        "device_timestamp": "1782193934405",
+        "created_at": "2026-06-23T05:52:38.310Z",
+        "source": "agent"
+      },
+      {
+        "id": "8d6cf1f7-b3d7-4b72-b092-11529241264a",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Server acknowledged connection",
+        "context": {},
+        "device_timestamp": "1782193934414",
+        "created_at": "2026-06-23T05:52:38.310Z",
+        "source": "agent"
+      },
+      {
+        "id": "3caff251-fdf2-48b5-b7f9-110d57cb7b51",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[SERIAL] No com_port configured on this device â€” serial bridge not started",
+        "context": {},
+        "device_timestamp": "1782193935147",
+        "created_at": "2026-06-23T05:52:38.310Z",
+        "source": "agent"
+      },
+      {
+        "id": "8b6d832e-5668-425a-88b8-6794b5ac35c8",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[OSC] No OSC config on this device â€” OSC bridge not started",
+        "context": {},
+        "device_timestamp": "1782193935148",
+        "created_at": "2026-06-23T05:52:38.310Z",
+        "source": "agent"
+      },
+      {
+        "id": "4cadb6cc-2d6c-4f7c-890c-2aac37b970ff",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Presence] Template is not presence-enabled - sensor not started",
+        "context": {},
+        "device_timestamp": "1782193935149",
+        "created_at": "2026-06-23T05:52:38.310Z",
+        "source": "agent"
+      },
+      {
+        "id": "2bd0dc98-fadc-49e8-8cf7-a00746f82586",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Shell mode: skipping Chrome launch (managed by Windows shell)",
+        "context": {},
+        "device_timestamp": "1782193935149",
+        "created_at": "2026-06-23T05:52:38.310Z",
+        "source": "agent"
+      },
+      {
+        "id": "3c9c80e4-fd1b-4950-a63d-35abb3f68c04",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Shell mode: Chrome already running. Not touching it.",
+        "context": {},
+        "device_timestamp": "1782193935231",
+        "created_at": "2026-06-23T05:52:38.310Z",
+        "source": "agent"
+      },
+      {
+        "id": "2f83c5b4-48d9-4cd6-8a84-8bece55e222a",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782193937651",
+        "created_at": "2026-06-23T05:52:38.310Z",
+        "source": "agent"
+      },
+      {
+        "id": "85cebbe8-9d93-47e3-a3c9-611963ff6559",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782193957797",
+        "created_at": "2026-06-23T05:53:08.328Z",
+        "source": "agent"
+      },
+      {
+        "id": "c9582dae-caf3-47b0-92ef-e6e1881051e0",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782193977663",
+        "created_at": "2026-06-23T05:53:08.328Z",
+        "source": "agent"
+      },
+      {
+        "id": "f68e2625-7c9c-4d0c-b33a-db778ef33a88",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782193997670",
+        "created_at": "2026-06-23T05:53:38.330Z",
+        "source": "agent"
+      },
+      {
+        "id": "2e2d59d2-bb2e-44e9-a305-af1ba45d225d",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782194017818",
+        "created_at": "2026-06-23T05:54:08.340Z",
+        "source": "agent"
+      },
+      {
+        "id": "9f52b8c8-8b03-44f6-a7a9-84c2338273a7",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782194037679",
+        "created_at": "2026-06-23T05:54:08.340Z",
+        "source": "agent"
+      },
+      {
+        "id": "2cb7400f-e8de-44c4-92b7-955022140712",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782194057693",
+        "created_at": "2026-06-23T05:54:38.345Z",
+        "source": "agent"
+      },
+      {
+        "id": "c2823458-d688-4b05-9e89-cab1541df56c",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782194077835",
+        "created_at": "2026-06-23T05:55:08.347Z",
+        "source": "agent"
+      },
+      {
+        "id": "a488ee2a-8317-4534-9b91-84dfa11b3cf1",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782194097686",
+        "created_at": "2026-06-23T05:55:08.347Z",
+        "source": "agent"
+      },
+      {
+        "id": "5ad54552-850f-4857-9b4d-621789a0014b",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782194117693",
+        "created_at": "2026-06-23T05:55:38.355Z",
+        "source": "agent"
+      },
+      {
+        "id": "b2dd70ce-f452-4655-9268-d7a983aaa17a",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782194137838",
+        "created_at": "2026-06-23T05:56:08.361Z",
+        "source": "agent"
+      },
+      {
+        "id": "aede8ee2-926a-4c68-b517-5b5d7ddff821",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782194157708",
+        "created_at": "2026-06-23T05:56:08.361Z",
+        "source": "agent"
+      },
+      {
+        "id": "e494d937-6982-4114-bfcc-b2330ab2d5f0",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782194177708",
+        "created_at": "2026-06-23T05:56:38.380Z",
+        "source": "agent"
+      },
+      {
+        "id": "5b096d95-b3a5-42cb-877d-e6722605c0e5",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782194197864",
+        "created_at": "2026-06-23T05:57:08.372Z",
+        "source": "agent"
+      },
+      {
+        "id": "3344ab7e-e362-4fcd-b5ce-85a5cbcb7777",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782194217736",
+        "created_at": "2026-06-23T05:57:08.372Z",
+        "source": "agent"
+      },
+      {
+        "id": "6ecf77c4-f733-4bbe-a985-b90924cb4ab0",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782194237768",
+        "created_at": "2026-06-23T05:57:38.374Z",
+        "source": "agent"
+      },
+      {
+        "id": "9b32b3fb-0741-4ed8-b96d-aefaac60bb63",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782194257857",
+        "created_at": "2026-06-23T05:58:08.388Z",
+        "source": "agent"
+      },
+      {
+        "id": "2caf109e-9fac-42d1-9c9f-0b0c1fb6d5ab",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782194277762",
+        "created_at": "2026-06-23T05:58:08.388Z",
+        "source": "agent"
+      },
+      {
+        "id": "ff980ebd-6e26-4c11-9fa6-a4443b4729fa",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782194297772",
+        "created_at": "2026-06-23T05:58:38.404Z",
+        "source": "agent"
+      },
+      {
+        "id": "ed43e241-ca4d-4c33-b62d-3bf24aeffc38",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782194317895",
+        "created_at": "2026-06-23T05:59:08.407Z",
+        "source": "agent"
+      },
+      {
+        "id": "edb3e7a1-f914-4f00-af1b-0c02e259e662",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782194337803",
+        "created_at": "2026-06-23T05:59:08.407Z",
+        "source": "agent"
+      },
+      {
+        "id": "76c0a722-77a8-4b15-9bef-c56d48d26cb8",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782194357811",
+        "created_at": "2026-06-23T05:59:38.409Z",
+        "source": "agent"
+      },
+      {
+        "id": "e863f944-c036-4b6d-831e-dc81fa24d0e3",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "App initialized",
+        "context": {
+          "deviceId": "4425f84a-e865-4032-b850-e7880233e231",
+          "templateType": "unknown"
+        },
+        "device_timestamp": "1782194387022",
+        "created_at": "2026-06-23T05:59:58.211Z",
+        "source": "display"
+      },
+      {
+        "id": "dbe097eb-ab08-4d8b-b1e4-21a2422a14ba",
+        "device_id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "No app assigned to device",
+        "context": {
+          "deviceId": "4425f84a-e865-4032-b850-e7880233e231",
+          "templateType": "unknown"
+        },
+        "device_timestamp": "1782194387042",
+        "created_at": "2026-06-23T05:59:58.211Z",
+        "source": "display"
+      }
+    ],
+    "devices": [
+      {
+        "id": "4425f84a-e865-4032-b850-e7880233e231",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "floor_id": null,
+        "mac_address": "FC:4C:EA:18:18:E8",
+        "hostname": null,
+        "display_name": "museum",
+        "type": "display",
+        "capabilities": null,
+        "ip_address": "172.20.0.1",
+        "status": "online",
+        "last_seen": "2026-06-23T05:59:48.212Z",
+        "x_position": null,
+        "y_position": null,
+        "config": {
+          "apiKey": "d2831742fc28610015163c726a87ee03d54eff4a9df4d5a022ca62abedf71a4c",
+          "detectedScreens": [
+            {
+              "x": 0,
+              "y": 0,
+              "name": "WinDisc",
+              "index": 0,
+              "width": 1024,
+              "height": 768,
+              "primary": true,
+              "hardwareId": "WinDisc"
+            }
+          ]
+        },
+        "created_at": "2026-06-22T13:57:02.745Z",
+        "updated_at": "2026-06-23T05:59:48.212Z",
+        "app_id": null,
+        "slug": "museum",
+        "pairing_code": null,
+        "pairing_code_expires": null,
+        "agent_connected": true,
+        "agent_version": "1.0.65",
+        "last_health": {
+          "uptime": 781,
+          "cpuTemp": null,
+          "memUsed": 7541227520,
+          "network": {
+            "ip": "192.168.0.101",
+            "mac": "fc:4c:ea:18:18:e8",
+            "interface": "Ethernet",
+            "serverLatencyMs": 2
+          },
+          "screens": [
+            {
+              "x": 0,
+              "y": 0,
+              "name": "WinDisc",
+              "width": 1024,
+              "height": 768,
+              "primary": true,
+              "hardwareId": "WinDisc"
+            }
+          ],
+          "cpuCores": 20,
+          "cpuModel": "Intel Core™ i5-14500T",
+          "cpuUsage": 1.07,
+          "diskUsed": 107270332416,
+          "hostname": "LM-MUSEUM",
+          "memTotal": 16851456000,
+          "platform": "windows",
+          "diskTotal": 508762779648,
+          "osVersion": "Microsoft Windows 11 Pro 10.0.26200",
+          "memPercent": 44.75,
+          "diskPercent": 21.08,
+          "nodeVersion": "v24.14.1",
+          "screenCount": 1,
+          "agentVersion": "1.0.65",
+          "systemUptime": 57702
+        },
+        "parent_id": null,
+        "power_order": null
+      }
+    ],
+    "exhibition_assignments": [],
+    "play_events": []
+  },
+  "tableOrder": [
+    "revoked_tokens",
+    "sites",
+    "device_groups",
+    "exhibitions",
+    "floors",
+    "users",
+    "agent_versions",
+    "apps",
+    "audit_logs",
+    "content",
+    "content_versions",
+    "playlists",
+    "playlist_items",
+    "schedules",
+    "alerts",
+    "device_group_members",
+    "device_health",
+    "device_logs",
+    "devices",
+    "exhibition_assignments",
+    "play_events"
+  ]
+}

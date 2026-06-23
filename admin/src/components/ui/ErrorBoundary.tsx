@@ -59,7 +59,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
         }
       >
         <div className="admin-card w-full max-w-md rounded-2xl p-6 text-center">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-100 text-red-600">
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-100 text-red-600 dark:bg-red-500/15 dark:text-red-300">
             <AlertTriangle className="h-6 w-6" />
           </div>
           <h2 className="text-lg font-bold text-surface-900">Something went wrong</h2>

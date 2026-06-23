@@ -494,7 +494,7 @@ function TouchScrollDocumentBuilder({
 
   return (
     <div className="space-y-4">
-      <div className="rounded-xl bg-indigo-50 border border-indigo-100 p-3 text-sm text-indigo-700">
+      <div className="rounded-xl bg-indigo-50 border border-indigo-100 p-3 text-sm text-indigo-700 dark:bg-indigo-500/10 dark:border-indigo-500/20 dark:text-indigo-300">
         Add documents for the touch-scroll screen. For each document, enable
         <strong> translation</strong> if it has a translated version, then add pages for that second document.
       </div>
@@ -510,7 +510,7 @@ function TouchScrollDocumentBuilder({
           {docs.map((doc, docIndex) => (
             <div key={doc.id} className="border border-surface-200 rounded-2xl card-bg overflow-hidden">
               <div className="px-4 py-3 bg-surface-50 border-b border-surface-100 flex items-center gap-3">
-                <div className="h-8 w-8 rounded-lg bg-indigo-100 flex items-center justify-center text-indigo-600 shrink-0">
+                <div className="h-8 w-8 rounded-lg bg-indigo-100 dark:bg-indigo-500/15 flex items-center justify-center text-indigo-600 dark:text-indigo-300 shrink-0">
                   <FileText className="h-4 w-4" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -519,7 +519,7 @@ function TouchScrollDocumentBuilder({
                 <button
                   type="button"
                   onClick={() => removeDoc(docIndex)}
-                  className="p-1.5 text-red-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors"
+                  className="p-1.5 text-red-400 hover:text-red-600 rounded-lg hover:bg-red-50 dark:hover:text-red-300 dark:hover:bg-red-500/10 transition-colors"
                 >
                   <Trash2 className="h-3.5 w-3.5" />
                 </button>
@@ -586,7 +586,7 @@ function TouchScrollDocumentBuilder({
                 </div>
 
                 {doc.hasTranslation && (
-                  <div className="border border-amber-200 rounded-xl bg-amber-50/40 p-3 space-y-3">
+                  <div className="border border-amber-200 rounded-xl bg-amber-50/40 p-3 space-y-3 dark:border-amber-500/30 dark:bg-amber-500/10">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className={LABEL_CLS}>Translation Name</label>
@@ -899,8 +899,8 @@ export function MultiScreenConfig({ config, onChange, siteId }: ConfigPanelProps
 export function DiagnosticsConfig() {
   return (
     <div className="card-bg rounded-2xl border border-surface-200 p-8 text-center" style={{ borderLeft: '3px solid #475569' }}>
-      <div className="h-12 w-12 rounded-xl bg-slate-100 flex items-center justify-center mx-auto mb-4">
-        <div className="h-3 w-3 rounded-full bg-slate-400" />
+      <div className="h-12 w-12 rounded-xl bg-surface-100 flex items-center justify-center mx-auto mb-4">
+        <div className="h-3 w-3 rounded-full bg-surface-400" />
       </div>
       <h3 className="text-sm font-bold text-surface-900 mb-1">Diagnostics Mode</h3>
       <p className="text-sm text-surface-500">No additional configuration required.</p>

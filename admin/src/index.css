@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/*
+ * Dark mode is toggled by adding a `.dark` class to <html> (see stores/theme.ts),
+ * NOT by the OS `prefers-color-scheme`. Tailwind v4 defaults the `dark:` variant to
+ * the media query, so without this every `dark:` utility in the app silently keys
+ * off the OS setting instead of our toggle — leaving light pastel badges/buttons on
+ * the dark background. Bind `dark:` to the class so the toggle actually works.
+ */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-primary-50: var(--theme-primary-50);
   --color-primary-100: var(--theme-primary-100);
@@ -105,31 +114,32 @@
   --theme-primary-900: #eff6ff;
   --theme-primary-950: #f8fbff;
 
-  --theme-surface-50: #0f172a;
-  --theme-surface-100: #111827;
-  --theme-surface-200: #1e293b;
-  --theme-surface-300: #334155;
-  --theme-surface-400: #64748b;
-  --theme-surface-500: #94a3b8;
-  --theme-surface-600: #cbd5e1;
-  --theme-surface-700: #e2e8f0;
-  --theme-surface-800: #f1f5f9;
-  --theme-surface-900: #f8fafc;
+  /* Neutral grayscale (no blue/slate tint) so the dark theme reads as true black. */
+  --theme-surface-50: #0a0a0a;
+  --theme-surface-100: #171717;
+  --theme-surface-200: #262626;
+  --theme-surface-300: #404040;
+  --theme-surface-400: #737373;
+  --theme-surface-500: #a3a3a3;
+  --theme-surface-600: #d4d4d4;
+  --theme-surface-700: #e5e5e5;
+  --theme-surface-800: #f5f5f5;
+  --theme-surface-900: #fafafa;
   --theme-surface-950: #ffffff;
 
-  /* Rich monochrome dark: deep slate-tinted near-black with subtly elevated surfaces. */
-  --page-bg: #090c14;
-  --card-bg: #11151f;
-  --card-bg-solid: #11151f;
-  --glass-bg: #11151f;
-  --glass-bg-hover: #181d2a;
-  --glass-border: rgba(148, 163, 184, 0.14);
-  --header-bg: #0c0f17;
-  --header-border: rgba(148, 163, 184, 0.12);
-  --sidebar-bg: #07090f;
-  --sidebar-border: rgba(148, 163, 184, 0.10);
-  --sidebar-muted: #8089a0;
-  --sidebar-text: #d7deec;
+  /* Royal black: pure-black canvas with subtly elevated neutral surfaces. */
+  --page-bg: #000000;
+  --card-bg: #0c0c0c;
+  --card-bg-solid: #0c0c0c;
+  --glass-bg: #0c0c0c;
+  --glass-bg-hover: #171717;
+  --glass-border: rgba(255, 255, 255, 0.10);
+  --header-bg: #050505;
+  --header-border: rgba(255, 255, 255, 0.08);
+  --sidebar-bg: #000000;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-muted: #8a8a8a;
+  --sidebar-text: #e4e4e4;
   --sidebar-active: #ffffff;
   --accent-cyan: #6ea8fe;
   --accent-gold: #34d399;
@@ -300,6 +310,21 @@ button:disabled {
 .dark textarea,
 .dark select {
   color-scheme: dark;
+}
+
+/*
+ * Browser autofill forces its own background/text colour, which clashes with the
+ * theme (gray boxes with low-contrast text). Pin autofilled fields back to the
+ * themed surface so they stay readable in both light and dark mode.
+ */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: var(--theme-surface-900);
+  -webkit-box-shadow: 0 0 0 1000px var(--card-bg) inset;
+  caret-color: var(--theme-surface-900);
+  transition: background-color 9999s ease-in-out 0s;
 }
 
 .dark select,

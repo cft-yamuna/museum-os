@@ -58,7 +58,7 @@ function Step({ num, title, children }: { num: number; title: string; children: 
 
 function Info({ children }: { children: React.ReactNode }) {
   return (
-    <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 text-base text-blue-700">
+    <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 text-base text-blue-700 dark:bg-blue-500/10 dark:border-blue-500/30 dark:text-blue-300">
       {children}
     </div>
   );

@@ -6,6 +6,7 @@ import { pushToDeviceSubscribers, pushToAdmins } from './adminWs.js';
 import { publishEvent as mqttPublishEvent } from './mqttClient.js';
 import { sendToDevice } from './displayWs.js';
 import { normalizeMacAddress } from './deviceWake.js';
+import { recordPresenceEvent } from './presenceEvents.js';
 
 // --- Types ---
 interface AgentClient {
@@ -535,6 +536,17 @@ function handleAgentMessage(deviceId: string, msg: WsMessage): void {
           payload: { deviceId, ...msg.payload },
           timestamp: Date.now(),
         });
+
+        // Persist Present/Clear transitions for visitor-engagement analytics
+        // (occupancy dwell + approach counts). Best-effort, never blocks forwarding.
+        const presenceClient = clients.get(deviceId);
+        if (presenceClient && (eventType === 'sensor:present' || eventType === 'sensor:clear')) {
+          void recordPresenceEvent({
+            siteId: presenceClient.siteId,
+            deviceId,
+            state: eventType === 'sensor:present' ? 'present' : 'clear',
+          });
+        }
       }
       break;
     }

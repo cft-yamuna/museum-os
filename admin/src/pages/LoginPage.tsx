@@ -30,7 +30,7 @@ export function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex" style={{ background: '#f8fafc' }}>
+    <div className="min-h-screen flex" style={{ background: 'var(--page-bg)' }}>
       <div
         className="hidden lg:flex lg:w-[46%] relative items-center justify-center overflow-hidden"
         style={{ background: 'linear-gradient(180deg, #0f172a 0%, #111827 100%)' }}
@@ -101,7 +101,7 @@ export function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 className="w-full rounded-xl border px-4 py-3.5 card-bg text-surface-900 placeholder:text-surface-400 focus:outline-none focus:ring-4 focus:ring-primary-500/10 focus:border-primary-500 transition-all text-base"
-                style={{ borderColor: '#dbe3ed' }}
+                style={{ borderColor: 'var(--glass-border)' }}
                 placeholder="admin@museumos.local"
               />
             </div>
@@ -116,7 +116,7 @@ export function LoginPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   className="w-full rounded-xl border px-4 py-3.5 pr-12 card-bg text-surface-900 placeholder:text-surface-400 focus:outline-none focus:ring-4 focus:ring-primary-500/10 focus:border-primary-500 transition-all text-base"
-                  style={{ borderColor: '#dbe3ed' }}
+                  style={{ borderColor: 'var(--glass-border)' }}
                   placeholder="Enter your password"
                 />
                 <button
@@ -138,7 +138,7 @@ export function LoginPage() {
                   exit={{ opacity: 0, height: 0 }}
                   className="overflow-hidden"
                 >
-                  <div className="flex items-center gap-2 rounded-lg px-4 py-3 bg-red-50 border border-red-200 text-red-600 text-sm">
+                  <div className="flex items-center gap-2 rounded-lg px-4 py-3 bg-red-50 border border-red-200 text-red-600 dark:bg-red-500/10 dark:border-red-500/30 dark:text-red-300 text-sm">
                     <AlertCircle size={18} className="shrink-0" />
                     <span>{error}</span>
                   </div>

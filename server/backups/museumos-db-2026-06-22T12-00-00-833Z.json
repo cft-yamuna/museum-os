@@ -1,0 +1,3296 @@
+{
+  "format": "museumos-db-json-v1",
+  "exportedAt": "2026-06-22T12:00:00.703Z",
+  "tables": {
+    "revoked_tokens": [
+      {
+        "jti": "f012081b-3784-44ed-9e5c-19266acbf5b5",
+        "expires_at": "2026-06-23T10:25:53.000Z",
+        "revoked_at": "2026-06-22T10:39:54.353Z"
+      },
+      {
+        "jti": "2618eb5e-22e3-4fd0-ac8c-06d6ec012fe0",
+        "expires_at": "2026-06-23T10:39:54.000Z",
+        "revoked_at": "2026-06-22T10:53:54.028Z"
+      },
+      {
+        "jti": "047a3576-da27-4e7c-b747-e22fa9501905",
+        "expires_at": "2026-06-23T10:53:54.000Z",
+        "revoked_at": "2026-06-22T11:07:54.335Z"
+      },
+      {
+        "jti": "8c196e1f-5ee3-4f8f-bebc-8fe31e91cd99",
+        "expires_at": "2026-06-23T11:07:54.000Z",
+        "revoked_at": "2026-06-22T11:21:54.345Z"
+      },
+      {
+        "jti": "868c8777-0d31-418c-bb27-fbf4867bf3f1",
+        "expires_at": "2026-06-23T11:21:54.000Z",
+        "revoked_at": "2026-06-22T11:35:54.342Z"
+      },
+      {
+        "jti": "53448137-403b-4893-aefe-253c6136493e",
+        "expires_at": "2026-06-23T11:35:54.000Z",
+        "revoked_at": "2026-06-22T11:49:54.349Z"
+      }
+    ],
+    "sites": [
+      {
+        "id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "name": "Museum OS",
+        "code": "hilight-museum",
+        "address": "",
+        "timezone": "Asia/Kolkata",
+        "config": {},
+        "is_active": true,
+        "created_at": "2026-06-16T07:01:12.298Z",
+        "updated_at": "2026-06-16T07:01:12.298Z"
+      }
+    ],
+    "device_groups": [],
+    "exhibitions": [],
+    "floors": [
+      {
+        "id": "e1e471ca-5bbc-4578-a461-bc8002836139",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "name": "Ground Floor",
+        "level": 0,
+        "background_image": null,
+        "width": 1920,
+        "height": 1080,
+        "config": {},
+        "created_at": "2026-06-16T07:01:12.304Z"
+      }
+    ],
+    "users": [
+      {
+        "id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "email": "admin@museumos.local",
+        "password_hash": "$2b$12$sqLgMll2ZGgDQAd2H.JoPO/S7wbevysRcdr0neGFNk0ImlgwmAX2a",
+        "name": "Admin",
+        "role": "super_admin",
+        "site_ids": [
+          "62331086-f259-45d6-9099-90c0755e1f40"
+        ],
+        "is_active": true,
+        "last_login": "2026-06-22T10:53:45.142Z",
+        "created_at": "2026-06-16T07:01:12.461Z",
+        "updated_at": "2026-06-16T07:01:12.461Z",
+        "token_valid_after": "2026-06-16T07:14:02.301Z",
+        "must_change_password": false
+      }
+    ],
+    "agent_versions": [
+      {
+        "id": "cb44d880-219b-4342-aaf0-fe4cf78fefed",
+        "filename": "1782123558364-museumos-agent-1.0.65_20260622154744.tar.gz",
+        "version": "1.0.65+20260622154744",
+        "platform": "windows",
+        "checksum": "9942a387758d49a2c402931a981e1a2fa2257197c98455a1d2e244aa4cf80b71",
+        "file_size": "30640021",
+        "uploaded_by": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "created_at": "2026-06-22T10:19:18.940Z"
+      }
+    ],
+    "apps": [
+      {
+        "id": "04eb41d6-6dfb-48f6-ad5e-04c07b94924a",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "name": "video",
+        "template_type": "app04-media-loop",
+        "config": {
+          "fit": "cover",
+          "mode": "video-loop",
+          "muted": false,
+          "volume": 100,
+          "fadeType": "fade-black",
+          "videoUrl": "/storage/62331086-f259-45d6-9099-90c0755e1f40/video/3e4ae7c0-cf1e-4082-86e8-b939b2b18dbc/v1/One%20Plus%20Engagement%20Discussion%20_%20Microsoft%20Teams%20-%20Google%20Chrome%202025-12-11%2012-53-17.mp4",
+          "audioOutput": "screen",
+          "subtitlesUrl": "",
+          "pauseDuration": 0,
+          "slideInterval": 8,
+          "backgroundColor": "#000000",
+          "subtitlesEnabled": false
+        },
+        "is_active": true,
+        "created_by": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "created_at": "2026-06-22T10:30:43.881Z",
+        "updated_at": "2026-06-22T10:30:43.881Z",
+        "deleted_at": null
+      }
+    ],
+    "audit_logs": [
+      {
+        "id": "6b5ec0a4-21ba-4018-b64d-abe385df66eb",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-16T07:13:36.377Z"
+      },
+      {
+        "id": "3b28da9f-968c-4607-91b7-ce07a70dee00",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.password_changed",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "forced": true
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-16T07:14:02.311Z"
+      },
+      {
+        "id": "2b8112df-c002-44fc-96e1-759e2fcb2abf",
+        "user_id": null,
+        "site_id": null,
+        "action": "auth.login_failed",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@hilight.local",
+          "reason": "Invalid email or password",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-16T15:29:17.367Z"
+      },
+      {
+        "id": "e00dad60-7614-46d9-a1d2-9437897f5a60",
+        "user_id": null,
+        "site_id": null,
+        "action": "auth.login_failed",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@hilight.local",
+          "reason": "Invalid email or password",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-16T15:30:02.170Z"
+      },
+      {
+        "id": "d487c2d7-718f-4b76-beb8-4b1a3204f98b",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login_failed",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "reason": "Invalid email or password",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-16T15:31:37.099Z"
+      },
+      {
+        "id": "7e75c310-4507-4a0e-95a9-8b648596b40e",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login_failed",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "reason": "Invalid email or password",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-16T15:32:05.789Z"
+      },
+      {
+        "id": "7567269b-aeea-459e-ba8c-51aa624d1c28",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login_failed",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "reason": "Invalid email or password",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-16T15:32:17.673Z"
+      },
+      {
+        "id": "f027d47f-8dd0-443c-979f-436fc79e3f7d",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-16T15:33:06.448Z"
+      },
+      {
+        "id": "c26dd28d-a93a-4e16-ac15-ededc66ca37f",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-17T08:13:10.866Z"
+      },
+      {
+        "id": "552786c4-045c-48e5-84c0-e818358ef196",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-22T10:07:48.058Z"
+      },
+      {
+        "id": "53168cc8-8219-43ea-9ac6-5c154972d460",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-22T10:16:44.722Z"
+      },
+      {
+        "id": "f38d598a-5f61-46b7-b04d-fdadba73e3b6",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-22T10:19:17.063Z"
+      },
+      {
+        "id": "a0aeee88-0bfb-42f1-a215-4e43689b78ae",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-22T10:19:41.578Z"
+      },
+      {
+        "id": "b5cdebac-0cab-423a-991a-cafe8005ae20",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-22T10:23:09.460Z"
+      },
+      {
+        "id": "dcc3e861-d7db-4e84-86bb-63ba9aa29948",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-22T10:25:53.994Z"
+      },
+      {
+        "id": "bf85c4a7-065b-4d51-a0f7-5337caf51f6c",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "action": "app.created",
+        "entity_type": "app",
+        "entity_id": "04eb41d6-6dfb-48f6-ad5e-04c07b94924a",
+        "details": {
+          "name": "video",
+          "template_type": "app04-media-loop"
+        },
+        "ip_address": null,
+        "created_at": "2026-06-22T10:30:43.889Z"
+      },
+      {
+        "id": "61e12301-2b1f-46db-bba0-2e835f6d6dcd",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "action": "device.app_changed",
+        "entity_type": "device",
+        "entity_id": "3311ae25-e291-4850-a70a-5c261f0231ef",
+        "details": {
+          "new_app_id": "04eb41d6-6dfb-48f6-ad5e-04c07b94924a",
+          "old_app_id": null
+        },
+        "ip_address": null,
+        "created_at": "2026-06-22T10:31:00.115Z"
+      },
+      {
+        "id": "9aef80ff-7b91-474c-8540-440c045868ce",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "action": "device.config_updated",
+        "entity_type": "device",
+        "entity_id": "3311ae25-e291-4850-a70a-5c261f0231ef",
+        "details": {
+          "config": {
+            "com_port": null,
+            "orientation": "landscape"
+          }
+        },
+        "ip_address": null,
+        "created_at": "2026-06-22T10:31:16.798Z"
+      },
+      {
+        "id": "86e7b122-f421-4cde-a843-56ef496aeb6c",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-22T10:43:23.444Z"
+      },
+      {
+        "id": "a17cfe62-9f85-403b-85d6-cd7ad0c4f52f",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "action": "device.simulate_fault",
+        "entity_type": "device",
+        "entity_id": "3311ae25-e291-4850-a70a-5c261f0231ef",
+        "details": {
+          "fault": "clear"
+        },
+        "ip_address": null,
+        "created_at": "2026-06-22T10:52:35.100Z"
+      },
+      {
+        "id": "5c3eb671-df55-428a-933e-05b7fcd62ea8",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": null,
+        "action": "auth.login",
+        "entity_type": null,
+        "entity_id": null,
+        "details": {
+          "email": "admin@museumos.local",
+          "ip_address": "::ffff:172.20.0.1"
+        },
+        "ip_address": "::ffff:172.20.0.1",
+        "created_at": "2026-06-22T10:53:45.149Z"
+      },
+      {
+        "id": "bdf5cd36-765b-4871-baa8-a613e20310dc",
+        "user_id": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "action": "device.app_changed",
+        "entity_type": "device",
+        "entity_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "details": {
+          "new_app_id": "04eb41d6-6dfb-48f6-ad5e-04c07b94924a",
+          "old_app_id": null
+        },
+        "ip_address": null,
+        "created_at": "2026-06-22T10:59:50.023Z"
+      }
+    ],
+    "content": [
+      {
+        "id": "3e4ae7c0-cf1e-4082-86e8-b939b2b18dbc",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "name": "One Plus Engagement Discussion _ Microsoft Teams - Google Chrome 2025-12-11 12-53-17",
+        "type": "video",
+        "description": null,
+        "current_version": 1,
+        "is_active": true,
+        "created_by": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "created_at": "2026-06-22T10:29:28.537Z",
+        "updated_at": "2026-06-22T10:29:28.537Z"
+      }
+    ],
+    "content_versions": [
+      {
+        "id": "99b8173e-0428-40f1-89d4-343c08d34254",
+        "content_id": "3e4ae7c0-cf1e-4082-86e8-b939b2b18dbc",
+        "version_number": 1,
+        "file_path": "62331086-f259-45d6-9099-90c0755e1f40/video/3e4ae7c0-cf1e-4082-86e8-b939b2b18dbc/v1/One Plus Engagement Discussion _ Microsoft Teams - Google Chrome 2025-12-11 12-53-17.mp4",
+        "file_size": "947415685",
+        "hash": "2dc2b045d85b47bbb89ae78f974dcac148c18a3138389b3d5eafcefc8d51e9dc",
+        "metadata": {
+          "mimeType": "video/mp4",
+          "originalName": "One Plus Engagement Discussion _ Microsoft Teams - Google Chrome 2025-12-11 12-53-17.mp4"
+        },
+        "created_by": "254d5666-ad7e-4de3-8f1b-9bcab487f8c5",
+        "created_at": "2026-06-22T10:29:45.316Z"
+      }
+    ],
+    "playlists": [],
+    "playlist_items": [],
+    "schedules": [],
+    "alerts": [],
+    "device_group_members": [],
+    "device_health": [
+      {
+        "id": "e4450cf7-1654-42de-a045-047d9cf37144",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "cpu_usage": 25.43,
+        "mem_percent": 26.1,
+        "disk_percent": 20.72,
+        "cpu_temp": null,
+        "uptime": 14,
+        "recorded_at": "2026-06-22T10:59:38.374Z"
+      },
+      {
+        "id": "b143e30a-6068-4d7d-984c-9a9011fcaf7a",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "cpu_usage": 8.04,
+        "mem_percent": 40.88,
+        "disk_percent": 20.93,
+        "cpu_temp": null,
+        "uptime": 305,
+        "recorded_at": "2026-06-22T11:04:38.355Z"
+      },
+      {
+        "id": "eb75b7ba-9827-482f-85ee-3dfb910ff3df",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "cpu_usage": 16.84,
+        "mem_percent": 53.87,
+        "disk_percent": 21.43,
+        "cpu_temp": null,
+        "uptime": 607,
+        "recorded_at": "2026-06-22T11:09:38.334Z"
+      },
+      {
+        "id": "c50c17d6-fce2-4962-a207-bf0e43104958",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "cpu_usage": 9.98,
+        "mem_percent": 57.97,
+        "disk_percent": 19.91,
+        "cpu_temp": null,
+        "uptime": 905,
+        "recorded_at": "2026-06-22T11:14:38.314Z"
+      },
+      {
+        "id": "89a0b853-49ab-47ce-a491-00b9bdf66c98",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "cpu_usage": 7.33,
+        "mem_percent": 46.85,
+        "disk_percent": 19.91,
+        "cpu_temp": null,
+        "uptime": 1204,
+        "recorded_at": "2026-06-22T11:19:38.294Z"
+      },
+      {
+        "id": "ae48370f-48d2-4604-8da7-2ecf378fabd5",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "cpu_usage": 10.04,
+        "mem_percent": 45.83,
+        "disk_percent": 20.03,
+        "cpu_temp": null,
+        "uptime": 1504,
+        "recorded_at": "2026-06-22T11:24:38.275Z"
+      },
+      {
+        "id": "f7d00074-7e17-4b3e-a662-44d454ad2811",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "cpu_usage": 6.14,
+        "mem_percent": 43.25,
+        "disk_percent": 20.12,
+        "cpu_temp": null,
+        "uptime": 1804,
+        "recorded_at": "2026-06-22T11:29:38.250Z"
+      },
+      {
+        "id": "56324226-1694-42d4-88bf-9e5c5a2eaaeb",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "cpu_usage": 6.38,
+        "mem_percent": 45.31,
+        "disk_percent": 20.12,
+        "cpu_temp": null,
+        "uptime": 2104,
+        "recorded_at": "2026-06-22T11:34:38.230Z"
+      },
+      {
+        "id": "6a9589c8-5612-48a8-b234-6bd8e38a7273",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "cpu_usage": 5.79,
+        "mem_percent": 45.49,
+        "disk_percent": 20.12,
+        "cpu_temp": null,
+        "uptime": 2404,
+        "recorded_at": "2026-06-22T11:39:38.210Z"
+      },
+      {
+        "id": "afcf82ba-cb94-4e55-b08b-ad762ed6fd7b",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "cpu_usage": 5.44,
+        "mem_percent": 45.45,
+        "disk_percent": 20.12,
+        "cpu_temp": null,
+        "uptime": 2704,
+        "recorded_at": "2026-06-22T11:44:38.190Z"
+      },
+      {
+        "id": "1e560abf-d315-4a62-b75d-2dd61c97afee",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "cpu_usage": 5.62,
+        "mem_percent": 45.32,
+        "disk_percent": 20.12,
+        "cpu_temp": null,
+        "uptime": 3005,
+        "recorded_at": "2026-06-22T11:49:38.170Z"
+      },
+      {
+        "id": "bd583948-aa40-444d-947b-45cb97c2cdf8",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "cpu_usage": 5.59,
+        "mem_percent": 45.31,
+        "disk_percent": 20.12,
+        "cpu_temp": null,
+        "uptime": 3305,
+        "recorded_at": "2026-06-22T11:54:38.149Z"
+      },
+      {
+        "id": "ee89273e-a345-4ffe-bc45-bb82afa37370",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "cpu_usage": 6.4,
+        "mem_percent": 43.71,
+        "disk_percent": 20.11,
+        "cpu_temp": null,
+        "uptime": 3605,
+        "recorded_at": "2026-06-22T11:59:38.129Z"
+      }
+    ],
+    "device_logs": [
+      {
+        "id": "e4743e62-d941-4dba-8d2f-8fc6ea335b0f",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Log forwarder started (interval: 30000ms, maxBatch: 100)",
+        "context": {},
+        "device_timestamp": "1782125799503",
+        "created_at": "2026-06-22T10:58:03.274Z",
+        "source": "agent"
+      },
+      {
+        "id": "31a5dc56-4ad3-43a9-8976-852294ec418d",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "KioskManager: shell mode enabled - Chrome lifecycle managed by Windows shell",
+        "context": {},
+        "device_timestamp": "1782125799504",
+        "created_at": "2026-06-22T10:58:03.274Z",
+        "source": "agent"
+      },
+      {
+        "id": "25bef233-0d73-4f2d-8e34-eaa9128e6050",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782125800316",
+        "created_at": "2026-06-22T10:58:03.274Z",
+        "source": "agent"
+      },
+      {
+        "id": "2e7414dc-83e7-4375-8c6b-e0f49b8680b6",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[MultiKiosk] Updated detected screens: 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782125800316",
+        "created_at": "2026-06-22T10:58:03.274Z",
+        "source": "agent"
+      },
+      {
+        "id": "01686780-2844-47cb-aa7f-5993f6d23d0a",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[AutoUpdate] Started — checking every 300s (current: v1.0.65)",
+        "context": {},
+        "device_timestamp": "1782125800317",
+        "created_at": "2026-06-22T10:58:03.274Z",
+        "source": "agent"
+      },
+      {
+        "id": "48154b2e-e42f-4627-8c15-82dac82ba1bf",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Health monitor started (interval: 60000ms)",
+        "context": {},
+        "device_timestamp": "1782125800320",
+        "created_at": "2026-06-22T10:58:03.274Z",
+        "source": "agent"
+      },
+      {
+        "id": "1ca23446-fade-4e7f-b32e-72d5fa7fba9d",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Watchdog started (interval: 60000ms)",
+        "context": {},
+        "device_timestamp": "1782125800320",
+        "created_at": "2026-06-22T10:58:03.274Z",
+        "source": "agent"
+      },
+      {
+        "id": "925e3fa8-0b6d-483f-8572-97fb595345cc",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "PowerScheduler: local cron scheduler disabled by policy",
+        "context": {},
+        "device_timestamp": "1782125800320",
+        "created_at": "2026-06-22T10:58:03.274Z",
+        "source": "agent"
+      },
+      {
+        "id": "60e0768a-3f55-44dd-8203-59f75dc8b863",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Museum OS Agent running.",
+        "context": {},
+        "device_timestamp": "1782125800320",
+        "created_at": "2026-06-22T10:58:03.274Z",
+        "source": "agent"
+      },
+      {
+        "id": "105a1289-ea14-47c2-be70-910fd1202757",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "error",
+        "message": "StaticServer error: listen EADDRINUSE: address already in use 0.0.0.0:3403",
+        "context": {},
+        "device_timestamp": "1782125800325",
+        "created_at": "2026-06-22T10:58:03.274Z",
+        "source": "agent"
+      },
+      {
+        "id": "aacd58d6-9548-4518-96de-10f36da8a947",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "error",
+        "message": "[LocalEvents] Server error:",
+        "context": {},
+        "device_timestamp": "1782125800326",
+        "created_at": "2026-06-22T10:58:03.274Z",
+        "source": "agent"
+      },
+      {
+        "id": "767d94de-8faf-4b86-b9a0-c852b7131345",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "WebSocket connected",
+        "context": {},
+        "device_timestamp": "1782125800339",
+        "created_at": "2026-06-22T10:58:03.274Z",
+        "source": "agent"
+      },
+      {
+        "id": "9a2d2093-433c-4930-a6b4-a054a3e88d08",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Server acknowledged connection",
+        "context": {},
+        "device_timestamp": "1782125800342",
+        "created_at": "2026-06-22T10:58:03.274Z",
+        "source": "agent"
+      },
+      {
+        "id": "1bde689a-f4d0-441f-8070-2d041fa011ce",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[SERIAL] No com_port configured on this device â€” serial bridge not started",
+        "context": {},
+        "device_timestamp": "1782125801363",
+        "created_at": "2026-06-22T10:58:03.274Z",
+        "source": "agent"
+      },
+      {
+        "id": "22eab410-9c11-45d3-ac11-9b19a89ab68f",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[OSC] No OSC config on this device â€” OSC bridge not started",
+        "context": {},
+        "device_timestamp": "1782125801363",
+        "created_at": "2026-06-22T10:58:03.274Z",
+        "source": "agent"
+      },
+      {
+        "id": "84cff56c-8d82-47d1-a114-ded9ebf5826a",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Presence] Template is not presence-enabled - sensor not started",
+        "context": {},
+        "device_timestamp": "1782125801364",
+        "created_at": "2026-06-22T10:58:03.274Z",
+        "source": "agent"
+      },
+      {
+        "id": "107699f6-28a3-48a3-95e0-6114fa51d68a",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Shell mode: skipping Chrome launch (managed by Windows shell)",
+        "context": {},
+        "device_timestamp": "1782125801364",
+        "created_at": "2026-06-22T10:58:03.274Z",
+        "source": "agent"
+      },
+      {
+        "id": "ac164508-c4f0-4010-ac53-1d1443a4cf05",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Shell mode: Chrome not running. Shell BAT will launch it.",
+        "context": {},
+        "device_timestamp": "1782125801503",
+        "created_at": "2026-06-22T10:58:03.274Z",
+        "source": "agent"
+      },
+      {
+        "id": "2c54e2f8-51da-4c94-b211-29476fc1470c",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[DisplayCache] Cleared active revision because no app is assigned (reason=startup-sync)",
+        "context": {},
+        "device_timestamp": "1782125801646",
+        "created_at": "2026-06-22T10:58:03.274Z",
+        "source": "agent"
+      },
+      {
+        "id": "3010a5ca-6303-4f5b-bfc5-e28572c0b368",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782125821204",
+        "created_at": "2026-06-22T10:58:03.274Z",
+        "source": "agent"
+      },
+      {
+        "id": "0b6bfc12-7c9c-4072-add2-bb17f6dc1dc7",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782125841070",
+        "created_at": "2026-06-22T10:58:31.963Z",
+        "source": "agent"
+      },
+      {
+        "id": "a99cd1b6-2833-4caa-b4ec-8b9180f36096",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "SIGINT received. Shutting down...",
+        "context": {},
+        "device_timestamp": "1782125858201",
+        "created_at": "2026-06-22T10:58:31.963Z",
+        "source": "agent"
+      },
+      {
+        "id": "1639670d-17fb-4f62-acc2-872b24c0aff8",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Log forwarder started (interval: 30000ms, maxBatch: 100)",
+        "context": {},
+        "device_timestamp": "1782125885914",
+        "created_at": "2026-06-22T10:59:30.398Z",
+        "source": "agent"
+      },
+      {
+        "id": "317bb13b-6a78-4196-8bb8-47448aaf6b7b",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "KioskManager: shell mode enabled - Chrome lifecycle managed by Windows shell",
+        "context": {},
+        "device_timestamp": "1782125885915",
+        "created_at": "2026-06-22T10:59:30.398Z",
+        "source": "agent"
+      },
+      {
+        "id": "68d1f923-5efa-4ce7-ada5-825ae6a5646f",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782125887674",
+        "created_at": "2026-06-22T10:59:30.398Z",
+        "source": "agent"
+      },
+      {
+        "id": "17593b06-e68f-48f0-b8b0-dd6c4c55150e",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[MultiKiosk] Updated detected screens: 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782125887674",
+        "created_at": "2026-06-22T10:59:30.398Z",
+        "source": "agent"
+      },
+      {
+        "id": "1f31ed63-8172-4c59-8f53-de0b760ca064",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[AutoUpdate] Started — checking every 300s (current: v1.0.65)",
+        "context": {},
+        "device_timestamp": "1782125887676",
+        "created_at": "2026-06-22T10:59:30.398Z",
+        "source": "agent"
+      },
+      {
+        "id": "1ffd5dd4-4f0c-45df-a973-0df9dd9c6d42",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Health monitor started (interval: 60000ms)",
+        "context": {},
+        "device_timestamp": "1782125887680",
+        "created_at": "2026-06-22T10:59:30.398Z",
+        "source": "agent"
+      },
+      {
+        "id": "6cfaaf2c-ea84-4f9e-884a-385dc7063b69",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Watchdog started (interval: 60000ms)",
+        "context": {},
+        "device_timestamp": "1782125887680",
+        "created_at": "2026-06-22T10:59:30.398Z",
+        "source": "agent"
+      },
+      {
+        "id": "49158dfa-095e-462b-a97e-62262e570b0d",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "PowerScheduler: local cron scheduler disabled by policy",
+        "context": {},
+        "device_timestamp": "1782125887681",
+        "created_at": "2026-06-22T10:59:30.398Z",
+        "source": "agent"
+      },
+      {
+        "id": "25889f22-e61d-4c9c-9b3a-2e930c6dc195",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Museum OS Agent running.",
+        "context": {},
+        "device_timestamp": "1782125887681",
+        "created_at": "2026-06-22T10:59:30.398Z",
+        "source": "agent"
+      },
+      {
+        "id": "e5e25340-1b12-4320-87c5-4a20195847be",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "error",
+        "message": "StaticServer error: listen EADDRINUSE: address already in use 0.0.0.0:3403",
+        "context": {},
+        "device_timestamp": "1782125887687",
+        "created_at": "2026-06-22T10:59:30.398Z",
+        "source": "agent"
+      },
+      {
+        "id": "e1bfa7c1-2d2b-42d5-b22c-8e91132dbfae",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "error",
+        "message": "[LocalEvents] Server error:",
+        "context": {},
+        "device_timestamp": "1782125887688",
+        "created_at": "2026-06-22T10:59:30.398Z",
+        "source": "agent"
+      },
+      {
+        "id": "84c2ccb6-0c3e-4134-b0c3-aee8b712d5c3",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "WebSocket connected",
+        "context": {},
+        "device_timestamp": "1782125887722",
+        "created_at": "2026-06-22T10:59:30.398Z",
+        "source": "agent"
+      },
+      {
+        "id": "f43c940a-bdc0-442b-be06-e33b584f7d03",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Server acknowledged connection",
+        "context": {},
+        "device_timestamp": "1782125887755",
+        "created_at": "2026-06-22T10:59:30.398Z",
+        "source": "agent"
+      },
+      {
+        "id": "96559ad7-c22e-414b-9b57-d8d907716ed7",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[SERIAL] No com_port configured on this device â€” serial bridge not started",
+        "context": {},
+        "device_timestamp": "1782125888797",
+        "created_at": "2026-06-22T10:59:30.398Z",
+        "source": "agent"
+      },
+      {
+        "id": "2d5aa66e-785f-453f-bc0f-fa8a0388979d",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[OSC] No OSC config on this device â€” OSC bridge not started",
+        "context": {},
+        "device_timestamp": "1782125888797",
+        "created_at": "2026-06-22T10:59:30.398Z",
+        "source": "agent"
+      },
+      {
+        "id": "d3f2f309-0663-4879-b042-435e04299820",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Presence] Template is not presence-enabled - sensor not started",
+        "context": {},
+        "device_timestamp": "1782125888797",
+        "created_at": "2026-06-22T10:59:30.398Z",
+        "source": "agent"
+      },
+      {
+        "id": "a5c94f08-964f-4623-913d-93640a770444",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Shell mode: skipping Chrome launch (managed by Windows shell)",
+        "context": {},
+        "device_timestamp": "1782125888798",
+        "created_at": "2026-06-22T10:59:30.398Z",
+        "source": "agent"
+      },
+      {
+        "id": "3d9c215b-fa02-452e-a9dd-0dfdec3dbb87",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Shell mode: Chrome not running. Shell BAT will launch it.",
+        "context": {},
+        "device_timestamp": "1782125888871",
+        "created_at": "2026-06-22T10:59:30.398Z",
+        "source": "agent"
+      },
+      {
+        "id": "584d57ac-9984-4661-a782-946ee30eed45",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782125908666",
+        "created_at": "2026-06-22T10:59:30.398Z",
+        "source": "agent"
+      },
+      {
+        "id": "51291030-2298-4b12-936e-3770e7608189",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782125928537",
+        "created_at": "2026-06-22T11:00:00.403Z",
+        "source": "agent"
+      },
+      {
+        "id": "24d63b63-b9d4-46da-a0d4-97a23b2d1fdc",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[DisplayCache] Received cache refresh request: device-app-reassigned",
+        "context": {},
+        "device_timestamp": "1782125935551",
+        "created_at": "2026-06-22T11:00:00.403Z",
+        "source": "agent"
+      },
+      {
+        "id": "8e8c52c1-0d27-4438-b9ae-22fd77eccdfe",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782125949912",
+        "created_at": "2026-06-22T11:00:30.401Z",
+        "source": "agent"
+      },
+      {
+        "id": "41e001ac-cf3c-4549-b2d3-7bc8d6c5c784",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782125968737",
+        "created_at": "2026-06-22T11:00:30.401Z",
+        "source": "agent"
+      },
+      {
+        "id": "dbfffe51-8c99-45e7-bed0-f06be8433843",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782125988646",
+        "created_at": "2026-06-22T11:01:00.400Z",
+        "source": "agent"
+      },
+      {
+        "id": "6cad2380-87bb-44dc-82da-205ac7079411",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126010183",
+        "created_at": "2026-06-22T11:01:30.412Z",
+        "source": "agent"
+      },
+      {
+        "id": "ca9e7324-6476-4ae2-857d-fa1cd4726d6e",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[DisplayCache] Activated revision 04eb41d6-6dfb-48f6-ad5e-04c07b94924a:2026-06-22T10:30:43.881127Z (app04-media-loop) for reason=device-app-reassigned",
+        "context": {},
+        "device_timestamp": "1782126026617",
+        "created_at": "2026-06-22T11:01:30.412Z",
+        "source": "agent"
+      },
+      {
+        "id": "0ea5aebd-7553-4240-9df8-aae252b68538",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126028663",
+        "created_at": "2026-06-22T11:01:30.412Z",
+        "source": "agent"
+      },
+      {
+        "id": "23de5663-2852-4cfb-915d-2f09ef904208",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126048589",
+        "created_at": "2026-06-22T11:02:00.422Z",
+        "source": "agent"
+      },
+      {
+        "id": "959a3316-be8d-4a0f-b053-0e487c0ba1a1",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126070183",
+        "created_at": "2026-06-22T11:02:30.433Z",
+        "source": "agent"
+      },
+      {
+        "id": "6c23d344-d11d-4687-af3e-35a4fb1858be",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126088680",
+        "created_at": "2026-06-22T11:02:30.433Z",
+        "source": "agent"
+      },
+      {
+        "id": "d3e8a027-7e80-4fa7-9e99-169e648b0dae",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126108686",
+        "created_at": "2026-06-22T11:03:00.439Z",
+        "source": "agent"
+      },
+      {
+        "id": "affb6b8b-519e-42cd-bf98-b59fe204f859",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126130492",
+        "created_at": "2026-06-22T11:03:30.456Z",
+        "source": "agent"
+      },
+      {
+        "id": "956f9d35-cef4-4925-9b33-05f66fcfd01a",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126148662",
+        "created_at": "2026-06-22T11:03:30.456Z",
+        "source": "agent"
+      },
+      {
+        "id": "8a6cc3a9-a4ff-4a75-8a9a-ad277b390162",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126168631",
+        "created_at": "2026-06-22T11:04:00.464Z",
+        "source": "agent"
+      },
+      {
+        "id": "75119800-4f49-4126-b62a-724d4099494c",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126190100",
+        "created_at": "2026-06-22T11:04:30.480Z",
+        "source": "agent"
+      },
+      {
+        "id": "e4bba193-655b-466e-8e91-b080cfd66fe9",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126208735",
+        "created_at": "2026-06-22T11:04:30.480Z",
+        "source": "agent"
+      },
+      {
+        "id": "2d2f166b-2cbe-431a-a5d6-5e7ceca87ee6",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126228636",
+        "created_at": "2026-06-22T11:05:00.489Z",
+        "source": "agent"
+      },
+      {
+        "id": "c80585e5-73f9-4de8-924a-739d5a1faf9b",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126250283",
+        "created_at": "2026-06-22T11:05:30.501Z",
+        "source": "agent"
+      },
+      {
+        "id": "8d170ed3-f87a-4eb6-9dd1-1bd8865c8e04",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126268729",
+        "created_at": "2026-06-22T11:05:30.501Z",
+        "source": "agent"
+      },
+      {
+        "id": "52912596-6fba-4ff5-a4e5-cf38e242104a",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126288805",
+        "created_at": "2026-06-22T11:06:00.509Z",
+        "source": "agent"
+      },
+      {
+        "id": "2471048f-0b19-4c6d-9c4e-96fb17d948c2",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126310207",
+        "created_at": "2026-06-22T11:06:30.520Z",
+        "source": "agent"
+      },
+      {
+        "id": "659c2719-1924-468e-a7ee-2b59c6077861",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126328981",
+        "created_at": "2026-06-22T11:06:30.520Z",
+        "source": "agent"
+      },
+      {
+        "id": "b53f29f4-3ec9-46c8-b607-e144d1a17a1d",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126348694",
+        "created_at": "2026-06-22T11:07:00.527Z",
+        "source": "agent"
+      },
+      {
+        "id": "7eea01cd-95a8-4c40-987d-7a6f4681e59c",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126370300",
+        "created_at": "2026-06-22T11:07:30.532Z",
+        "source": "agent"
+      },
+      {
+        "id": "4fea3607-b994-477a-99b3-e55a69cb4ea7",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126388826",
+        "created_at": "2026-06-22T11:07:30.532Z",
+        "source": "agent"
+      },
+      {
+        "id": "3f38c7ee-b67c-4679-8818-7dc78bd1e0c6",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126408833",
+        "created_at": "2026-06-22T11:08:00.542Z",
+        "source": "agent"
+      },
+      {
+        "id": "41387fd1-281e-460a-80ae-05f818edf7a7",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126430141",
+        "created_at": "2026-06-22T11:08:30.549Z",
+        "source": "agent"
+      },
+      {
+        "id": "b8a6f6ed-382c-4f4a-b066-d122814ac474",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126448825",
+        "created_at": "2026-06-22T11:08:30.549Z",
+        "source": "agent"
+      },
+      {
+        "id": "7bfa40b5-5e51-4db9-a2c6-fafb6405eff2",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126468773",
+        "created_at": "2026-06-22T11:09:00.555Z",
+        "source": "agent"
+      },
+      {
+        "id": "9936d398-a0b0-4c2b-955e-098fbb3ad6ec",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126490840",
+        "created_at": "2026-06-22T11:09:30.555Z",
+        "source": "agent"
+      },
+      {
+        "id": "eba82db1-2672-420a-a9cf-2bbf1e45fbaf",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126508982",
+        "created_at": "2026-06-22T11:09:30.555Z",
+        "source": "agent"
+      },
+      {
+        "id": "70eb64b7-7c71-44d2-ad15-6de9418cb9d3",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126529124",
+        "created_at": "2026-06-22T11:10:00.559Z",
+        "source": "agent"
+      },
+      {
+        "id": "c6f895a2-a14b-4179-896d-65fbe274f9c0",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126550895",
+        "created_at": "2026-06-22T11:10:30.570Z",
+        "source": "agent"
+      },
+      {
+        "id": "0e374a2c-ed74-4955-9913-2b97768f355b",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126568823",
+        "created_at": "2026-06-22T11:10:30.570Z",
+        "source": "agent"
+      },
+      {
+        "id": "d656ba6b-07c0-4474-8172-6c2a72499fa9",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126589087",
+        "created_at": "2026-06-22T11:11:00.583Z",
+        "source": "agent"
+      },
+      {
+        "id": "284af2c8-b79d-438c-afcb-37d371a98e8a",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126609530",
+        "created_at": "2026-06-22T11:11:30.599Z",
+        "source": "agent"
+      },
+      {
+        "id": "ff471e57-ea06-4a25-9bd4-f668c9bfa1de",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126629240",
+        "created_at": "2026-06-22T11:11:30.599Z",
+        "source": "agent"
+      },
+      {
+        "id": "5586a3cf-346e-44e1-9400-6da2e9485f57",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126648964",
+        "created_at": "2026-06-22T11:12:00.600Z",
+        "source": "agent"
+      },
+      {
+        "id": "91494615-dccc-4828-9675-ac58e9b824cb",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126669422",
+        "created_at": "2026-06-22T11:12:30.613Z",
+        "source": "agent"
+      },
+      {
+        "id": "26f44f75-2323-426d-9807-446155d03553",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126688775",
+        "created_at": "2026-06-22T11:12:30.613Z",
+        "source": "agent"
+      },
+      {
+        "id": "45a10592-282a-47d0-9045-7bdae2df2f9e",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126708844",
+        "created_at": "2026-06-22T11:13:00.627Z",
+        "source": "agent"
+      },
+      {
+        "id": "cf34a0b0-741b-4631-ac8d-26f17fca2cbb",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126729494",
+        "created_at": "2026-06-22T11:13:30.627Z",
+        "source": "agent"
+      },
+      {
+        "id": "8b710dbe-207c-498a-9551-7052d48d405f",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126748962",
+        "created_at": "2026-06-22T11:13:30.627Z",
+        "source": "agent"
+      },
+      {
+        "id": "14f4bea0-fb57-4312-82bd-5c3923075b4e",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126768859",
+        "created_at": "2026-06-22T11:14:00.639Z",
+        "source": "agent"
+      },
+      {
+        "id": "3327b4ae-3315-42d9-9ac6-e0b9cb163785",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126789466",
+        "created_at": "2026-06-22T11:14:30.646Z",
+        "source": "agent"
+      },
+      {
+        "id": "735af740-3ea9-4037-a05d-6706d915c619",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126808974",
+        "created_at": "2026-06-22T11:14:30.646Z",
+        "source": "agent"
+      },
+      {
+        "id": "6ffb0bd5-6158-488b-b433-ff2410701c08",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126828920",
+        "created_at": "2026-06-22T11:15:00.647Z",
+        "source": "agent"
+      },
+      {
+        "id": "5f1b0126-47a6-4383-a610-5d37152ef851",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126849544",
+        "created_at": "2026-06-22T11:15:30.658Z",
+        "source": "agent"
+      },
+      {
+        "id": "2a024b2d-fad6-410a-83f9-8b283105e996",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126868860",
+        "created_at": "2026-06-22T11:15:30.658Z",
+        "source": "agent"
+      },
+      {
+        "id": "da52d945-ae9d-4010-b4a4-c6aab611d872",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126890391",
+        "created_at": "2026-06-22T11:16:00.672Z",
+        "source": "agent"
+      },
+      {
+        "id": "dad41458-7bed-437a-a628-0ccc5a727d80",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126909606",
+        "created_at": "2026-06-22T11:16:30.675Z",
+        "source": "agent"
+      },
+      {
+        "id": "422a8742-210a-4978-88b5-fdf982dcf9b3",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126928895",
+        "created_at": "2026-06-22T11:16:30.675Z",
+        "source": "agent"
+      },
+      {
+        "id": "d4632dea-b253-4949-afe9-1e207e4f2706",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126948915",
+        "created_at": "2026-06-22T11:17:00.678Z",
+        "source": "agent"
+      },
+      {
+        "id": "93c2d99a-d4ce-4179-8da9-88b533adf31b",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126969451",
+        "created_at": "2026-06-22T11:17:30.682Z",
+        "source": "agent"
+      },
+      {
+        "id": "2faefcff-3bfe-416e-b876-c6f6f044194d",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782126989089",
+        "created_at": "2026-06-22T11:17:30.682Z",
+        "source": "agent"
+      },
+      {
+        "id": "e3ded479-8453-4965-a0aa-570eb3be4572",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127008965",
+        "created_at": "2026-06-22T11:18:00.688Z",
+        "source": "agent"
+      },
+      {
+        "id": "651ddcb9-5f92-4f45-9187-a0dd01c914cc",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127029825",
+        "created_at": "2026-06-22T11:18:30.700Z",
+        "source": "agent"
+      },
+      {
+        "id": "b87bf27e-4764-4eb1-88a7-7074f6076768",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127048915",
+        "created_at": "2026-06-22T11:18:30.700Z",
+        "source": "agent"
+      },
+      {
+        "id": "33ef6a9a-9374-4bb8-959f-9b844c791f86",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127068989",
+        "created_at": "2026-06-22T11:19:00.702Z",
+        "source": "agent"
+      },
+      {
+        "id": "f47bd1dc-f645-4683-bc72-4db4c7b350a0",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127089577",
+        "created_at": "2026-06-22T11:19:30.715Z",
+        "source": "agent"
+      },
+      {
+        "id": "181ee997-b920-4c93-80cd-165ddc56f3d3",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127109054",
+        "created_at": "2026-06-22T11:19:30.715Z",
+        "source": "agent"
+      },
+      {
+        "id": "4e24ec24-1621-406a-96c9-89396992ca24",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127129004",
+        "created_at": "2026-06-22T11:20:00.730Z",
+        "source": "agent"
+      },
+      {
+        "id": "2686b271-00c9-4a50-bf9a-6ea553c6e338",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127149627",
+        "created_at": "2026-06-22T11:20:30.736Z",
+        "source": "agent"
+      },
+      {
+        "id": "008b578b-b602-41ed-bb16-b4a486852944",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127169400",
+        "created_at": "2026-06-22T11:20:30.736Z",
+        "source": "agent"
+      },
+      {
+        "id": "e3808f6c-f94d-4244-8cb2-5a65bff45bb0",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127189805",
+        "created_at": "2026-06-22T11:21:00.736Z",
+        "source": "agent"
+      },
+      {
+        "id": "5f3fbb7c-bbb7-422c-805d-fe46c6744e44",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127209605",
+        "created_at": "2026-06-22T11:21:30.739Z",
+        "source": "agent"
+      },
+      {
+        "id": "cb8915b7-0430-4593-9a52-dd2d01aa1522",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127228975",
+        "created_at": "2026-06-22T11:21:30.739Z",
+        "source": "agent"
+      },
+      {
+        "id": "c82ea93b-867a-4ed6-8d8b-3c9dcb55e09a",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127249011",
+        "created_at": "2026-06-22T11:22:00.745Z",
+        "source": "agent"
+      },
+      {
+        "id": "c96a5d24-6e29-4a1b-b683-7c10255c0609",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127269759",
+        "created_at": "2026-06-22T11:22:30.769Z",
+        "source": "agent"
+      },
+      {
+        "id": "ded800fa-9d0c-417c-97c7-09ec47beb6fa",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127289398",
+        "created_at": "2026-06-22T11:22:30.769Z",
+        "source": "agent"
+      },
+      {
+        "id": "029a7105-a2cc-4790-824b-b0164fb82d8d",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127309038",
+        "created_at": "2026-06-22T11:23:00.769Z",
+        "source": "agent"
+      },
+      {
+        "id": "c12422bb-6096-4259-b45f-0c5aac3e39b3",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "error",
+        "message": "Crash report: kiosk exited (code: null)",
+        "context": {
+          "signal": null,
+          "system": {
+            "uptime": 1447,
+            "cpuUsage": 52.26,
+            "memPercent": 45.32,
+            "diskPercent": 20.07
+          },
+          "process": "kiosk",
+          "exitCode": null,
+          "timestamp": "2026-06-22T11:22:14.134Z"
+        },
+        "device_timestamp": "1782127388614",
+        "created_at": "2026-06-22T11:23:08.615Z",
+        "source": "crash"
+      },
+      {
+        "id": "c7f35b8f-28c4-48de-83d5-4fa93c08ce2f",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127329750",
+        "created_at": "2026-06-22T11:23:30.780Z",
+        "source": "agent"
+      },
+      {
+        "id": "05208ce9-f51a-43b2-9e3d-f4b57fcb5e32",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "Watchdog: Chrome not running (shell mode — shell should relaunch)",
+        "context": {},
+        "device_timestamp": "1782127331489",
+        "created_at": "2026-06-22T11:23:30.780Z",
+        "source": "agent"
+      },
+      {
+        "id": "56e96f6d-b227-47f5-a0d3-6e964cbad55b",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Crash report sent for kiosk",
+        "context": {},
+        "device_timestamp": "1782127334158",
+        "created_at": "2026-06-22T11:23:30.780Z",
+        "source": "agent"
+      },
+      {
+        "id": "68905cd5-20c9-44ce-aecd-08e27b757c8c",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127349083",
+        "created_at": "2026-06-22T11:23:30.780Z",
+        "source": "agent"
+      },
+      {
+        "id": "c508541e-70d4-4c97-a8ff-4024fa718351",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127369040",
+        "created_at": "2026-06-22T11:24:00.784Z",
+        "source": "agent"
+      },
+      {
+        "id": "30e6b2cd-a214-410c-bedf-dd55d5b20f0c",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127389694",
+        "created_at": "2026-06-22T11:24:30.787Z",
+        "source": "agent"
+      },
+      {
+        "id": "321976a8-0eea-40a9-9937-4d79410ac280",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127409253",
+        "created_at": "2026-06-22T11:24:30.787Z",
+        "source": "agent"
+      },
+      {
+        "id": "396352ce-40d1-4577-a739-6f7339bd8e4e",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127429037",
+        "created_at": "2026-06-22T11:25:00.798Z",
+        "source": "agent"
+      },
+      {
+        "id": "fd500e38-3de8-42d3-8eab-d540123d0a74",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127449766",
+        "created_at": "2026-06-22T11:25:30.809Z",
+        "source": "agent"
+      },
+      {
+        "id": "db268984-3abf-44f3-abd9-879bee5e8aa1",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127469070",
+        "created_at": "2026-06-22T11:25:30.809Z",
+        "source": "agent"
+      },
+      {
+        "id": "0d3cb579-cc3c-47e5-99e3-041b2e224ac1",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127489063",
+        "created_at": "2026-06-22T11:26:00.811Z",
+        "source": "agent"
+      },
+      {
+        "id": "91e9f11f-9b58-4cc1-b508-074bb063a2c9",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127509715",
+        "created_at": "2026-06-22T11:26:30.820Z",
+        "source": "agent"
+      },
+      {
+        "id": "72fd9b14-b92b-4c57-9036-4ace86f28d2d",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127529066",
+        "created_at": "2026-06-22T11:26:30.820Z",
+        "source": "agent"
+      },
+      {
+        "id": "a2bbf789-0efa-4839-9976-8d8820bc693f",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127549056",
+        "created_at": "2026-06-22T11:27:00.820Z",
+        "source": "agent"
+      },
+      {
+        "id": "0a38abc7-6534-4a13-9f35-94c65e3c03d9",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127569695",
+        "created_at": "2026-06-22T11:27:30.820Z",
+        "source": "agent"
+      },
+      {
+        "id": "fe6eb3ca-aa4c-4259-975f-420794e1a53a",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127589089",
+        "created_at": "2026-06-22T11:27:30.820Z",
+        "source": "agent"
+      },
+      {
+        "id": "a9b3010e-e675-4de2-a276-875e8d15f921",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127609097",
+        "created_at": "2026-06-22T11:28:00.834Z",
+        "source": "agent"
+      },
+      {
+        "id": "1c312aa7-212c-4c38-8a9b-dc900bd47672",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127629665",
+        "created_at": "2026-06-22T11:28:30.842Z",
+        "source": "agent"
+      },
+      {
+        "id": "3dfc1cda-f729-4e18-a8d4-d8b71fdf5a21",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127649090",
+        "created_at": "2026-06-22T11:28:30.842Z",
+        "source": "agent"
+      },
+      {
+        "id": "3f1d9049-3b5a-4772-8d11-72a8b5498565",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127669115",
+        "created_at": "2026-06-22T11:29:00.857Z",
+        "source": "agent"
+      },
+      {
+        "id": "f707bd87-1c28-4735-812e-d30f1559d2a7",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "error",
+        "message": "Crash report: kiosk exited (code: null)",
+        "context": {
+          "signal": null,
+          "system": {
+            "uptime": 1807,
+            "cpuUsage": 46.38,
+            "memPercent": 43.3,
+            "diskPercent": 20.12
+          },
+          "process": "kiosk",
+          "exitCode": null,
+          "timestamp": "2026-06-22T11:28:13.748Z"
+        },
+        "device_timestamp": "1782127748231",
+        "created_at": "2026-06-22T11:29:08.231Z",
+        "source": "crash"
+      },
+      {
+        "id": "6f0f70e6-24d5-4cc6-937f-4b9a0d720ab0",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127689740",
+        "created_at": "2026-06-22T11:29:30.870Z",
+        "source": "agent"
+      },
+      {
+        "id": "b5fd9bac-5623-4374-b81a-c80bfe84b90e",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "Watchdog: Chrome not running (shell mode — shell should relaunch)",
+        "context": {},
+        "device_timestamp": "1782127691335",
+        "created_at": "2026-06-22T11:29:30.870Z",
+        "source": "agent"
+      },
+      {
+        "id": "21628aca-981f-43b0-8f9a-105fc2ad40e4",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Crash report sent for kiosk",
+        "context": {},
+        "device_timestamp": "1782127693771",
+        "created_at": "2026-06-22T11:29:30.870Z",
+        "source": "agent"
+      },
+      {
+        "id": "391a9722-840a-49c1-b5ac-90760686cc9e",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127709196",
+        "created_at": "2026-06-22T11:29:30.870Z",
+        "source": "agent"
+      },
+      {
+        "id": "dbe798bc-7ffa-4eca-82aa-aa8c440f5a9a",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127729132",
+        "created_at": "2026-06-22T11:30:00.879Z",
+        "source": "agent"
+      },
+      {
+        "id": "75c24840-3aae-40dd-8836-50eeb4e9994b",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127749750",
+        "created_at": "2026-06-22T11:30:30.888Z",
+        "source": "agent"
+      },
+      {
+        "id": "094612f1-7df3-421f-b155-a84eec2e17be",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127769158",
+        "created_at": "2026-06-22T11:30:30.888Z",
+        "source": "agent"
+      },
+      {
+        "id": "5c3cc4e0-a128-45b9-bdfe-95db6bf0fb72",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127789156",
+        "created_at": "2026-06-22T11:31:00.897Z",
+        "source": "agent"
+      },
+      {
+        "id": "d6e1b160-a5e0-4964-b143-74870b3b878f",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127809781",
+        "created_at": "2026-06-22T11:31:30.893Z",
+        "source": "agent"
+      },
+      {
+        "id": "f6ae4ef1-fe94-48d1-8f1f-37223f6dc4fa",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127829195",
+        "created_at": "2026-06-22T11:31:30.893Z",
+        "source": "agent"
+      },
+      {
+        "id": "cc7eeef0-31fa-4380-8824-ada8feda5a9c",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127849198",
+        "created_at": "2026-06-22T11:32:00.900Z",
+        "source": "agent"
+      },
+      {
+        "id": "6b55329b-b257-41a6-b671-2aa91009f6e4",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127869783",
+        "created_at": "2026-06-22T11:32:30.902Z",
+        "source": "agent"
+      },
+      {
+        "id": "af4344a5-4d51-4369-aee4-6dc9363c2fad",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127889224",
+        "created_at": "2026-06-22T11:32:30.902Z",
+        "source": "agent"
+      },
+      {
+        "id": "fff3fc56-0272-4ef2-bd31-0339d027ec2f",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127909197",
+        "created_at": "2026-06-22T11:33:00.924Z",
+        "source": "agent"
+      },
+      {
+        "id": "020d6cb1-b0cd-490b-a7f2-d94561e3f60d",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127929781",
+        "created_at": "2026-06-22T11:33:30.919Z",
+        "source": "agent"
+      },
+      {
+        "id": "ca70ace4-dfbe-49fe-8741-6337ec2c1eea",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127949209",
+        "created_at": "2026-06-22T11:33:30.919Z",
+        "source": "agent"
+      },
+      {
+        "id": "11a441f1-e452-4ae5-b1f2-d774058f4e30",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127969213",
+        "created_at": "2026-06-22T11:34:00.939Z",
+        "source": "agent"
+      },
+      {
+        "id": "d9b5d4e0-7c21-4e63-89e3-adbfbb49c345",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782127989759",
+        "created_at": "2026-06-22T11:34:30.938Z",
+        "source": "agent"
+      },
+      {
+        "id": "86cd8d35-712b-4737-922c-cd7589869eb3",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128009246",
+        "created_at": "2026-06-22T11:34:30.938Z",
+        "source": "agent"
+      },
+      {
+        "id": "a1952f35-6fd1-4626-870c-f6126b4a211f",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128029222",
+        "created_at": "2026-06-22T11:35:00.940Z",
+        "source": "agent"
+      },
+      {
+        "id": "d1907153-8ef3-4fe4-ab31-b275f23656e8",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128049745",
+        "created_at": "2026-06-22T11:35:30.942Z",
+        "source": "agent"
+      },
+      {
+        "id": "8921e482-109b-41cb-b595-280350a19c34",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128069369",
+        "created_at": "2026-06-22T11:35:30.942Z",
+        "source": "agent"
+      },
+      {
+        "id": "264ce292-2d19-4a54-acff-33124c8d91b4",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128089262",
+        "created_at": "2026-06-22T11:36:00.951Z",
+        "source": "agent"
+      },
+      {
+        "id": "76c8c4b2-86bc-4812-bf66-6f3af9496be7",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128109768",
+        "created_at": "2026-06-22T11:36:30.966Z",
+        "source": "agent"
+      },
+      {
+        "id": "174461b4-ff7f-453a-bfbf-78758f987f52",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128129329",
+        "created_at": "2026-06-22T11:36:30.966Z",
+        "source": "agent"
+      },
+      {
+        "id": "b2122395-58f6-4159-bf72-63ec11e30e50",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128149277",
+        "created_at": "2026-06-22T11:37:00.980Z",
+        "source": "agent"
+      },
+      {
+        "id": "5a6a62e5-5a40-4a02-b83e-651a5ed5a3d3",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128229741",
+        "created_at": "2026-06-22T11:38:30.996Z",
+        "source": "agent"
+      },
+      {
+        "id": "46914b27-a752-4f96-82c4-361ce2a67b96",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128249353",
+        "created_at": "2026-06-22T11:38:30.996Z",
+        "source": "agent"
+      },
+      {
+        "id": "55ae9d65-5fa3-4ef8-b94e-78a517c7bbba",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128269341",
+        "created_at": "2026-06-22T11:39:00.999Z",
+        "source": "agent"
+      },
+      {
+        "id": "59b0f7be-f30b-4f55-b9d9-2c41e1f640a4",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128329364",
+        "created_at": "2026-06-22T11:40:01.004Z",
+        "source": "agent"
+      },
+      {
+        "id": "54c68770-39d8-4d15-baf8-95b5ea9d6e18",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128169750",
+        "created_at": "2026-06-22T11:37:30.979Z",
+        "source": "agent"
+      },
+      {
+        "id": "a715f935-7a98-49ee-b3e4-22c878b11577",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128189331",
+        "created_at": "2026-06-22T11:37:30.979Z",
+        "source": "agent"
+      },
+      {
+        "id": "7e6d6b2e-ed1f-4f2a-8470-4388e57cdca1",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128209282",
+        "created_at": "2026-06-22T11:38:00.994Z",
+        "source": "agent"
+      },
+      {
+        "id": "3138caaa-f734-46c0-923f-5e4c42622987",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128289799",
+        "created_at": "2026-06-22T11:39:30.997Z",
+        "source": "agent"
+      },
+      {
+        "id": "67d92376-d56b-48da-8f74-7da3eee18df5",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128309439",
+        "created_at": "2026-06-22T11:39:30.997Z",
+        "source": "agent"
+      },
+      {
+        "id": "ed107b29-304e-42d8-9947-dcd40e60392a",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128349822",
+        "created_at": "2026-06-22T11:40:31.018Z",
+        "source": "agent"
+      },
+      {
+        "id": "6770a13f-d901-401a-baff-3e4b7fc1863d",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128369457",
+        "created_at": "2026-06-22T11:40:31.018Z",
+        "source": "agent"
+      },
+      {
+        "id": "bce22639-d520-4625-8175-c4d60f95aef8",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128389376",
+        "created_at": "2026-06-22T11:41:01.025Z",
+        "source": "agent"
+      },
+      {
+        "id": "14f35984-aecc-4b64-882b-8cd1de9e151b",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128409817",
+        "created_at": "2026-06-22T11:41:31.037Z",
+        "source": "agent"
+      },
+      {
+        "id": "637b2341-4068-4e44-80e7-87a4eb943f10",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128429421",
+        "created_at": "2026-06-22T11:41:31.037Z",
+        "source": "agent"
+      },
+      {
+        "id": "3cbe773d-805d-4efd-afc0-4e6ec47d413d",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128449375",
+        "created_at": "2026-06-22T11:42:01.033Z",
+        "source": "agent"
+      },
+      {
+        "id": "a5405316-20ff-44d2-b454-8bd6cd3a5da0",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128469808",
+        "created_at": "2026-06-22T11:42:31.035Z",
+        "source": "agent"
+      },
+      {
+        "id": "14fc0401-c4c2-4a60-96f3-d2a57e427af1",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128489451",
+        "created_at": "2026-06-22T11:42:31.035Z",
+        "source": "agent"
+      },
+      {
+        "id": "11fe1c01-f903-4841-b283-ad6696250b59",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128509411",
+        "created_at": "2026-06-22T11:43:01.051Z",
+        "source": "agent"
+      },
+      {
+        "id": "1732c050-b8c8-45fb-b50b-e96f5f90cd85",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128529783",
+        "created_at": "2026-06-22T11:43:31.058Z",
+        "source": "agent"
+      },
+      {
+        "id": "d59bc1ee-014b-40e9-bb53-a15fd12d7d57",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128549473",
+        "created_at": "2026-06-22T11:43:31.058Z",
+        "source": "agent"
+      },
+      {
+        "id": "5ca075c0-157f-4193-95c5-0456e35f9622",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128569460",
+        "created_at": "2026-06-22T11:44:01.065Z",
+        "source": "agent"
+      },
+      {
+        "id": "ea6052e2-1723-4123-a49a-47f88bce8028",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128589821",
+        "created_at": "2026-06-22T11:44:31.067Z",
+        "source": "agent"
+      },
+      {
+        "id": "6f51e9b2-f105-4ed0-b5cb-980e8b976c3c",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128609523",
+        "created_at": "2026-06-22T11:44:31.067Z",
+        "source": "agent"
+      },
+      {
+        "id": "cd689d24-2486-4e97-b881-c18ee1f4460d",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128629433",
+        "created_at": "2026-06-22T11:45:01.082Z",
+        "source": "agent"
+      },
+      {
+        "id": "83380943-5543-4c4b-80ee-5504b5d4a019",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128649848",
+        "created_at": "2026-06-22T11:45:31.084Z",
+        "source": "agent"
+      },
+      {
+        "id": "6c13bb20-06b6-40e9-ad6e-d02fabfced03",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128669479",
+        "created_at": "2026-06-22T11:45:31.084Z",
+        "source": "agent"
+      },
+      {
+        "id": "f0e1d1e3-9bbb-4327-95f0-5928c4a90e82",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128689462",
+        "created_at": "2026-06-22T11:46:01.089Z",
+        "source": "agent"
+      },
+      {
+        "id": "08b307cb-e614-4bb4-ae18-c32ad27a06ba",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128709858",
+        "created_at": "2026-06-22T11:46:31.103Z",
+        "source": "agent"
+      },
+      {
+        "id": "d30fdbae-a8ca-4876-8445-360ce2251ba6",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128729503",
+        "created_at": "2026-06-22T11:46:31.103Z",
+        "source": "agent"
+      },
+      {
+        "id": "e39675e7-4a87-43ea-9217-2c45cfad4023",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128749532",
+        "created_at": "2026-06-22T11:47:01.107Z",
+        "source": "agent"
+      },
+      {
+        "id": "0b6cdb7d-4692-471d-9901-631c974896df",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128769920",
+        "created_at": "2026-06-22T11:47:31.122Z",
+        "source": "agent"
+      },
+      {
+        "id": "5cfa60c6-a1ea-4a16-bf02-e9eabe42c753",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128789514",
+        "created_at": "2026-06-22T11:47:31.122Z",
+        "source": "agent"
+      },
+      {
+        "id": "9e0b6d87-520e-45e8-900b-d774b15309d7",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128809628",
+        "created_at": "2026-06-22T11:48:01.121Z",
+        "source": "agent"
+      },
+      {
+        "id": "dc4b32cb-d224-41ab-87a8-eb0dc3685603",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128829923",
+        "created_at": "2026-06-22T11:48:31.127Z",
+        "source": "agent"
+      },
+      {
+        "id": "359fa81c-a548-4e48-8dea-b385915660cf",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128849524",
+        "created_at": "2026-06-22T11:48:31.127Z",
+        "source": "agent"
+      },
+      {
+        "id": "4dfbb5e4-015d-4511-94be-d7654bed9b85",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128869598",
+        "created_at": "2026-06-22T11:49:01.133Z",
+        "source": "agent"
+      },
+      {
+        "id": "6149e01c-0070-4aba-b885-4ddd2409ef75",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128889922",
+        "created_at": "2026-06-22T11:49:31.144Z",
+        "source": "agent"
+      },
+      {
+        "id": "f7365931-b7f0-4ac4-bf3f-3bd77400916f",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128909667",
+        "created_at": "2026-06-22T11:49:31.144Z",
+        "source": "agent"
+      },
+      {
+        "id": "9c2e8061-bb48-4178-93b0-d7250fd3be5e",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128929596",
+        "created_at": "2026-06-22T11:50:01.146Z",
+        "source": "agent"
+      },
+      {
+        "id": "846b02c8-8167-448e-ae64-0d6450bfe7c2",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128949933",
+        "created_at": "2026-06-22T11:50:31.144Z",
+        "source": "agent"
+      },
+      {
+        "id": "79965b2d-35eb-482c-af3b-b1e0ac0fc0cd",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128969585",
+        "created_at": "2026-06-22T11:50:31.144Z",
+        "source": "agent"
+      },
+      {
+        "id": "f7d43a95-17ed-4658-97b2-9997f0733466",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782128989633",
+        "created_at": "2026-06-22T11:51:01.158Z",
+        "source": "agent"
+      },
+      {
+        "id": "454b2c76-e39c-4f9b-bac8-02a73d054e28",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782129009963",
+        "created_at": "2026-06-22T11:51:31.166Z",
+        "source": "agent"
+      },
+      {
+        "id": "073702ed-b094-4091-9b37-d33d942e18dc",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782129029600",
+        "created_at": "2026-06-22T11:51:31.166Z",
+        "source": "agent"
+      },
+      {
+        "id": "821cf617-1ac2-4d06-972d-a0d4f05892f9",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782129049646",
+        "created_at": "2026-06-22T11:52:01.169Z",
+        "source": "agent"
+      },
+      {
+        "id": "a88045e6-a279-47c5-97d5-ef64c9fafb7b",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782129069975",
+        "created_at": "2026-06-22T11:52:31.186Z",
+        "source": "agent"
+      },
+      {
+        "id": "a7856016-e532-4e5e-a176-ba3e57dad129",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782129089637",
+        "created_at": "2026-06-22T11:52:31.186Z",
+        "source": "agent"
+      },
+      {
+        "id": "aa72bc57-17c8-4f53-857b-90f4b68d6a97",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782129109756",
+        "created_at": "2026-06-22T11:53:01.182Z",
+        "source": "agent"
+      },
+      {
+        "id": "17deba3a-837e-441f-b7fe-1ae695ca3414",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782129130021",
+        "created_at": "2026-06-22T11:53:31.185Z",
+        "source": "agent"
+      },
+      {
+        "id": "04a75b44-91ca-42e3-baaa-e353ea2be5e8",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782129149639",
+        "created_at": "2026-06-22T11:53:31.185Z",
+        "source": "agent"
+      },
+      {
+        "id": "33c36e67-13b8-44e5-b7ce-9412daf36639",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782129169662",
+        "created_at": "2026-06-22T11:54:01.186Z",
+        "source": "agent"
+      },
+      {
+        "id": "6788a737-9120-49fa-8568-dc3fc916fc73",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782129190051",
+        "created_at": "2026-06-22T11:54:31.189Z",
+        "source": "agent"
+      },
+      {
+        "id": "622964ed-f448-4fe1-9a7e-72d4fbbe0204",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782129209755",
+        "created_at": "2026-06-22T11:54:31.189Z",
+        "source": "agent"
+      },
+      {
+        "id": "3981411d-645f-4452-a014-2fe045f92e73",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782129229730",
+        "created_at": "2026-06-22T11:55:01.206Z",
+        "source": "agent"
+      },
+      {
+        "id": "e463f222-f150-424d-8959-36bfe601d499",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782129250018",
+        "created_at": "2026-06-22T11:55:31.206Z",
+        "source": "agent"
+      },
+      {
+        "id": "c4146915-b98c-4d1d-8e42-ad942832a007",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782129269676",
+        "created_at": "2026-06-22T11:55:31.206Z",
+        "source": "agent"
+      },
+      {
+        "id": "a895287a-60dd-4e3d-914c-c3417a38318c",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782129289731",
+        "created_at": "2026-06-22T11:56:01.228Z",
+        "source": "agent"
+      },
+      {
+        "id": "89cab3ff-49f2-49bc-8963-6571ad790cc9",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782129310046",
+        "created_at": "2026-06-22T11:56:31.228Z",
+        "source": "agent"
+      },
+      {
+        "id": "ff4ef8ed-c2e9-4b6d-b94f-8dbc6a64194b",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782129329697",
+        "created_at": "2026-06-22T11:56:31.228Z",
+        "source": "agent"
+      },
+      {
+        "id": "83918000-efe6-405a-be41-8c5ec3575bbf",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782129349740",
+        "created_at": "2026-06-22T11:57:01.235Z",
+        "source": "agent"
+      },
+      {
+        "id": "e1e84721-e952-4c2d-97a4-76edf24ba046",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782129430135",
+        "created_at": "2026-06-22T11:58:31.241Z",
+        "source": "agent"
+      },
+      {
+        "id": "3c506294-1dd6-44da-b12e-e98786d94414",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782129449767",
+        "created_at": "2026-06-22T11:58:31.241Z",
+        "source": "agent"
+      },
+      {
+        "id": "953d8e1d-fb80-4141-a9dc-ee259d7fb345",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782129469762",
+        "created_at": "2026-06-22T11:59:01.251Z",
+        "source": "agent"
+      },
+      {
+        "id": "9fc20680-d531-41ab-ac7f-e5d072fcca7e",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782129370028",
+        "created_at": "2026-06-22T11:57:31.234Z",
+        "source": "agent"
+      },
+      {
+        "id": "53121c12-e481-41b6-b4f2-3a484eaed6db",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782129389723",
+        "created_at": "2026-06-22T11:57:31.234Z",
+        "source": "agent"
+      },
+      {
+        "id": "2711ec43-3ecf-4724-95c9-3b0aa2fe94ac",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782129409776",
+        "created_at": "2026-06-22T11:58:01.240Z",
+        "source": "agent"
+      },
+      {
+        "id": "13607c8c-b5b8-4910-8bd9-28af686aa3d6",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "error",
+        "message": "Crash report: kiosk exited (code: null)",
+        "context": {
+          "signal": null,
+          "system": {
+            "uptime": 3608,
+            "cpuUsage": 49.1,
+            "memPercent": 43.88,
+            "diskPercent": 20.11
+          },
+          "process": "kiosk",
+          "exitCode": null,
+          "timestamp": "2026-06-22T11:58:14.896Z"
+        },
+        "device_timestamp": "1782129549382",
+        "created_at": "2026-06-22T11:59:09.382Z",
+        "source": "crash"
+      },
+      {
+        "id": "680bf824-f500-4c2b-b0e5-e809438a9c6a",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782129490298",
+        "created_at": "2026-06-22T11:59:31.267Z",
+        "source": "agent"
+      },
+      {
+        "id": "aa3d085b-4ba6-44e9-8bdd-89aff23e6cba",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "warn",
+        "message": "Watchdog: Chrome not running (shell mode — shell should relaunch)",
+        "context": {},
+        "device_timestamp": "1782129492174",
+        "created_at": "2026-06-22T11:59:31.267Z",
+        "source": "agent"
+      },
+      {
+        "id": "4b975518-449f-460e-bc75-0dd8e110ab27",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "Crash report sent for kiosk",
+        "context": {},
+        "device_timestamp": "1782129494914",
+        "created_at": "2026-06-22T11:59:31.267Z",
+        "source": "agent"
+      },
+      {
+        "id": "bba9709f-941d-4293-9549-935ae1563ccd",
+        "device_id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "level": "info",
+        "message": "[Screens] Detected 1 display(s)",
+        "context": {},
+        "device_timestamp": "1782129509849",
+        "created_at": "2026-06-22T11:59:31.267Z",
+        "source": "agent"
+      }
+    ],
+    "devices": [
+      {
+        "id": "61a373dc-a08f-4453-bf97-9b4b17c32cc0",
+        "site_id": "62331086-f259-45d6-9099-90c0755e1f40",
+        "floor_id": null,
+        "mac_address": "FC:4C:EA:18:18:E8",
+        "hostname": null,
+        "display_name": "museum",
+        "type": "display",
+        "capabilities": null,
+        "ip_address": "192.168.0.101",
+        "status": "online",
+        "last_seen": "2026-06-22T11:59:06.846Z",
+        "x_position": null,
+        "y_position": null,
+        "config": {
+          "apiKey": "88940bfd9daf8bbc872eef4259af688624ea52202454b65aec00a706519b42a4",
+          "detectedScreens": [
+            {
+              "x": 0,
+              "y": 0,
+              "name": "WinDisc",
+              "index": 0,
+              "width": 1024,
+              "height": 768,
+              "primary": true,
+              "hardwareId": "WinDisc"
+            }
+          ]
+        },
+        "created_at": "2026-06-22T10:54:01.390Z",
+        "updated_at": "2026-06-22T11:59:06.846Z",
+        "app_id": "04eb41d6-6dfb-48f6-ad5e-04c07b94924a",
+        "slug": "museum",
+        "pairing_code": null,
+        "pairing_code_expires": null,
+        "agent_connected": true,
+        "agent_version": "1.0.65",
+        "last_health": {
+          "uptime": 3605,
+          "cpuTemp": null,
+          "memUsed": 7365857280,
+          "network": {
+            "ip": "192.168.0.101",
+            "mac": "fc:4c:ea:18:18:e8",
+            "interface": "Ethernet",
+            "serverLatencyMs": 2
+          },
+          "screens": [
+            {
+              "x": 0,
+              "y": 0,
+              "name": "WinDisc",
+              "width": 1024,
+              "height": 768,
+              "primary": true,
+              "hardwareId": "WinDisc"
+            }
+          ],
+          "cpuCores": 20,
+          "cpuModel": "Intel Core™ i5-14500T",
+          "cpuUsage": 6.4,
+          "diskUsed": 102311534592,
+          "hostname": "LM-MUSEUM",
+          "memTotal": 16851456000,
+          "platform": "windows",
+          "diskTotal": 508762779648,
+          "osVersion": "Microsoft Windows 11 Pro 10.0.26200",
+          "memPercent": 43.71,
+          "diskPercent": 20.11,
+          "nodeVersion": "v24.14.1",
+          "screenCount": 1,
+          "agentVersion": "1.0.65",
+          "systemUptime": 3618
+        },
+        "parent_id": null,
+        "power_order": null
+      }
+    ],
+    "exhibition_assignments": [],
+    "play_events": []
+  },
+  "tableOrder": [
+    "revoked_tokens",
+    "sites",
+    "device_groups",
+    "exhibitions",
+    "floors",
+    "users",
+    "agent_versions",
+    "apps",
+    "audit_logs",
+    "content",
+    "content_versions",
+    "playlists",
+    "playlist_items",
+    "schedules",
+    "alerts",
+    "device_group_members",
+    "device_health",
+    "device_logs",
+    "devices",
+    "exhibition_assignments",
+    "play_events"
+  ]
+}

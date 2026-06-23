@@ -75,25 +75,25 @@ function formatRelativeTime(dateStr: string): string {
 function getActionMeta(action: string): ActionMeta {
   const value = action.toLowerCase();
   if (value.includes('delet') || value.includes('remov')) {
-    return { icon: Trash2, bg: 'bg-red-50 border-red-100', iconColor: 'text-red-600' };
+    return { icon: Trash2, bg: 'bg-red-50 border-red-100 dark:bg-red-500/10 dark:border-red-500/20', iconColor: 'text-red-600 dark:text-red-300' };
   }
   if (value.includes('upload')) {
-    return { icon: Upload, bg: 'bg-blue-50 border-blue-100', iconColor: 'text-blue-700' };
+    return { icon: Upload, bg: 'bg-blue-50 border-blue-100 dark:bg-blue-500/10 dark:border-blue-500/20', iconColor: 'text-blue-700 dark:text-blue-300' };
   }
   if (value.includes('unassign')) {
-    return { icon: Link2Off, bg: 'bg-amber-50 border-amber-100', iconColor: 'text-amber-700' };
+    return { icon: Link2Off, bg: 'bg-amber-50 border-amber-100 dark:bg-amber-500/10 dark:border-amber-500/20', iconColor: 'text-amber-700 dark:text-amber-300' };
   }
   if (value.includes('assign')) {
-    return { icon: Link2, bg: 'bg-emerald-50 border-emerald-100', iconColor: 'text-emerald-700' };
+    return { icon: Link2, bg: 'bg-emerald-50 border-emerald-100 dark:bg-emerald-500/10 dark:border-emerald-500/20', iconColor: 'text-emerald-700 dark:text-emerald-300' };
   }
   if (value.includes('login') || value.includes('log in')) {
     return { icon: LogIn, bg: 'bg-surface-50 border-surface-200', iconColor: 'text-surface-600' };
   }
   if (value.includes('updat') || value.includes('edit') || value.includes('modif') || value.includes('sav') || value.includes('chang')) {
-    return { icon: Pencil, bg: 'bg-blue-50 border-blue-100', iconColor: 'text-blue-700' };
+    return { icon: Pencil, bg: 'bg-blue-50 border-blue-100 dark:bg-blue-500/10 dark:border-blue-500/20', iconColor: 'text-blue-700 dark:text-blue-300' };
   }
   if (value.includes('creat') || value.includes('add')) {
-    return { icon: Plus, bg: 'bg-emerald-50 border-emerald-100', iconColor: 'text-emerald-700' };
+    return { icon: Plus, bg: 'bg-emerald-50 border-emerald-100 dark:bg-emerald-500/10 dark:border-emerald-500/20', iconColor: 'text-emerald-700 dark:text-emerald-300' };
   }
   return { icon: Activity, bg: 'bg-surface-50 border-surface-200', iconColor: 'text-surface-600' };
 }
@@ -323,7 +323,7 @@ export function DashboardPage() {
 
           {attentionDevices.length === 0 && unassignedDevices === 0 ? (
             <div className="flex items-center gap-3 px-5 py-8">
-              <span className="flex h-9 w-9 items-center justify-center rounded-md bg-emerald-50 text-emerald-700">
+              <span className="flex h-9 w-9 items-center justify-center rounded-md bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">
                 <CheckCircle2 className="h-5 w-5" />
               </span>
               <div>
@@ -348,7 +348,7 @@ export function DashboardPage() {
                   <span
                     className={clsx(
                       'rounded px-2 py-0.5 text-xs font-semibold uppercase',
-                      device.status === 'error' ? 'bg-red-50 text-red-700' : 'bg-surface-100 text-surface-600'
+                      device.status === 'error' ? 'bg-red-50 text-red-700 dark:bg-red-500/10 dark:text-red-300' : 'bg-surface-100 text-surface-600'
                     )}
                   >
                     {device.status}
@@ -363,7 +363,7 @@ export function DashboardPage() {
                   onClick={() => navigate('/devices')}
                   className="flex w-full items-center gap-3 px-5 py-3 text-left transition-colors hover:bg-surface-50"
                 >
-                  <span className="flex h-9 w-9 items-center justify-center rounded-md bg-amber-50 text-amber-700">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-md bg-amber-50 text-amber-700 dark:bg-amber-500/10 dark:text-amber-300">
                     <Monitor className="h-4 w-4" />
                   </span>
                   <div className="min-w-0 flex-1">
@@ -521,9 +521,9 @@ function LegendDot({ color, label, value }: { color: string; label: string; valu
 function StatusMark({ status }: { status: Device['status'] }) {
   const classes =
     status === 'error'
-      ? 'border-red-200 bg-red-50 text-red-700'
+      ? 'border-red-200 bg-red-50 text-red-700 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-300'
       : status === 'online'
-        ? 'border-emerald-200 bg-emerald-50 text-emerald-700'
+        ? 'border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-300'
         : 'border-surface-200 bg-surface-50 text-surface-500';
 
   return (

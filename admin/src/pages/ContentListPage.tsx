@@ -414,7 +414,7 @@ function ContentGridCard({
                 onDelete();
               }
             }}
-            className="card-bg h-7 w-7 inline-flex items-center justify-center rounded-md text-red-400 shadow-sm hover:bg-red-50 hover:text-red-600"
+            className="card-bg h-7 w-7 inline-flex items-center justify-center rounded-md text-red-400 shadow-sm hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-500/10 dark:hover:text-red-300"
             title="Delete"
             aria-label="Delete"
           >
