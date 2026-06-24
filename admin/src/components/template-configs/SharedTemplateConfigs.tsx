@@ -2,7 +2,7 @@ import { useState, useCallback, useRef } from 'react';
 import { FileText, Plus, Trash2, Upload, Loader2 } from 'lucide-react';
 import { useQueryClient } from '@tanstack/react-query';
 import {
-  useFieldHelpers, useConfigData, contentPicker, ExhibitionPicker, SlideshowTimeline, IdleScreenToggle,
+  useFieldHelpers, useConfigData, contentPicker, SlideshowTimeline, IdleScreenToggle,
   FIT_OPTIONS, LABEL_CLS, INPUT_CLS, SegmentedControl,
   ConfigSection, ConfigPageLayout, type ConfigPanelProps, type SectionDef,
 } from './SharedConfigFields';
@@ -825,7 +825,7 @@ const MULTI_SECTIONS: SectionDef[] = [
 
 export function MultiScreenConfig({ config, onChange, siteId }: ConfigPanelProps) {
   const { numberField } = useFieldHelpers(config, onChange);
-  const { exhibitions, videos, images } = useConfigData(siteId);
+  const { videos, images } = useConfigData(siteId);
 
   const set = (key: string, value: unknown) => onChange({ ...config, [key]: value });
   const contentType = (config.contentType as string) || 'video';
@@ -835,9 +835,8 @@ export function MultiScreenConfig({ config, onChange, siteId }: ConfigPanelProps
 
       {/* Screen Setup */}
       <ConfigSection id="screen-setup" title="Screen Setup" accentColor="#4f46e5"
-        description="Exhibition and screen index configuration">
+        description="Screen index configuration">
         <div className="space-y-4">
-          <ExhibitionPicker configKey="exhibitId" label="Exhibition" exhibitions={exhibitions} config={config} onChange={onChange} />
           <div className="grid grid-cols-2 gap-4">
             {numberField('screenIndex', 'Screen Index')}
             {numberField('totalScreens', 'Total Screens')}

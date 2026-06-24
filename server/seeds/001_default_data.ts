@@ -23,20 +23,6 @@ export async function seed(knex: Knex): Promise<void> {
 
   console.log('Created default site:', site.name);
 
-  // Create default floor
-  const [floor] = await knex('floors')
-    .insert({
-      site_id: site.id,
-      name: 'Ground Floor',
-      level: 0,
-      width: 1920,
-      height: 1080,
-      config: {},
-    })
-    .returning('*');
-
-  console.log('Created default floor:', floor.name);
-
   // Create super admin user
   const passwordHash = await bcrypt.hash('admin123', 10);
 

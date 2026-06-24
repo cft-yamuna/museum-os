@@ -249,12 +249,12 @@ export function GroupsPage() {
   const invalidateGroups = () => { qc.invalidateQueries({ queryKey: ['groups'] }); qc.invalidateQueries({ queryKey: ['group-detail'] }); };
 
   const createGroup = useMutation({
-    mutationFn: (d: GroupFormData) => api.post<DeviceGroup>('/groups', { site_id: activeSiteId, name: d.name, description: d.description || null }),
+    mutationFn: (d: GroupFormData) => api.post<DeviceGroup>('/groups', { site_id: activeSiteId, name: d.name, type: 'custom', description: d.description || undefined }),
     onSuccess: () => { invalidateGroups(); addToast('success', 'Group created'); closeForm(); },
     onError: (err: Error) => addToast('error', err.message),
   });
   const updateGroup = useMutation({
-    mutationFn: ({ id, data }: { id: string; data: GroupFormData }) => api.put<DeviceGroup>(`/groups/${id}`, { name: data.name, description: data.description || null }),
+    mutationFn: ({ id, data }: { id: string; data: GroupFormData }) => api.put<DeviceGroup>(`/groups/${id}`, { name: data.name, description: data.description || undefined }),
     onSuccess: () => { invalidateGroups(); addToast('success', 'Group updated'); closeForm(); },
     onError: (err: Error) => addToast('error', err.message),
   });

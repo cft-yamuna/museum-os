@@ -3,7 +3,8 @@ services:
     image: postgres:16-alpine
     container_name: museumos-db
     restart: unless-stopped
-    network_mode: host
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env.production}
@@ -20,14 +21,15 @@ services:
     build: .
     container_name: museumos-app
     restart: unless-stopped
-    network_mode: host
+    ports:
+      - "${PORT:-3401}:${PORT:-3401}"
     depends_on:
       museumos-db:
         condition: service_healthy
     environment:
       NODE_ENV: production
       PORT: ${PORT:-3401}
-      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@127.0.0.1:5432/${POSTGRES_DB:-museumos}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@museumos-db:5432/${POSTGRES_DB:-museumos}
       JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env.production}
       JWT_EXPIRY: ${JWT_EXPIRY:-24h}
       CORS_ORIGIN: ${CORS_ORIGIN:-*}

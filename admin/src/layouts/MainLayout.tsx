@@ -16,13 +16,10 @@ import {
   AppWindow,
   FileImage,
   ListMusic,
-  Landmark,
   Clock,
-  Map,
   Group,
   Power,
   Activity,
-  PlayCircle,
   Bell,
   ScrollText,
   Users,
@@ -52,25 +49,22 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { to: '/', icon: LayoutDashboard, label: 'Dashboard', section: 'Main' },
-  { to: '/apps', icon: AppWindow, label: 'Apps', section: 'Main' },
-  { to: '/content', icon: FileImage, label: 'Media', section: 'Main' },
-  { to: '/playlists', icon: ListMusic, label: 'Playlists', section: 'Main' },
-  { to: '/exhibitions', icon: Landmark, label: 'Exhibitions', section: 'Content' },
-  { to: '/devices', icon: Monitor, label: 'Devices', section: 'Content' },
-  { to: '/schedules', icon: Clock, label: 'Schedules', section: 'Content' },
-  { to: '/map', icon: Map, label: 'Floor Map', section: 'Content' },
-  { to: '/groups', icon: Group, label: 'Groups', section: 'Content' },
-  { to: '/power', icon: Power, label: 'Power & Startup', section: 'System' },
-  { to: '/analytics', icon: Activity, label: 'Analytics', section: 'System' },
-  { to: '/proof-of-play', icon: PlayCircle, label: 'Proof of Play', roles: ['super_admin', 'site_admin', 'content_manager'], section: 'System' },
-  { to: '/engagement', icon: Footprints, label: 'Engagement', roles: ['super_admin', 'site_admin', 'content_manager'], section: 'System' },
-  { to: '/alerts', icon: Bell, label: 'Alerts', section: 'System' },
-  { to: '/logs', icon: ScrollText, label: 'Logs', section: 'System' },
-  { to: '/users', icon: Users, label: 'Users', roles: ['super_admin'], section: 'System' },
-  { to: '/recycle-bin', icon: Trash2, label: 'Recycle Bin', section: 'System' },
-  { to: '/settings', icon: Settings, label: 'Settings', roles: ['super_admin', 'site_admin'], section: 'System' },
-  { to: '/installation-guide', icon: BookOpen, label: 'Setup Guide', roles: ['super_admin', 'site_admin'], section: 'System' },
+  { to: '/', icon: LayoutDashboard, label: 'Dashboard', section: 'Overview' },
+  { to: '/apps', icon: AppWindow, label: 'Apps', section: 'Content' },
+  { to: '/content', icon: FileImage, label: 'Media', section: 'Content' },
+  { to: '/playlists', icon: ListMusic, label: 'Playlists', section: 'Content' },
+  { to: '/devices', icon: Monitor, label: 'Devices', section: 'Fleet' },
+  { to: '/groups', icon: Group, label: 'Groups', section: 'Fleet' },
+  { to: '/schedules', icon: Clock, label: 'Schedules', section: 'Fleet' },
+  { to: '/power', icon: Power, label: 'Power & Startup', section: 'Fleet' },
+  { to: '/analytics', icon: Activity, label: 'Analytics', section: 'Insights' },
+  { to: '/engagement', icon: Footprints, label: 'Engagement', roles: ['super_admin', 'site_admin', 'content_manager'], section: 'Insights' },
+  { to: '/alerts', icon: Bell, label: 'Alerts', section: 'Insights' },
+  { to: '/logs', icon: ScrollText, label: 'Logs', section: 'Insights' },
+  { to: '/users', icon: Users, label: 'Users', roles: ['super_admin'], section: 'Admin' },
+  { to: '/settings', icon: Settings, label: 'Settings', roles: ['super_admin', 'site_admin'], section: 'Admin' },
+  { to: '/recycle-bin', icon: Trash2, label: 'Recycle Bin', section: 'Admin' },
+  { to: '/installation-guide', icon: BookOpen, label: 'Setup Guide', roles: ['super_admin', 'site_admin'], section: 'Admin' },
 ];
 
 const searchKeywords: Record<string, string[]> = {
@@ -78,10 +72,8 @@ const searchKeywords: Record<string, string[]> = {
   '/apps': ['apps', 'installations', 'templates'],
   '/content': ['media', 'upload', 'images', 'videos', 'files'],
   '/playlists': ['playlists', 'queue'],
-  '/exhibitions': ['exhibitions', 'gallery'],
   '/devices': ['devices', 'screens', 'monitors', 'kiosks'],
   '/schedules': ['schedules', 'timing'],
-  '/map': ['floor map', 'layout'],
   '/groups': ['groups', 'collections'],
   '/alerts': ['alerts', 'notifications'],
   '/logs': ['logs', 'audit'],
@@ -420,9 +412,6 @@ export function MainLayout() {
                 <div className="text-sm font-semibold leading-tight text-surface-900">{user?.name || 'User'}</div>
                 <div className="text-xs capitalize leading-tight text-surface-500">{user?.role?.replace('_', ' ') || ''}</div>
               </div>
-              <div className="flex h-9 w-9 items-center justify-center rounded-md bg-surface-900 text-sm font-semibold text-white">
-                {user?.name?.charAt(0)?.toUpperCase() || '?'}
-              </div>
             </div>
             <button
               type="button"
@@ -512,9 +501,6 @@ function SidebarContent({
   return (
     <>
       <div className={clsx('flex h-14 shrink-0 items-center border-b px-3', collapsed ? 'justify-center' : 'gap-3')} style={{ borderColor: 'var(--sidebar-border)' }}>
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-white/10 bg-white text-xs font-bold text-surface-950">
-          {BRAND_MONOGRAM}
-        </div>
         {!collapsed && (
           <div className="min-w-0">
             <div className="truncate text-sm font-semibold text-white">{BRAND_NAME}</div>
@@ -587,9 +573,6 @@ function SidebarContent({
         {!collapsed && (
           <div className="rounded-md border border-white/10 bg-white/[0.04] p-2">
             <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-white text-sm font-semibold text-surface-950">
-                {user?.name?.charAt(0)?.toUpperCase() || '?'}
-              </div>
               <div className="min-w-0 flex-1">
                 <div className="truncate text-sm font-medium text-white/90">{user?.name || 'User'}</div>
                 <div className="truncate text-xs text-white/40">{user?.email || ''}</div>

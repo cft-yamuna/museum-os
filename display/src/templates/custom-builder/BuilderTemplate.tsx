@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useAppShell } from '@/components/core/AppShell';
+import { useEffect, useState } from 'react';
 import type {
   BuilderConfig,
   BuilderElement,
@@ -7,8 +6,6 @@ import type {
   BuilderClockElement,
   BuilderSlideshowElement,
 } from '@/lib/types';
-
-type ReportPlay = (info: Record<string, unknown>) => void;
 
 // ==========================================
 // Types
@@ -77,7 +74,7 @@ function Clock({ element }: { element: BuilderClockElement }) {
   );
 }
 
-function RegionSlideshow({ element, reportPlay }: { element: BuilderSlideshowElement; reportPlay?: ReportPlay }) {
+function RegionSlideshow({ element }: { element: BuilderSlideshowElement }) {
   const items = element.items || [];
   const [index, setIndex] = useState(0);
   const count = items.length;
@@ -91,12 +88,6 @@ function RegionSlideshow({ element, reportPlay }: { element: BuilderSlideshowEle
     const timer = setTimeout(() => setIndex((i) => (i + 1) % count), seconds * 1000);
     return () => clearTimeout(timer);
   }, [index, item, isVideo, count, element.defaultDuration]);
-
-  // Proof-of-play: report each slide as it becomes visible.
-  useEffect(() => {
-    if (!item || !reportPlay) return;
-    reportPlay({ source: 'slideshow', contentUrl: item.url, title: item.url.split('/').pop() });
-  }, [item, reportPlay]);
 
   const advance = () => setIndex((i) => (count > 0 ? (i + 1) % count : 0));
 
@@ -120,7 +111,7 @@ function RegionSlideshow({ element, reportPlay }: { element: BuilderSlideshowEle
   );
 }
 
-function ElementView({ element, reportPlay }: { element: BuilderElement; reportPlay?: ReportPlay }) {
+function ElementView({ element }: { element: BuilderElement }) {
   switch (element.type) {
     case 'text': {
       const justify =
@@ -172,7 +163,7 @@ function ElementView({ element, reportPlay }: { element: BuilderElement; reportP
         />
       );
     case 'slideshow':
-      return <RegionSlideshow element={element} reportPlay={reportPlay} />;
+      return <RegionSlideshow element={element} />;
     case 'clock':
       return <Clock element={element} />;
     case 'web':
@@ -199,7 +190,7 @@ function ElementView({ element, reportPlay }: { element: BuilderElement; reportP
   }
 }
 
-function Region({ region, reportPlay }: { region: BuilderRegion; reportPlay?: ReportPlay }) {
+function Region({ region }: { region: BuilderRegion }) {
   return (
     <div
       style={{
@@ -212,7 +203,7 @@ function Region({ region, reportPlay }: { region: BuilderRegion; reportPlay?: Re
         overflow: 'hidden',
       }}
     >
-      <ElementView element={region.element} reportPlay={reportPlay} />
+      <ElementView element={region.element} />
     </div>
   );
 }
@@ -222,12 +213,6 @@ function Region({ region, reportPlay }: { region: BuilderRegion; reportPlay?: Re
 // ==========================================
 
 function BuilderTemplate({ config }: BuilderTemplateProps) {
-  const { send } = useAppShell();
-  const reportPlay = useCallback<ReportPlay>(
-    (info) => send('display:play', { templateType: 'custom-builder', ...info }),
-    [send]
-  );
-
   const bg = config.background || {};
   const background =
     bg.gradient || bg.color || (bg.imageUrl ? undefined : '#000');
@@ -252,7 +237,7 @@ function BuilderTemplate({ config }: BuilderTemplateProps) {
   return (
     <div style={style}>
       {regions.map((region) => (
-        <Region key={region.id} region={region} reportPlay={reportPlay} />
+        <Region key={region.id} region={region} />
       ))}
     </div>
   );

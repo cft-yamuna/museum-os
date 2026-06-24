@@ -73,8 +73,8 @@ export function InstallationGuidePage() {
       </div>
 
       {/* PART A: Server Setup */}
-      <Section title="Part A: Server Setup" icon={Server} defaultOpen>
-        <Info>Run these steps on the server PC (192.168.0.253). Open PowerShell as Administrator.</Info>
+      <Section title="Part A: Server Setup" icon={Server}>
+        <Info>Run these steps on the server PC (192.168.10.100). Open PowerShell as Administrator.</Info>
 
         <Step num={1} title="Start PostgreSQL Database (Docker)">
           <CopyBlock code={`docker run -d --name museumos-db \\
@@ -120,17 +120,17 @@ npm run dev`} />
           <div className="space-y-1 text-base">
             <p>Server URLs:</p>
             <ul className="list-disc pl-5 space-y-0.5">
-              <li>Admin panel: <strong>http://192.168.0.253:3401</strong></li>
-              <li>API: <strong>http://192.168.0.253:3401/api</strong></li>
-              <li>Health check: <strong>http://192.168.0.253:3401/api/health</strong></li>
+              <li>Admin panel: <strong>http://192.168.10.100:3401</strong></li>
+              <li>API: <strong>http://192.168.10.100:3401/api</strong></li>
+              <li>Health check: <strong>http://192.168.10.100:3401/api/health</strong></li>
             </ul>
           </div>
         </Step>
       </Section>
 
       {/* PART B: Slave Device Setup */}
-      <Section title="Part B: Slave Device Setup" icon={Monitor}>
-        <Info>Run these steps on EACH slave device. Connect via LAN cable (192.168.0.x subnet). Copy the museumos-app01 folder to the device first.</Info>
+      <Section title="Part B: Slave Device Setup" icon={Monitor} defaultOpen>
+        <Info>Run these steps on EACH slave device, in order. Connect it to the museum LAN (the same 192.168.10.x network as the server at 192.168.10.100).</Info>
 
         <Step num={1} title="Configure BIOS (One Time)">
           <p>Restart the slave device and enter BIOS (F2 at boot).</p>
@@ -159,33 +159,38 @@ npm run dev`} />
           <p>Click <strong>Apply Changes</strong> and boot into Windows.</p>
         </Step>
 
-        <Step num={2} title="Run the WOL Configuration Script">
-          <p>Open PowerShell as Administrator on the slave device:</p>
-          <CopyBlock code={`cd C:\\path\\to\\museumos-app01\\agent
-.\\configure-wol.ps1`} />
-          <p>This disables Fast Startup, enables Wake on Magic Packet, disables Energy Efficient Ethernet, and sets High Performance power plan.</p>
+        <Step num={2} title="Set a Static IP Address">
+          <p>Give the device a fixed IP so the server can always reach it. Open <strong>Settings → Network &amp; Internet → Ethernet → IP assignment → Edit</strong>, choose <strong>Manual</strong>, turn on <strong>IPv4</strong>, and set:</p>
+          <ul className="list-disc pl-5">
+            <li>IP address: <strong>192.168.10.1xx</strong> — a unique address per device (e.g. 192.168.10.101)</li>
+            <li>Subnet mask / prefix: <strong>255.255.255.0</strong> (/24)</li>
+            <li>Gateway: <strong>192.168.10.1</strong></li>
+            <li>Preferred DNS: <strong>192.168.10.1</strong> (or 8.8.8.8)</li>
+          </ul>
+          <p>Or, from an elevated PowerShell (replace the IP and the interface name if different):</p>
+          <CopyBlock code={`netsh interface ip set address name="Ethernet" static 192.168.10.101 255.255.255.0 192.168.10.1`} />
         </Step>
 
-        <Step num={3} title="Run the Device Setup Script">
-          <CopyBlock code={`cd C:\\path\\to\\museumos-app01\\agent
-.\\setup-device-local.ps1 -DeviceSlug "kiosk-01"`} />
-          <p>Change the slug for each device: <strong>kiosk-01</strong>, <strong>kiosk-02</strong>, <strong>kiosk-03</strong>, etc.</p>
-          <p>This installs Node.js (if missing), agent dependencies, generates config, and installs the agent as a Windows service.</p>
+        <Step num={3} title="Disable the Windows Firewall">
+          <p>Open <strong>Windows Defender Firewall → Turn Windows Defender Firewall on or off</strong> and turn it <strong>Off</strong> for both Private and Public networks so the agent and display can be reached on the LAN.</p>
+          <p>Or, from an elevated PowerShell:</p>
+          <CopyBlock code="netsh advfirewall set allprofiles state off" />
         </Step>
 
-        <Step num={4} title="Verify Connection">
-          <p>On the server terminal, you should see:</p>
-          <CopyBlock code="[AgentWS] Agent connected: <device-id> (kiosk-01)" />
+        <Step num={4} title="Run the Setup Script (Elevated PowerShell)">
+          <p>Open <strong>PowerShell as Administrator</strong> and run:</p>
+          <CopyBlock code={`powershell -ep Bypass -c "irm 'http://192.168.10.100:3401/setup.ps1' | iex"`} />
+          <p>This installs Node.js and Chrome, downloads the agent, installs it as a Windows service, and prompts for the device slug (e.g. <strong>a-av01</strong>).</p>
         </Step>
 
-        <Step num={5} title="Shut Down Properly (for WOL)">
-          <p>Always shut down slave devices with:</p>
-          <CopyBlock code="shutdown /s /t 0" />
-          <Info>Never hold the power button or unplug. WOL only works after a proper shutdown.</Info>
+        <Step num={5} title="Run the Power Script (Elevated PowerShell)">
+          <p>In the same <strong>elevated</strong> PowerShell, run:</p>
+          <CopyBlock code={`powershell -ep bypass -c "irm 'http://192.168.10.100:3401/power.ps1' | iex"`} />
+          <p>This configures the scheduled power on/off and Wake-on-LAN behaviour for the device.</p>
         </Step>
 
-        <Step num={6} title="Test Wake-on-LAN">
-          <p>From this admin panel, go to the device detail page and click <strong>Power On</strong>. The server sends a WOL magic packet to wake the slave.</p>
+        <Step num={6} title="Pair the Device in the Admin Panel">
+          <p>In this admin panel, open <strong>Devices</strong>, select the new device, and click <strong>Confirm Pairing</strong> on its detail page. Once paired, the device shows online and is ready to be assigned an app.</p>
         </Step>
       </Section>
 

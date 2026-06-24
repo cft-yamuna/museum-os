@@ -14,8 +14,6 @@ interface FallbackPlaylistProps {
   reason: 'no-app' | 'media-error';
   /** Called once when the fallback becomes visible (for reporting/alerting). */
   onActive?: (info: FallbackActiveInfo) => void;
-  /** Called as each fallback item becomes visible (proof-of-play). */
-  onItemPlay?: (info: { contentUrl: string; title?: string }) => void;
 }
 
 /**
@@ -24,7 +22,7 @@ interface FallbackPlaylistProps {
  * and videos (played through); a broken item simply advances so the loop never
  * sticks on a blank frame.
  */
-export function FallbackPlaylist({ content, reason, onActive, onItemPlay }: FallbackPlaylistProps) {
+export function FallbackPlaylist({ content, reason, onActive }: FallbackPlaylistProps) {
   const items = content.items;
   const [index, setIndex] = useState(0);
   const reportedRef = useRef(false);
@@ -38,12 +36,6 @@ export function FallbackPlaylist({ content, reason, onActive, onItemPlay }: Fall
   const count = items.length;
   const item = count > 0 ? items[index % count] : undefined;
   const isVideo = item?.type === 'video';
-
-  // Proof-of-play: report each fallback item as it becomes visible.
-  useEffect(() => {
-    if (!item || !onItemPlay) return;
-    onItemPlay({ contentUrl: item.url, title: item.url.split('/').pop() });
-  }, [item, onItemPlay]);
 
   // Images advance on a timer; videos advance when they end.
   useEffect(() => {

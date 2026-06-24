@@ -1,27 +1,15 @@
-# Windows / Docker Desktop compose file.
+# Linux deployment compose (host networking).
+# Use this on Linux instead of the default docker-compose.yml (which targets Windows/Docker Desktop):
+#   docker compose -f docker-compose.linux.yml --env-file .env.production up -d --build museumos-app
 #
-# The production docker-compose.yml uses `network_mode: host` because the Linux
-# server needs LAN-level broadcast (Wake-on-LAN / device power-on). Host networking
-# does NOT expose ports to Windows (containers run inside the WSL2 VM), so on
-# Docker Desktop the app is unreachable at localhost:3401.
-#
-# This file uses a normal bridge network with published ports instead, so the app
-# is reachable from the Windows host. The app reaches Postgres by its service name
-# (museumos-db) over Docker's internal DNS rather than 127.0.0.1.
-#
-# Usage on Windows:
-#   docker compose -f docker-compose.windows.yml --env-file .env.production up -d --build
-#
-# Reuses the same `pgdata` volume as the production file (same project name), so
-# database data is shared. Run only ONE of the two compose files at a time.
-
+# Host networking is Linux-only: containers share the host network stack, so the app
+# reaches Postgres at 127.0.0.1:5432 and no port mapping is needed.
 services:
   museumos-db:
     image: postgres:16-alpine
     container_name: museumos-db
     restart: unless-stopped
-    ports:
-      - "5432:5432"
+    network_mode: host
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env.production}
@@ -38,15 +26,14 @@ services:
     build: .
     container_name: museumos-app
     restart: unless-stopped
-    ports:
-      - "${PORT:-3401}:${PORT:-3401}"
+    network_mode: host
     depends_on:
       museumos-db:
         condition: service_healthy
     environment:
       NODE_ENV: production
       PORT: ${PORT:-3401}
-      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@museumos-db:5432/${POSTGRES_DB:-museumos}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@127.0.0.1:5432/${POSTGRES_DB:-museumos}
       JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env.production}
       JWT_EXPIRY: ${JWT_EXPIRY:-24h}
       CORS_ORIGIN: ${CORS_ORIGIN:-*}

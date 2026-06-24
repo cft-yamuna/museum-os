@@ -193,7 +193,7 @@ export function AgentTab({ deviceId, onOpenCommandDialog }: AgentTabProps) {
             <button
               onClick={handleUpdate}
               disabled={updating || updatePushed}
-              className="h-7 px-2.5 inline-flex items-center gap-1.5 rounded-xl bg-blue-500 text-white text-[12px] font-medium hover:bg-blue-600 transition-colors disabled:opacity-50"
+              className="h-7 px-2.5 inline-flex items-center gap-1.5 rounded-xl bg-surface-950 text-surface-50 text-[12px] font-medium hover:bg-surface-800 transition-colors disabled:opacity-50"
               title={updateAvailable ? 'Install the latest uploaded agent package' : 'Reinstall the latest uploaded agent package'}
             >
               {(updating || updatePushed) ? <Spinner size="sm" /> : <Download className="h-3.5 w-3.5" />}
@@ -204,7 +204,7 @@ export function AgentTab({ deviceId, onOpenCommandDialog }: AgentTabProps) {
             <button
               onClick={handleUpdate}
               disabled={updating}
-              className="h-7 px-2.5 inline-flex items-center gap-1.5 rounded-xl bg-blue-500 text-white text-[12px] font-medium hover:bg-blue-600 transition-colors disabled:opacity-50"
+              className="h-7 px-2.5 inline-flex items-center gap-1.5 rounded-xl bg-surface-950 text-surface-50 text-[12px] font-medium hover:bg-surface-800 transition-colors disabled:opacity-50"
               title="Reinstall the latest uploaded agent package"
             >
               {updating ? <Spinner size="sm" /> : <Download className="h-3.5 w-3.5" />}

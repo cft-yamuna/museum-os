@@ -87,11 +87,11 @@ function AddContentModal({
   const { data, isLoading } = useQuery({
     queryKey: ['content-for-playlist', siteId],
     queryFn: () =>
-      api.get<{ items: Content[]; total: number }>(`/content?site_id=${siteId}&limit=100`),
+      api.get<Content[]>(`/content?site_id=${siteId}`),
     enabled: open && !!siteId,
   });
 
-  const items = data?.items ?? [];
+  const items = data ?? [];
 
   const handleAdd = useCallback(
     async (content: Content) => {

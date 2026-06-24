@@ -766,15 +766,6 @@ function AppShellInner(props: AppShellProps) {
     log.warn('Showing fallback content', payload);
   }, [log, ws]);
 
-  const reportFallbackPlay = useCallback((info: { contentUrl: string; title?: string }) => {
-    ws.send('display:play', {
-      source: 'fallback',
-      playlistId: fallback?.playlistId,
-      contentUrl: info.contentUrl,
-      title: info.title,
-    });
-  }, [fallback, ws]);
-
   // ---- Loading state ----
 
   if (isLoading) {
@@ -804,7 +795,6 @@ function AppShellInner(props: AppShellProps) {
         content: fallback,
         reason: 'no-app',
         onActive: reportFallbackActive,
-        onItemPlay: reportFallbackPlay,
       });
     }
     return React.createElement(LoadingScreen, {
@@ -819,7 +809,6 @@ function AppShellInner(props: AppShellProps) {
       content: fallback,
       reason: 'media-error',
       onActive: reportFallbackActive,
-      onItemPlay: reportFallbackPlay,
     });
   }
 

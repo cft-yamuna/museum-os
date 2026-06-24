@@ -465,9 +465,6 @@ export function DeviceListPage() {
                 <th className="hidden px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-surface-500 md:table-cell w-[120px]">
                   System
                 </th>
-                <th className="hidden px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-surface-500 lg:table-cell">
-                  Zone
-                </th>
                 <th className="hidden px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-surface-500 sm:table-cell">
                   Last Seen
                 </th>
@@ -529,9 +526,6 @@ export function DeviceListPage() {
                         Offline
                       </span>
                     )}
-                  </td>
-                  <td className="hidden px-4 py-3.5 text-sm text-surface-500 lg:table-cell">
-                    {device.floor_id || '--'}
                   </td>
                   <td className="px-4 py-3.5 text-sm text-surface-400 hidden sm:table-cell">
                     {formatHeartbeat(device.last_seen)}

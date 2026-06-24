@@ -46,7 +46,6 @@ const AUDIT_ENTITY_OPTIONS = [
   'device',
   'content',
   'playlist',
-  'exhibition',
   'schedule',
   'user',
   'site',

@@ -74,7 +74,6 @@ export interface App {
 export interface Device {
   id: string;
   site_id: string;
-  floor_id: string | null;
   display_name: string;
   slug: string | null;
   pairing_code: string | null;
@@ -86,8 +85,6 @@ export interface Device {
   status: DeviceStatus;
   config: Record<string, unknown> | null;
   last_seen: string | null;
-  x_position: number | null;
-  y_position: number | null;
   app_id: string | null;
   app_name?: string;
   app_template_type?: string;
@@ -169,39 +166,6 @@ export interface PlaylistItem {
   duration: number;
   transition: 'fade' | 'slide-left' | 'slide-right' | 'dissolve' | 'none';
   url: string;
-  config: Record<string, unknown> | null;
-}
-
-// Exhibition types
-export interface Exhibition {
-  id: string;
-  site_id: string;
-  name: string;
-  description: string | null;
-  start_date: string;
-  end_date: string;
-  is_active: boolean;
-  assignment_count?: number;
-  created_at: string;
-}
-
-export interface ExhibitionAssignment {
-  id: string;
-  deviceId: string;
-  device: {
-    name: string;
-    type: string;
-    status: Device['status'];
-  };
-  content: {
-    id: string;
-    name: string;
-    type: string;
-  } | null;
-  playlist: {
-    id: string;
-    name: string;
-  } | null;
   config: Record<string, unknown> | null;
 }
 

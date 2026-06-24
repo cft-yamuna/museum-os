@@ -243,7 +243,7 @@ export function DashboardPage() {
           <button
             type="button"
             onClick={() => navigate('/content')}
-            className="admin-focus inline-flex h-9 items-center gap-2 rounded-md bg-blue-700 px-3 text-sm font-semibold text-white hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-500"
+            className="admin-focus inline-flex h-9 items-center gap-2 rounded-md bg-surface-950 px-3 text-sm font-semibold text-surface-50 hover:bg-surface-800"
           >
             <FileImage className="h-4 w-4" />
             Media Library

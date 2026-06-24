@@ -1119,12 +1119,6 @@ export function DeviceDetailPage() {
                 <div className="text-sm text-surface-400">Site ID</div>
                 <div className="text-base text-surface-600 font-mono break-all">{device.site_id}</div>
               </div>
-              {device.floor_id && (
-                <div>
-                  <div className="text-sm text-surface-400">Floor / Zone</div>
-                  <div className="text-base text-surface-600">{device.floor_id}</div>
-                </div>
-              )}
             </div>
           </div>
         </div>

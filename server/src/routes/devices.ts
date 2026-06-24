@@ -92,11 +92,8 @@ const createDeviceSchema = z.object({
 
 const updateDeviceSchema = z.object({
   display_name: z.string().optional(),
-  floor_id: z.string().uuid().nullable().optional(),
   type: z.enum(DEVICE_TYPES).optional(),
   ip_address: z.string().trim().nullable().optional().transform(v => v === undefined ? undefined : v || null),
-  x_position: z.number().int().nullable().optional(),
-  y_position: z.number().int().nullable().optional(),
   config: z.record(z.unknown()).optional(),
   status: z.enum(['online', 'offline', 'error', 'unavailable']).optional(),
   app_id: z.string().uuid().nullable().optional(),
@@ -116,7 +113,6 @@ const listDevicesSchema = z.object({
   site_id: z.string().uuid(),
   status: z.string().optional(),
   type: z.string().optional(),
-  floor_id: z.string().uuid().optional(),
 });
 
 // --- Helpers ---
@@ -180,15 +176,14 @@ function deriveHeartbeatFields(device: Record<string, unknown>): Record<string, 
 
 /**
  * GET /api/devices
- * List devices filtered by site_id (required), with optional status/type/floor_id.
+ * List devices filtered by site_id (required), with optional status/type.
  */
 router.get('/', authUser, validateQuery(listDevicesSchema), async (req, res, next) => {
   try {
-    const { site_id, status, type, floor_id } = req.query as {
+    const { site_id, status, type } = req.query as {
       site_id: string;
       status?: string;
       type?: string;
-      floor_id?: string;
     };
 
     checkSiteAccess(req, site_id);
@@ -208,9 +203,6 @@ router.get('/', authUser, validateQuery(listDevicesSchema), async (req, res, nex
     }
     if (type) {
       query = query.where('devices.type', type);
-    }
-    if (floor_id) {
-      query = query.where('devices.floor_id', floor_id);
     }
 
     const devices = await query.orderBy('devices.display_name', 'asc');
@@ -446,7 +438,7 @@ router.post('/provision/:slug/pair', authUser, async (req: Request, res: Respons
 
 /**
  * GET /api/devices/:id
- * Get full device details, including floor name via LEFT JOIN.
+ * Get full device details.
  */
 router.get('/:id', authUser, async (req, res, next) => {
   try {
@@ -454,11 +446,9 @@ router.get('/:id', authUser, async (req, res, next) => {
     const db = getDb();
 
     const device = await db('devices')
-      .leftJoin('floors', 'devices.floor_id', 'floors.id')
       .leftJoin('apps', 'devices.app_id', 'apps.id')
       .select(
         'devices.*',
-        'floors.name as floor_name',
         'apps.name as app_name',
         'apps.template_type as app_template_type'
       )
@@ -490,7 +480,7 @@ router.get('/:id', authUser, async (req, res, next) => {
 
 /**
  * PUT /api/devices/:id
- * Update device fields (display_name, floor_id, type, ip_address, position, config, status).
+ * Update device fields (display_name, type, ip_address, config, status).
  */
 router.put('/:id', authUser, requireRole(['super_admin', 'site_admin']), validateBody(updateDeviceSchema), async (req, res, next) => {
   try {
@@ -511,20 +501,11 @@ router.put('/:id', authUser, requireRole(['super_admin', 'site_admin']), validat
     if (req.body.display_name !== undefined) {
       updates.display_name = req.body.display_name;
     }
-    if (req.body.floor_id !== undefined) {
-      updates.floor_id = req.body.floor_id;
-    }
     if (req.body.type !== undefined) {
       updates.type = req.body.type;
     }
     if (req.body.ip_address !== undefined) {
       updates.ip_address = req.body.ip_address;
-    }
-    if (req.body.x_position !== undefined) {
-      updates.x_position = req.body.x_position;
-    }
-    if (req.body.y_position !== undefined) {
-      updates.y_position = req.body.y_position;
     }
     if (req.body.status !== undefined) {
       updates.status = req.body.status;

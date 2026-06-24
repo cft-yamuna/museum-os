@@ -12,7 +12,7 @@ Museum OS is a museum display management platform consisting of a server, admin 
 - **Agent** (`agent/`) — Node.js daemon installed on Windows/Linux museum display machines
 
 ### Infrastructure
-- **Server**: Docker container `museumos-app` on `wipro-poweredge-r360` (Tailscale: `100.124.40.69`, LAN: `192.168.10.100`)
+- **Server**: Docker container `museumos-app`, built and run locally via `docker-compose.yml`
 - **Database**: PostgreSQL 16 in Docker container `museumos-db`
 - **Devices**: Windows 11 Pro kiosk machines on `192.168.10.10x` range
 - **Site ID**: `e74b5c5f-dd1c-4d0a-9520-9f4cac3881b2` (needed for API calls)
@@ -25,24 +25,24 @@ Museum OS is a museum display management platform consisting of a server, admin 
 | Chrome remote debugging (on kiosks) | 9222 |
 | PostgreSQL | 5432 |
 
-### Docker Build & Run
+### Docker Build & Run (local)
 Multi-stage build: deps → builder (compiles server TS, builds admin + display Vite) → runner (Node 20 Alpine, non-root `museumos` user). Runs migrations and seeds on startup.
 
-```bash
-# Build
-docker build -t museumos-app .
+Everything runs locally (app + Postgres). There are two compose files:
+- **`docker-compose.yml`** — Windows / Docker Desktop. Uses bridge networking with `ports:` mappings; app reaches Postgres via the `museumos-db` hostname.
+- **`docker-compose.linux.yml`** — Linux. Uses `network_mode: host`; app reaches Postgres at `127.0.0.1:5432`.
 
-# Run
-docker run -d --name museumos-app --net=host \
-  -v /home/wipro/museumos-app01/server/storage:/app/server/storage \
-  -v /home/wipro/museumos-app01/agent:/app/agent \
-  -e DATABASE_URL='postgresql://postgres:postgres123@127.0.0.1:5432/museumos' \
-  -e NODE_ENV=production \
-  -e JWT_SECRET='CHANGE_ME_TO_A_STRONG_RANDOM_STRING_AT_LEAST_32_CHARS' \
-  -e CORS_ORIGIN='*' \
-  --restart unless-stopped \
-  museumos-app
+After a code change, rebuild and restart the app container:
+
+```bash
+# Windows (default file)
+docker compose --env-file .env.production up -d --build museumos-app
+
+# Linux
+docker compose -f docker-compose.linux.yml --env-file .env.production up -d --build museumos-app
 ```
+
+On Windows you can just double-click `deploy-local.bat` (wraps `deploy-local.ps1`), which runs the Windows command above and tails the logs. App is served at `http://localhost:3401`.
 
 ### Environment Variables
 | Variable | Default | Description |
@@ -124,33 +124,23 @@ powershell -ep bypass -c "irm 'http://192.168.10.100:3401/setup.ps1' | iex"
 ### Agent Deploy Pipeline
 1. Edit agent code locally
 2. Bump version in `agent/package.json`
-3. `git push origin main`
-4. SSH to server: `cd ~/museumos-app01 && git pull origin main`
-5. Build agent: `cd agent && npm install && npm run build && npm prune --omit=dev`
-6. Create tarball and upload for both platforms:
+3. Build agent: `cd agent && npm install && npm run build && npm prune --omit=dev`
+4. Create tarball and upload for both platforms:
 ```bash
 tar -czf /tmp/agent.tar.gz dist/ node_modules/ package.json agent.config.json
 # Upload for both linux and windows via /api/agent/upload
 ```
-7. Connected agents auto-update within 5 minutes
-8. The `scripts/auto-deploy-agent.sh` automates steps 4-6 (needs TypeScript globally: `sudo npm install -g typescript`)
-9. `scripts/auto-deploy-all.sh` handles server+admin+display+agent changes, rebuilds Docker if needed
+5. Connected agents auto-update within 5 minutes
 
 ### Server Rebuild (for admin UI, display, or server API changes)
+Rebuild and restart the local app container after a code change:
 ```bash
-cd ~/museumos-app01
-git pull origin main
-docker build -t museumos-app .
-docker stop museumos-app && docker rm museumos-app
-# Then run the docker run command above
+# Windows
+docker compose --env-file .env.production up -d --build museumos-app
+# Linux
+docker compose -f docker-compose.linux.yml --env-file .env.production up -d --build museumos-app
 ```
-
-### Restarting Chrome on a Kiosk
-Kill Chrome via SSH — the agent auto-relaunches it with fresh content:
-```bash
-sshpass -p '12345Six' ssh wipro@100.124.40.69 \
-  'sshpass -p "Light123" ssh -o StrictHostKeyChecking=no kiosk@192.168.10.103 "taskkill /F /IM chrome.exe"'
-```
+On Windows, double-click `deploy-local.bat`.
 
 ## API Endpoints
 
@@ -205,14 +195,12 @@ sshpass -p '12345Six' ssh wipro@100.124.40.69 \
 ## Access
 
 ### Server
-- **SSH**: `sshpass -p '12345Six' ssh wipro@100.124.40.69` (via Tailscale)
-- **Admin UI**: `http://192.168.10.100:3401` (LAN) or `http://100.124.40.69:3401` (Tailscale)
+- **Admin UI**: `http://localhost:3401`
 - **Admin Login**: `admin@museumos.local` / `admin123`
 
-### Kiosks (via server jump)
+### Kiosks
 - **User**: `kiosk` / **Password**: `Light123`
 - **SSH**: `sshpass -p "Light123" ssh -o StrictHostKeyChecking=no kiosk@192.168.10.10x`
-- Must SSH via server first (kiosks are on LAN only)
 
 ## Performance Notes
 - **CSS `drop-shadow` filter** on animated elements kills FPS on integrated Intel GPUs (21fps → 56fps when disabled). Currently disabled on dandelion components.

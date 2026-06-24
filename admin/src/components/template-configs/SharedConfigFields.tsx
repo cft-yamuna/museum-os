@@ -6,7 +6,7 @@ import { api } from '../../lib/api';
 import { ContentPickerModal } from '../ContentPickerModal';
 import { SearchableContentPicker, SearchableContentMultiPicker } from '../SearchableContentPicker';
 import { useAuthStore } from '../../stores/auth';
-import type { Content, Exhibition } from '../../lib/types';
+import type { Content } from '../../lib/types';
 
 // ==========================================
 // Styles
@@ -44,16 +44,10 @@ export function useConfigData(siteId: string, template?: string, config?: Record
     enabled: !!existingPlaylistId && !!template && ['media-explorer', 'app06-media-browser'].includes(template),
   });
 
-  const { data: exhibitions = [] } = useQuery({
-    queryKey: ['exhibitions', siteId],
-    queryFn: () => api.get<Exhibition[]>(`/exhibitions?site_id=${siteId}`),
-    enabled: !!siteId,
-  });
-
   const videos = contentItems.filter((c) => c.type === 'video');
   const images = contentItems.filter((c) => c.type === 'image');
 
-  return { contentItems, videos, images, exhibitions, playlistDetail };
+  return { contentItems, videos, images, playlistDetail };
 }
 
 // ==========================================
@@ -281,37 +275,6 @@ export function ContentMultiSelect({ label, contentItems, config, onChange }: {
       selectedIds={selectedIds}
       onChange={(ids) => onChange({ ...config, _selectedContentIds: ids })}
     />
-  );
-}
-
-// ==========================================
-// Exhibition picker
-// ==========================================
-
-export function ExhibitionPicker({ configKey, label, exhibitions, config, onChange }: {
-  configKey: string;
-  label: string;
-  exhibitions: Exhibition[];
-  config: Record<string, unknown>;
-  onChange: (config: Record<string, unknown>) => void;
-}) {
-  return (
-    <div>
-      <label className={LABEL_CLS}>{label}</label>
-      <select
-        value={(config[configKey] as string) || ''}
-        onChange={(e) => onChange({ ...config, [configKey]: e.target.value })}
-        className={INPUT_CLS}
-      >
-        <option value="">Select an exhibition...</option>
-        {exhibitions.map((ex) => (
-          <option key={ex.id} value={ex.id}>{ex.name}</option>
-        ))}
-      </select>
-      {exhibitions.length === 0 && (
-        <p className="text-sm text-surface-400 mt-1.5">No exhibitions created yet.</p>
-      )}
-    </div>
   );
 }
 

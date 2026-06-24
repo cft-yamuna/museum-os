@@ -11,14 +11,10 @@ import { ContentListPage } from './pages/ContentListPage';
 import { ContentDetailPage } from './pages/ContentDetailPage';
 import { PlaylistListPage } from './pages/PlaylistListPage';
 import { PlaylistEditorPage } from './pages/PlaylistEditorPage';
-import { ExhibitionListPage } from './pages/ExhibitionListPage';
-import { ExhibitionEditorPage } from './pages/ExhibitionEditorPage';
 import { ScheduleListPage } from './pages/ScheduleListPage';
 import { ScheduleEditorPage } from './pages/ScheduleEditorPage';
-import { FloorMapPage } from './pages/FloorMapPage';
 import { AlertsPage } from './pages/AlertsPage';
 import { AnalyticsPage } from './pages/AnalyticsPage';
-import { ProofOfPlayPage } from './pages/ProofOfPlayPage';
 import { EngagementPage } from './pages/EngagementPage';
 import { PowerPage } from './pages/PowerPage';
 import { LogsPage } from './pages/LogsPage';
@@ -88,16 +84,12 @@ export default function App() {
             <Route path="content/:id" element={<ContentDetailPage />} />
             <Route path="playlists" element={<PlaylistListPage />} />
             <Route path="playlists/:id" element={<PlaylistEditorPage />} />
-            <Route path="exhibitions" element={<ExhibitionListPage />} />
-            <Route path="exhibitions/:id" element={<ExhibitionEditorPage />} />
             <Route path="schedules" element={<ScheduleListPage />} />
             <Route path="schedules/new" element={<ScheduleEditorPage />} />
             <Route path="schedules/:id/edit" element={<ScheduleEditorPage />} />
-            <Route path="map" element={<FloorMapPage />} />
             <Route path="groups" element={<GroupsPage />} />
             <Route path="power" element={<PowerPage />} />
             <Route path="analytics" element={<AnalyticsPage />} />
-            <Route path="proof-of-play" element={<ProofOfPlayPage />} />
             <Route path="engagement" element={<EngagementPage />} />
             <Route path="alerts" element={<AlertsPage />} />
             <Route path="logs" element={<LogsPage />} />

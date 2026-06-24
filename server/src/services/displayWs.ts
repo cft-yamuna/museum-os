@@ -3,7 +3,6 @@ import type { Server } from 'http';
 import { URL } from 'url';
 import { getDb } from '../lib/db.js';
 import { pushToDeviceSubscribers, pushToAdmins } from './adminWs.js';
-import { recordPlayEvent } from './playEvents.js';
 import { recordInteractionEvent } from './interactionEvents.js';
 
 // --- Types ---
@@ -327,38 +326,6 @@ function handleClientMessage(deviceId: string, msg: WsMessage): void {
           type: 'display:revision-rendered',
           payload: { deviceId, ...msg.payload },
           timestamp: Date.now(),
-        });
-        // App-level proof-of-play: the device started showing this app revision.
-        const renderClient = clients.get(deviceId);
-        if (renderClient) {
-          void recordPlayEvent({
-            siteId: renderClient.siteId,
-            deviceId,
-            appId: msg.payload.instanceId as string | undefined,
-            templateType: msg.payload.templateType as string | undefined,
-            source: 'app',
-          });
-        }
-      }
-      break;
-    }
-    case 'display:play': {
-      // Item-level proof-of-play emitted by looping templates (slideshow,
-      // builder, fallback) when a specific asset starts showing.
-      const playClient = clients.get(deviceId);
-      if (playClient && msg.payload) {
-        const p = msg.payload;
-        void recordPlayEvent({
-          siteId: playClient.siteId,
-          deviceId,
-          appId: p.appId as string | undefined,
-          templateType: p.templateType as string | undefined,
-          contentId: p.contentId as string | undefined,
-          playlistId: p.playlistId as string | undefined,
-          title: p.title as string | undefined,
-          contentUrl: p.contentUrl as string | undefined,
-          source: (p.source as string | undefined) || 'item',
-          durationSec: p.durationSec as number | undefined,
         });
       }
       break;
