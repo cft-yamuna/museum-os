@@ -52,15 +52,44 @@ export async function importDbJsonPayload(db: Knex, payloadInput: Partial<DbJson
   const payload = normalizePayload(payloadInput);
   const tables = await getAppTables(db);
   const importOrder = payload.tableOrder.filter((table) => tables.includes(table));
+  // Real columns per table in the TARGET schema. A dump exported from an older
+  // schema may carry columns since removed by migration (e.g. devices.floor_id);
+  // we drop those so an older dump still restores into a newer schema.
+  const columnsByTable = await getColumnsByTable(db);
 
   await db.transaction(async (trx) => {
     const quotedTables = tables.map(quoteIdent).join(', ');
+    // Disable FK/trigger enforcement for this full reload so it can't be broken
+    // by table ordering or self-referential FKs (e.g. devices.parent_id). Scoped
+    // to this transaction via SET LOCAL, so it auto-resets on commit/rollback.
+    // Requires a superuser DB role (the museumos app connects as postgres).
+    await trx.raw(`SET LOCAL session_replication_role = 'replica'`);
     await trx.raw(`TRUNCATE TABLE ${quotedTables} RESTART IDENTITY CASCADE`);
 
     for (const table of importOrder) {
       const rows = payload.tables[table] ?? [];
       if (rows.length === 0) continue;
-      await db.batchInsert(table, rows, DEFAULT_CHUNK_SIZE).transacting(trx);
+
+      const cols = columnsByTable.get(table);
+      let toInsert = rows;
+      if (cols) {
+        const dropped = new Set<string>();
+        toInsert = rows.map((row) => {
+          const cleaned: Record<string, unknown> = {};
+          for (const key of Object.keys(row)) {
+            if (cols.has(key)) cleaned[key] = row[key];
+            else dropped.add(key);
+          }
+          return cleaned;
+        });
+        if (dropped.size > 0) {
+          console.warn(
+            `[DbImport] ${table}: dropped column(s) not in current schema: ${[...dropped].sort().join(', ')}`
+          );
+        }
+      }
+
+      await db.batchInsert(table, toInsert, DEFAULT_CHUNK_SIZE).transacting(trx);
     }
   });
 }
@@ -76,6 +105,25 @@ export function normalizePayload(parsed: Partial<DbJsonExportPayload>): DbJsonEx
     tables: parsed.tables,
     tableOrder: parsed.tableOrder,
   };
+}
+
+/** Map of table name -> set of its column names in the public schema. */
+async function getColumnsByTable(db: Knex): Promise<Map<string, Set<string>>> {
+  const rows = await db
+    .select<{ table_name: string; column_name: string }[]>('table_name', 'column_name')
+    .from('information_schema.columns')
+    .where('table_schema', 'public');
+
+  const map = new Map<string, Set<string>>();
+  for (const row of rows) {
+    let cols = map.get(row.table_name);
+    if (!cols) {
+      cols = new Set<string>();
+      map.set(row.table_name, cols);
+    }
+    cols.add(row.column_name);
+  }
+  return map;
 }
 
 async function getAppTables(db: Knex): Promise<string[]> {
@@ -118,6 +166,10 @@ async function getInsertOrder(db: Knex, tables: string[]): Promise<string[]> {
 
   for (const edge of edges) {
     if (!tableSet.has(edge.child_table) || !tableSet.has(edge.parent_table)) continue;
+    // Self-referential FKs (e.g. devices.parent_id -> devices.id) are not a
+    // table-ordering constraint; counting them leaves the table permanently
+    // blocked in the topological sort.
+    if (edge.child_table === edge.parent_table) continue;
 
     const children = adjacency.get(edge.parent_table)!;
     if (children.has(edge.child_table)) continue;

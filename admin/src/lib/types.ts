@@ -184,6 +184,7 @@ export interface Schedule {
   cron_expression: string;
   payload: Record<string, unknown> | null;
   is_enabled: boolean;
+  stagger_seconds: number | null;
   created_by: string;
   created_at: string;
 }

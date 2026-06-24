@@ -1,12 +1,14 @@
-# deploy-local.ps1
+# deploy-local.ps1  (lives in scripts/, invoked by ..\deploy-local.bat)
 # Rebuild and restart the local museumos-app Docker container after a code change.
-# 100% local — does NOT SSH into or touch any remote server.
+# 100% local - does NOT SSH into or touch any remote server.
 #
-# Run by double-clicking deploy-local.bat, or:
-#   powershell -ExecutionPolicy Bypass -File deploy-local.ps1
+# Run via the repo-root wrapper deploy-local.bat, or directly:
+#   powershell -ExecutionPolicy Bypass -File scripts\deploy-local.ps1
 
 $ErrorActionPreference = 'Stop'
-Set-Location $PSScriptRoot
+# Repo root is the parent of this scripts/ folder; docker compose must run there.
+$RepoRoot = Split-Path -Parent $PSScriptRoot
+Set-Location $RepoRoot
 
 Write-Host "==> Rebuilding museumos-app (local Docker)..." -ForegroundColor Cyan
 

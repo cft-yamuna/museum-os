@@ -42,7 +42,11 @@ docker compose --env-file .env.production up -d --build museumos-app
 docker compose -f docker-compose.linux.yml --env-file .env.production up -d --build museumos-app
 ```
 
-On Windows you can just double-click `deploy-local.bat` (wraps `deploy-local.ps1`), which runs the Windows command above and tails the logs. App is served at `http://localhost:3401`.
+On Windows you can just double-click `deploy-local.bat` (wraps `scripts/deploy-local.ps1`), which runs the Windows command above and tails the logs. App is served at `http://localhost:3401`.
+
+**Fresh clone:** double-click `setup-all.bat` (wraps `scripts/setup-all.ps1`) once. It checks prerequisites, verifies the committed `.env.production`, builds + starts the stack, waits until healthy, then builds + uploads the agent package. After that, use `deploy-local.bat` for rebuilds.
+
+(`.bat` wrappers live at the repo root; their PowerShell logic lives in `scripts/`.)
 
 ### Environment Variables
 | Variable | Default | Description |

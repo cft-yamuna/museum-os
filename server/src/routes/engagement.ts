@@ -85,7 +85,7 @@ router.get('/summary', authUser, requireRole([...ROLES]), validateQuery(windowSc
       .andWhereRaw(`bucket >= now() - (? || ' hours')::interval`, [hours])
       .select(db.raw('EXTRACT(HOUR FROM bucket AT TIME ZONE ?)::int as hour', [tz]))
       .sum('interaction_count as cnt')
-      .groupByRaw('EXTRACT(HOUR FROM bucket AT TIME ZONE ?)', [tz])
+      .groupByRaw('hour')
       .orderBy('cnt', 'desc')
       .first()) as unknown as { hour: number; cnt: string } | undefined;
 
@@ -199,7 +199,7 @@ router.get('/heatmap', authUser, requireRole([...ROLES]), validateQuery(windowSc
       .select('zone_id', db.raw('EXTRACT(HOUR FROM bucket AT TIME ZONE ?)::int as hour', [tz]))
       .sum('interaction_count as cnt')
       .groupBy('zone_id')
-      .groupByRaw('EXTRACT(HOUR FROM bucket AT TIME ZONE ?)', [tz])) as unknown as Array<{
+      .groupByRaw('hour')) as unknown as Array<{
       zone_id: string;
       hour: number;
       cnt: string;
@@ -244,7 +244,7 @@ router.get('/busiest-hours', authUser, requireRole([...ROLES]), validateQuery(wi
       .select(db.raw('EXTRACT(HOUR FROM bucket AT TIME ZONE ?)::int as hour', [tz]))
       .sum('interaction_count as interactions')
       .sum('presence_sessions as sessions')
-      .groupByRaw('EXTRACT(HOUR FROM bucket AT TIME ZONE ?)', [tz])) as unknown as Array<{
+      .groupByRaw('hour')) as unknown as Array<{
       hour: number;
       interactions: string;
       sessions: string;

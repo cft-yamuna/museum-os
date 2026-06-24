@@ -189,6 +189,7 @@ interface FormState {
   cron: string;
   payload: string;
   enabled: boolean;
+  staggerSeconds: number;
 }
 
 function getInitialForm(): FormState {
@@ -201,6 +202,7 @@ function getInitialForm(): FormState {
     cron: '0 9 * * *',
     payload: '',
     enabled: true,
+    staggerSeconds: 0,
   };
 }
 
@@ -214,7 +216,13 @@ function scheduleToForm(s: Schedule): FormState {
     cron: s.cron_expression,
     payload: s.payload ? JSON.stringify(s.payload, null, 2) : '',
     enabled: s.is_enabled,
+    staggerSeconds: s.stagger_seconds ?? 0,
   };
+}
+
+/** Whether a schedule's action benefits from staggering (inrush protection). */
+function isStaggerableAction(type: ScheduleType, action: string): boolean {
+  return type === 'power' && action === 'power_on';
 }
 
 // ---------------------------------------------------------------------------
@@ -808,6 +816,8 @@ export function ScheduleEditorPage() {
   // Available actions for selected type
   const availableActions = ACTIONS_BY_TYPE[form.type];
 
+  const staggerApplies = isStaggerableAction(form.type, form.action);
+
   // Immutable field updaters
   const updateField = useCallback(<K extends keyof FormState>(key: K, value: FormState[K]) => {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -848,6 +858,7 @@ export function ScheduleEditorPage() {
         action: form.action,
         cron_expression: form.cron,
         is_enabled: form.enabled,
+        stagger_seconds: isStaggerableAction(form.type, form.action) ? form.staggerSeconds : null,
         ...(parsedPayload ? { payload: parsedPayload } : {}),
       };
 
@@ -1092,8 +1103,47 @@ export function ScheduleEditorPage() {
           </div>
         </form>
 
-        {/* Right: Existing Schedules panel */}
-        <div className="lg:w-[340px] shrink-0">
+        {/* Right: Power options + Existing Schedules panel */}
+        <div className="lg:w-[340px] shrink-0 space-y-3">
+          {staggerApplies && (
+            <div className="bryzos-card rounded-3xl p-4 space-y-3">
+              <div className="flex items-center gap-2">
+                <Power className="h-4 w-4 text-amber-600" />
+                <span className="text-base font-semibold text-surface-800">Power options</span>
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="text-sm font-semibold text-surface-600">Stagger gap</label>
+                  <span className="text-base font-bold text-surface-900">{form.staggerSeconds}s</span>
+                </div>
+                <input
+                  type="range"
+                  min={0}
+                  max={60}
+                  step={5}
+                  value={form.staggerSeconds}
+                  onChange={(e) => updateField('staggerSeconds', Number(e.target.value))}
+                  className="w-full accent-primary-600"
+                />
+                <p className="text-xs text-surface-400 mt-1">
+                  Delay inserted between each device powering on, so they don't all draw
+                  inrush current at once. Devices start parent-PCs first, then by power order.
+                </p>
+              </div>
+
+              {form.target_ids.length > 1 && form.staggerSeconds > 0 && (
+                <div className="rounded-xl border border-[var(--glass-border)] bg-surface-50 px-3 py-2">
+                  <p className="text-xs text-surface-500">
+                    {form.target_type === 'device'
+                      ? `~${(form.target_ids.length - 1) * form.staggerSeconds}s for all ${form.target_ids.length} devices to start.`
+                      : `Sequence length depends on how many devices are in the selected ${form.target_type}(s).`}
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+
           <ExistingSchedulesPanel
             schedules={allSchedules}
             editingId={isEdit ? id : undefined}

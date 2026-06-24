@@ -23,6 +23,7 @@ yarn-error.log*
 
 # storage
 server/storage/
+server/backups/
 
 # typescript
 *.tsbuildinfo

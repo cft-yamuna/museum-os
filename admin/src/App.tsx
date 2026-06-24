@@ -16,7 +16,6 @@ import { ScheduleEditorPage } from './pages/ScheduleEditorPage';
 import { AlertsPage } from './pages/AlertsPage';
 import { AnalyticsPage } from './pages/AnalyticsPage';
 import { EngagementPage } from './pages/EngagementPage';
-import { PowerPage } from './pages/PowerPage';
 import { LogsPage } from './pages/LogsPage';
 import { UsersPage } from './pages/UsersPage';
 import { GroupsPage } from './pages/GroupsPage';
@@ -88,7 +87,6 @@ export default function App() {
             <Route path="schedules/new" element={<ScheduleEditorPage />} />
             <Route path="schedules/:id/edit" element={<ScheduleEditorPage />} />
             <Route path="groups" element={<GroupsPage />} />
-            <Route path="power" element={<PowerPage />} />
             <Route path="analytics" element={<AnalyticsPage />} />
             <Route path="engagement" element={<EngagementPage />} />
             <Route path="alerts" element={<AlertsPage />} />
