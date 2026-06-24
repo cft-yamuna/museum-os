@@ -211,7 +211,7 @@ export function EngagementPage() {
                 className={clsx(
                   'px-3 py-1 text-xs font-semibold',
                   exhibitMetric === m.key
-                    ? 'bg-primary-600 text-white'
+                    ? 'bg-primary-600 dark:bg-primary-300 text-white'
                     : 'text-surface-600 hover:bg-[var(--glass-bg-hover)]'
                 )}
               >
