@@ -100,8 +100,6 @@ export function DeviceDetailPage() {
   const [selectedAppId, setSelectedAppId] = useState<string | null>(null);
   const [commandDialogOpen, setCommandDialogOpen] = useState(false);
   const [screenMap, setScreenMap] = useState<Array<{ hardwareId: string; url: string; label?: string }>>([]);
-  const [editParentId, setEditParentId] = useState<string>('');
-  const [editPowerOrder, setEditPowerOrder] = useState<string>('');
   const deviceSyncStatus = useDeviceSyncStore((state) => (id ? state.statuses[id] : undefined));
 
   // Fetch device from list query
@@ -117,11 +115,6 @@ export function DeviceDetailPage() {
   });
 
   const device = devices.find((d) => d.id === id) || null;
-
-  // Power topology (derived from the already-loaded device list)
-  const parentDevice = device?.parent_id ? devices.find((d) => d.id === device.parent_id) || null : null;
-  const childDevices = id ? devices.filter((d) => d.parent_id === id) : [];
-  const parentCandidates = devices.filter((d) => d.id !== id);
 
   useDeviceSyncTracking(id ? [id] : []);
 
@@ -142,8 +135,6 @@ export function DeviceDetailPage() {
       setEditComPort((device.config as Record<string, unknown>)?.com_port as string || '');
       setEditOrientation(((device.config as Record<string, unknown>)?.orientation as string || 'landscape') as 'landscape' | 'portrait');
       setSelectedAppId(device.app_id);
-      setEditParentId(device.parent_id || '');
-      setEditPowerOrder(device.power_order != null ? String(device.power_order) : '');
       const cfg = device.config as Record<string, unknown> || {};
       const existingMap = (cfg.screenMap as Array<{ hardwareId: string; url: string; label?: string }>) || [];
 
@@ -282,32 +273,6 @@ export function DeviceDetailPage() {
     onError: (err) => {
       addToast('error', err instanceof Error ? err.message : 'Failed to save screen mapping');
     },
-  });
-
-  // Power topology (parent / startup order) mutation
-  const topologyMutation = useMutation({
-    mutationFn: () =>
-      api.put(`/devices/${id}`, {
-        parent_id: editParentId || null,
-        power_order: editPowerOrder.trim() === '' ? null : Number(editPowerOrder),
-      }),
-    onSuccess: () => {
-      addToast('success', 'Power topology saved');
-      queryClient.invalidateQueries({ queryKey: ['devices', activeSiteId] });
-    },
-    onError: (err) => addToast('error', err instanceof Error ? err.message : 'Failed to save topology'),
-  });
-
-  // Fault-injection (simulation) mutation
-  const simulateMutation = useMutation({
-    mutationFn: (fault: 'offline' | 'temp_high' | 'slow' | 'clear') =>
-      api.post(`/devices/${id}/simulate`, { fault }),
-    onSuccess: (_d, fault) => {
-      addToast('success', fault === 'clear' ? 'Simulated fault cleared' : `Injected fault: ${fault}`);
-      queryClient.invalidateQueries({ queryKey: ['devices', activeSiteId] });
-      queryClient.invalidateQueries({ queryKey: ['device-alerts', activeSiteId, id] });
-    },
-    onError: (err) => addToast('error', err instanceof Error ? err.message : 'Simulation failed'),
   });
 
   // Copy feedback states
@@ -528,141 +493,6 @@ export function DeviceDetailPage() {
       <div className="grid grid-cols-1 lg:grid-cols-[1fr,320px] gap-6">
         {/* Main content (left) */}
         <div className="space-y-6">
-          {/* Power Topology */}
-          <div className="bryzos-card rounded-2xl overflow-hidden">
-            <div className="px-5 py-4 border-b border-[var(--glass-border)] flex items-center justify-between">
-              <h2 className="text-lg font-bold text-surface-900">Power Topology</h2>
-              {(editParentId !== (device.parent_id || '') ||
-                editPowerOrder !== (device.power_order != null ? String(device.power_order) : '')) && (
-                <Button
-                  size="sm"
-                  onClick={() => topologyMutation.mutate()}
-                  loading={topologyMutation.isPending}
-                  className="h-9 px-3.5 text-sm"
-                >
-                  <Save className="h-4.5 w-4.5" />
-                  Save
-                </Button>
-              )}
-            </div>
-            <div className="p-5 space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-semibold text-surface-600 mb-1.5">Power parent</label>
-                  <select
-                    value={editParentId}
-                    onChange={(e) => setEditParentId(e.target.value)}
-                    className="admin-control h-10 w-full px-3"
-                  >
-                    <option value="">None (independent)</option>
-                    {parentCandidates.map((c) => (
-                      <option key={c.id} value={c.id}>
-                        {c.display_name || c.id}
-                      </option>
-                    ))}
-                  </select>
-                  <p className="mt-1 text-xs text-surface-500">
-                    When the parent powers off, this device shows as “unavailable”.
-                  </p>
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold text-surface-600 mb-1.5">Startup order</label>
-                  <input
-                    type="number"
-                    value={editPowerOrder}
-                    onChange={(e) => setEditPowerOrder(e.target.value)}
-                    placeholder="—"
-                    className="admin-control h-10 w-full px-3"
-                  />
-                  <p className="mt-1 text-xs text-surface-500">
-                    Lower numbers power on first in staggered startup.
-                  </p>
-                </div>
-              </div>
-
-              {parentDevice && (
-                <div className="text-sm text-surface-600">
-                  Parent:{' '}
-                  <button
-                    onClick={() => navigate(`/devices/${parentDevice.id}`)}
-                    className="font-medium text-primary-600 hover:underline"
-                  >
-                    {parentDevice.display_name || parentDevice.id}
-                  </button>
-                </div>
-              )}
-
-              <div>
-                <div className="text-sm font-semibold text-surface-600 mb-2">
-                  Dependent devices ({childDevices.length})
-                </div>
-                {childDevices.length === 0 ? (
-                  <p className="text-sm text-surface-500">No child devices depend on this one.</p>
-                ) : (
-                  <ul className="space-y-1.5">
-                    {childDevices.map((c) => (
-                      <li key={c.id} className="flex items-center gap-2">
-                        <span className={`status-dot status-dot--${c.status}`} />
-                        <button
-                          onClick={() => navigate(`/devices/${c.id}`)}
-                          className="flex-1 truncate text-left text-sm text-surface-900 hover:underline"
-                        >
-                          {c.display_name || c.id}
-                        </button>
-                        <span className="text-xs capitalize text-surface-500">{c.status}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Simulate (testing) */}
-          <div className="bryzos-card rounded-2xl overflow-hidden">
-            <div className="px-5 py-4 border-b border-[var(--glass-border)]">
-              <h2 className="text-lg font-bold text-surface-900">Simulate (testing)</h2>
-              <p className="text-xs text-surface-500 mt-0.5">
-                Inject a fault to demo cascade, alerts and analytics without hardware.
-              </p>
-            </div>
-            <div className="p-5 flex flex-wrap gap-2">
-              <button
-                onClick={() => simulateMutation.mutate('offline')}
-                disabled={simulateMutation.isPending}
-                className="rounded-lg border border-surface-200 px-3 py-2 text-sm font-medium text-surface-700 hover:bg-[var(--glass-bg-hover)] disabled:opacity-50"
-              >
-                Mark offline
-              </button>
-              <button
-                onClick={() => simulateMutation.mutate('temp_high')}
-                disabled={simulateMutation.isPending}
-                className="rounded-lg border border-surface-200 px-3 py-2 text-sm font-medium text-surface-700 hover:bg-[var(--glass-bg-hover)] disabled:opacity-50"
-              >
-                High temp
-              </button>
-              <button
-                onClick={() => simulateMutation.mutate('slow')}
-                disabled={simulateMutation.isPending}
-                className="rounded-lg border border-surface-200 px-3 py-2 text-sm font-medium text-surface-700 hover:bg-[var(--glass-bg-hover)] disabled:opacity-50"
-              >
-                High load
-              </button>
-              <button
-                onClick={() => simulateMutation.mutate('clear')}
-                disabled={simulateMutation.isPending}
-                className="rounded-lg border border-emerald-200 px-3 py-2 text-sm font-medium text-emerald-600 hover:bg-emerald-50 dark:border-emerald-500/30 dark:text-emerald-300 dark:hover:bg-emerald-500/10 disabled:opacity-50"
-              >
-                Clear
-              </button>
-            </div>
-            {(device.config as Record<string, unknown>)?.sim_fault ? (
-              <div className="px-5 pb-4 -mt-2 text-xs text-amber-600">
-                Active simulated fault: {String((device.config as Record<string, unknown>).sim_fault)}
-              </div>
-            ) : null}
-          </div>
-
           {/* Device Info + App Assignment — 2-column */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Device Info */}

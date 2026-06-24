@@ -200,7 +200,7 @@ foreach ($serviceName in $MuseumosServices) {
     Stop-And-Delete-Service -Name $serviceName
 }
 try {
-    $extraServices = Get-Service -DisplayName 'MUSEUMOS*' -ErrorAction SilentlyContinue
+    $extraServices = Get-Service -DisplayName 'MUSEUMOS*', 'Museum OS*' -ErrorAction SilentlyContinue
     foreach ($svc in $extraServices) {
         Stop-And-Delete-Service -Name $svc.Name
     }
@@ -325,9 +325,11 @@ if ($ResetNetworkSettings) {
 
 Write-Step '[6/9] Removing Museum OS firewall rules and SSH (optional)...'
 try { Remove-NetFirewallRule -DisplayName 'MUSEUMOS Agent WebSocket' -ErrorAction SilentlyContinue | Out-Null } catch {}
+try { Remove-NetFirewallRule -DisplayName 'Museum OS Agent WebSocket' -ErrorAction SilentlyContinue | Out-Null } catch {}
 try {
+    # Match both spellings the installer has used: 'MUSEUMOS*' and 'Museum OS*'.
     Get-NetFirewallRule -ErrorAction SilentlyContinue |
-        Where-Object { $_.DisplayName -like 'MUSEUMOS*' } |
+        Where-Object { $_.DisplayName -like 'MUSEUMOS*' -or $_.DisplayName -like 'Museum OS*' } |
         Remove-NetFirewallRule -ErrorAction SilentlyContinue | Out-Null
 } catch {
 }
@@ -368,7 +370,9 @@ foreach ($path in @($AgentInstallDir, $PowerInstallDir, $AgentBackupDir)) {
 
 try {
     if (Test-Path $InstallRoot) {
-        Remove-Item $InstallRoot -Force -ErrorAction SilentlyContinue
+        # -Recurse so a non-empty install root (any leftover files/subfolders) is
+        # fully removed, not silently skipped.
+        Remove-Item $InstallRoot -Recurse -Force -ErrorAction SilentlyContinue
     }
 } catch {
 }

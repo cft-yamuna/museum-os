@@ -24,22 +24,40 @@ function Fail($t)    { Write-Host "  [X ]  $t" -ForegroundColor Red }
 # ---------------------------------------------------------------------------
 # Step 1 - Prerequisites
 # ---------------------------------------------------------------------------
-Section "Step 1: Checking prerequisites"
+Section "Step 1: Checking prerequisites (already-installed tools are skipped)"
 
-function Need($name, $hint) {
-  $cmd = Get-Command $name -ErrorAction SilentlyContinue
-  if ($cmd) { Ok "$name found"; return $true }
-  Fail "$name NOT found. $hint"; return $false
+function Have($name) { return [bool](Get-Command $name -ErrorAction SilentlyContinue) }
+
+function Refresh-Path {
+  $machine = [System.Environment]::GetEnvironmentVariable("Path", "Machine")
+  $user    = [System.Environment]::GetEnvironmentVariable("Path", "User")
+  $env:Path = "$machine;$user"
 }
 
-$haveDocker = Need "docker" "Install Docker Desktop: https://www.docker.com/products/docker-desktop/"
-$haveNode   = Need "node"   "Install Node.js 20+: https://nodejs.org/"
-$haveNpm    = Need "npm"    "Ships with Node.js."
-$haveTar    = Need "tar"    "Ships with Windows 10/11."
-$haveCurl   = Need "curl"   "Ships with Windows 10/11."
-Need "git" "Optional, only needed to pull updates." | Out-Null
+# Already installed -> skip and move on. Missing -> try winget, else point at a link.
+function Ensure-Tool($name, $wingetId, $hint) {
+  if (Have $name) { Ok "$name already installed - skipping"; return $true }
+  Warn "$name not found - attempting install via winget..."
+  if (Have "winget") {
+    winget install --id $wingetId -e --silent --accept-package-agreements --accept-source-agreements
+    Refresh-Path
+    if (Have $name) { Ok "$name installed"; return $true }
+    Warn "$name was installed but isn't on PATH yet - open a new terminal and re-run."
+    return $false
+  }
+  Fail "$name missing and winget is unavailable. $hint"
+  return $false
+}
 
-if (-not $haveDocker) { Fail "Docker is required to run the stack. Aborting."; exit 1 }
+$haveDocker = Ensure-Tool "docker" "Docker.DockerDesktop" "Install Docker Desktop: https://www.docker.com/products/docker-desktop/"
+$haveNode   = Ensure-Tool "node"   "OpenJS.NodeJS.LTS"    "Install Node.js 20+: https://nodejs.org/"
+$haveGit    = Ensure-Tool "git"    "Git.Git"              "Install Git: https://git-scm.com/"
+# npm ships with Node; tar/curl ship with Windows 10/11 - just check, no install.
+$haveNpm  = Have "npm";  if ($haveNpm)  { Ok "npm already installed - skipping" }  else { Warn "npm not found (comes with Node.js)." }
+$haveTar  = Have "tar";  if ($haveTar)  { Ok "tar already installed - skipping" }  else { Warn "tar not found (ships with Windows 10/11)." }
+$haveCurl = Have "curl"; if ($haveCurl) { Ok "curl already installed - skipping" } else { Warn "curl not found (ships with Windows 10/11)." }
+
+if (-not $haveDocker) { Fail "Docker is required to run the stack. Install it, then re-run."; exit 1 }
 
 # Is the Docker daemon actually running?
 docker info *> $null
@@ -90,6 +108,28 @@ if (-not $ready) {
   exit 1
 }
 Ok "Server is up at http://localhost:3401  (login: admin@museumos.local / admin123)"
+
+# ---------------------------------------------------------------------------
+# Open the Windows firewall so kiosks on the LAN can reach the server.
+# Docker publishes 3401 on all interfaces, but Windows blocks inbound LAN
+# connections without an allow rule. Adding the rule needs Administrator.
+# ---------------------------------------------------------------------------
+Section "Opening firewall for kiosks (inbound TCP 3401)"
+
+$fwRuleName = "Museum OS Server (3401)"
+try {
+  if (Get-NetFirewallRule -DisplayName $fwRuleName -ErrorAction SilentlyContinue) {
+    Ok "Firewall rule already exists - skipping"
+  } else {
+    New-NetFirewallRule -DisplayName $fwRuleName -Direction Inbound -Action Allow `
+      -Protocol TCP -LocalPort 3401 -Profile Any -ErrorAction Stop | Out-Null
+    Ok "Created inbound allow rule for TCP 3401 - kiosks can now reach this server"
+  }
+} catch {
+  Warn "Couldn't add the firewall rule (needs Administrator)."
+  Warn "Right-click setup-all.bat -> 'Run as administrator', OR run this in an elevated PowerShell:"
+  Warn '  New-NetFirewallRule -DisplayName "Museum OS Server (3401)" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 3401 -Profile Any'
+}
 
 # ---------------------------------------------------------------------------
 # Step 5 - Build & upload the agent package

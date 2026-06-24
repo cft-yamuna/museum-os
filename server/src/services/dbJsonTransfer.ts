@@ -1,6 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 import type { Knex } from 'knex';
+import { reconcileAgentVersionStorage } from './agentStorageReconcile.js';
 
 const EXCLUDED_TABLES = new Set([
   'knex_migrations',
@@ -92,6 +93,24 @@ export async function importDbJsonPayload(db: Knex, payloadInput: Partial<DbJson
       await db.batchInsert(table, toInsert, DEFAULT_CHUNK_SIZE).transacting(trx);
     }
   });
+
+  // The dump restored the agent_versions rows but not the tarballs in storage,
+  // so rows may now point at files that don't exist on this server (kiosk
+  // downloads would fail with FILE_MISSING). Repoint them at a tarball that is
+  // present. Best-effort: a reconcile problem must never fail a good import.
+  try {
+    const r = await reconcileAgentVersionStorage(db);
+    if (r.repaired > 0 || r.unresolved > 0) {
+      console.log(
+        `[DbImport] agent_versions reconcile: repaired ${r.repaired}, unresolved ${r.unresolved} of ${r.checked}`
+      );
+    }
+  } catch (err) {
+    console.warn(
+      '[DbImport] agent_versions reconcile failed:',
+      err instanceof Error ? err.message : err
+    );
+  }
 }
 
 export function normalizePayload(parsed: Partial<DbJsonExportPayload>): DbJsonExportPayload {

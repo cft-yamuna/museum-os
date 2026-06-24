@@ -15,7 +15,7 @@ const router = Router();
 
 const upload = multer({
   storage: multer.memoryStorage(),
-  limits: { fileSize: 25 * 1024 * 1024 },
+  limits: { fileSize: 1024 * 1024 * 1024 }, // 1 GB
   fileFilter: (_req, file, cb) => {
     const isJsonMime = file.mimetype === 'application/json' || file.mimetype === 'text/json';
     const isJsonName = file.originalname.toLowerCase().endsWith('.json');

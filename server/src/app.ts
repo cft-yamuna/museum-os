@@ -333,6 +333,9 @@ export function createApp(): express.Application {
   }
 
   // --- Request Timeouts ---
+  // DB JSON restore can take minutes for large dumps — give it a long window
+  // (registered before the generic /api timeout so it wins).
+  app.use('/api/db-transfer', requestTimeout(30 * 60 * 1000)); // 30min for DB import/export
   app.use('/api/', requestTimeout(30 * 1000));        // 30s for API routes
   app.use('/storage/', requestTimeout(10 * 60 * 1000)); // 10min for uploads
 
