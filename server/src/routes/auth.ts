@@ -14,8 +14,30 @@ import { authUser } from '../middleware/auth.js';
 import { createAuditLog } from '../services/auditLog.js';
 import { getClientIp } from '../lib/ip.js';
 import { revokeToken } from '../services/tokenRevocation.js';
+import { generateSecret, verifyTotp, otpauthUrl } from '../lib/totp.js';
 
 const router = Router();
+
+interface UserRow {
+  id: string;
+  email: string;
+  name: string;
+  role: string;
+  site_ids: string[] | null;
+}
+
+/** Sign a full session JWT for a user (single source of truth). */
+function signSession(user: UserRow): string {
+  const payload = {
+    id: user.id,
+    email: user.email,
+    name: user.name,
+    role: user.role,
+    site_ids: user.site_ids,
+    jti: crypto.randomUUID(),
+  };
+  return jwt.sign(payload, env.JWT_SECRET, { expiresIn: env.JWT_EXPIRY as any });
+}
 
 // --- Login Rate Limiter: 5 attempts per minute per IP ---
 const loginLimiter = rateLimit({
@@ -124,22 +146,21 @@ router.post('/login', loginLimiter, validateBody(loginSchema), async (req, res, 
     // Clear brute force attempts on successful login
     clearAttempts(email);
 
-    // Generate JWT with unique jti
-    const jti = crypto.randomUUID();
-    const payload = {
-      id: user.id,
-      email: user.email,
-      name: user.name,
-      role: user.role,
-      site_ids: user.site_ids,
-      jti,
-    };
+    // Second factor: if enrolled, don't issue a session yet — return a short-lived
+    // ticket and require POST /api/auth/2fa with a valid TOTP code.
+    if (user.totp_enabled) {
+      const tmpToken = jwt.sign({ id: user.id, twofa_pending: true }, env.JWT_SECRET, { expiresIn: '5m' });
+      createAuditLog({
+        userId: user.id,
+        action: 'auth.2fa_required',
+        details: { email, ip_address: ipAddress },
+        ipAddress,
+      });
+      sendSuccess(res, { requires2fa: true, tmpToken });
+      return;
+    }
 
-    const options: SignOptions = {
-      expiresIn: env.JWT_EXPIRY as any,
-    };
-
-    const token = jwt.sign(payload, env.JWT_SECRET, options);
+    const token = signSession(user);
 
     // Update last_login timestamp
     await db('users')
@@ -290,6 +311,116 @@ router.post('/change-password', authUser, validateBody(changePasswordSchema), as
         role: user.role,
       },
     });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// --- Two-factor authentication (TOTP) ---
+
+const twofaVerifySchema = z.object({
+  tmpToken: z.string().min(1),
+  token: z.string().min(6).max(6),
+});
+const twofaTokenSchema = z.object({ token: z.string().min(6).max(6) });
+
+/**
+ * POST /api/auth/2fa
+ * Complete a login that returned { requires2fa, tmpToken } by verifying a TOTP code.
+ */
+router.post('/2fa', loginLimiter, validateBody(twofaVerifySchema), async (req, res, next) => {
+  try {
+    const { tmpToken, token } = req.body;
+    const ipAddress = getClientIp(req);
+
+    let payload: { id: string; twofa_pending?: boolean };
+    try {
+      payload = jwt.verify(tmpToken, env.JWT_SECRET) as typeof payload;
+    } catch {
+      throw new UnauthorizedError('2FA session expired, please log in again');
+    }
+    if (!payload.twofa_pending) throw new UnauthorizedError('Invalid 2FA session');
+
+    const db = getDb();
+    const user = await db('users').where({ id: payload.id }).first();
+    if (!user || !user.totp_enabled || !user.totp_secret) {
+      throw new UnauthorizedError('2FA not enabled for this account');
+    }
+    if (!verifyTotp(user.totp_secret, token)) {
+      createAuditLog({ userId: user.id, action: 'auth.2fa_failed', details: { ip_address: ipAddress }, ipAddress });
+      throw new UnauthorizedError('Invalid authentication code');
+    }
+
+    const sessionToken = signSession(user);
+    await db('users').where({ id: user.id }).update({ last_login: db.fn.now() });
+    createAuditLog({ userId: user.id, action: 'auth.login', details: { ip_address: ipAddress, mfa: true }, ipAddress });
+
+    sendSuccess(res, {
+      token: sessionToken,
+      user: { id: user.id, email: user.email, name: user.name, role: user.role },
+      must_change_password: !!user.must_change_password,
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * POST /api/auth/2fa/setup
+ * Begin enrolment: generate (and store, not yet enabled) a secret + otpauth URL.
+ */
+router.post('/2fa/setup', authUser, async (req, res, next) => {
+  try {
+    if (!req.user) throw new UnauthorizedError('User not authenticated');
+    const db = getDb();
+    const secret = generateSecret();
+    await db('users').where({ id: req.user.id }).update({ totp_secret: secret, totp_enabled: false });
+    sendSuccess(res, { secret, otpauth_url: otpauthUrl(secret, req.user.email) });
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * POST /api/auth/2fa/enable
+ * Confirm enrolment by verifying a code against the stored secret.
+ */
+router.post('/2fa/enable', authUser, validateBody(twofaTokenSchema), async (req, res, next) => {
+  try {
+    if (!req.user) throw new UnauthorizedError('User not authenticated');
+    const db = getDb();
+    const user = await db('users').where({ id: req.user.id }).first();
+    if (!user?.totp_secret) throw new UnauthorizedError('Run 2FA setup first');
+    if (!verifyTotp(user.totp_secret, req.body.token)) {
+      throw new UnauthorizedError('Invalid authentication code');
+    }
+    await db('users').where({ id: req.user.id }).update({ totp_enabled: true });
+    createAuditLog({ userId: req.user.id, action: 'auth.2fa_enabled', ipAddress: getClientIp(req) });
+    sendSuccess(res, { enabled: true });
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * POST /api/auth/2fa/disable
+ * Disable 2FA after verifying a current code.
+ */
+router.post('/2fa/disable', authUser, validateBody(twofaTokenSchema), async (req, res, next) => {
+  try {
+    if (!req.user) throw new UnauthorizedError('User not authenticated');
+    const db = getDb();
+    const user = await db('users').where({ id: req.user.id }).first();
+    if (!user?.totp_enabled || !user.totp_secret) {
+      sendSuccess(res, { enabled: false });
+      return;
+    }
+    if (!verifyTotp(user.totp_secret, req.body.token)) {
+      throw new UnauthorizedError('Invalid authentication code');
+    }
+    await db('users').where({ id: req.user.id }).update({ totp_secret: null, totp_enabled: false });
+    createAuditLog({ userId: req.user.id, action: 'auth.2fa_disabled', ipAddress: getClientIp(req) });
+    sendSuccess(res, { enabled: false });
   } catch (err) {
     next(err);
   }

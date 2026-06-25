@@ -10,6 +10,8 @@ import { getPJLinkClient } from './pjlink.js';
 import { getSSSPClient } from './sssp.js';
 import { resolveWakeMac } from './deviceWake.js';
 import { applyCascadeForParent } from './powerCascade.js';
+import { deviceManager } from './deviceManager.js';
+import { DriverError } from '../drivers/index.js';
 
 /** Resolve after `ms` milliseconds. */
 function sleep(ms: number): Promise<void> {
@@ -443,60 +445,34 @@ async function powerOnDevice(
 ): Promise<void> {
   const displayName = device.display_name || device.id;
 
-  const wakeTarget = resolveWakeMac(device);
-  if (wakeTarget.mac) {
-    try {
-      console.log(`[Scheduler] Sending WOL to ${displayName} (${wakeTarget.mac}, source=${wakeTarget.source})`);
-      await sendWolPacket(wakeTarget.mac);
-    } catch (err) {
-      console.error(`[Scheduler] WOL failed for ${displayName}:`, err);
+  // Unified power-on through the device's driver: WoL for agent PCs, native
+  // protocol power for projectors/Samsung/etc. The manager also runs the cascade.
+  try {
+    await deviceManager.command(device.id, 'power_on');
+  } catch (err) {
+    if (err instanceof DriverError) {
+      console.warn(`[Scheduler] Driver power_on for ${displayName}: ${err.message}`);
+    } else {
+      console.error(`[Scheduler] power_on failed for ${displayName}:`, err);
     }
   }
 
-  // Hardware-specific power control
-  const config = toDeviceConfig(device.config);
-  if (device.type === 'projector') {
-    const pjlinkClient = getPJLinkClient(config);
-    if (!pjlinkClient) {
-      console.warn(`[Scheduler] Projector ${displayName} has no PJLink host configured`);
-      return;
-    }
-    const result = await pjlinkClient.powerOn();
-    if (!result.success) {
-      console.warn(`[Scheduler] PJLink power_on failed for ${displayName}: ${result.error}`);
-    }
-    return;
-  }
-  if (device.type === 'samsung_display') {
-    const ssspClient = getSSSPClient(config);
-    if (!ssspClient) {
-      console.warn(`[Scheduler] Samsung display ${displayName} has no SSSP host configured`);
-      return;
-    }
-    const result = await ssspClient.powerOn();
-    if (!result.success) {
-      console.warn(`[Scheduler] SSSP power_on failed for ${displayName}: ${result.error}`);
-    }
-    return;
-  }
-
-  const deliveredDisplay = sendToDevice(device.id, {
-    type: 'command:activate',
-    payload: {
-      scheduleId: schedule?.id,
-      scheduleName: schedule?.name,
-    },
-    timestamp: Date.now(),
-  });
-
-  // If display client is not connected but agent is online, ask agent to relaunch kiosk.
-  if (!deliveredDisplay && device.agent_connected) {
-    const deliveredAgent = sendAgentCommand(device.id, 'kiosk:launch', {
-      scheduleId: schedule?.id,
-      scheduleName: schedule?.name,
+  // Kiosks/displays: make sure the display app is actually showing. If the
+  // display client isn't connected but the agent is, ask the agent to relaunch.
+  if (device.type === 'display' || device.type === 'kiosk') {
+    const deliveredDisplay = sendToDevice(device.id, {
+      type: 'command:activate',
+      payload: { scheduleId: schedule?.id, scheduleName: schedule?.name },
+      timestamp: Date.now(),
     });
-    if (!deliveredAgent) {
-      console.warn(`[Scheduler] Could not deliver power_on command to ${displayName} (display+agent offline)`);
+    if (!deliveredDisplay && device.agent_connected) {
+      const deliveredAgent = sendAgentCommand(device.id, 'kiosk:launch', {
+        scheduleId: schedule?.id,
+        scheduleName: schedule?.name,
+      });
+      if (!deliveredAgent) {
+        console.warn(`[Scheduler] Could not deliver power_on command to ${displayName} (display+agent offline)`);
+      }
     }
   }
 }
@@ -562,49 +538,25 @@ async function executeScheduledPowerOff(
 ): Promise<void> {
   for (const device of targetDevices) {
     const displayName = device.display_name || device.id;
-    const config = toDeviceConfig(device.config);
 
-    // Hardware-specific power control
-    if (device.type === 'projector') {
-      const pjlinkClient = getPJLinkClient(config);
-      if (!pjlinkClient) {
-        console.warn(`[Scheduler] Projector ${displayName} has no PJLink host configured`);
-      } else {
-        const result = await pjlinkClient.powerOff();
-        if (!result.success) {
-          console.warn(`[Scheduler] PJLink power_off failed for ${displayName}: ${result.error}`);
-        }
-      }
-      continue;
-    }
-    if (device.type === 'samsung_display') {
-      const ssspClient = getSSSPClient(config);
-      if (!ssspClient) {
-        console.warn(`[Scheduler] Samsung display ${displayName} has no SSSP host configured`);
-      } else {
-        const result = await ssspClient.powerOff();
-        if (!result.success) {
-          console.warn(`[Scheduler] SSSP power_off failed for ${displayName}: ${result.error}`);
-        }
-      }
-      continue;
+    // Display feedback: idle the kiosk app immediately when connected.
+    if (device.type === 'display' || device.type === 'kiosk') {
+      sendToDevice(device.id, {
+        type: 'command:idle',
+        payload: { scheduleId: schedule.id, scheduleName: schedule.name },
+        timestamp: Date.now(),
+      });
     }
 
-    // Put display into idle immediately (visual feedback) when connected.
-    sendToDevice(device.id, {
-      type: 'command:idle',
-      payload: {
-        scheduleId: schedule.id,
-        scheduleName: schedule.name,
-      },
-      timestamp: Date.now(),
-    });
-
-    // Ask agent to shut down the OS for real power-off.
-    if (device.agent_connected) {
-      const deliveredAgent = sendAgentCommand(device.id, 'system:shutdown');
-      if (!deliveredAgent) {
-        console.warn(`[Scheduler] Could not deliver shutdown command to ${displayName}`);
+    // Unified power-off through the driver (agent OS shutdown, or native
+    // protocol power-off for projectors/Samsung/etc.).
+    try {
+      await deviceManager.command(device.id, 'power_off');
+    } catch (err) {
+      if (err instanceof DriverError) {
+        console.warn(`[Scheduler] Driver power_off for ${displayName}: ${err.message}`);
+      } else {
+        console.error(`[Scheduler] power_off failed for ${displayName}:`, err);
       }
     }
   }

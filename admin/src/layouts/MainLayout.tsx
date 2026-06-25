@@ -36,6 +36,8 @@ import {
   ChevronDown,
   MapPin,
   Footprints,
+  Cpu,
+  Wrench,
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -55,6 +57,8 @@ const navItems: NavItem[] = [
   { to: '/devices', icon: Monitor, label: 'Devices', section: 'Fleet' },
   { to: '/groups', icon: Group, label: 'Groups', section: 'Fleet' },
   { to: '/schedules', icon: Clock, label: 'Schedules', section: 'Fleet' },
+  { to: '/hardware', icon: Cpu, label: 'Hardware', section: 'Fleet' },
+  { to: '/diagnostics', icon: Wrench, label: 'Diagnostics', roles: ['super_admin', 'site_admin', 'operator'], section: 'Fleet' },
   { to: '/analytics', icon: Activity, label: 'Analytics', section: 'Insights' },
   { to: '/engagement', icon: Footprints, label: 'Engagement', roles: ['super_admin', 'site_admin', 'content_manager'], section: 'Insights' },
   { to: '/alerts', icon: Bell, label: 'Alerts', section: 'Insights' },

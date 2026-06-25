@@ -97,6 +97,21 @@ function Invoke-Update([string]$requestId) {
 
 Write-Log "===== Update relay starting (container=$Container, repo=$RepoRoot) ====="
 
+# Catch up on a job that was queued before the relay started. The live log tail
+# below uses --tail 0 and won't replay an older marker, so without this a job
+# requested while the relay was down would sit at 'requested' forever.
+try {
+    if (Test-Path $StatusFile) {
+        $pending = Get-Content $StatusFile -Raw -ErrorAction SilentlyContinue | ConvertFrom-Json
+        if ($pending -and $pending.stage -eq 'requested' -and $pending.requestId) {
+            Write-Log "Found a pending update job at startup (id=$($pending.requestId)) - processing now"
+            Invoke-Update $pending.requestId
+        }
+    }
+} catch {
+    Write-Log ("Startup catch-up check failed: {0}" -f $_.Exception.Message)
+}
+
 while ($true) {
     try {
         # --tail 0 = only NEW lines, so a marker is never replayed after a reconnect.

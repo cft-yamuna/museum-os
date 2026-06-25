@@ -7,7 +7,7 @@ import { assemblePlaylist } from '../lib/playlistAssembly.js';
 import { NotFoundError, ForbiddenError, ConflictError } from '../lib/errors.js';
 import { sendSuccess, sendCreated, sendError } from '../lib/response.js';
 import { validateBody, validateQuery } from '../middleware/validate.js';
-import { authUser, authDevice, requireRole } from '../middleware/auth.js';
+import { authUser, authDevice, requireRole, requireMinRole } from '../middleware/auth.js';
 import { getPJLinkClient } from '../services/pjlink.js';
 import { getSSSPClient } from '../services/sssp.js';
 import { createAuditLog } from '../services/auditLog.js';
@@ -17,6 +17,8 @@ import { resolveWakeMac } from '../services/deviceWake.js';
 import { sendCacheRefreshToDevices } from '../services/appRefresh.js';
 import { cascadePower, getChildren } from '../services/powerCascade.js';
 import { pushToAdmins } from '../services/adminWs.js';
+import { deviceManager } from '../services/deviceManager.js';
+import { DriverError, DRIVER_FAMILIES } from '../drivers/index.js';
 
 const router = Router();
 
@@ -99,6 +101,7 @@ const updateDeviceSchema = z.object({
   app_id: z.string().uuid().nullable().optional(),
   parent_id: z.string().uuid().nullable().optional(),
   power_order: z.number().int().nullable().optional(),
+  driver_family: z.enum(DRIVER_FAMILIES).nullable().optional(),
 });
 
 const powerSchema = z.object({
@@ -519,6 +522,9 @@ router.put('/:id', authUser, requireRole(['super_admin', 'site_admin']), validat
     if (req.body.power_order !== undefined) {
       updates.power_order = req.body.power_order;
     }
+    if (req.body.driver_family !== undefined) {
+      updates.driver_family = req.body.driver_family;
+    }
 
     // Merge config with existing JSONB (preserves apiKey and other fields)
     if (req.body.config !== undefined) {
@@ -536,6 +542,10 @@ router.put('/:id', authUser, requireRole(['super_admin', 'site_admin']), validat
       .where({ id })
       .update(updates)
       .returning('*');
+
+    // Config/family may have changed — drop any cached driver so the next
+    // command/poll rebuilds it from the new row.
+    deviceManager.invalidate(id);
 
     // If app_id changed, navigate device to new app URL
     if (req.body.app_id !== undefined && req.body.app_id !== existingDevice.app_id) {
@@ -833,236 +843,125 @@ router.post('/:id/power', authUser, requireRole(['super_admin', 'site_admin', 'o
     const { action } = req.body as { action: 'power_on' | 'power_off' | 'restart' | 'wake' };
     console.log(`[Power] Device ${existingDevice.display_name} (${id}) - action: ${action}`);
 
-    // --- Wake-on-LAN: send on power_on or wake if device has a MAC ---
-    const wakeTarget = resolveWakeMac(existingDevice);
-    if ((action === 'power_on' || action === 'wake') && wakeTarget.mac) {
-      console.log(`[Power] Sending WOL packet for ${existingDevice.display_name} (${wakeTarget.mac}, source=${wakeTarget.source})`);
-      await sendWakeOnLan(wakeTarget.mac);
-
-      createAuditLog({
-        userId: req.user?.id,
-        siteId: existingDevice.site_id,
-        action: 'device.wake',
-        entityType: 'device',
-        entityId: id,
-        details: { mac_address: wakeTarget.mac, source: wakeTarget.source },
-      });
-
-      if (action === 'wake') {
-        sendSuccess(res, {
-          message: 'Wake-on-LAN packet sent',
-          device_id: id,
-          action,
-          mac_address: wakeTarget.mac,
-          source: wakeTarget.source,
-        });
-        return;
-      }
-      // For power_on, continue to also send WebSocket/agent command
-    } else if (action === 'wake') {
-      sendError(res, 400, 'No usable MAC address found for Wake-on-LAN. Bring the device online once so the agent can report its wired MAC.', 'WOL_MAC_UNAVAILABLE');
-      return;
-    }
-
-    // --- PJLink projector handling ---
-    if (existingDevice.type === 'projector') {
-      const config = typeof existingDevice.config === 'string'
-        ? JSON.parse(existingDevice.config)
-        : existingDevice.config || {};
-      const pjlinkClient = getPJLinkClient(config);
-
-      if (!pjlinkClient) {
-        sendError(res, 400, 'Projector has no PJLink host configured', 'PJLINK_NOT_CONFIGURED');
-        return;
-      }
-
-      let result;
-      if (action === 'power_on') {
-        result = await pjlinkClient.powerOn();
-      } else if (action === 'power_off') {
-        result = await pjlinkClient.powerOff();
-      } else {
-        // restart: power off then on (projector will warm up)
-        const offResult = await pjlinkClient.powerOff();
-        if (!offResult.success) {
-          sendError(res, 502, `PJLink power_off failed: ${offResult.error}`, 'PJLINK_ERROR');
-          return;
-        }
-        result = { success: true, data: 'Restart initiated (power off sent)' };
-      }
-
-      if (!result.success) {
-        sendError(res, 502, `PJLink command failed: ${result.error}`, 'PJLINK_ERROR');
-        return;
-      }
-
-      // Update device status
-      const updates: Record<string, any> = { updated_at: db.fn.now() };
-      if (action === 'power_off') {
-        updates.status = 'offline';
-      }
-      await db('devices').where({ id }).update(updates);
-
-      createAuditLog({
-        userId: req.user?.id,
-        siteId: existingDevice.site_id,
-        action: `projector.${action}`,
-        entityType: 'device',
-        entityId: id,
-        details: { pjlink_result: result.data },
-      });
-
-      cascadeForAction(id, action);
-
-      sendSuccess(res, {
-        message: `PJLink '${action}' sent to projector`,
-        device_id: id,
-        action,
-        pjlink_result: result.data,
-      });
-      return;
-    }
-
-    // --- Samsung SSSP display handling ---
-    if (existingDevice.type === 'samsung_display') {
-      const config = typeof existingDevice.config === 'string'
-        ? JSON.parse(existingDevice.config)
-        : existingDevice.config || {};
-      const ssspClient = getSSSPClient(config);
-
-      if (!ssspClient) {
-        sendError(res, 400, 'Samsung display has no SSSP host configured', 'SSSP_NOT_CONFIGURED');
-        return;
-      }
-
-      let result;
-      if (action === 'power_on') {
-        result = await ssspClient.powerOn();
-      } else if (action === 'power_off') {
-        result = await ssspClient.powerOff();
-      } else {
-        result = await ssspClient.restart();
-      }
-
-      if (!result.success) {
-        sendError(res, 502, `SSSP command failed: ${result.error}`, 'SSSP_ERROR');
-        return;
-      }
-
-      const updates: Record<string, any> = { updated_at: db.fn.now() };
-      if (action === 'power_off') {
-        updates.status = 'offline';
-      }
-      await db('devices').where({ id }).update(updates);
-
-      createAuditLog({
-        userId: req.user?.id,
-        siteId: existingDevice.site_id,
-        action: `samsung.${action}`,
-        entityType: 'device',
-        entityId: id,
-        details: { method: 'sssp' },
-      });
-
-      cascadeForAction(id, action);
-
-      sendSuccess(res, {
-        message: `SSSP '${action}' sent to Samsung display`,
-        device_id: id,
-        action,
-        method: 'sssp',
-      });
-      return;
-    }
-
-    // --- Agent-based power handling ---
-    if (existingDevice.agent_connected && (action === 'power_off' || action === 'restart')) {
-      const agentCmd = action === 'power_off' ? 'system:shutdown' : 'system:reboot';
-
-      // Import sendCommandToAgent dynamically to avoid circular deps
-      const { sendCommandToAgent } = await import('../services/agentWs.js');
-
-      const commandId = crypto.randomUUID();
-      const delivered = sendCommandToAgent(id, {
-        type: 'command',
-        payload: { id: commandId, command: agentCmd },
-        timestamp: Date.now(),
-      });
-
-      // Update device status
-      const statusUpdates: Record<string, any> = { updated_at: db.fn.now() };
-      if (action === 'power_off') {
-        statusUpdates.status = 'offline';
-      } else if (action === 'restart') {
-        statusUpdates.status = 'restarting';
-      }
-      await db('devices').where({ id }).update(statusUpdates);
-
+    const audit = (method: string, extra?: Record<string, unknown>) =>
       createAuditLog({
         userId: req.user?.id,
         siteId: existingDevice.site_id,
         action: `device.${action}`,
         entityType: 'device',
         entityId: id,
-        details: { method: 'agent', commandId, delivered },
+        details: { method, ...extra },
       });
 
-      cascadeForAction(id, action);
-
+    // --- Unified, brand-agnostic control path ---
+    // Every device is driven through its DeviceDriver (selected by driver_family).
+    // PJLink/SSSP/Samsung-MDC/DALI/agent are all just driver families now; the
+    // manager handles WoL (agent), protocol power, status writes and the cascade.
+    try {
+      const out = await deviceManager.command(id, action);
+      audit(existingDevice.driver_family || 'driver', out.result ? { result: out.result } : undefined);
       sendSuccess(res, {
-        message: `Power command '${action}' sent to agent`,
+        message: `Power command '${action}' executed`,
         device_id: id,
         action,
-        method: 'agent',
-        commandId,
-        delivered,
+        method: existingDevice.driver_family || 'driver',
+        ...out,
       });
       return;
+    } catch (err) {
+      if (!(err instanceof DriverError)) throw err;
+
+      // Fallback: a display/kiosk whose agent is offline (or has no driver) can
+      // still be driven directly over its display WebSocket — legacy behaviour.
+      const fallbackTypes = ['display', 'kiosk'];
+      const recoverable = err.code === 'refused' || err.code === 'unsupported' || err.code === 'not_configured';
+      if (recoverable && fallbackTypes.includes(existingDevice.type)) {
+        const wsCommand =
+          action === 'power_on' ? 'command:activate' : action === 'power_off' ? 'command:idle' : 'command:reload';
+        const delivered = sendToDevice(id, { type: wsCommand, payload: { action }, timestamp: Date.now() });
+        if (action === 'power_off') {
+          await db('devices').where({ id }).update({ status: 'offline', updated_at: db.fn.now() });
+        } else if (action === 'restart') {
+          await db('devices').where({ id }).update({ status: 'restarting', updated_at: db.fn.now() });
+        }
+        cascadeForAction(id, action);
+        audit('display-ws', { delivered, fallback: true });
+        sendSuccess(res, {
+          message: `Power command '${action}' sent to display`,
+          device_id: id,
+          action,
+          method: 'display-ws',
+          delivered,
+        });
+        return;
+      }
+
+      sendError(res, 502, `Power command failed: ${err.message}`, 'DRIVER_ERROR');
+      return;
     }
+  } catch (err) {
+    next(err);
+  }
+});
 
-    // --- Default device handling (WebSocket-based) ---
-    const updates: Record<string, any> = {
-      updated_at: db.fn.now(),
-    };
+/**
+ * POST /api/devices/:id/command
+ * Unified, capability-driven control through the device's driver. Body:
+ *   { action: 'input'|'volume'|'mute'|'brightness'|'deploy'|'attest', value? }
+ * Power stays on /:id/power for backwards compatibility.
+ */
+const commandSchema = z.object({
+  action: z.enum(['input', 'volume', 'mute', 'brightness', 'deploy', 'attest']),
+  value: z.unknown().optional(),
+});
+router.post('/:id/command', authUser, requireMinRole('operator'), validateBody(commandSchema), async (req, res, next) => {
+  try {
+    const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+    const db = getDb();
+    const device = await db('devices').where({ id }).first();
+    if (!device) throw new NotFoundError('Device', id);
+    checkSiteAccess(req, device.site_id);
 
-    if (action === 'power_off') {
-      updates.status = 'offline';
-    } else if (action === 'restart') {
-      updates.status = 'restarting';
+    const { action, value } = req.body as { action: 'input' | 'volume' | 'mute' | 'brightness' | 'deploy' | 'attest'; value?: unknown };
+    try {
+      const out = await deviceManager.command(id, action, value);
+      createAuditLog({
+        userId: req.user?.id,
+        siteId: device.site_id,
+        action: `device.${action}`,
+        entityType: 'device',
+        entityId: id,
+        details: { value, result: out.result },
+      });
+      sendSuccess(res, { device_id: id, action, ...out });
+    } catch (err) {
+      if (err instanceof DriverError) {
+        sendError(res, 502, `Command failed: ${err.message}`, 'DRIVER_ERROR');
+        return;
+      }
+      throw err;
     }
+  } catch (err) {
+    next(err);
+  }
+});
 
-    if (Object.keys(updates).length > 1) {
-      await db('devices').where({ id }).update(updates);
-    }
+/**
+ * GET /api/devices/:id/capabilities
+ * The control surface a device supports (drives the capability-aware UI) plus a
+ * best-effort live telemetry snapshot through its driver.
+ */
+router.get('/:id/capabilities', authUser, async (req, res, next) => {
+  try {
+    const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+    const db = getDb();
+    const device = await db('devices').where({ id }).first();
+    if (!device) throw new NotFoundError('Device', id);
+    checkSiteAccess(req, device.site_id);
 
-    // Dispatch WebSocket command to the device
-    const wsCommand = action === 'power_on' ? 'command:activate'
-      : action === 'power_off' ? 'command:idle'
-      : 'command:reload';
-
-    const delivered = sendToDevice(id, {
-      type: wsCommand,
-      payload: { action },
-      timestamp: Date.now(),
-    });
-
-    createAuditLog({
-      userId: req.user?.id,
-      siteId: existingDevice.site_id,
-      action: `device.${action}`,
-      entityType: 'device',
-      entityId: id,
-      details: { delivered },
-    });
-
-    cascadeForAction(id, action);
-
-    sendSuccess(res, {
-      message: `Power command '${action}' sent to device`,
-      device_id: id,
-      action,
-      delivered,
-    });
+    const capabilities = await deviceManager.capabilitiesOf(id);
+    const telemetry = await deviceManager.liveStatus(id);
+    sendSuccess(res, { device_id: id, driver_family: device.driver_family, capabilities, telemetry });
   } catch (err) {
     next(err);
   }

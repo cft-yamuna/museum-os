@@ -8,6 +8,7 @@ import { adminWs } from '../lib/ws';
 import { cronToHuman } from './ScheduleListPage';
 import { Spinner } from '../components/ui/Spinner';
 import { Button } from '../components/ui/Button';
+import { DeviceControlPanel } from '../components/DeviceControlPanel';
 import { AgentTab } from '../components/agent/AgentTab';
 import { AgentCommandDialog } from '../components/agent/AgentCommandDialog';
 import { DeviceSyncBadge } from '../components/DeviceSyncBadge';
@@ -413,6 +414,9 @@ export function DeviceDetailPage() {
           </button>
         </div>
       )}
+
+      {/* Capability-driven control surface (driven by the device's driver) */}
+      {id && <DeviceControlPanel deviceId={id} />}
 
       {/* Pairing code banner — show whenever a pairing code is pending, even if
           the agent has already marked the device online (the display browser can

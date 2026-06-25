@@ -36,6 +36,8 @@ import receptionRoutes from './routes/reception.js';
 import powerRoutes from './routes/power.js';
 import analyticsRoutes from './routes/analytics.js';
 import engagementRoutes from './routes/engagement.js';
+import catalogRoutes from './routes/catalog.js';
+import diagnosticsRoutes from './routes/diagnostics.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -358,6 +360,8 @@ export function createApp(): express.Application {
   app.use('/api/power', powerRoutes);
   app.use('/api/analytics', analyticsRoutes);
   app.use('/api/engagement', engagementRoutes);
+  app.use('/api/catalog', catalogRoutes);
+  app.use('/api/diagnostics', diagnosticsRoutes);
   app.use('/api/alerts', alertsRoutes);
   app.use('/api/audit-logs', auditLogsRoutes);
   app.use('/api/lighting', lightingRoutes);

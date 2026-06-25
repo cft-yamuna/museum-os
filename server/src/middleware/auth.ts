@@ -217,6 +217,48 @@ export function requireRole(roles: string[]) {
 }
 
 /**
+ * Ranked RBAC (curato-style). A single ordering spans both the museum-os role
+ * names and curato's, so routes can express "operator or above" instead of
+ * enumerating every role. Higher number = more privilege.
+ *
+ *   readonly(0) < auditor(1) < curator/content_manager(2)
+ *     < operator(3) < site_admin(4) < owner/super_admin(5)
+ */
+export const ROLE_RANK: Record<string, number> = {
+  readonly: 0,
+  auditor: 1,
+  curator: 2,
+  content_manager: 2,
+  operator: 3,
+  site_admin: 4,
+  owner: 5,
+  super_admin: 5,
+};
+
+export function roleRank(role: string | undefined): number {
+  return role && role in ROLE_RANK ? ROLE_RANK[role] : -1;
+}
+
+/**
+ * Allow any authenticated user whose role ranks at or above `minRole`.
+ * Use after authUser. Complements the exact-match requireRole().
+ */
+export function requireMinRole(minRole: string) {
+  const min = ROLE_RANK[minRole] ?? Number.MAX_SAFE_INTEGER;
+  return (req: Request, _res: Response, next: NextFunction): void => {
+    try {
+      if (!req.user) throw new UnauthorizedError('User not authenticated');
+      if (roleRank(req.user.role) < min) {
+        throw new ForbiddenError(`Requires '${minRole}' role or higher`);
+      }
+      next();
+    } catch (err) {
+      next(err);
+    }
+  };
+}
+
+/**
  * Site access control middleware.
  * Must be used after authUser.
  * For super_admin: always allow.

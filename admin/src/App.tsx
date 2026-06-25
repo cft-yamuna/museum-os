@@ -19,6 +19,8 @@ import { EngagementPage } from './pages/EngagementPage';
 import { LogsPage } from './pages/LogsPage';
 import { UsersPage } from './pages/UsersPage';
 import { GroupsPage } from './pages/GroupsPage';
+import { HardwareCatalogPage } from './pages/HardwareCatalogPage';
+import { DiagnosticsPage } from './pages/DiagnosticsPage';
 import { AppListPage } from './pages/AppListPage';
 import { AppEditorPage } from './pages/AppEditorPage';
 import { RecycleBinPage } from './pages/RecycleBinPage';
@@ -87,6 +89,8 @@ export default function App() {
             <Route path="schedules/new" element={<ScheduleEditorPage />} />
             <Route path="schedules/:id/edit" element={<ScheduleEditorPage />} />
             <Route path="groups" element={<GroupsPage />} />
+            <Route path="hardware" element={<HardwareCatalogPage />} />
+            <Route path="diagnostics" element={<DiagnosticsPage />} />
             <Route path="analytics" element={<AnalyticsPage />} />
             <Route path="engagement" element={<EngagementPage />} />
             <Route path="alerts" element={<AlertsPage />} />
