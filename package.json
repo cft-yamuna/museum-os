@@ -22,8 +22,6 @@
     "docs:preview": "cd docs && npm run preview",
     "test:branding": "node scripts/check-branding.mjs",
     "migrate": "cd server && npm run migrate",
-    "seed": "cd server && npm run seed",
-    "test": "cd display && npx vitest run && cd ../agent && npx vitest run",
-    "test:watch": "cd display && npx vitest"
+    "seed": "cd server && npm run seed"
   }
 }

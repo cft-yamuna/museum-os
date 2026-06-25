@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import {
@@ -23,6 +23,8 @@ import {
   ChevronRight,
   Database,
   Film,
+  RefreshCw,
+  Loader2,
 } from 'lucide-react';
 import { api } from '../lib/api';
 import { useSiteStore } from '../stores/site';
@@ -600,6 +602,159 @@ function DataTransferSection() {
   );
 }
 
+// -- Software Update --------------------------------------------------------
+
+type UpdateStage = 'idle' | 'requested' | 'fetching' | 'pulling' | 'building' | 'done' | 'error';
+
+interface UpdateStatus {
+  stage: UpdateStage;
+  requestId: string | null;
+  message?: string;
+  startedAt?: string;
+  updatedAt?: string;
+  gitBefore?: string;
+  gitAfter?: string;
+  error?: string;
+}
+
+const UPDATE_STEPS: { key: UpdateStage; label: string }[] = [
+  { key: 'requested', label: 'Queued' },
+  { key: 'fetching', label: 'Fetching latest code' },
+  { key: 'pulling', label: 'Pulling changes' },
+  { key: 'building', label: 'Building & restarting server' },
+  { key: 'done', label: 'Done' },
+];
+
+function SoftwareUpdateSection() {
+  const addToast = useToastStore((s) => s.addToast);
+  const userRole = useAuthStore((s) => s.user?.role);
+  const disabled = userRole !== 'super_admin';
+
+  const [updating, setUpdating] = useState(false);
+  const [status, setStatus] = useState<UpdateStatus | null>(null);
+  const [stalled, setStalled] = useState(false);
+  const pollRef = useRef<number | null>(null);
+  const startRef = useRef<number>(0);
+
+  const stopPolling = () => {
+    if (pollRef.current !== null) {
+      window.clearInterval(pollRef.current);
+      pollRef.current = null;
+    }
+  };
+
+  // Stop polling if the user leaves the page mid-update.
+  useEffect(() => stopPolling, []);
+
+  const poll = async () => {
+    try {
+      const s = await api.get<UpdateStatus>('/system/update/status');
+      setStatus(s);
+      // A "requested" stage that never advances usually means the host relay
+      // isn't running to pick up the job.
+      setStalled(s.stage === 'requested' && Date.now() - startRef.current > 25000);
+      if (s.stage === 'done') {
+        stopPolling();
+        setUpdating(false);
+        addToast('success', 'Update complete — the server restarted on the new version.');
+      } else if (s.stage === 'error') {
+        stopPolling();
+        setUpdating(false);
+        addToast('error', s.message || 'Update failed.');
+      }
+    } catch {
+      // The server is unreachable while it rebuilds/restarts — expected. Keep polling.
+    }
+  };
+
+  const startUpdate = async () => {
+    if (!window.confirm('Pull the latest code and rebuild the server? The admin panel will briefly go offline while it restarts.')) {
+      return;
+    }
+    try {
+      stopPolling();
+      startRef.current = Date.now();
+      setStalled(false);
+      setUpdating(true);
+      const res = await api.post<{ requestId: string; status: UpdateStatus }>('/system/update', {});
+      setStatus(res.status);
+      pollRef.current = window.setInterval(poll, 2500);
+    } catch (err) {
+      setUpdating(false);
+      addToast('error', (err as Error).message);
+    }
+  };
+
+  const currentIndex = status ? UPDATE_STEPS.findIndex((s) => s.key === status.stage) : -1;
+  const showProgress = updating || status?.stage === 'error';
+
+  return (
+    <Section icon={RefreshCw} title="Software Update" subtitle="Pull the latest code and rebuild the server">
+      <div className="space-y-5 max-w-2xl">
+        <p className="text-sm text-surface-500">
+          Runs <span className="font-mono">git pull</span> on the server host and rebuilds the Docker container
+          (the same as <span className="font-mono">deploy-local</span>). The server restarts, so this panel will
+          reconnect on its own after a minute or two.
+        </p>
+
+        {disabled && (
+          <div className="rounded-md border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-700 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-300">
+            Only Super Admins can update the server.
+          </div>
+        )}
+
+        <Button variant="secondary" onClick={startUpdate} loading={updating} disabled={disabled}>
+          <RefreshCw className="h-4 w-4" />
+          {updating ? 'Updating…' : 'Update Now'}
+        </Button>
+
+        {showProgress && (
+          <div className="space-y-3 rounded-md border border-surface-200 bg-surface-50 p-4">
+            <ol className="space-y-2">
+              {UPDATE_STEPS.map((step, i) => {
+                const isError = status?.stage === 'error';
+                const state =
+                  i < currentIndex ? 'done'
+                  : i === currentIndex ? (isError ? 'error' : 'active')
+                  : 'pending';
+                return (
+                  <li key={step.key} className="flex items-center gap-2 text-sm">
+                    {state === 'done' ? (
+                      <Check className="h-4 w-4 shrink-0 text-emerald-500" />
+                    ) : state === 'active' ? (
+                      <Loader2 className="h-4 w-4 shrink-0 animate-spin text-primary-600" />
+                    ) : state === 'error' ? (
+                      <Shield className="h-4 w-4 shrink-0 text-red-500" />
+                    ) : (
+                      <div className="h-4 w-4 shrink-0 rounded-full border border-surface-300" />
+                    )}
+                    <span className={state === 'pending' ? 'text-surface-400' : 'text-surface-700'}>{step.label}</span>
+                  </li>
+                );
+              })}
+            </ol>
+
+            {status?.message && <p className="text-xs text-surface-500">{status.message}</p>}
+
+            {status?.stage === 'building' && (
+              <p className="text-xs text-surface-400">
+                The panel may briefly fail to reconnect while the server restarts — that's expected.
+              </p>
+            )}
+
+            {stalled && (
+              <p className="text-xs text-amber-600">
+                Still waiting for the host update relay. Make sure <span className="font-mono">update-relay.ps1</span> is
+                running on the server machine.
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+    </Section>
+  );
+}
+
 // -- Danger Zone ------------------------------------------------------------
 
 function DangerZone() {
@@ -677,6 +832,7 @@ export function SettingsPage() {
       <FallbackContentForm site={site} />
       <IntegrationForm site={site} />
       <SystemInfo site={site} />
+      <SoftwareUpdateSection />
       <DataTransferSection />
       <DangerZone />
     </div>

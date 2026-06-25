@@ -654,9 +654,8 @@ function ExistingSchedulesPanel({
 }) {
   const [expanded, setExpanded] = useState(true);
 
-  if (schedules.length === 0) return null;
-
-  // Group by type
+  // Group by type. Must run before any early return so the hook order stays
+  // stable when `schedules` resolves from empty -> non-empty (else React #310).
   const grouped = useMemo(() => {
     const map: Record<string, Schedule[]> = {};
     schedules.forEach((s) => {
@@ -665,6 +664,8 @@ function ExistingSchedulesPanel({
     });
     return Object.entries(map);
   }, [schedules]);
+
+  if (schedules.length === 0) return null;
 
   return (
     <div className="bryzos-card rounded-3xl">

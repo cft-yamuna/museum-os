@@ -11,6 +11,7 @@ import { env } from './lib/env.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { requestTimeout } from './middleware/timeout.js';
 import healthRoutes from './routes/health.js';
+import systemRoutes from './routes/system.js';
 import authRoutes from './routes/auth.js';
 import usersRoutes from './routes/users.js';
 import storageRoutes from './routes/storage.js';
@@ -341,6 +342,7 @@ export function createApp(): express.Application {
 
   // --- Routes ---
   app.use('/api/health', healthRoutes);
+  app.use('/api/system', systemRoutes);
   app.use('/api/auth', authRoutes);
   app.use('/api/users', usersRoutes);
   app.use('/storage', storageRoutes);

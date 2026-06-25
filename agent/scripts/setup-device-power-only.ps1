@@ -5,11 +5,17 @@
 # Local usage:
 #   powershell -ExecutionPolicy Bypass -File .\setup-device-power-only.ps1 -DeviceSlug "kiosk-01" -Server "http://192.168.10.100:3401"
 #
+# The device is auto-registered in Museum OS (so it appears in the admin panel
+# and the agent can provision). Registration uses the admin API and resolves the
+# site automatically when there is a single site; otherwise pass -SiteId.
+#
 # One-liner usage (when script is hosted):
 #   $env:MUSEUMOS_DEVICE_SLUG='kiosk-01'
 #   # Optional overrides (defaults: kiosk / Light123)
 #   $env:MUSEUMOS_AUTOLOGIN_USERNAME='kiosk'
 #   $env:MUSEUMOS_AUTOLOGIN_PASSWORD='Light123'
+#   # Optional when more than one site exists:
+#   $env:MUSEUMOS_SITE_ID='e74b5c5f-dd1c-4d0a-9520-9f4cac3881b2'
 #   irm 'http://192.168.10.100:3401/power.ps1' | iex
 
 param(
@@ -42,6 +48,9 @@ param(
 
     [Parameter(Mandatory=$false)]
     [string]$AdminPassword = 'admin123',
+
+    [Parameter(Mandatory=$false)]
+    [string]$SiteId = $env:MUSEUMOS_SITE_ID,
 
     [Parameter(Mandatory=$false)]
     [bool]$InstallSsh = $true,
@@ -399,22 +408,136 @@ function Install-Agent-FromLocal([string]$LocalAgentDir) {
     }
 }
 
-function Install-Agent-FromServer {
-    Write-Host '  Local agent source not found; downloading latest agent package from server...' -ForegroundColor Yellow
+$script:AdminToken = $null
 
-    $token = $null
+function Get-AdminToken {
+    if ($script:AdminToken) {
+        return $script:AdminToken
+    }
+
     try {
         $loginBody = @{ email = $AdminEmail; password = $AdminPassword } | ConvertTo-Json
         $login = Invoke-RestMethod "$Server/api/auth/login" -Method Post -ContentType 'application/json' -Body $loginBody
-        $token = $login.data.token
+        $script:AdminToken = $login.data.token
     } catch {
         throw "Failed to login to $Server as $AdminEmail. Error: $($_.Exception.Message)"
     }
 
-    if (-not $token) {
-        throw 'Could not obtain admin token for agent package download.'
+    if (-not $script:AdminToken) {
+        throw 'Could not obtain admin token.'
     }
 
+    return $script:AdminToken
+}
+
+function Resolve-SiteId {
+    param([Parameter(Mandatory=$true)][string]$Token)
+
+    if ($SiteId) {
+        return $SiteId
+    }
+
+    $headers = @{ Authorization = "Bearer $Token" }
+    $resp = Invoke-RestMethod "$Server/api/sites" -Headers $headers
+    $sites = @($resp.data)
+
+    if ($sites.Count -eq 0) {
+        throw 'No sites found on the server. Create a site first, or pass -SiteId.'
+    }
+    if ($sites.Count -gt 1) {
+        throw "Multiple sites found ($($sites.Count)). Re-run with -SiteId <uuid> (or set MUSEUMOS_SITE_ID)."
+    }
+
+    return $sites[0].id
+}
+
+# Primary NIC MAC + IPv4 so the registered device is immediately usable for
+# Wake-on-LAN power-on and so provisioning auto-matches by IP (no pairing code).
+function Get-PrimaryNetworkInfo {
+    $info = @{ Mac = $null; Ip = $null }
+    try {
+        # Prefer the adapter that carries the default route (the LAN-facing NIC),
+        # so the captured IP matches what the server sees during provisioning.
+        $adapter = $null
+        $route = Get-NetRoute -DestinationPrefix '0.0.0.0/0' -ErrorAction SilentlyContinue |
+            Sort-Object -Property RouteMetric |
+            Select-Object -First 1
+        if ($route) {
+            $adapter = Get-NetAdapter -InterfaceIndex $route.ifIndex -ErrorAction SilentlyContinue |
+                Where-Object { $_.Status -eq 'Up' } |
+                Select-Object -First 1
+        }
+        if (-not $adapter) {
+            $adapter = Get-NetAdapter -Physical -ErrorAction SilentlyContinue |
+                Where-Object { $_.Status -eq 'Up' } |
+                Select-Object -First 1
+        }
+        if ($adapter) {
+            $info.Mac = $adapter.MacAddress
+            $ipObj = Get-NetIPAddress -InterfaceIndex $adapter.ifIndex -AddressFamily IPv4 -ErrorAction SilentlyContinue |
+                Where-Object { $_.IPAddress -notlike '169.254.*' -and $_.IPAddress -ne '127.0.0.1' } |
+                Select-Object -First 1
+            if ($ipObj) { $info.Ip = $ipObj.IPAddress }
+        }
+    } catch {
+        # Best-effort only — registration still works without MAC/IP.
+    }
+    return $info
+}
+
+# Create the device row in Museum OS so it appears in the admin panel and the
+# agent can provision. Idempotent: skips if a device with this slug exists.
+function Register-DeviceRecord {
+    $token = Get-AdminToken
+    $headers = @{ Authorization = "Bearer $token" }
+    $resolvedSiteId = Resolve-SiteId -Token $token
+
+    $existing = $null
+    try {
+        $listUrl = "$Server/api/devices?site_id=$([uri]::EscapeDataString($resolvedSiteId))"
+        $list = Invoke-RestMethod $listUrl -Headers $headers
+        $existing = @($list.data) |
+            Where-Object { $_.slug -and ($_.slug.ToLower() -eq $DeviceSlug.ToLower()) } |
+            Select-Object -First 1
+    } catch {
+        Write-Host "  Could not list existing devices: $($_.Exception.Message)" -ForegroundColor DarkYellow
+    }
+
+    if ($existing) {
+        Write-Host "  Device '$DeviceSlug' already registered (id $($existing.id)) - leaving as-is" -ForegroundColor Green
+        $script:RegisteredDeviceId = $existing.id
+        return $existing.id
+    }
+
+    $net = Get-PrimaryNetworkInfo
+    $body = @{
+        site_id      = $resolvedSiteId
+        slug         = $DeviceSlug
+        display_name = $DeviceSlug
+        type         = 'windows_pc'
+        config       = @{ powerOnly = $true }
+    }
+    if ($net.Mac) { $body.mac_address = $net.Mac }
+    if ($net.Ip)  { $body.ip_address  = $net.Ip }
+
+    $json = $body | ConvertTo-Json -Depth 5
+    $created = Invoke-RestMethod "$Server/api/devices" -Method Post -ContentType 'application/json' -Headers $headers -Body $json
+    $deviceId = $created.data.id
+    $script:RegisteredDeviceId = $deviceId
+
+    Write-Host "  Registered device '$DeviceSlug' (id $deviceId)" -ForegroundColor Green
+    if ($net.Mac) {
+        Write-Host "    MAC $($net.Mac) captured for Wake-on-LAN" -ForegroundColor DarkGray
+    } else {
+        Write-Host '    WARNING: no MAC detected - set it in admin for Wake-on-LAN power-on' -ForegroundColor DarkYellow
+    }
+    return $deviceId
+}
+
+function Install-Agent-FromServer {
+    Write-Host '  Local agent source not found; downloading latest agent package from server...' -ForegroundColor Yellow
+
+    $token = Get-AdminToken
     $headers = @{ Authorization = "Bearer $token" }
     $check = Invoke-RestMethod "$Server/api/agent/check-update?current_version=0.0.0&platform=windows" -Headers $headers
     if (-not $check.data -or -not $check.data.download_url) {
@@ -1102,36 +1225,36 @@ Write-Host ''
 
 Require-Admin
 
-Write-Host '[1/11] Checking Node.js...' -ForegroundColor Yellow
+Write-Host '[1/12] Checking Node.js...' -ForegroundColor Yellow
 Ensure-Node20
 
-Write-Host '[2/11] Configuring Wake-on-LAN settings...' -ForegroundColor Yellow
+Write-Host '[2/12] Configuring Wake-on-LAN settings...' -ForegroundColor Yellow
 Configure-WolSettings
 
-Write-Host '[3/11] Configuring auto-login...' -ForegroundColor Yellow
+Write-Host '[3/12] Configuring auto-login...' -ForegroundColor Yellow
 if ($EnableAutoLoginFlag) {
     Ensure-AutoLogin
 } else {
     Write-Host '  Auto-login skipped' -ForegroundColor DarkGray
 }
 
-Write-Host '[4/11] Disabling sleep/hibernate...' -ForegroundColor Yellow
+Write-Host '[4/12] Disabling sleep/hibernate...' -ForegroundColor Yellow
 if ($DisableSleepFlag) {
     Disable-SleepSettings
 } else {
     Write-Host '  Sleep changes skipped' -ForegroundColor DarkGray
 }
 
-Write-Host '[5/11] Preparing directories...' -ForegroundColor Yellow
+Write-Host '[5/12] Preparing directories...' -ForegroundColor Yellow
 Ensure-Directory $InstallDir
 Ensure-Directory $LogDir
 Ensure-Directory $NssmDir
 
 $nssmExe = Join-Path $NssmDir 'nssm.exe'
-Write-Host '[6/11] Cleaning existing power-agent service (if any)...' -ForegroundColor Yellow
+Write-Host '[6/12] Cleaning existing power-agent service (if any)...' -ForegroundColor Yellow
 Stop-And-Remove-Service -Name $ServiceName -NssmExePath $nssmExe
 
-Write-Host '[7/11] Installing agent runtime...' -ForegroundColor Yellow
+Write-Host '[7/12] Installing agent runtime...' -ForegroundColor Yellow
 $localSource = Resolve-SourceAgentDir
 if ($localSource) {
     Install-Agent-FromLocal -LocalAgentDir $localSource
@@ -1139,17 +1262,29 @@ if ($localSource) {
     Install-Agent-FromServer
 }
 
-Write-Host '[8/11] Ensuring dependencies and NSSM...' -ForegroundColor Yellow
+Write-Host '[8/12] Ensuring dependencies and NSSM...' -ForegroundColor Yellow
 Ensure-Dependencies
 $nssmExe = Ensure-Nssm
 
-Write-Host '[9/11] Writing power-only agent config...' -ForegroundColor Yellow
+Write-Host '[9/12] Writing power-only agent config...' -ForegroundColor Yellow
 Write-PowerOnlyConfig
 
-Write-Host '[10/11] Installing and starting Windows service...' -ForegroundColor Yellow
+Write-Host '[10/12] Registering device in Museum OS...' -ForegroundColor Yellow
+$script:RegisteredDeviceId = $null
+$registrationOk = $false
+try {
+    [void](Register-DeviceRecord)
+    $registrationOk = $true
+} catch {
+    Write-Host "  Device registration failed: $($_.Exception.Message)" -ForegroundColor Red
+    Write-Host '  Setup will continue; the agent keeps retrying provisioning.' -ForegroundColor DarkYellow
+    Write-Host '  Create the device manually in admin (or re-run this script) so it can connect.' -ForegroundColor DarkYellow
+}
+
+Write-Host '[11/12] Installing and starting Windows service...' -ForegroundColor Yellow
 $svc = Install-PowerService -NssmExePath $nssmExe
 
-Write-Host '[11/11] Enabling SSH access...' -ForegroundColor Yellow
+Write-Host '[12/12] Enabling SSH access...' -ForegroundColor Yellow
 $sshReady = $true
 if ($InstallSsh) {
     $sshReady = Ensure-SshServer
@@ -1166,6 +1301,7 @@ Write-Host '  POWER-ONLY SETUP COMPLETE' -ForegroundColor Green
 Write-Host '============================================' -ForegroundColor Green
 Write-Host "  Device slug : $DeviceSlug"
 Write-Host "  Server URL  : $Server"
+Write-Host "  Registered  : $(if ($registrationOk) { "YES$(if ($script:RegisteredDeviceId) { " ($script:RegisteredDeviceId)" })" } else { 'FAILED - add device in admin' })"
 Write-Host "  Service     : $($svc.Status)"
 Write-Host "  SSH         : $(if ($InstallSsh -and $sshReady) { 'READY' } elseif ($InstallSsh) { 'FAILED' } else { 'SKIPPED' })"
 Write-Host "  Auto-login  : $(if ($EnableAutoLoginFlag) { "ENABLED ($script:ConfiguredAutoLoginUser)" } else { 'SKIPPED' })"
@@ -1178,13 +1314,15 @@ Write-Host "  - Enabled Windows auto-login$(if ($EnableAutoLoginFlag -and $scrip
 Write-Host "  - Disabled sleep/hibernate timeouts$(if ($DisableSleepFlag) { '' } else { ' (skipped)' })" -ForegroundColor DarkGray
 Write-Host '  - Installed a separate Museum OS power agent service' -ForegroundColor DarkGray
 Write-Host '  - Enabled OpenSSH for normal remote access' -ForegroundColor DarkGray
+Write-Host "  - Registered this device in Museum OS$(if ($registrationOk) { ' (visible in admin)' } else { ' (FAILED - add it manually)' })" -ForegroundColor DarkGray
 Write-Host '  - Enabled provisioning/connection for power commands' -ForegroundColor DarkGray
 Write-Host '  - Did NOT enable kiosk shell replacement or full hardening' -ForegroundColor DarkGray
 Write-Host '  - Did NOT remove passwords or lock down the desktop' -ForegroundColor DarkGray
 Write-Host ''
 Write-Host 'Next:' -ForegroundColor DarkGray
 Write-Host '  1) In Museum OS admin, confirm device appears as connected.' -ForegroundColor DarkGray
-Write-Host '  2) Use Power On / Power Off / Restart from Device Detail.' -ForegroundColor DarkGray
-Write-Host '  3) Connect over SSH with an existing Windows admin account or installed admin key.' -ForegroundColor DarkGray
-Write-Host "  4) Reboot once to verify auto-login for $(if ($script:ConfiguredAutoLoginUser) { $script:ConfiguredAutoLoginUser } else { 'the selected account' })." -ForegroundColor DarkGray
+Write-Host '  2) (Slave) In Device Detail, set its master (parent) to wire up the power cascade.' -ForegroundColor DarkGray
+Write-Host '  3) Use Power On / Power Off / Restart from Device Detail.' -ForegroundColor DarkGray
+Write-Host '  4) Connect over SSH with an existing Windows admin account or installed admin key.' -ForegroundColor DarkGray
+Write-Host "  5) Reboot once to verify auto-login for $(if ($script:ConfiguredAutoLoginUser) { $script:ConfiguredAutoLoginUser } else { 'the selected account' })." -ForegroundColor DarkGray
 Write-Host ''

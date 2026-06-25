@@ -15,9 +15,7 @@
     "migrate:make": "knex migrate:make --knexfile src/lib/knexfile.ts",
     "seed": "knex seed:run --knexfile src/lib/knexfile.ts",
     "lint": "eslint src/",
-    "typecheck": "tsc --noEmit",
-    "test": "vitest run",
-    "test:watch": "vitest"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.990.0",
@@ -51,12 +49,9 @@
     "@types/node-cron": "^3.0.11",
     "@types/pg": "^8.11.10",
     "@types/semver": "^7.7.1",
-    "@types/supertest": "^6.0.3",
     "@types/ws": "^8.5.13",
-    "supertest": "^7.2.2",
     "tsx": "^4.19.2",
-    "typescript": "^5.7.2",
-    "vitest": "^4.0.18"
+    "typescript": "^5.7.2"
   },
   "engines": {
     "node": ">=20.0.0"
