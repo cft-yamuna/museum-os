@@ -10,18 +10,18 @@
 #   ./scripts/auto-deploy-all.sh
 #
 # Cron example (every 5 minutes):
-#   */5 * * * * /opt/museumos/App01/scripts/auto-deploy-all.sh >> /var/log/museumos-deploy.log 2>&1
+#   */5 * * * * /opt/curato/App01/scripts/auto-deploy-all.sh >> /var/log/curato-deploy.log 2>&1
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-MUSEUMOS_DIR="${MUSEUMOS_DIR:-$(dirname "$SCRIPT_DIR")}"
-MUSEUMOS_URL="${MUSEUMOS_URL:-http://localhost:3401}"
-ADMIN_EMAIL="${ADMIN_EMAIL:-admin@museumos.local}"
+CURATO_DIR="${CURATO_DIR:-$(dirname "$SCRIPT_DIR")}"
+CURATO_URL="${CURATO_URL:-http://localhost:3401}"
+ADMIN_EMAIL="${ADMIN_EMAIL:-admin@curato.local}"
 ADMIN_PASSWORD="${ADMIN_PASSWORD:-admin123}"
 PLATFORM="${PLATFORM:-linux}"
 
-STATE_DIR="$MUSEUMOS_DIR/.deploy-state"
+STATE_DIR="$CURATO_DIR/.deploy-state"
 mkdir -p "$STATE_DIR"
 
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*"; }
@@ -30,7 +30,7 @@ get_hash() { git log -1 --format=%H -- "$1" 2>/dev/null || echo ""; }
 get_last() { cat "$STATE_DIR/$1" 2>/dev/null || echo ""; }
 save_hash() { echo "$2" > "$STATE_DIR/$1"; }
 
-cd "$MUSEUMOS_DIR"
+cd "$CURATO_DIR"
 
 # ── Pull latest ──
 log "Pulling latest..."
@@ -63,16 +63,16 @@ fi
 
 if [ "$NEED_DOCKER_REBUILD" -eq 1 ]; then
   log "Rebuilding Docker image and restarting..."
-  cd "$MUSEUMOS_DIR"
+  cd "$CURATO_DIR"
 
   # Use docker compose if docker-compose.yml exists, else fall back to manual docker commands
   if [ -f docker-compose.yml ]; then
-    docker compose --env-file .env.production up -d --build museumos-app 2>&1 | tail -5
+    docker compose --env-file .env.production up -d --build curato-app 2>&1 | tail -5
     log "Docker container rebuilt and restarted via docker compose"
   else
-    docker build -t museumos-app . 2>&1 | tail -3
-    docker stop museumos-app 2>/dev/null || true
-    docker rm museumos-app 2>/dev/null || true
+    docker build -t curato-app . 2>&1 | tail -3
+    docker stop curato-app 2>/dev/null || true
+    docker rm curato-app 2>/dev/null || true
     log "WARNING: No docker-compose.yml — image rebuilt but container must be started manually"
   fi
 
@@ -88,30 +88,30 @@ AGENT_HASH=$(get_hash "agent/")
 if [ -n "$AGENT_HASH" ] && [ "$AGENT_HASH" != "$(get_last agent)" ]; then
   log "Agent changed - building tarball for OTA..."
   log "Building display bundle for agent package..."
-  cd "$MUSEUMOS_DIR/display"
+  cd "$CURATO_DIR/display"
   npm install --silent 2>/dev/null || npm install 2>/dev/null
   npm run build
 
-  cd "$MUSEUMOS_DIR/agent"
+  cd "$CURATO_DIR/agent"
   npm install --silent 2>/dev/null || npm install 2>/dev/null
   npm run build:package
   npm prune --omit=dev --silent 2>/dev/null || npm prune --production --silent 2>/dev/null
 
   AGENT_VERSION=$(node -e "console.log(require('./package.json').version)")
-  GIT_SHORT=$(cd "$MUSEUMOS_DIR" && git rev-parse --short HEAD)
+  GIT_SHORT=$(cd "$CURATO_DIR" && git rev-parse --short HEAD)
   DEPLOY_VERSION="${AGENT_VERSION}+${GIT_SHORT}"
 
-  TARBALL="/tmp/museumos-agent-${DEPLOY_VERSION}.tar.gz"
+  TARBALL="/tmp/curato-agent-${DEPLOY_VERSION}.tar.gz"
   tar -czf "$TARBALL" dist/ node_modules/ package.json agent.config.template.json scripts/ bin/ nssm/ public/
 
   # Get admin token
-  TOKEN=$(curl -sf "$MUSEUMOS_URL/api/auth/login" \
+  TOKEN=$(curl -sf "$CURATO_URL/api/auth/login" \
     -H 'Content-Type: application/json' \
     -d "{\"email\":\"${ADMIN_EMAIL}\",\"password\":\"${ADMIN_PASSWORD}\"}" \
     | node -e "process.stdin.on('data',d=>{const j=JSON.parse(d);console.log(j.data.token)})" 2>/dev/null || echo "")
 
   if [ -n "$TOKEN" ]; then
-    RESULT=$(curl -sf "$MUSEUMOS_URL/api/agent/upload" \
+    RESULT=$(curl -sf "$CURATO_URL/api/agent/upload" \
       -H "Authorization: Bearer $TOKEN" \
       -F "file=@${TARBALL}" \
       -F "version=${DEPLOY_VERSION}" \

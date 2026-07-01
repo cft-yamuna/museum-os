@@ -1,12 +1,12 @@
-# Museum OS - self-update host relay (Windows)
+# Curato - self-update host relay (Windows)
 # ============================================================================
-# WHY: The server runs inside the museumos-app Docker container, which has no
+# WHY: The server runs inside the curato-app Docker container, which has no
 # access to the host git repo or to Docker, so it can't update or rebuild
 # itself. When an admin clicks "Update" in Settings, the server logs the marker
 #   [SELFUPDATE] requested id=<uuid>
 # This relay runs ON the host (where the repo and Docker live), tails the
 # container logs, and on that marker runs:
-#   git fetch  ->  git pull --ff-only  ->  docker compose up -d --build museumos-app
+#   git fetch  ->  git pull --ff-only  ->  docker compose up -d --build curato-app
 # i.e. exactly what scripts/deploy-local.ps1 does, plus a git pull first.
 #
 # It figures out the repo location from its OWN path (this file lives in the
@@ -20,8 +20,8 @@
 # ============================================================================
 
 param(
-    [string]$Container = 'museumos-app',
-    [string]$LogFile   = 'C:\ProgramData\MuseumOS-UpdateRelay\relay.log'
+    [string]$Container = 'curato-app',
+    [string]$LogFile   = 'C:\ProgramData\Curato-UpdateRelay\relay.log'
 )
 
 $ErrorActionPreference = 'Continue'
@@ -78,7 +78,7 @@ function Invoke-Update([string]$requestId) {
     Set-Status @{ stage = 'building'; requestId = $requestId; message = 'Rebuilding and restarting the server (this takes a few minutes)...'; startedAt = $startedAt; gitBefore = $before }
     Push-Location $RepoRoot
     try {
-        docker compose --env-file .env.production up -d --build museumos-app 2>&1 | ForEach-Object { Write-Log "  docker: $_" }
+        docker compose --env-file .env.production up -d --build curato-app 2>&1 | ForEach-Object { Write-Log "  docker: $_" }
         $buildExit = $LASTEXITCODE
     } finally {
         Pop-Location

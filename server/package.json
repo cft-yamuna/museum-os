@@ -1,7 +1,7 @@
 {
-  "name": "museumos-server",
+  "name": "curato-server",
   "version": "1.0.0",
-  "description": "Museum OS server - museum and experience center management",
+  "description": "Curato server - museum and experience center management",
   "private": true,
   "type": "module",
   "scripts": {

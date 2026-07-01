@@ -25,7 +25,7 @@ export const INSTALLATIONS: InstallationDef[] = [
   { avCode: 'G-AV12b', name: 'Infrastructure/Mfg Videos', zone: 'WIN', screen: '32"', mode: 'video-loop', notes: 'No audio. Fade to black, 5s pause, repeat.' },
   { avCode: 'G-AV12c', name: 'Infrastructure/Mfg Videos', zone: 'WIN', screen: '32"', mode: 'video-loop' },
   { avCode: 'H-AV15', name: 'NYSE', zone: 'IT Post 2000', screen: '32"', mode: 'video-loop', notes: 'Fade to black, 5s pause, repeat.' },
-  { avCode: 'H-AV22c', name: 'Museum OS Innovation Network', zone: 'IT Post 2000', screen: '55" x 6 wall', mode: 'video-loop', notes: 'Perpetual animation. Seamless loop, first/last frame match. No audio.' },
-  { avCode: 'J-AV03', name: 'Museum OS-Nat Geo Butterfly Effect Film', zone: 'Azim Premji Foundation', screen: '24"', mode: 'video-loop', notes: 'Audio on shower speakers. Fade to black, 5s pause, repeat.' },
+  { avCode: 'H-AV22c', name: 'Curato Innovation Network', zone: 'IT Post 2000', screen: '55" x 6 wall', mode: 'video-loop', notes: 'Perpetual animation. Seamless loop, first/last frame match. No audio.' },
+  { avCode: 'J-AV03', name: 'Curato-Nat Geo Butterfly Effect Film', zone: 'Azim Premji Foundation', screen: '24"', mode: 'video-loop', notes: 'Audio on shower speakers. Fade to black, 5s pause, repeat.' },
   { avCode: 'D-AV01', name: 'Amalner Video x 3', zone: 'Ambition', screen: '24" x 3', mode: 'video-loop', notes: 'Three videos of different durations playing off-sync. Three independent loops.' },
 ];

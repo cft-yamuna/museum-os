@@ -26,7 +26,7 @@ export function Screensaver({ visible, onTap }: ScreensaverProps) {
         <h1 className="screensaver__heading">Welcome</h1>
         <p className="screensaver__body">
           Explore the galleries to discover chapters from
-          Museum OS's journey: from its origins and values to
+          Curato's journey: from its origins and values to
           its businesses and growth over time.
         </p>
         <p className="screensaver__cta">Tap to Begin</p>

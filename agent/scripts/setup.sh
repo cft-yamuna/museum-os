@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Museum OS Agent - Device Setup Script (Linux / Raspberry Pi)
+# Curato Agent - Device Setup Script (Linux / Raspberry Pi)
 # Generates agent.config.json for this specific device.
 #
 # Usage:
 #   sudo bash setup.sh --slug f-av01 --server http://192.168.10.100:3401
-#   sudo bash setup.sh --slug f-av01 --server http://192.168.10.100:3401 --timezone Asia/Kolkata --dir /opt/museumos/agent
+#   sudo bash setup.sh --slug f-av01 --server http://192.168.10.100:3401 --timezone Asia/Kolkata --dir /opt/curato/agent
 #
 # This script MUST be run once on every new device installation.
 # It clears any cached identity so the device provisions fresh.
@@ -18,7 +18,7 @@ AGENT_DIR="$(dirname "$SCRIPT_DIR")"
 SLUG=""
 SERVER=""
 TIMEZONE="Asia/Kolkata"
-INSTALL_DIR="/opt/museumos/agent"
+INSTALL_DIR="/opt/curato/agent"
 
 # ── Parse arguments ──
 while [[ $# -gt 0 ]]; do
@@ -48,7 +48,7 @@ if [[ -z "$SERVER" ]]; then
 fi
 
 echo ""
-echo "=== Museum OS Agent - Device Setup ==="
+echo "=== Curato Agent - Device Setup ==="
 echo "  Slug:        $SLUG"
 echo "  Server:      $SERVER"
 echo "  Install dir: $INSTALL_DIR"
@@ -56,10 +56,10 @@ echo "  Timezone:    $TIMEZONE"
 echo ""
 
 # ── 1. Clear cached identity (CRITICAL — prevents old device credentials leaking) ──
-IDENTITY_FILE="$INSTALL_DIR/.museumos-identity.json"
+IDENTITY_FILE="$INSTALL_DIR/.curato-identity.json"
 if [[ -f "$IDENTITY_FILE" ]]; then
     rm -f "$IDENTITY_FILE"
-    echo "[OK] Cleared old identity cache (.museumos-identity.json)"
+    echo "[OK] Cleared old identity cache (.curato-identity.json)"
 else
     echo "[OK] No existing identity cache found (clean install)"
 fi
@@ -78,7 +78,7 @@ elif command -v chromium-browser &>/dev/null; then
 elif command -v google-chrome &>/dev/null; then
     BROWSER_PATH="google-chrome"
 fi
-CHROME_DATA_DIR="/opt/museumos/chrome-kiosk"
+CHROME_DATA_DIR="/opt/curato/chrome-kiosk"
 
 # ── 4. Find template ──
 TEMPLATE="$AGENT_DIR/agent.config.template.json"

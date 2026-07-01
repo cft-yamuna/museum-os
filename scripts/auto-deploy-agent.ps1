@@ -1,14 +1,14 @@
-# Museum OS Agent package uploader for Windows/PowerShell.
+# Curato Agent package uploader for Windows/PowerShell.
 #
 # Run from repo root:
-#   powershell -ExecutionPolicy Bypass -File .\scripts\auto-deploy-agent.ps1 -Force -Platforms windows -MuseumosUrl http://localhost:3401
+#   powershell -ExecutionPolicy Bypass -File .\scripts\auto-deploy-agent.ps1 -Force -Platforms windows -CuratoUrl http://localhost:3401
 #
 # Run from admin/:
-#   powershell -ExecutionPolicy Bypass -File ..\scripts\auto-deploy-agent.ps1 -Force -Platforms windows -MuseumosUrl http://localhost:3401
+#   powershell -ExecutionPolicy Bypass -File ..\scripts\auto-deploy-agent.ps1 -Force -Platforms windows -CuratoUrl http://localhost:3401
 
 param(
-    [string]$MuseumosDir = "",
-    [string]$MuseumosUrl = "",
+    [string]$CuratoDir = "",
+    [string]$CuratoUrl = "",
     [string]$AdminEmail = "",
     [string]$AdminPassword = "",
     [string]$Platforms = "",
@@ -83,19 +83,19 @@ function Invoke-Tool {
     }
 }
 
-if (-not $MuseumosDir) {
-    $MuseumosDir = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
+if (-not $CuratoDir) {
+    $CuratoDir = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 }
 
-$MuseumosUrl = Resolve-Default $MuseumosUrl "MUSEUMOS_URL" "http://localhost:3401"
-$AdminEmail = Resolve-Default $AdminEmail "ADMIN_EMAIL" "admin@museumos.local"
+$CuratoUrl = Resolve-Default $CuratoUrl "CURATO_URL" "http://localhost:3401"
+$AdminEmail = Resolve-Default $AdminEmail "ADMIN_EMAIL" "admin@curato.local"
 $AdminPassword = Resolve-Default $AdminPassword "ADMIN_PASSWORD" "admin123"
 $Platforms = Resolve-Default $Platforms "PLATFORMS" "windows"
 $forceDeploy = $Force.IsPresent -or ([Environment]::GetEnvironmentVariable("FORCE_DEPLOY") -eq "1")
 
-$AgentDir = Join-Path $MuseumosDir "agent"
-$DisplayDir = Join-Path $MuseumosDir "display"
-$DeployStateFile = Join-Path $MuseumosDir ".agent-deploy-hash"
+$AgentDir = Join-Path $CuratoDir "agent"
+$DisplayDir = Join-Path $CuratoDir "display"
+$DeployStateFile = Join-Path $CuratoDir ".agent-deploy-hash"
 
 $git = Resolve-OptionalTool @("git.exe", "git")
 $node = Resolve-Tool @("node.exe", "node")
@@ -103,7 +103,7 @@ $npm = Resolve-Tool @("npm.cmd", "npm")
 $tar = Resolve-Tool @("tar.exe", "tar")
 $curl = Resolve-Tool @("curl.exe")
 
-Set-Location $MuseumosDir
+Set-Location $CuratoDir
 
 if ($Pull -and $git -and -not $PullBranch) {
     try {
@@ -119,7 +119,7 @@ if ($Pull -and -not $SkipPull -and $git) {
     $pull = Start-Process `
         -FilePath $git `
         -ArgumentList @("pull", "--ff-only", "origin", $PullBranch) `
-        -WorkingDirectory $MuseumosDir `
+        -WorkingDirectory $CuratoDir `
         -NoNewWindow `
         -Wait `
         -PassThru
@@ -195,7 +195,7 @@ try {
     }
 
     $safeVersion = $deployVersion -replace '[^a-zA-Z0-9._+-]', '_'
-    $tarball = Join-Path $env:TEMP "museumos-agent-$safeVersion.tar.gz"
+    $tarball = Join-Path $env:TEMP "curato-agent-$safeVersion.tar.gz"
     Remove-Item -LiteralPath $tarball -Force -ErrorAction SilentlyContinue
 
     Write-Log "Creating tarball..."
@@ -218,15 +218,15 @@ try {
 $tarballSizeKb = [Math]::Round((Get-Item $tarball).Length / 1KB)
 Write-Log "Tarball created: $tarball (${tarballSizeKb}KB)"
 
-Write-Log "Logging in to $MuseumosUrl..."
+Write-Log "Logging in to $CuratoUrl..."
 $loginBody = @{
     email = $AdminEmail
     password = $AdminPassword
 } | ConvertTo-Json -Compress
-$login = Invoke-RestMethod "$MuseumosUrl/api/auth/login" -Method Post -ContentType "application/json" -Body $loginBody -TimeoutSec 30
+$login = Invoke-RestMethod "$CuratoUrl/api/auth/login" -Method Post -ContentType "application/json" -Body $loginBody -TimeoutSec 30
 $token = $login.data.token
 if (-not $token) {
-    throw "Could not get admin token from $MuseumosUrl"
+    throw "Could not get admin token from $CuratoUrl"
 }
 
 $uploadOk = $true
@@ -234,7 +234,7 @@ $platformList = $Platforms.Split(",") | ForEach-Object { $_.Trim() } | Where-Obj
 
 foreach ($platform in $platformList) {
     Write-Log "Uploading for platform: $platform..."
-    $resultText = & $curl -sf "$MuseumosUrl/api/agent/upload" `
+    $resultText = & $curl -sf "$CuratoUrl/api/agent/upload" `
         -H "Authorization: Bearer $token" `
         -F "file=@$tarball" `
         -F "version=$deployVersion" `

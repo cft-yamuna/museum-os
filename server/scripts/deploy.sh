@@ -1,11 +1,11 @@
 #!/bin/bash
-# Museum OS - Deploy Script
+# Curato - Deploy Script
 # Usage: ./scripts/deploy.sh
 
 set -euo pipefail
 
 echo ""
-echo "  Museum OS - Deploy"
+echo "  Curato - Deploy"
 echo "  =================="
 echo ""
 
@@ -46,5 +46,5 @@ cd ../server
 
 echo ""
 echo "  Deploy complete!"
-echo "  Restart the server: sudo systemctl restart museumos"
+echo "  Restart the server: sudo systemctl restart curato"
 echo ""

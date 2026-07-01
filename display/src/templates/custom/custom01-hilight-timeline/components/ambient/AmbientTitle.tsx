@@ -28,7 +28,7 @@ export default function AmbientTitle({ visible }: AmbientTitleProps) {
           lineHeight: 1.2,
         }}
       >
-        Museum OS's
+        Curato's
         <br />
         Key Milestones
       </h1>

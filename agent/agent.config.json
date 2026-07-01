@@ -4,11 +4,11 @@
   "healthIntervalMs": 60000,
   "logLevel": "debug",
   "logFile": "agent.log",
-  "identityFile": ".museumos-identity.json",
+  "identityFile": ".curato-identity.json",
   "kiosk": {
     "browserPath": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
     "defaultUrl": "http://localhost:3403/display/a-av03",
-    "extraArgs": ["--start-fullscreen", "--disable-translate", "--disable-extensions", "--remote-debugging-address=127.0.0.1", "--remote-debugging-port=9222", "--user-data-dir=C:\\ProgramData\\Museumos\\chrome-kiosk"],
+    "extraArgs": ["--start-fullscreen", "--disable-translate", "--disable-extensions", "--remote-debugging-address=127.0.0.1", "--remote-debugging-port=9222", "--user-data-dir=C:\\ProgramData\\Curato\\chrome-kiosk"],
     "pollIntervalMs": 10000,
     "maxCrashesInWindow": 10,
     "crashWindowMs": 300000

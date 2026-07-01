@@ -32,8 +32,8 @@ const TPL: Record<string, { name: string; icon: typeof AppWindow; color: string 
   'multi-screen':                { name: 'Multi-Screen',       icon: LayoutGrid, color: '#334155' },
   diagnostics:                   { name: 'Diagnostics',        icon: Wrench,     color: '#64748b' },
   'custom07-osc':                { name: 'OSC Trigger',         icon: Radio,      color: '#d97706' },
-  'custom01-hilight-timeline':   { name: 'Museum OS Timeline',  icon: Clock,      color: '#2563eb' },
-  'custom01-wipro-timeline':     { name: 'Museum OS Timeline',  icon: Clock,      color: '#2563eb' },
+  'custom01-hilight-timeline':   { name: 'Curato Timeline',  icon: Clock,      color: '#2563eb' },
+  'custom01-wipro-timeline':     { name: 'Curato Timeline',  icon: Clock,      color: '#2563eb' },
   'custom08-museum-kiosk':       { name: 'Museum Kiosk',        icon: Navigation, color: '#059669' },
 };
 

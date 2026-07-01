@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# Museum OS Agent - Raspberry Pi Installer
+# Curato Agent - Raspberry Pi Installer
 # Extends the standard Linux install with RPi-specific optimizations.
 # Run as root: sudo bash install-rpi.sh
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-INSTALL_DIR="/opt/museumos/agent"
+INSTALL_DIR="/opt/curato/agent"
 
 # --- Pre-checks ---
 if [[ $EUID -ne 0 ]]; then
@@ -19,7 +19,7 @@ if [[ ! -f /proc/device-tree/model ]]; then
 fi
 
 MODEL=$(tr -d '\0' < /proc/device-tree/model)
-echo "=== Museum OS Agent - Raspberry Pi Installer ==="
+echo "=== Curato Agent - Raspberry Pi Installer ==="
 echo "  Detected: ${MODEL}"
 echo ""
 
@@ -77,33 +77,33 @@ if ! grep -q "bcm2835_wdt" /etc/modules 2>/dev/null; then
   echo "bcm2835_wdt" >> /etc/modules
 fi
 
-# Set watchdog device permissions for museumos user
+# Set watchdog device permissions for curato user
 if [[ -e /dev/watchdog ]]; then
-  chown root:museumos /dev/watchdog
+  chown root:curato /dev/watchdog
   chmod 660 /dev/watchdog
-  echo "  Set /dev/watchdog permissions for museumos group"
+  echo "  Set /dev/watchdog permissions for curato group"
 fi
 
 # --- tmpfs for logs (reduce SD card wear) ---
 echo "[RPi 5/6] Configuring tmpfs for logs..."
-FSTAB_ENTRY="tmpfs /var/log/museumos tmpfs defaults,noatime,nosuid,nodev,noexec,mode=0750,size=50M,uid=museumos,gid=museumos 0 0"
-if ! grep -q "/var/log/museumos" /etc/fstab 2>/dev/null; then
+FSTAB_ENTRY="tmpfs /var/log/curato tmpfs defaults,noatime,nosuid,nodev,noexec,mode=0750,size=50M,uid=curato,gid=curato 0 0"
+if ! grep -q "/var/log/curato" /etc/fstab 2>/dev/null; then
   echo "$FSTAB_ENTRY" >> /etc/fstab
   mount -a 2>/dev/null || true
-  echo "  Added tmpfs mount for /var/log/museumos"
+  echo "  Added tmpfs mount for /var/log/curato"
 fi
 
 # --- Sudoers for agent power commands ---
 echo "[RPi 6/6] Configuring sudoers..."
-SUDOERS_FILE="/etc/sudoers.d/museumos-agent"
+SUDOERS_FILE="/etc/sudoers.d/curato-agent"
 cat > "$SUDOERS_FILE" << 'SUDOERS'
-# Museum OS Agent - allow power commands without password
-museumos ALL=(ALL) NOPASSWD: /sbin/shutdown
-museumos ALL=(ALL) NOPASSWD: /sbin/reboot
-museumos ALL=(ALL) NOPASSWD: /usr/bin/vcgencmd
+# Curato Agent - allow power commands without password
+curato ALL=(ALL) NOPASSWD: /sbin/shutdown
+curato ALL=(ALL) NOPASSWD: /sbin/reboot
+curato ALL=(ALL) NOPASSWD: /usr/bin/vcgencmd
 SUDOERS
 chmod 440 "$SUDOERS_FILE"
-echo "  Installed sudoers for museumos agent"
+echo "  Installed sudoers for curato agent"
 
 echo ""
 echo "=== Raspberry Pi Setup Complete ==="

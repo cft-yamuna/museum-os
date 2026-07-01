@@ -31,7 +31,7 @@ export const galleryViewports: Record<GalleryId, MapViewport> = {
   },
   'hilight-experience': {
     transform: 'translate(21%, -6%) scale(2.4)',
-    label: 'Museum OS Experience gallery',
+    label: 'Curato Experience gallery',
   },
   'people-garden': {
     transform: 'translate(82%, -1%) scale(2.4)',
@@ -51,7 +51,7 @@ export const galleryViewports: Record<GalleryId, MapViewport> = {
   },
   'spirit-of-hilight': {
     transform: 'translate(37%, 35%) scale(2.4)',
-    label: 'Spirit of Museum OS gallery',
+    label: 'Spirit of Curato gallery',
   },
   wintrol: {
     transform: 'translate(75%, 29%) scale(2.4)',

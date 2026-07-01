@@ -504,7 +504,7 @@ function DataTransferSection() {
       const url = URL.createObjectURL(blob);
       const anchor = document.createElement('a');
       anchor.href = url;
-      anchor.download = `museum-os-db-${new Date().toISOString().replace(/[:.]/g, '-')}.json`;
+      anchor.download = `curato-db-${new Date().toISOString().replace(/[:.]/g, '-')}.json`;
       document.body.appendChild(anchor);
       anchor.click();
       anchor.remove();

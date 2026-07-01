@@ -1,6 +1,6 @@
-# Museum OS - Windows Uninstall / Reset
-# Removes Museum OS agent and power-only installs, reverts kiosk shell/login changes,
-# removes Museum OS firewall/tasks/files, and optionally removes SSH/kiosk user.
+# Curato - Windows Uninstall / Reset
+# Removes Curato agent and power-only installs, reverts kiosk shell/login changes,
+# removes Curato firewall/tasks/files, and optionally removes SSH/kiosk user.
 #
 # Usage:
 #   powershell -ExecutionPolicy Bypass -File .\uninstall.ps1
@@ -22,14 +22,14 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-$InstallRoot = 'C:\Program Files\Museumos'
+$InstallRoot = 'C:\Program Files\Curato'
 $AgentInstallDir = Join-Path $InstallRoot 'Agent'
 $PowerInstallDir = Join-Path $InstallRoot 'PowerAgent'
 $AgentBackupDir = "${AgentInstallDir}-backup"
-$DataDir = 'C:\ProgramData\Museumos'
+$DataDir = 'C:\ProgramData\Curato'
 $NssmExe = Join-Path $DataDir 'nssm\nssm.exe'
-$MuseumosServices = @('MuseumosAgent', 'MuseumosPowerAgent')
-$MuseumosTasks = @('MUSEUMOS Agent', 'MUSEUMOS Kiosk Browser', 'MUSEUMOS Guardian')
+$CuratoServices = @('CuratoAgent', 'CuratoPowerAgent')
+$CuratoTasks = @('CURATO Agent', 'CURATO Kiosk Browser', 'CURATO Guardian')
 
 function Write-Step([string]$Text) {
     Write-Host ''
@@ -184,7 +184,7 @@ function Reset-NetworkConfiguration {
 }
 
 Write-Host ''
-Write-Host '=== Museum OS - Windows Uninstall / Reset ===' -ForegroundColor Cyan
+Write-Host '=== Curato - Windows Uninstall / Reset ===' -ForegroundColor Cyan
 Write-Host "  Remove data       : $RemoveAllData"
 Write-Host "  Remove OpenSSH    : $RemoveOpenSsh"
 Write-Host "  Reset power plan  : $ResetPowerSettings"
@@ -195,20 +195,20 @@ if ($RestoreComputerName) {
     Write-Host "  Restore hostname  : $RestoreComputerName"
 }
 
-Write-Step '[1/9] Stopping and removing Museum OS services...'
-foreach ($serviceName in $MuseumosServices) {
+Write-Step '[1/9] Stopping and removing Curato services...'
+foreach ($serviceName in $CuratoServices) {
     Stop-And-Delete-Service -Name $serviceName
 }
 try {
-    $extraServices = Get-Service -DisplayName 'MUSEUMOS*', 'Museum OS*' -ErrorAction SilentlyContinue
+    $extraServices = Get-Service -DisplayName 'CURATO*', 'Curato*' -ErrorAction SilentlyContinue
     foreach ($svc in $extraServices) {
         Stop-And-Delete-Service -Name $svc.Name
     }
 } catch {
 }
 
-Write-Step '[2/9] Removing Museum OS scheduled tasks...'
-foreach ($taskName in $MuseumosTasks) {
+Write-Step '[2/9] Removing Curato scheduled tasks...'
+foreach ($taskName in $CuratoTasks) {
     try {
         $task = Get-ScheduledTask -TaskName $taskName -ErrorAction SilentlyContinue
         if ($task) {
@@ -219,7 +219,7 @@ foreach ($taskName in $MuseumosTasks) {
     }
 }
 
-Write-Step '[3/9] Stopping Museum OS-related processes...'
+Write-Step '[3/9] Stopping Curato-related processes...'
 foreach ($procName in @('chrome', 'node', 'wscript')) {
     try {
         Get-Process -Name $procName -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
@@ -233,7 +233,7 @@ $HKCUWinlogon = 'HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Winlogon'
 $currentShell = (Get-ItemProperty -Path $HKLMWinlogon -Name 'Shell' -ErrorAction SilentlyContinue).Shell
 $originalShell = (Get-ItemProperty -Path $HKLMWinlogon -Name 'Shell_Original' -ErrorAction SilentlyContinue).Shell_Original
 
-if ($currentShell -and $currentShell -like '*museumos*') {
+if ($currentShell -and $currentShell -like '*curato*') {
     Set-ItemProperty -Path $HKLMWinlogon -Name 'Shell' -Value $(if ($originalShell) { $originalShell } else { 'explorer.exe' })
 } elseif ($originalShell) {
     Set-ItemProperty -Path $HKLMWinlogon -Name 'Shell' -Value $originalShell
@@ -323,13 +323,13 @@ if ($ResetNetworkSettings) {
     try { Reset-NetworkConfiguration } catch {}
 }
 
-Write-Step '[6/9] Removing Museum OS firewall rules and SSH (optional)...'
-try { Remove-NetFirewallRule -DisplayName 'MUSEUMOS Agent WebSocket' -ErrorAction SilentlyContinue | Out-Null } catch {}
-try { Remove-NetFirewallRule -DisplayName 'Museum OS Agent WebSocket' -ErrorAction SilentlyContinue | Out-Null } catch {}
+Write-Step '[6/9] Removing Curato firewall rules and SSH (optional)...'
+try { Remove-NetFirewallRule -DisplayName 'CURATO Agent WebSocket' -ErrorAction SilentlyContinue | Out-Null } catch {}
+try { Remove-NetFirewallRule -DisplayName 'Curato Agent WebSocket' -ErrorAction SilentlyContinue | Out-Null } catch {}
 try {
-    # Match both spellings the installer has used: 'MUSEUMOS*' and 'Museum OS*'.
+    # Match both spellings the installer has used: 'CURATO*' and 'Curato*'.
     Get-NetFirewallRule -ErrorAction SilentlyContinue |
-        Where-Object { $_.DisplayName -like 'MUSEUMOS*' -or $_.DisplayName -like 'Museum OS*' } |
+        Where-Object { $_.DisplayName -like 'CURATO*' -or $_.DisplayName -like 'Curato*' } |
         Remove-NetFirewallRule -ErrorAction SilentlyContinue | Out-Null
 } catch {
 }
@@ -358,7 +358,7 @@ if ($RemoveOpenSsh) {
     try { Remove-Item 'C:\Program Files\OpenSSH-Win64' -Recurse -Force -ErrorAction SilentlyContinue } catch {}
 }
 
-Write-Step '[7/9] Removing Museum OS files and data...'
+Write-Step '[7/9] Removing Curato files and data...'
 foreach ($path in @($AgentInstallDir, $PowerInstallDir, $AgentBackupDir)) {
     try {
         if (Test-Path $path) {
@@ -422,8 +422,8 @@ if ($RestoreComputerName) {
 
 Write-Step '[9/9] Final cleanup summary...'
 Write-Host "  Current computer name : $env:COMPUTERNAME"
-Write-Host "  Museum OS install root : removed"
-Write-Host "  Museum OS data         : $(if($RemoveAllData){'removed'}else{'kept'})"
+Write-Host "  Curato install root : removed"
+Write-Host "  Curato data         : $(if($RemoveAllData){'removed'}else{'kept'})"
 Write-Host "  OpenSSH               : $(if($RemoveOpenSsh){'removed'}else{'kept'})"
 Write-Host "  Network config        : $(if($ResetNetworkSettings){'reset to DHCP defaults'}else{'kept'})"
 Write-Host "  Kiosk user            : $(if($RemoveKioskUser.IsPresent){'remove requested'}else{'kept'})"

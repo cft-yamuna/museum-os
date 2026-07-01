@@ -64,7 +64,7 @@ class Logger {
         : level === 'warn' ? console.warn
         : level === 'debug' ? console.debug
         : console.log;
-      consoleFn(`[Museum OS ${level.toUpperCase()}]`, message, context || '');
+      consoleFn(`[Curato ${level.toUpperCase()}]`, message, context || '');
     }
 
     this.buffer.push(entry);

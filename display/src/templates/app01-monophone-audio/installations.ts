@@ -3,7 +3,7 @@
 // ~26 installations across 7 zones
 //
 // Modes: single (one story per handset) or multi (button-selected stories)
-// Source: Museum-OS-App-Catalog.md + Google Sheet briefs
+// Source: Curato-App-Catalog.md + Google Sheet briefs
 // ==========================================
 
 export interface InstallationDef {
@@ -37,7 +37,7 @@ export const INSTALLATIONS: InstallationDef[] = [
   // --- IT Pre 2000 (H-pre zone) ---
   { avCode: 'H-AV01', name: 'Audio Stories — People\'s Voice', zone: 'IT Pre 2000', mode: 'single', status: 'query', notes: 'Could be single or multi-button.' },
   { avCode: 'H-AV03', name: 'People\'s Voices', zone: 'IT Pre 2000', mode: 'single', status: 'confirmed' },
-  { avCode: 'H-AV06', name: 'Ram Agrawal on Museum OS Peripherals', zone: 'IT Pre 2000', mode: 'single', status: 'confirmed' },
+  { avCode: 'H-AV06', name: 'Ram Agrawal on Curato Peripherals', zone: 'IT Pre 2000', mode: 'single', status: 'confirmed' },
   { avCode: 'H-AV07a', name: 'Girish Elchuri Story', zone: 'IT Pre 2000', mode: 'single', status: 'confirmed' },
   { avCode: 'H-AV07c', name: 'Victor Jayakar Story', zone: 'IT Pre 2000', mode: 'single', status: 'confirmed' },
   { avCode: 'H-AV08b', name: 'Prakash Mutalik Story', zone: 'IT Pre 2000', mode: 'single', status: 'confirmed' },
@@ -55,7 +55,7 @@ export const INSTALLATIONS: InstallationDef[] = [
   { avCode: 'H-AV13c', name: 'Audio Stories X 2', zone: 'IT Post 2000', mode: 'single', status: 'confirmed' },
 
   // --- Azim Premji Foundation (J zone) ---
-  { avCode: 'J-AV01', name: 'PSN on Museum OS Circles of Responsibility', zone: 'Azim Premji Foundation', mode: 'single', status: 'confirmed' },
+  { avCode: 'J-AV01', name: 'PSN on Curato Circles of Responsibility', zone: 'Azim Premji Foundation', mode: 'single', status: 'confirmed' },
 ];
 
 // --- Lookup helpers ---

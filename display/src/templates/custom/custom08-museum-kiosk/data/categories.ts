@@ -7,7 +7,7 @@ export const categories: readonly Category[] = [
     color: 'var(--color-origin)',
     colorDim: 'var(--color-origin-dim)',
     description:
-      'Discover the roots of Museum OS - from a small vegetable oil company in Amalner to a global technology leader. Explore the founding vision and early milestones.',
+      'Discover the roots of Curato - from a small vegetable oil company in Amalner to a global technology leader. Explore the founding vision and early milestones.',
     galleryIds: ['hilight-experience', 'prologue', 'people-garden'],
   },
   {
@@ -16,7 +16,7 @@ export const categories: readonly Category[] = [
     color: 'var(--color-businesses)',
     colorDim: 'var(--color-businesses-dim)',
     description:
-      'Explore Museum OS\'s diverse business verticals - from pioneering IT services to consumer care products and manufacturing excellence.',
+      'Explore Curato\'s diverse business verticals - from pioneering IT services to consumer care products and manufacturing excellence.',
     galleryIds: ['it-story', 'consumer-care', 'factory-experience', 'wintrol'],
   },
   {
@@ -25,7 +25,7 @@ export const categories: readonly Category[] = [
     color: 'var(--color-community)',
     colorDim: 'var(--color-community-dim)',
     description:
-      'Experience the values and spirit that drive Museum OS, and learn about its commitment to giving back - education, community development, and sustainability.',
+      'Experience the values and spirit that drive Curato, and learn about its commitment to giving back - education, community development, and sustainability.',
     galleryIds: ['spirit-of-hilight', 'foundation'],
   },
 ] as const;

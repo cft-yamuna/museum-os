@@ -1,7 +1,7 @@
-# Museum OS - Museum Display Management System
+# Curato - Museum Display Management System
 
 ## Project Overview
-Museum OS is a museum display management platform consisting of a server, admin UI, display frontend, and device agents. It manages kiosk displays across museum sites, handling content delivery, device monitoring, remote control, and automated updates.
+Curato is a museum display management platform consisting of a server, admin UI, display frontend, and device agents. It manages kiosk displays across museum sites, handling content delivery, device monitoring, remote control, and automated updates.
 
 ## Architecture
 
@@ -12,8 +12,8 @@ Museum OS is a museum display management platform consisting of a server, admin 
 - **Agent** (`agent/`) — Node.js daemon installed on Windows/Linux museum display machines
 
 ### Infrastructure
-- **Server**: Docker container `museumos-app`, built and run locally via `docker-compose.yml`
-- **Database**: PostgreSQL 16 in Docker container `museumos-db`
+- **Server**: Docker container `curato-app`, built and run locally via `docker-compose.yml`
+- **Database**: PostgreSQL 16 in Docker container `curato-db`
 - **Devices**: Windows 11 Pro kiosk machines on `192.168.10.10x` range
 - **Site ID**: `e74b5c5f-dd1c-4d0a-9520-9f4cac3881b2` (needed for API calls)
 
@@ -26,20 +26,20 @@ Museum OS is a museum display management platform consisting of a server, admin 
 | PostgreSQL | 5432 |
 
 ### Docker Build & Run (local)
-Multi-stage build: deps → builder (compiles server TS, builds admin + display Vite) → runner (Node 20 Alpine, non-root `museumos` user). Runs migrations and seeds on startup.
+Multi-stage build: deps → builder (compiles server TS, builds admin + display Vite) → runner (Node 20 Alpine, non-root `curato` user). Runs migrations and seeds on startup.
 
 Everything runs locally (app + Postgres). There are two compose files:
-- **`docker-compose.yml`** — Windows / Docker Desktop. Uses bridge networking with `ports:` mappings; app reaches Postgres via the `museumos-db` hostname.
+- **`docker-compose.yml`** — Windows / Docker Desktop. Uses bridge networking with `ports:` mappings; app reaches Postgres via the `curato-db` hostname.
 - **`docker-compose.linux.yml`** — Linux. Uses `network_mode: host`; app reaches Postgres at `127.0.0.1:5432`.
 
 After a code change, rebuild and restart the app container:
 
 ```bash
 # Windows (default file)
-docker compose --env-file .env.production up -d --build museumos-app
+docker compose --env-file .env.production up -d --build curato-app
 
 # Linux
-docker compose -f docker-compose.linux.yml --env-file .env.production up -d --build museumos-app
+docker compose -f docker-compose.linux.yml --env-file .env.production up -d --build curato-app
 ```
 
 On Windows you can just double-click `deploy-local.bat` (wraps `scripts/deploy-local.ps1`), which runs the Windows command above and tails the logs. App is served at `http://localhost:3401`.
@@ -140,9 +140,9 @@ tar -czf /tmp/agent.tar.gz dist/ node_modules/ package.json agent.config.json
 Rebuild and restart the local app container after a code change:
 ```bash
 # Windows
-docker compose --env-file .env.production up -d --build museumos-app
+docker compose --env-file .env.production up -d --build curato-app
 # Linux
-docker compose -f docker-compose.linux.yml --env-file .env.production up -d --build museumos-app
+docker compose -f docker-compose.linux.yml --env-file .env.production up -d --build curato-app
 ```
 On Windows, double-click `deploy-local.bat`.
 
@@ -175,7 +175,7 @@ On Windows, double-click `deploy-local.bat`.
 - Request timeout: 30s for API, 10min for uploads
 - Security: Helmet (CSP/HSTS disabled for flexibility)
 
-## Device Inventory (Museum OS Site)
+## Device Inventory (Curato Site)
 
 | Slug | IP | Type | Notes |
 |------|-----|------|-------|
@@ -200,7 +200,7 @@ On Windows, double-click `deploy-local.bat`.
 
 ### Server
 - **Admin UI**: `http://localhost:3401`
-- **Admin Login**: `admin@museumos.local` / `admin123`
+- **Admin Login**: `admin@curato.local` / `admin123`
 
 ### Kiosks
 - **User**: `kiosk` / **Password**: `Light123`

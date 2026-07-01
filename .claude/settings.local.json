@@ -6,7 +6,7 @@
       "Read(//c/Users/abrah/Downloads/curato-source-v1.0/**)",
       "Bash(ls -la \"C:\\\\Users\\\\abrah\\\\Downloads\\\\curato-source-v1.0\" | head -30)",
       "Bash(rm \"c:/Users/abrah/Downloads/lightman-app01-main/server/seeds/002_demo_apps.ts\" && echo \"deleted\")",
-      "Bash(tar -tzf server/storage/agent-updates/1782303451613-museumos-agent-1.0.65_20260624174550.tar.gz)"
+      "Bash(tar -tzf server/storage/agent-updates/1782303451613-curato-agent-1.0.65_20260624174550.tar.gz)"
     ],
     "additionalDirectories": [
       "c:\\Users\\abrah\\Downloads\\lightman-app01-main\\server\\seeds"

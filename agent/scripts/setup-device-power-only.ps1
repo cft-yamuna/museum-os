@@ -1,78 +1,78 @@
-# Museum OS Power-Only Setup (Windows)
-# Purpose: onboard a Windows machine to Museum OS for power controls only
+# Curato Power-Only Setup (Windows)
+# Purpose: onboard a Windows machine to Curato for power controls only
 # (power on via WOL, power off, restart) without kiosk/shell takeover.
 #
 # Local usage:
 #   powershell -ExecutionPolicy Bypass -File .\setup-device-power-only.ps1 -DeviceSlug "kiosk-01" -Server "http://192.168.10.100:3401"
 #
-# The device is auto-registered in Museum OS (so it appears in the admin panel
+# The device is auto-registered in Curato (so it appears in the admin panel
 # and the agent can provision). Registration uses the admin API and resolves the
 # site automatically when there is a single site; otherwise pass -SiteId.
 #
 # One-liner usage (when script is hosted):
-#   $env:MUSEUMOS_DEVICE_SLUG='kiosk-01'
+#   $env:CURATO_DEVICE_SLUG='kiosk-01'
 #   # Optional overrides (defaults: kiosk / Light123)
-#   $env:MUSEUMOS_AUTOLOGIN_USERNAME='kiosk'
-#   $env:MUSEUMOS_AUTOLOGIN_PASSWORD='Light123'
+#   $env:CURATO_AUTOLOGIN_USERNAME='kiosk'
+#   $env:CURATO_AUTOLOGIN_PASSWORD='Light123'
 #   # Optional when more than one site exists:
-#   $env:MUSEUMOS_SITE_ID='e74b5c5f-dd1c-4d0a-9520-9f4cac3881b2'
+#   $env:CURATO_SITE_ID='e74b5c5f-dd1c-4d0a-9520-9f4cac3881b2'
 #   irm 'http://192.168.10.100:3401/power.ps1' | iex
 
 param(
     [Parameter(Mandatory=$false)]
-    [string]$DeviceSlug = $env:MUSEUMOS_DEVICE_SLUG,
+    [string]$DeviceSlug = $env:CURATO_DEVICE_SLUG,
 
     [Parameter(Mandatory=$false)]
-    [string]$Server = $(if ($env:MUSEUMOS_SERVER_URL) { $env:MUSEUMOS_SERVER_URL } else { '__MUSEUMOS_SERVER_URL__' }),
+    [string]$Server = $(if ($env:CURATO_SERVER_URL) { $env:CURATO_SERVER_URL } else { '__CURATO_SERVER_URL__' }),
 
     [Parameter(Mandatory=$false)]
-    [string]$InstallDir = 'C:\Program Files\Museumos\PowerAgent',
+    [string]$InstallDir = 'C:\Program Files\Curato\PowerAgent',
 
     [Parameter(Mandatory=$false)]
-    [string]$ServiceName = 'MuseumosPowerAgent',
+    [string]$ServiceName = 'CuratoPowerAgent',
 
     [Parameter(Mandatory=$false)]
-    [string]$LogDir = 'C:\ProgramData\Museumos\logs',
+    [string]$LogDir = 'C:\ProgramData\Curato\logs',
 
     [Parameter(Mandatory=$false)]
-    [string]$NssmDir = 'C:\ProgramData\Museumos\nssm',
+    [string]$NssmDir = 'C:\ProgramData\Curato\nssm',
 
     [Parameter(Mandatory=$false)]
     [string]$Timezone = 'Asia/Kolkata',
 
     [Parameter(Mandatory=$false)]
-    [string]$SourceAgentDir = $env:MUSEUMOS_AGENT_DIR,
+    [string]$SourceAgentDir = $env:CURATO_AGENT_DIR,
 
     [Parameter(Mandatory=$false)]
-    [string]$AdminEmail = 'admin@museumos.local',
+    [string]$AdminEmail = 'admin@curato.local',
 
     [Parameter(Mandatory=$false)]
     [string]$AdminPassword = 'admin123',
 
     [Parameter(Mandatory=$false)]
-    [string]$SiteId = $env:MUSEUMOS_SITE_ID,
+    [string]$SiteId = $env:CURATO_SITE_ID,
 
     [Parameter(Mandatory=$false)]
     [bool]$InstallSsh = $true,
 
     [Parameter(Mandatory=$false)]
-    [string]$EnableAutoLogin = $(if ($env:MUSEUMOS_ENABLE_AUTOLOGIN) { $env:MUSEUMOS_ENABLE_AUTOLOGIN } else { 'true' }),
+    [string]$EnableAutoLogin = $(if ($env:CURATO_ENABLE_AUTOLOGIN) { $env:CURATO_ENABLE_AUTOLOGIN } else { 'true' }),
 
     [Parameter(Mandatory=$false)]
-    [string]$DisableSleep = $(if ($env:MUSEUMOS_DISABLE_SLEEP) { $env:MUSEUMOS_DISABLE_SLEEP } else { 'true' }),
+    [string]$DisableSleep = $(if ($env:CURATO_DISABLE_SLEEP) { $env:CURATO_DISABLE_SLEEP } else { 'true' }),
 
     [Parameter(Mandatory=$false)]
-    [string]$AutoLoginUsername = $(if ($env:MUSEUMOS_AUTOLOGIN_USERNAME) { $env:MUSEUMOS_AUTOLOGIN_USERNAME } else { 'kiosk' }),
+    [string]$AutoLoginUsername = $(if ($env:CURATO_AUTOLOGIN_USERNAME) { $env:CURATO_AUTOLOGIN_USERNAME } else { 'kiosk' }),
 
     [Parameter(Mandatory=$false)]
-    [string]$AutoLoginPassword = $(if ($env:MUSEUMOS_AUTOLOGIN_PASSWORD) { $env:MUSEUMOS_AUTOLOGIN_PASSWORD } else { 'Light123' })
+    [string]$AutoLoginPassword = $(if ($env:CURATO_AUTOLOGIN_PASSWORD) { $env:CURATO_AUTOLOGIN_PASSWORD } else { 'Light123' })
 )
 
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
 
-$DefaultServer = '__MUSEUMOS_SERVER_URL__'
-if (-not $Server -or $Server -eq '__MUSEUMOS_SERVER_URL__') {
+$DefaultServer = '__CURATO_SERVER_URL__'
+if (-not $Server -or $Server -eq '__CURATO_SERVER_URL__') {
     $Server = $DefaultServer
 }
 
@@ -445,7 +445,7 @@ function Resolve-SiteId {
         throw 'No sites found on the server. Create a site first, or pass -SiteId.'
     }
     if ($sites.Count -gt 1) {
-        throw "Multiple sites found ($($sites.Count)). Re-run with -SiteId <uuid> (or set MUSEUMOS_SITE_ID)."
+        throw "Multiple sites found ($($sites.Count)). Re-run with -SiteId <uuid> (or set CURATO_SITE_ID)."
     }
 
     return $sites[0].id
@@ -485,7 +485,7 @@ function Get-PrimaryNetworkInfo {
     return $info
 }
 
-# Create the device row in Museum OS so it appears in the admin panel and the
+# Create the device row in Curato so it appears in the admin panel and the
 # agent can provision. Idempotent: skips if a device with this slug exists.
 function Register-DeviceRecord {
     $token = Get-AdminToken
@@ -544,7 +544,7 @@ function Install-Agent-FromServer {
         throw 'Server did not return a downloadable agent package.'
     }
 
-    $tempTar = Join-Path $env:TEMP 'museumos-power-agent.tar.gz'
+    $tempTar = Join-Path $env:TEMP 'curato-power-agent.tar.gz'
     $downloadUrl = "$Server$($check.data.download_url)"
     Invoke-WebRequest -Uri $downloadUrl -OutFile $tempTar -Headers $headers -UseBasicParsing
 
@@ -608,7 +608,7 @@ function Ensure-Nssm {
     }
 
     if (-not $downloaded) {
-        throw 'Unable to download NSSM. Please place nssm.exe manually at C:\ProgramData\Museumos\nssm\nssm.exe'
+        throw 'Unable to download NSSM. Please place nssm.exe manually at C:\ProgramData\Curato\nssm\nssm.exe'
     }
 
     Expand-Archive -Path $zipPath -DestinationPath $extractPath -Force
@@ -636,7 +636,7 @@ function Write-PowerOnlyConfig {
         healthIntervalMs = 60000
         logLevel = 'info'
         logFile = 'agent.log'
-        identityFile = '.museumos-identity.json'
+        identityFile = '.curato-identity.json'
         localServices = $false
         powerSchedule = @{
             enableLocalCron = $false
@@ -648,7 +648,7 @@ function Write-PowerOnlyConfig {
     $json = $config | ConvertTo-Json -Depth 6
     [System.IO.File]::WriteAllText($configPath, $json, [System.Text.UTF8Encoding]::new($false))
 
-    $identityPath = Join-Path $InstallDir '.museumos-identity.json'
+    $identityPath = Join-Path $InstallDir '.curato-identity.json'
     if (Test-Path $identityPath) {
         Remove-Item $identityPath -Force
     }
@@ -659,8 +659,8 @@ function Install-PowerService([string]$NssmExePath) {
 
     & $NssmExePath install $ServiceName $nodePath 'dist\index.js' | Out-Null
     & $NssmExePath set $ServiceName AppDirectory $InstallDir | Out-Null
-    & $NssmExePath set $ServiceName DisplayName 'Museum OS Power Agent' | Out-Null
-    & $NssmExePath set $ServiceName Description 'Museum OS power-only agent (no kiosk takeover)' | Out-Null
+    & $NssmExePath set $ServiceName DisplayName 'Curato Power Agent' | Out-Null
+    & $NssmExePath set $ServiceName Description 'Curato power-only agent (no kiosk takeover)' | Out-Null
     & $NssmExePath set $ServiceName Start SERVICE_AUTO_START | Out-Null
     & $NssmExePath set $ServiceName AppStdout (Join-Path $LogDir 'power-agent-stdout.log') | Out-Null
     & $NssmExePath set $ServiceName AppStderr (Join-Path $LogDir 'power-agent-stderr.log') | Out-Null
@@ -994,7 +994,7 @@ function Ensure-SshdAdminKeyConfig {
 }
 
 function Install-ServerAuthorizedKeys {
-    $tmpKeys = Join-Path $env:TEMP 'museumos-authorized_keys'
+    $tmpKeys = Join-Path $env:TEMP 'curato-authorized_keys'
     $destDir = 'C:\ProgramData\ssh'
     $destKeys = Join-Path $destDir 'administrators_authorized_keys'
     Remove-Item $tmpKeys -Force -ErrorAction SilentlyContinue
@@ -1027,7 +1027,7 @@ function Install-OpenSshFromZip {
     $localZipCandidates = @(
         (Join-Path $InstallDir 'scripts\OpenSSH-Win64.zip'),
         $(if ($PSScriptRoot) { Join-Path $PSScriptRoot 'OpenSSH-Win64.zip' } else { $null }),
-        'C:\Program Files\Museumos\Agent\scripts\OpenSSH-Win64.zip'
+        'C:\Program Files\Curato\Agent\scripts\OpenSSH-Win64.zip'
     ) | Where-Object { $_ -and (Test-Path $_) }
     $localZip = $localZipCandidates | Select-Object -First 1
 
@@ -1212,7 +1212,7 @@ $autoLoginDisplay = if ($EnableAutoLoginFlag) {
 
 Write-Host ''
 Write-Host '============================================' -ForegroundColor Cyan
-Write-Host '  Museum OS Power-Only Device Setup' -ForegroundColor Cyan
+Write-Host '  Curato Power-Only Device Setup' -ForegroundColor Cyan
 Write-Host '============================================' -ForegroundColor Cyan
 Write-Host "  Device slug : $DeviceSlug"
 Write-Host "  Server URL  : $Server"
@@ -1269,7 +1269,7 @@ $nssmExe = Ensure-Nssm
 Write-Host '[9/12] Writing power-only agent config...' -ForegroundColor Yellow
 Write-PowerOnlyConfig
 
-Write-Host '[10/12] Registering device in Museum OS...' -ForegroundColor Yellow
+Write-Host '[10/12] Registering device in Curato...' -ForegroundColor Yellow
 $script:RegisteredDeviceId = $null
 $registrationOk = $false
 try {
@@ -1312,15 +1312,15 @@ Write-Host 'What this script changed:' -ForegroundColor DarkGray
 Write-Host '  - Applied WOL-ready network/power settings' -ForegroundColor DarkGray
 Write-Host "  - Enabled Windows auto-login$(if ($EnableAutoLoginFlag -and $script:ConfiguredAutoLoginUser) { " for $script:ConfiguredAutoLoginUser" } elseif ($EnableAutoLoginFlag) { '' } else { ' (skipped)' })" -ForegroundColor DarkGray
 Write-Host "  - Disabled sleep/hibernate timeouts$(if ($DisableSleepFlag) { '' } else { ' (skipped)' })" -ForegroundColor DarkGray
-Write-Host '  - Installed a separate Museum OS power agent service' -ForegroundColor DarkGray
+Write-Host '  - Installed a separate Curato power agent service' -ForegroundColor DarkGray
 Write-Host '  - Enabled OpenSSH for normal remote access' -ForegroundColor DarkGray
-Write-Host "  - Registered this device in Museum OS$(if ($registrationOk) { ' (visible in admin)' } else { ' (FAILED - add it manually)' })" -ForegroundColor DarkGray
+Write-Host "  - Registered this device in Curato$(if ($registrationOk) { ' (visible in admin)' } else { ' (FAILED - add it manually)' })" -ForegroundColor DarkGray
 Write-Host '  - Enabled provisioning/connection for power commands' -ForegroundColor DarkGray
 Write-Host '  - Did NOT enable kiosk shell replacement or full hardening' -ForegroundColor DarkGray
 Write-Host '  - Did NOT remove passwords or lock down the desktop' -ForegroundColor DarkGray
 Write-Host ''
 Write-Host 'Next:' -ForegroundColor DarkGray
-Write-Host '  1) In Museum OS admin, confirm device appears as connected.' -ForegroundColor DarkGray
+Write-Host '  1) In Curato admin, confirm device appears as connected.' -ForegroundColor DarkGray
 Write-Host '  2) (Slave) In Device Detail, set its master (parent) to wire up the power cascade.' -ForegroundColor DarkGray
 Write-Host '  3) Use Power On / Power Off / Restart from Device Detail.' -ForegroundColor DarkGray
 Write-Host '  4) Connect over SSH with an existing Windows admin account or installed admin key.' -ForegroundColor DarkGray

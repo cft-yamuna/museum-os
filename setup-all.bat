@@ -1,5 +1,5 @@
 @echo off
-REM First-run setup for a fresh clone of Museum OS (Windows, local-only).
+REM First-run setup for a fresh clone of Curato (Windows, local-only).
 REM Double-click this once after cloning (or right-click -> Run as administrator
 REM so it can also open the firewall automatically). It will:
 REM   1. check prerequisites (Docker, Node, etc.)

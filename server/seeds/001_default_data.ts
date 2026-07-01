@@ -12,7 +12,7 @@ export async function seed(knex: Knex): Promise<void> {
   // Create default site
   const [site] = await knex('sites')
     .insert({
-      name: 'Museum OS',
+      name: 'Curato',
       code: 'hilight-museum',
       timezone: 'Asia/Kolkata',
       address: '',
@@ -28,7 +28,7 @@ export async function seed(knex: Knex): Promise<void> {
 
   const [user] = await knex('users')
     .insert({
-      email: 'admin@museumos.local',
+      email: 'admin@curato.local',
       password_hash: passwordHash,
       name: 'Admin',
       role: 'super_admin',

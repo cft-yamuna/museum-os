@@ -9,10 +9,10 @@ import { platform } from 'os';
 import type { Logger } from '../lib/logger.js';
 
 interface UpdatePaths {
-  current: string;   // /opt/museumos/agent/
-  staging: string;   // /opt/museumos/agent-staging/
-  backup: string;    // /opt/museumos/agent-backup/
-  downloads: string; // /opt/museumos/agent-downloads/
+  current: string;   // /opt/curato/agent/
+  staging: string;   // /opt/curato/agent-staging/
+  backup: string;    // /opt/curato/agent-backup/
+  downloads: string; // /opt/curato/agent-downloads/
 }
 
 interface UpdateStatus {
@@ -45,7 +45,7 @@ export class Updater {
   constructor(logger: Logger, basePath?: string) {
     this.logger = logger;
     // Derive base from agent's actual location: process.cwd() is the agent dir,
-    // parent is the base (e.g. /opt/museumos or C:\Program Files\Museumos)
+    // parent is the base (e.g. /opt/curato or C:\Program Files\Curato)
     const base = basePath || dirname(process.cwd());
     this.paths = {
       current: resolve(base, 'agent'),
@@ -183,7 +183,7 @@ export class Updater {
     // Preserve device-specific config files: copy from current into staging
     // so they survive the swap. The tarball ships a template config that must
     // NOT overwrite the device's real identity and settings.
-    const preserveFiles = ['agent.config.json', '.museumos-identity.json'];
+    const preserveFiles = ['agent.config.json', '.curato-identity.json'];
     for (const file of preserveFiles) {
       const src = join(this.paths.current, file);
       const dst = join(this.paths.staging, file);
@@ -220,13 +220,13 @@ export class Updater {
         // Copy shell scripts to install root (parent of agent dir) so the
         // Windows shell replacement picks up updated bat files on next boot.
         const installRoot = dirname(this.paths.current);
-        const shellBat = join(this.paths.current, 'scripts', 'museumos-shell.bat');
+        const shellBat = join(this.paths.current, 'scripts', 'curato-shell.bat');
         if (existsSync(shellBat)) {
           try {
-            cpSync(shellBat, join(installRoot, 'museumos-shell.bat'), { force: true });
-            this.logger.info(`[Updater] Copied museumos-shell.bat to ${installRoot}`);
+            cpSync(shellBat, join(installRoot, 'curato-shell.bat'), { force: true });
+            this.logger.info(`[Updater] Copied curato-shell.bat to ${installRoot}`);
           } catch (copyErr) {
-            this.logger.warn(`[Updater] Could not copy museumos-shell.bat to install root: ${copyErr instanceof Error ? copyErr.message : String(copyErr)}`);
+            this.logger.warn(`[Updater] Could not copy curato-shell.bat to install root: ${copyErr instanceof Error ? copyErr.message : String(copyErr)}`);
           }
         }
 

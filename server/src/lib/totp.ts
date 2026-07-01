@@ -67,7 +67,7 @@ function timingSafeEqual(a: string, b: string): boolean {
 }
 
 /** otpauth:// URI for QR enrolment. */
-export function otpauthUrl(secret: string, account: string, issuer = 'Museum OS'): string {
+export function otpauthUrl(secret: string, account: string, issuer = 'Curato'): string {
   const label = encodeURIComponent(`${issuer}:${account}`);
   const params = new URLSearchParams({ secret, issuer, algorithm: 'SHA1', digits: '6', period: '30' });
   return `otpauth://totp/${label}?${params.toString()}`;

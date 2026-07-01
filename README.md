@@ -1,4 +1,4 @@
-# Museum OS — Museum AV Control System
+# Curato — Museum AV Control System
 
 108 AV installations across 12 museum zones, managed from one admin panel.
 
@@ -26,14 +26,14 @@ Each museum installation (a screen with audio, a video wall, a touchscreen kiosk
 | **APP 05** — Interactive Map | Touchscreen map with hotspots. Touch a zone → details popup. | 3 |
 | **APP 06** — Media Browser | Browsable gallery of PDFs, photos, videos. Category filter + search. | ~10 |
 
-Full details of every installation: see **Museum-OS-App-Catalog.md**
+Full details of every installation: see **Curato-App-Catalog.md**
 
 ---
 
 ## Project Structure
 
 ```
-museumos-app01/
+curato-app01/
 ├── server/          Express + PostgreSQL backend (port 3401)
 ├── admin/           React admin dashboard (port 3402)
 ├── display/         React display client — runs on museum devices (port 3403)
@@ -52,7 +52,7 @@ museumos-app01/
 
 ### 1. Database
 ```bash
-createdb museumos
+createdb curato
 cd server
 cp .env.example .env          # edit DATABASE_URL if needed
 npm install
@@ -74,7 +74,7 @@ cd display && npm run dev     # → http://localhost:3403
 
 ### 3. Login
 - URL: http://localhost:3402
-- Email: `admin@museumos.local`
+- Email: `admin@curato.local`
 - Password: `admin123`
 
 ---
@@ -208,9 +208,9 @@ Detailed docs are in the `docs/` folder:
 Every museum installation has an AV code (e.g., D-AV03, F-AV01, H-AV12a).
 
 Format: `{Zone Letter}-AV{Number}{Variant}`
-- **A** = Reception, **B** = Museum OS Experiences, **C** = Prologue
+- **A** = Reception, **B** = Curato Experiences, **C** = Prologue
 - **D** = Ambition, **E** = Factory, **F** = Consumer Care
-- **G** = WIN, **H** = IT (Pre/Post 2000), **I** = Spirit of Museum OS
+- **G** = WIN, **H** = IT (Pre/Post 2000), **I** = Spirit of Curato
 - **J** = Azim Premji Foundation, **K** = Community & Environment
 
-Full catalog: **Museum-OS-App-Catalog.md**
+Full catalog: **Curato-App-Catalog.md**

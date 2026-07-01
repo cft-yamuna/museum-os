@@ -1,4 +1,4 @@
-# Museum OS - Windows Uninstall wrapper
+# Curato - Windows Uninstall wrapper
 # Kept for backwards compatibility; delegates to uninstall.ps1.
 #Requires -RunAsAdministrator
 

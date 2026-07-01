@@ -65,7 +65,7 @@ export async function up(knex: Knex): Promise<void> {
       model: 'i5 kiosk PC',
       category: 'pc',
       platform: 'Windows 11 Pro',
-      protocol: 'Museum OS Agent + WoL',
+      protocol: 'Curato Agent + WoL',
       driver_family: 'agent',
       default_port: 9,
       capabilities: JSON.stringify(['power', 'restart', 'deploy', 'attest']),

@@ -168,7 +168,7 @@ const TEMPLATE_META: Record<string, {
   },
   'custom01-hilight-timeline': {
     label: 'A-AV03',
-    shortLabel: 'Museum OS Timeline',
+    shortLabel: 'Curato Timeline',
     icon: Clock,
     color: '#5072b6',
     gradientFrom: 'from-blue-500',
@@ -177,7 +177,7 @@ const TEMPLATE_META: Record<string, {
   },
   'custom01-wipro-timeline': {
     label: 'A-AV03',
-    shortLabel: 'Museum OS Timeline',
+    shortLabel: 'Curato Timeline',
     icon: Clock,
     color: '#5072b6',
     gradientFrom: 'from-blue-500',
@@ -259,7 +259,7 @@ const TEMPLATE_DEFAULTS: Record<string, Record<string, unknown>> = {
   'custom06-reception-program': {
     screenIndex: 0,
     screens: [
-      { screenIndex: 0, screenLabel: 'Left Screen', mode: 'slides', videoUrl: '', guestNames: [], guestNameFontSizeRem: 3.5, welcomeSlides: [{ id: 'w-default-0', greeting: 'Welcome to Museum OS', subtitle: 'We are glad to have you' }], infoSlides: [] },
+      { screenIndex: 0, screenLabel: 'Left Screen', mode: 'slides', videoUrl: '', guestNames: [], guestNameFontSizeRem: 3.5, welcomeSlides: [{ id: 'w-default-0', greeting: 'Welcome to Curato', subtitle: 'We are glad to have you' }], infoSlides: [] },
       { screenIndex: 1, screenLabel: 'Center Screen', mode: 'slides', videoUrl: '', guestNames: [], guestNameFontSizeRem: 3.5, welcomeSlides: [{ id: 'w-default-1', greeting: 'Welcome', subtitle: '' }], infoSlides: [] },
       { screenIndex: 2, screenLabel: 'Right Screen', mode: 'slides', videoUrl: '', guestNames: [], guestNameFontSizeRem: 3.5, welcomeSlides: [{ id: 'w-default-2', greeting: 'Welcome', subtitle: '' }], infoSlides: [] },
     ],
@@ -272,7 +272,7 @@ const TEMPLATE_DEFAULTS: Record<string, Record<string, unknown>> = {
     accentColor: '#3b82f6',
     textColor: '#ffffff',
     logoUrl: '',
-    footerText: 'Museum OS',
+    footerText: 'Curato',
     hideHeader: true,
     hideCenterLine: true,
     disableOpacity: true,

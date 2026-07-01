@@ -1,4 +1,4 @@
-# Museum OS Agent - One-Shot Windows Kiosk Setup
+# Curato Agent - One-Shot Windows Kiosk Setup
 # Usage: powershell -ep bypass -c "irm 'http://SERVER:3401/setup.ps1?slug=SLUG' | iex"
 #
 # The server injects $Server and $Slug automatically via query parameters.
@@ -7,7 +7,7 @@
 $ErrorActionPreference = 'Stop'
 $Server = 'http://192.168.10.100:3401'
 $Slug = ''
-$SetupDebugMarker = 'setup-windows.ps1 debug 2026-04-25b'
+$SetupDebugMarker = 'setup-windows.ps1 debug 2026-06-30 login-diagnostics'
 
 trap {
     $lineNumber = $_.InvocationInfo.ScriptLineNumber
@@ -24,17 +24,17 @@ trap {
     exit 1
 }
 
-Write-Host "Museum OS setup marker: $SetupDebugMarker" -ForegroundColor DarkCyan
+Write-Host "Curato setup marker: $SetupDebugMarker" -ForegroundColor DarkCyan
 
 # --- Constants ---
-$InstallDir   = 'C:\Program Files\Museumos\Agent'
-$DataDir      = 'C:\ProgramData\Museumos'
+$InstallDir   = 'C:\Program Files\Curato\Agent'
+$DataDir      = 'C:\ProgramData\Curato'
 $LogDir       = "$DataDir\logs"
 $NssmDir      = "$DataDir\nssm"
 $NssmExe      = "$NssmDir\nssm.exe"
-$ServiceName  = 'MuseumosAgent'
-$GuardianTask = 'MUSEUMOS Guardian'
-$TempFile     = "$env:TEMP\museumos-update.tar.gz"
+$ServiceName  = 'CuratoAgent'
+$GuardianTask = 'CURATO Guardian'
+$TempFile     = "$env:TEMP\curato-update.tar.gz"
 $KioskUsername = 'kiosk'
 $KioskPassword = 'Light123'
 $AutoLoginPassword = $KioskPassword
@@ -435,7 +435,7 @@ function Wait-ForServerProvisioning {
     $attempt = 0
 
     Write-Host "  Pairing code: $code" -ForegroundColor Magenta
-    Write-Host "  Waiting for admin approval in Museum OS (timeout ${TimeoutSeconds}s)..." -ForegroundColor Yellow
+    Write-Host "  Waiting for admin approval in Curato (timeout ${TimeoutSeconds}s)..." -ForegroundColor Yellow
 
     while ((Get-Date) -lt $deadline) {
         Start-Sleep -Seconds $PollSeconds
@@ -823,7 +823,7 @@ function Ensure-SshdAdminKeyConfig {
 function Install-ServerAuthorizedKeys {
     param([Parameter(Mandatory = $true)][string]$ServerUrl)
 
-    $tmpKeys = Join-Path $env:TEMP 'museumos-authorized_keys'
+    $tmpKeys = Join-Path $env:TEMP 'curato-authorized_keys'
     $destDir = 'C:\ProgramData\ssh'
     $destKeys = Join-Path $destDir 'administrators_authorized_keys'
 
@@ -943,7 +943,7 @@ function Install-OpenSshFromZip {
 # ================================================================
 Write-Host ''
 Write-Host '================================================================' -ForegroundColor Cyan
-Write-Host '  Museum OS One-Shot Kiosk Setup' -ForegroundColor Cyan
+Write-Host '  Curato One-Shot Kiosk Setup' -ForegroundColor Cyan
 Write-Host '================================================================' -ForegroundColor Cyan
 Write-Host ''
 
@@ -956,9 +956,9 @@ if (-not $isAdmin) {
 }
 
 # 0b. Detect fresh install vs update. A partial install must run fresh setup again.
-$idFile = Join-Path $InstallDir '.museumos-identity.json'
+$idFile = Join-Path $InstallDir '.curato-identity.json'
 $configFile = Join-Path $InstallDir 'agent.config.json'
-$setupCompleteFile = Join-Path $InstallDir '.museumos-setup-complete'
+$setupCompleteFile = Join-Path $InstallDir '.curato-setup-complete'
 $agentFilesPresent = (Test-Path "$InstallDir\dist\index.js") -and (Test-Path $configFile) -and (Test-Path $idFile)
 $isUpdate = $agentFilesPresent
 $needsFullSetup = -not (Test-Path $setupCompleteFile)
@@ -1055,16 +1055,82 @@ try {
     exit 1
 }
 
-# 0f. Admin login
+# 0f. Admin login (retries with back-off; surfaces the real HTTP status/body)
 Write-Host '  Logging in...' -NoNewline
-try {
-    $login = Invoke-RestMethod "$Server/api/auth/login" -Method Post -ContentType 'application/json' -Body '{"email":"admin@museumos.local","password":"admin123"}' -TimeoutSec 10
-    $jwt = $login.data.token
-    $authHeaders = @{ 'Authorization' = "Bearer $jwt" }
-    Write-Host ' OK' -ForegroundColor Green
-} catch {
+$jwt = $null
+$loginUrl = "$Server/api/auth/login"
+$loginBody = '{"email":"admin@curato.local","password":"admin123"}'
+$maxAttempts = 5
+$lastStatus = $null
+$lastBody = $null
+$lastErr = $null
+for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
+    try {
+        $login = Invoke-RestMethod $loginUrl -Method Post -ContentType 'application/json' -Body $loginBody -TimeoutSec 15
+        $jwt = $login.data.token
+        if ($jwt) {
+            $authHeaders = @{ 'Authorization' = "Bearer $jwt" }
+            Write-Host ' OK' -ForegroundColor Green
+            break
+        }
+        # 200 but no token — most likely 2FA is enabled on this admin account.
+        $lastStatus = 200
+        $lastBody = ($login | ConvertTo-Json -Compress -Depth 5)
+        $lastErr = 'Login returned no token (is two-factor enabled on admin@curato.local?)'
+    } catch {
+        $lastErr = $_.Exception.Message
+        $lastStatus = $null
+        $lastBody = $null
+        if ($_.Exception.Response) {
+            try { $lastStatus = [int]$_.Exception.Response.StatusCode } catch {}
+        }
+        if ($_.ErrorDetails -and $_.ErrorDetails.Message) {
+            $lastBody = $_.ErrorDetails.Message
+        } elseif ($_.Exception.Response) {
+            try {
+                $reader = New-Object System.IO.StreamReader($_.Exception.Response.GetResponseStream())
+                $lastBody = $reader.ReadToEnd()
+                $reader.Dispose()
+            } catch {}
+        }
+        # 401/403 = genuine credential/authorization rejection — retrying won't help.
+        if ($lastStatus -eq 401 -or $lastStatus -eq 403) { break }
+    }
+    if ($attempt -lt $maxAttempts) {
+        $wait = [Math]::Min(30, [Math]::Pow(2, $attempt))
+        Write-Host ('.' * $attempt) -NoNewline -ForegroundColor DarkYellow
+        Start-Sleep -Seconds $wait
+    }
+}
+
+if (-not $jwt) {
     Write-Host ' FAILED' -ForegroundColor Red
-    Write-Host '  Admin login failed. Check server credentials.' -ForegroundColor Red
+    Write-Host "  Could not obtain an admin token from $loginUrl" -ForegroundColor Red
+    if ($lastStatus) { Write-Host "  HTTP status : $lastStatus" -ForegroundColor Yellow }
+    if ($lastErr)    { Write-Host "  Error       : $lastErr" -ForegroundColor Yellow }
+    if ($lastBody) {
+        $snippet = $lastBody.Trim()
+        if ($snippet.Length -gt 300) { $snippet = $snippet.Substring(0, 300) + '...' }
+        Write-Host "  Response    : $snippet" -ForegroundColor DarkYellow
+    }
+    Write-Host ''
+    # Targeted guidance based on what actually came back.
+    if ($lastStatus -eq 401 -or $lastStatus -eq 403) {
+        Write-Host '  Cause: server rejected the credentials (admin@curato.local / admin123).' -ForegroundColor Red
+        Write-Host '  Fix  : the default password may have been changed. Use the current admin password,' -ForegroundColor Yellow
+        Write-Host '         or re-seed the DB if this is a fresh install.' -ForegroundColor Yellow
+    } elseif ($lastStatus -eq 429) {
+        Write-Host '  Cause: rate-limited / brute-force lockout (10 failed tries = 15 min lockout).' -ForegroundColor Red
+        Write-Host '  Fix  : wait 15 minutes, then re-run this installer.' -ForegroundColor Yellow
+    } elseif ($lastBody -and ($lastBody.TrimStart().StartsWith('<') -or $lastBody -match '(?i)<html')) {
+        Write-Host '  Cause: a proxy/CDN/WAF answered instead of the API (HTML, not JSON).' -ForegroundColor Red
+        Write-Host "  Fix  : confirm $Server points straight at the API and isn't behind a" -ForegroundColor Yellow
+        Write-Host '         Cloudflare challenge or http->https redirect that blocks POST.' -ForegroundColor Yellow
+    } elseif (-not $lastStatus) {
+        Write-Host '  Cause: no HTTP response (timeout / DNS / TLS / connection refused).' -ForegroundColor Red
+        Write-Host "  Fix  : verify the kiosk can reach $Server (the health check above passed for GET;" -ForegroundColor Yellow
+        Write-Host '         a POST may be blocked by a firewall or proxy).' -ForegroundColor Yellow
+    }
     exit 1
 }
 
@@ -1133,7 +1199,7 @@ if ($needsNode -and -not $isUpdate) {
         Write-Host '  Download on a machine with internet:' -ForegroundColor Yellow
         Write-Host '    https://nodejs.org/dist/v20.18.0/node-v20.18.0-x64.msi' -ForegroundColor White
         Write-Host '  Then copy to server:' -ForegroundColor Yellow
-        Write-Host '    scp node.msi wipro@100.124.40.69:/home/wipro/museumos-app01/server/installers/' -ForegroundColor White
+        Write-Host '    scp node.msi wipro@100.124.40.69:/home/wipro/curato-app01/server/installers/' -ForegroundColor White
         exit 1
     }
 }
@@ -1286,7 +1352,7 @@ if ($skipAgentDownload) {
     Write-Host "  Agent already installed at v$ver; skipping download" -ForegroundColor Green
 
     if (-not (Test-Path (Join-Path $InstallDir 'dist\index.js'))) {
-        Write-Host '  FATAL: Existing agent install is missing dist\\index.js. Remove C:\\Program Files\\Museumos\\Agent and re-run setup.' -ForegroundColor Red
+        Write-Host '  FATAL: Existing agent install is missing dist\\index.js. Remove C:\\Program Files\\Curato\\Agent and re-run setup.' -ForegroundColor Red
         exit 1
     }
 
@@ -1366,8 +1432,8 @@ if ($skipAgentDownload) {
     }
 
     # Copy shell bat
-    $shellSrc = Join-Path $InstallDir 'scripts\museumos-shell.bat'
-    $shellDst = Join-Path $InstallDir 'museumos-shell.bat'
+    $shellSrc = Join-Path $InstallDir 'scripts\curato-shell.bat'
+    $shellDst = Join-Path $InstallDir 'curato-shell.bat'
     if (Test-Path $shellSrc) { Copy-Item $shellSrc $shellDst -Force }
 
     Write-Host '  Agent extracted' -ForegroundColor Green
@@ -1439,7 +1505,7 @@ if (-not $isUpdate) {
         Write-Host '  FATAL: Provisioning did not produce valid credentials.' -ForegroundColor Red
         exit 1
     }
-    Write-IdentityFile -Path (Join-Path $InstallDir '.museumos-identity.json') -DeviceId $deviceId -ApiKey $apiKey
+    Write-IdentityFile -Path (Join-Path $InstallDir '.curato-identity.json') -DeviceId $deviceId -ApiKey $apiKey
     Write-Host '  Identity written' -ForegroundColor Green
 
     # --- Find Chrome path ---
@@ -1457,12 +1523,12 @@ if (-not $isUpdate) {
   "healthIntervalMs": 60000,
   "logLevel": "info",
   "logFile": "agent.log",
-  "identityFile": ".museumos-identity.json",
+  "identityFile": ".curato-identity.json",
   "localServices": false,
   "kiosk": {
     "browserPath": "$($chromePath -replace '\\','\\')",
     "defaultUrl": "http://localhost:3403/display/$Slug",
-    "extraArgs": ["--kiosk","--disable-translate","--disable-extensions","--disable-pinch","--overscroll-history-navigation=disabled","--disable-pull-to-refresh-effect","--autoplay-policy=no-user-gesture-required","--remote-debugging-address=127.0.0.1","--remote-debugging-port=9222","--enable-gpu-rasterization","--enable-zero-copy","--ignore-gpu-blocklist","--enable-features=TouchpadAndWheelScrollLatching,OverlayScrollbar","--user-data-dir=C:\\ProgramData\\Museumos\\chrome-kiosk"],
+    "extraArgs": ["--kiosk","--disable-translate","--disable-extensions","--disable-pinch","--overscroll-history-navigation=disabled","--disable-pull-to-refresh-effect","--autoplay-policy=no-user-gesture-required","--remote-debugging-address=127.0.0.1","--remote-debugging-port=9222","--enable-gpu-rasterization","--enable-zero-copy","--ignore-gpu-blocklist","--enable-features=TouchpadAndWheelScrollLatching,OverlayScrollbar","--user-data-dir=C:\\ProgramData\\Curato\\chrome-kiosk"],
     "pollIntervalMs": 10000,
     "maxCrashesInWindow": 10,
     "crashWindowMs": 300000,
@@ -1529,8 +1595,8 @@ if (-not $nodePath) {
 }
 & $NssmExe install $ServiceName $nodePath 'dist\index.js'
 & $NssmExe set $ServiceName AppDirectory $InstallDir
-& $NssmExe set $ServiceName DisplayName 'Museum OS Agent'
-& $NssmExe set $ServiceName Description 'Museum OS kiosk display agent'
+& $NssmExe set $ServiceName DisplayName 'Curato Agent'
+& $NssmExe set $ServiceName Description 'Curato kiosk display agent'
 & $NssmExe set $ServiceName Start SERVICE_AUTO_START
 & $NssmExe set $ServiceName AppStdout "$LogDir\service-stdout.log"
 & $NssmExe set $ServiceName AppStderr "$LogDir\service-stderr.log"
@@ -1762,7 +1828,7 @@ if ($isUpdate -and -not $needsFullSetup) {
 
     # --- 6j. Shell replacement ---
     Invoke-Phase6Step -Label 'Shell replacement' -Action {
-        $shellBat = Join-Path $InstallDir 'museumos-shell.bat'
+        $shellBat = Join-Path $InstallDir 'curato-shell.bat'
         if (-not (Test-Path $shellBat)) {
             return 'skip:skipped (shell bat not found)'
         }
@@ -1773,7 +1839,7 @@ if ($isUpdate -and -not $needsFullSetup) {
 
         $HKLMShell = 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon'
         $origShell = (Get-ItemProperty -Path $HKLMShell -Name 'Shell' -ErrorAction SilentlyContinue).Shell
-        if ($origShell -and $origShell -notlike '*museumos*') {
+        if ($origShell -and $origShell -notlike '*curato*') {
             Set-ItemProperty -Path $HKLMShell -Name 'Shell_Original' -Value $origShell
         }
         Set-ItemProperty -Path $HKLMShell -Name 'Shell' -Value "`"$shellBat`""
@@ -1795,13 +1861,13 @@ if ($isUpdate -and -not $needsFullSetup) {
         $gT = New-ScheduledTaskTrigger -Once -At (Get-Date) -RepetitionInterval (New-TimeSpan -Minutes 5) -RepetitionDuration (New-TimeSpan -Days 365)
         $gS = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable -ExecutionTimeLimit (New-TimeSpan -Minutes 2)
         $gP = New-ScheduledTaskPrincipal -UserId 'SYSTEM' -LogonType ServiceAccount -RunLevel Highest
-        Register-ScheduledTask -TaskName $GuardianTask -Action $gA -Trigger $gT -Settings $gS -Principal $gP -Description 'Museum OS health check every 5 min' -Force | Out-Null
+        Register-ScheduledTask -TaskName $GuardianTask -Action $gA -Trigger $gT -Settings $gS -Principal $gP -Description 'Curato health check every 5 min' -Force | Out-Null
     }
 
     # --- 6l. Firewall ---
     Invoke-Phase6Step -Label 'Firewall' -Action {
-        if (-not (Get-NetFirewallRule -DisplayName 'MUSEUMOS Agent WebSocket' -ErrorAction SilentlyContinue)) {
-            New-NetFirewallRule -DisplayName 'Museum OS Agent WebSocket' -Direction Outbound -Action Allow -Protocol TCP -RemotePort 3001 -Description 'Museum OS Agent' | Out-Null
+        if (-not (Get-NetFirewallRule -DisplayName 'CURATO Agent WebSocket' -ErrorAction SilentlyContinue)) {
+            New-NetFirewallRule -DisplayName 'Curato Agent WebSocket' -Direction Outbound -Action Allow -Protocol TCP -RemotePort 3001 -Description 'Curato Agent' | Out-Null
         }
     }
 
@@ -1825,7 +1891,7 @@ function Invoke-RemotePowerShellScriptStep {
 
     Write-Host "  $Label..." -ForegroundColor DarkGray
 
-    $tempScript = Join-Path $env:TEMP ("museumos-remote-" + [guid]::NewGuid().ToString('N') + '.ps1')
+    $tempScript = Join-Path $env:TEMP ("curato-remote-" + [guid]::NewGuid().ToString('N') + '.ps1')
     try {
         Invoke-WebRequest $Url -OutFile $tempScript -UseBasicParsing -TimeoutSec $DownloadTimeoutSeconds -ErrorAction Stop
         if (-not (Test-Path $tempScript) -or (Get-Item $tempScript).Length -lt 100) {
@@ -2044,7 +2110,7 @@ if (-not $serverOk) { $allOk = $false }
 
 # Identity
 $idOk = $false
-$idPath = Join-Path $InstallDir '.museumos-identity.json'
+$idPath = Join-Path $InstallDir '.curato-identity.json'
 if (Test-Path $idPath) {
     try { $id = Get-Content $idPath -Raw | ConvertFrom-Json; if ($id.deviceId) { $idOk = $true } } catch {}
 }

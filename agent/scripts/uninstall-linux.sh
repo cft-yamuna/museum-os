@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
-# Museum OS Agent - Linux Uninstaller
+# Curato Agent - Linux Uninstaller
 # Run as root: sudo bash uninstall-linux.sh
 set -euo pipefail
 
-INSTALL_DIR="/opt/museumos/agent"
-LOG_DIR="/var/log/museumos"
-SERVICE_NAME="museumos-agent"
+INSTALL_DIR="/opt/curato/agent"
+LOG_DIR="/var/log/curato"
+SERVICE_NAME="curato-agent"
 
 if [[ $EUID -ne 0 ]]; then
   echo "Error: This script must be run as root (use sudo)."
   exit 1
 fi
 
-echo "=== Museum OS Agent - Linux Uninstaller ==="
+echo "=== Curato Agent - Linux Uninstaller ==="
 echo ""
 
 # --- Stop and disable service ---
@@ -38,10 +38,10 @@ echo "[5/5] Removing ${LOG_DIR}..."
 rm -rf "$LOG_DIR"
 
 # --- Remove user/group (optional) ---
-read -rp "Remove 'museumos' user and group? [y/N]: " REMOVE_USER
+read -rp "Remove 'curato' user and group? [y/N]: " REMOVE_USER
 if [[ "$REMOVE_USER" =~ ^[Yy]$ ]]; then
-  userdel museumos 2>/dev/null || true
-  groupdel museumos 2>/dev/null || true
+  userdel curato 2>/dev/null || true
+  groupdel curato 2>/dev/null || true
   echo "User and group removed."
 fi
 

@@ -4,7 +4,7 @@
   "healthIntervalMs": 60000,
   "logLevel": "info",
   "logFile": "agent.log",
-  "identityFile": ".museumos-identity.json",
+  "identityFile": ".curato-identity.json",
   "localServices": false,
   "kiosk": {
     "browserPath": "__BROWSER_PATH__",

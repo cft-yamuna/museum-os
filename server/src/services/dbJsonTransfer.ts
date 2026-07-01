@@ -11,7 +11,7 @@ const EXCLUDED_TABLES = new Set([
 const DEFAULT_CHUNK_SIZE = 500;
 
 export interface DbJsonExportPayload {
-  format: 'museumos-db-json-v1';
+  format: 'curato-db-json-v1';
   exportedAt: string;
   tables: Record<string, Record<string, unknown>[]>;
   tableOrder: string[];
@@ -28,7 +28,7 @@ export async function buildDbJsonExportPayload(db: Knex): Promise<DbJsonExportPa
   const tables = await getAppTables(db);
   const tableOrder = await getInsertOrder(db, tables);
   const payload: DbJsonExportPayload = {
-    format: 'museumos-db-json-v1',
+    format: 'curato-db-json-v1',
     exportedAt: new Date().toISOString(),
     tables: {},
     tableOrder,
@@ -63,7 +63,7 @@ export async function importDbJsonPayload(db: Knex, payloadInput: Partial<DbJson
     // Disable FK/trigger enforcement for this full reload so it can't be broken
     // by table ordering or self-referential FKs (e.g. devices.parent_id). Scoped
     // to this transaction via SET LOCAL, so it auto-resets on commit/rollback.
-    // Requires a superuser DB role (the museumos app connects as postgres).
+    // Requires a superuser DB role (the curato app connects as postgres).
     await trx.raw(`SET LOCAL session_replication_role = 'replica'`);
     await trx.raw(`TRUNCATE TABLE ${quotedTables} RESTART IDENTITY CASCADE`);
 
@@ -114,7 +114,7 @@ export async function importDbJsonPayload(db: Knex, payloadInput: Partial<DbJson
 }
 
 export function normalizePayload(parsed: Partial<DbJsonExportPayload>): DbJsonExportPayload {
-  if (parsed.format !== 'museumos-db-json-v1' || !parsed.tables || !parsed.tableOrder) {
+  if (parsed.format !== 'curato-db-json-v1' || !parsed.tables || !parsed.tableOrder) {
     throw new Error('Unsupported JSON dump format');
   }
 

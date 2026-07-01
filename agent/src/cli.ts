@@ -1,17 +1,17 @@
 #!/usr/bin/env node
 /**
- * Museum OS Agent CLI
+ * Curato Agent CLI
  *
  * Usage:
- *   npm install -g museumos-agent
- *   museum-os-agent install --slug F-AV01 --server http://192.168.1.54:3401
- *   museum-os-agent install --slug F-AV01 --server http://... --shell-replace
- *   museum-os-agent start
- *   museum-os-agent stop
- *   museum-os-agent status
- *   museum-os-agent update
- *   museum-os-agent uninstall
- *   museum-os-agent version
+ *   npm install -g curato-agent
+ *   curato-agent install --slug F-AV01 --server http://192.168.1.54:3401
+ *   curato-agent install --slug F-AV01 --server http://... --shell-replace
+ *   curato-agent start
+ *   curato-agent stop
+ *   curato-agent status
+ *   curato-agent update
+ *   curato-agent uninstall
+ *   curato-agent version
  */
 
 import { execSync, execFileSync } from 'child_process';
@@ -62,10 +62,10 @@ function parseArgs(args: string[]): Record<string, string | boolean> {
 
 function printHelp(): void {
   console.log(`
-  Museum OS Agent v${getVersion()}
+  Curato Agent v${getVersion()}
 
   Usage:
-    museum-os-agent <command> [options]
+    curato-agent <command> [options]
 
   Commands:
     install    Install as a system service
@@ -83,9 +83,9 @@ function printHelp(): void {
     --shell-replace          Enable shell replacement mode (Windows kiosk)
 
   Examples:
-    museum-os-agent install --slug F-AV01 --server http://192.168.1.54:3401
-    museum-os-agent install --slug F-AV01 --server http://... --shell-replace
-    museum-os-agent start
+    curato-agent install --slug F-AV01 --server http://192.168.1.54:3401
+    curato-agent install --slug F-AV01 --server http://... --shell-replace
+    curato-agent start
 `);
 }
 
@@ -99,11 +99,11 @@ function cmdInstall(args: Record<string, string | boolean>): void {
 
   if (!slug || !server) {
     console.error('Error: --slug and --server are required');
-    console.error('  museum-os-agent install --slug F-AV01 --server http://192.168.1.54:3401');
+    console.error('  curato-agent install --slug F-AV01 --server http://192.168.1.54:3401');
     process.exit(1);
   }
 
-  console.log(`\n  Museum OS Agent v${getVersion()}`);
+  console.log(`\n  Curato Agent v${getVersion()}`);
   console.log(`  Device slug : ${slug}`);
   console.log(`  Server URL  : ${server}`);
   console.log(`  Timezone    : ${timezone}`);
@@ -129,29 +129,29 @@ function cmdInstall(args: Record<string, string | boolean>): void {
 
 function cmdStart(): void {
   if (IS_WINDOWS) {
-    console.log('Starting Museum OS agent service...');
-    run('net start MuseumosAgent');
+    console.log('Starting Curato agent service...');
+    run('net start CuratoAgent');
   } else {
-    console.log('Starting Museum OS agent service...');
-    run('sudo systemctl start museumos-agent');
+    console.log('Starting Curato agent service...');
+    run('sudo systemctl start curato-agent');
   }
 }
 
 function cmdStop(): void {
   if (IS_WINDOWS) {
-    console.log('Stopping Museum OS agent service...');
-    run('net stop MuseumosAgent');
+    console.log('Stopping Curato agent service...');
+    run('net stop CuratoAgent');
   } else {
-    console.log('Stopping Museum OS agent service...');
-    run('sudo systemctl stop museumos-agent');
+    console.log('Stopping Curato agent service...');
+    run('sudo systemctl stop curato-agent');
   }
 }
 
 function cmdStatus(): void {
   if (IS_WINDOWS) {
-    run('sc query MuseumosAgent');
+    run('sc query CuratoAgent');
   } else {
-    run('sudo systemctl status museumos-agent --no-pager');
+    run('sudo systemctl status curato-agent --no-pager');
   }
 }
 
@@ -176,14 +176,14 @@ function cmdUninstall(): void {
 }
 
 function cmdUpdate(): void {
-  console.log('Updating Museum OS agent package to latest...');
-  run('npm install -g museumos-agent@latest');
+  console.log('Updating Curato agent package to latest...');
+  run('npm install -g curato-agent@latest');
   console.log('Update complete. Restart the service to apply:');
-  console.log('  museum-os-agent stop && museum-os-agent start');
+  console.log('  curato-agent stop && curato-agent start');
 }
 
 function cmdVersion(): void {
-  console.log(`Museum OS Agent v${getVersion()}`);
+  console.log(`Curato Agent v${getVersion()}`);
   console.log(`Platform: ${platform()}`);
   console.log(`Node: ${process.version}`);
   console.log(`Package: ${PACKAGE_ROOT}`);

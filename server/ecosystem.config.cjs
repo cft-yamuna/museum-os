@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'museumos-server',
+      name: 'curato-server',
       script: './dist/index.js',
       cwd: __dirname,
       instances: 1,

@@ -3,7 +3,7 @@
 // Everything above this interface is identical regardless of the underlying
 // transport (PJLink TCP, SSSP HTTP, the agent WebSocket, a raw vendor socket).
 // Only the address/handle a concrete driver dials changes. This is what makes
-// museum-os brand-agnostic: the route layer talks to `DeviceDriver`, never to a
+// curato brand-agnostic: the route layer talks to `DeviceDriver`, never to a
 // specific protocol service.
 
 export interface DriverAddress {

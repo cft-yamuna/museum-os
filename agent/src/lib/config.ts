@@ -33,7 +33,7 @@ const configSchema = z.object({
   healthIntervalMs: z.number().int().min(5000).default(60000),
   logLevel: z.enum(['debug', 'info', 'warn', 'error']).default('info'),
   logFile: z.string().default('agent.log'),
-  identityFile: z.string().default('.museumos-identity.json'),
+  identityFile: z.string().default('.curato-identity.json'),
   localServices: z.boolean().default(true),
   kiosk: kioskSchema.optional(),
   screenshot: screenshotSchema.optional(),
@@ -57,12 +57,12 @@ export function loadConfig(configPath?: string): AgentConfig {
   // Apply environment overrides
   const merged = {
     ...raw,
-    ...(process.env.MUSEUMOS_SERVER_URL && { serverUrl: process.env.MUSEUMOS_SERVER_URL }),
-    ...(process.env.MUSEUMOS_DEVICE_SLUG && { deviceSlug: process.env.MUSEUMOS_DEVICE_SLUG }),
-    ...(process.env.MUSEUMOS_HEALTH_INTERVAL && { healthIntervalMs: parseInt(process.env.MUSEUMOS_HEALTH_INTERVAL, 10) }),
-    ...(process.env.MUSEUMOS_LOG_LEVEL && { logLevel: process.env.MUSEUMOS_LOG_LEVEL }),
-    ...(process.env.MUSEUMOS_LOG_FILE && { logFile: process.env.MUSEUMOS_LOG_FILE }),
-    ...(process.env.MUSEUMOS_IDENTITY_FILE && { identityFile: process.env.MUSEUMOS_IDENTITY_FILE }),
+    ...(process.env.CURATO_SERVER_URL && { serverUrl: process.env.CURATO_SERVER_URL }),
+    ...(process.env.CURATO_DEVICE_SLUG && { deviceSlug: process.env.CURATO_DEVICE_SLUG }),
+    ...(process.env.CURATO_HEALTH_INTERVAL && { healthIntervalMs: parseInt(process.env.CURATO_HEALTH_INTERVAL, 10) }),
+    ...(process.env.CURATO_LOG_LEVEL && { logLevel: process.env.CURATO_LOG_LEVEL }),
+    ...(process.env.CURATO_LOG_FILE && { logFile: process.env.CURATO_LOG_FILE }),
+    ...(process.env.CURATO_IDENTITY_FILE && { identityFile: process.env.CURATO_IDENTITY_FILE }),
   };
 
   const result = configSchema.parse(merged);

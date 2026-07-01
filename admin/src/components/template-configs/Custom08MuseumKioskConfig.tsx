@@ -71,7 +71,7 @@ function PoiImagePreview({ src, alt }: { src: string; alt: string }) {
 const POI_IMAGE_OPTIONS: PoiImageOption[] = [
   { id: 'poi-1772036034252', galleryId: 'prologue', title: 'The Right Fit', defaultImageUrl: '/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.32.11_PM.jpg' },
   { id: 'poi-1772181330319', galleryId: 'prologue', title: 'NATION BUILDING: KHADI WALL', defaultImageUrl: '/display/templates/custom08/images/highlights/Screenshot_2026-03-05_at_7.23.12_PM.png' },
-  { id: 'poi-1772181400936', galleryId: 'hilight-experience', title: 'SPIRIT OF MUSEUM OS PILLARS', defaultImageUrl: '/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.32.36_PM.jpg' },
+  { id: 'poi-1772181400936', galleryId: 'hilight-experience', title: 'SPIRIT OF CURATO PILLARS', defaultImageUrl: '/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.32.36_PM.jpg' },
   { id: 'poi-1772430171886', galleryId: 'factory-experience', title: 'FLIP WALL', defaultImageUrl: '/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.33.15_PM.jpg' },
   { id: 'poi-1772430200870', galleryId: 'consumer-care', title: 'SANTOOR STORY', defaultImageUrl: '/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.33.27_PM.jpg' },
   { id: 'poi-1772430204779', galleryId: 'consumer-care', title: 'YARDLEY', defaultImageUrl: '/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.33.34_PM.jpg' },
@@ -80,7 +80,7 @@ const POI_IMAGE_OPTIONS: PoiImageOption[] = [
   { id: 'poi-1772430333021', galleryId: 'it-story', title: 'CHRONICLES OF INNOVATION', defaultImageUrl: '/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.33.58_PM.jpg' },
   { id: 'poi-1772430370010', galleryId: 'it-story', title: 'WIPOD CAR', defaultImageUrl: '/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.34.04_PM.jpg' },
   { id: 'poi-1772430398314', galleryId: 'it-story', title: 'WEDA ROBOT DISPLAY', defaultImageUrl: '/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.34.11_PM.jpg' },
-  { id: 'poi-1772430401054', galleryId: 'it-story', title: 'MUSEUM OS BRAND REFRESH', defaultImageUrl: '/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.34.20_PM.jpg' },
+  { id: 'poi-1772430401054', galleryId: 'it-story', title: 'CURATO BRAND REFRESH', defaultImageUrl: '/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.34.20_PM.jpg' },
   { id: 'poi-1772718082274', galleryId: 'prologue', title: 'Dr. GUBANOO PREMJI', defaultImageUrl: '/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.31.58_PM.jpg' },
   { id: 'poi-1774375663657', galleryId: 'people-garden', title: 'New POI', defaultImageUrl: '/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.32.59_PM.jpg' },
   { id: 'poi-1774375697109', galleryId: 'people-garden', title: 'New POI', defaultImageUrl: '/display/templates/custom08/images/highlights/Screenshot_2026-03-24_at_11.32.48_PM.jpg' },

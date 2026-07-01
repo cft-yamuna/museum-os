@@ -1,4 +1,4 @@
-# Museum OS Agent - Complete Windows Installer
+# Curato Agent - Complete Windows Installer
 # Uses NSSM for rock-solid Windows Service. Shell replacement for kiosk.
 # Cleans up any previous installation automatically before installing.
 #
@@ -20,15 +20,15 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$InstallDir    = "C:\Program Files\Museumos\Agent"
-$LogDir        = "C:\ProgramData\Museumos\logs"
-$ChromeData    = "C:\ProgramData\Museumos\chrome-kiosk"
-$NssmDir       = "C:\ProgramData\Museumos\nssm"
+$InstallDir    = "C:\Program Files\Curato\Agent"
+$LogDir        = "C:\ProgramData\Curato\logs"
+$ChromeData    = "C:\ProgramData\Curato\chrome-kiosk"
+$NssmDir       = "C:\ProgramData\Curato\nssm"
 $NssmExe       = "$NssmDir\nssm.exe"
-$ServiceName   = "MuseumosAgent"
-$GuardianTask  = "MUSEUMOS Guardian"
-$KioskTask     = "MUSEUMOS Kiosk Browser"
-$AgentTask     = "MUSEUMOS Agent"
+$ServiceName   = "CuratoAgent"
+$GuardianTask  = "CURATO Guardian"
+$KioskTask     = "CURATO Kiosk Browser"
+$AgentTask     = "CURATO Agent"
 $KioskUsername = "kiosk"
 $KioskPassword = "Light123"
 $ScriptDir     = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -112,7 +112,7 @@ function Ensure-ChromeInstalled {
 
 Write-Host ""
 Write-Host "=============================================" -ForegroundColor Cyan
-Write-Host "  Museum OS Agent - Complete Windows Installer" -ForegroundColor Cyan
+Write-Host "  Curato Agent - Complete Windows Installer" -ForegroundColor Cyan
 Write-Host "=============================================" -ForegroundColor Cyan
 Write-Host "  Device slug : $Slug"
 Write-Host "  Server URL  : $Server"
@@ -132,10 +132,10 @@ if (Test-Path $NssmExe) {
     & $NssmExe stop $ServiceName 2>$null
     & $NssmExe remove $ServiceName confirm 2>$null
 }
-foreach ($sn in @($ServiceName, "museumosagent.exe", "MuseumosAgent.exe")) {
+foreach ($sn in @($ServiceName, "curatoagent.exe", "CuratoAgent.exe")) {
     sc.exe stop $sn 2>$null; sc.exe delete $sn 2>$null
 }
-$oldSvc = Get-Service -DisplayName "MUSEUMOS*" -ErrorAction SilentlyContinue
+$oldSvc = Get-Service -DisplayName "CURATO*" -ErrorAction SilentlyContinue
 if ($oldSvc) { Stop-Service -Name $oldSvc.Name -Force -ErrorAction SilentlyContinue; sc.exe delete $oldSvc.Name 2>$null }
 
 # Remove scheduled tasks (from previous task-scheduler-based installs)
@@ -168,10 +168,10 @@ Start-Sleep -Seconds 2
 # Remove old files (keep NSSM and logs)
 Write-Host "[0d] Removing old agent files..." -ForegroundColor Yellow
 Remove-Item -Path $InstallDir -Recurse -Force -ErrorAction SilentlyContinue
-Remove-Item -Path "C:\ProgramData\Museumos\kiosk-url.txt" -Force -ErrorAction SilentlyContinue
+Remove-Item -Path "C:\ProgramData\Curato\kiosk-url.txt" -Force -ErrorAction SilentlyContinue
 
 # Remove firewall rule
-Remove-NetFirewallRule -DisplayName "MUSEUMOS Agent WebSocket" -ErrorAction SilentlyContinue
+Remove-NetFirewallRule -DisplayName "CURATO Agent WebSocket" -ErrorAction SilentlyContinue
 
 $ErrorActionPreference = "Stop"
 Start-Sleep -Seconds 2
@@ -339,8 +339,8 @@ if ($LASTEXITCODE -ne 0) { Write-Host "  FATAL: NSSM install failed!" -Foregroun
 
 # Configure
 & $NssmExe set $ServiceName AppDirectory $InstallDir
-& $NssmExe set $ServiceName DisplayName "Museum OS Agent"
-& $NssmExe set $ServiceName Description "Museum OS kiosk agent - display management and monitoring"
+& $NssmExe set $ServiceName DisplayName "Curato Agent"
+& $NssmExe set $ServiceName Description "Curato kiosk agent - display management and monitoring"
 & $NssmExe set $ServiceName Start SERVICE_AUTO_START
 & $NssmExe set $ServiceName AppStdout "$LogDir\service-stdout.log"
 & $NssmExe set $ServiceName AppStderr "$LogDir\service-stderr.log"
@@ -355,7 +355,7 @@ if ($LASTEXITCODE -ne 0) { Write-Host "  FATAL: NSSM install failed!" -Foregroun
 Start-Sleep -Seconds 2
 $svcCheck = Get-Service -Name $ServiceName -ErrorAction SilentlyContinue
 if (-not $svcCheck) {
-    $svcCheck = Get-Service -DisplayName "MUSEUMOS*" -ErrorAction SilentlyContinue | Select-Object -First 1
+    $svcCheck = Get-Service -DisplayName "CURATO*" -ErrorAction SilentlyContinue | Select-Object -First 1
 }
 if (-not $svcCheck) {
     Write-Host "  FATAL: Service was not created!" -ForegroundColor Red
@@ -394,7 +394,7 @@ else { Write-Host "  Port 3403 not yet up (may take a moment)" -ForegroundColor 
 
 # Wait until provisioning is complete (auto-provision or manual pairing)
 Write-Host "[11b/19] Waiting for device provisioning/pairing..." -ForegroundColor Yellow
-$identityPath = Join-Path $InstallDir ".museumos-identity.json"
+$identityPath = Join-Path $InstallDir ".curato-identity.json"
 $deadline = if ($PairingTimeoutSeconds -gt 0) { (Get-Date).AddSeconds($PairingTimeoutSeconds) } else { $null }
 $paired = $false
 $lastHint = ""
@@ -438,8 +438,8 @@ Write-Host "  Provisioning/pairing complete" -ForegroundColor Green
 # --- 12. Firewall ---
 Write-Host "[12/19] Configuring firewall..." -ForegroundColor Yellow
 $ErrorActionPreference = "Continue"
-if (-not (Get-NetFirewallRule -DisplayName "MUSEUMOS Agent WebSocket" -ErrorAction SilentlyContinue)) {
-    New-NetFirewallRule -DisplayName "Museum OS Agent WebSocket" -Direction Outbound -Action Allow -Protocol TCP -RemotePort 3001 -Description "Museum OS Agent" | Out-Null
+if (-not (Get-NetFirewallRule -DisplayName "CURATO Agent WebSocket" -ErrorAction SilentlyContinue)) {
+    New-NetFirewallRule -DisplayName "Curato Agent WebSocket" -Direction Outbound -Action Allow -Protocol TCP -RemotePort 3001 -Description "Curato Agent" | Out-Null
     Write-Host "  Created"
 } else { Write-Host "  Already exists" }
 
@@ -583,8 +583,8 @@ if ($ShellReplace) {
     Write-Host "[17/19] SHELL REPLACEMENT..." -ForegroundColor Magenta
 
     # Copy shell BAT (reads slug from agent.config.json - single source of truth)
-    $shellSource = Join-Path $ScriptDir "museumos-shell.bat"
-    $shellTarget = Join-Path $InstallDir "museumos-shell.bat"
+    $shellSource = Join-Path $ScriptDir "curato-shell.bat"
+    $shellTarget = Join-Path $InstallDir "curato-shell.bat"
     if (Test-Path $shellSource) { Copy-Item $shellSource $shellTarget -Force }
 
     # No sidecar file needed - shell BAT reads directly from agent.config.json
@@ -595,10 +595,10 @@ if ($ShellReplace) {
     Set-ItemProperty -Path $ShellReg -Name "Shell" -Value """$shellTarget"""
     $HKLMShell = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
     $orig = (Get-ItemProperty -Path $HKLMShell -Name "Shell" -ErrorAction SilentlyContinue).Shell
-    if ($orig -and $orig -notlike "*museumos*") { Set-ItemProperty -Path $HKLMShell -Name "Shell_Original" -Value $orig }
+    if ($orig -and $orig -notlike "*curato*") { Set-ItemProperty -Path $HKLMShell -Name "Shell_Original" -Value $orig }
     Set-ItemProperty -Path $HKLMShell -Name "Shell" -Value """$shellTarget"""
 
-    Write-Host "  Shell replaced -> museumos-shell.bat" -ForegroundColor Green
+    Write-Host "  Shell replaced -> curato-shell.bat" -ForegroundColor Green
     Write-Host "  Recovery: scripts\restore-desktop.ps1" -ForegroundColor Yellow
 
     # Remove kiosk task if exists
@@ -630,7 +630,7 @@ $gA = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPol
 $gT = New-ScheduledTaskTrigger -Once -At (Get-Date) -RepetitionInterval (New-TimeSpan -Minutes 5) -RepetitionDuration (New-TimeSpan -Days 365)
 $gS = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable -ExecutionTimeLimit (New-TimeSpan -Minutes 2)
 $gP = New-ScheduledTaskPrincipal -UserId "SYSTEM" -LogonType ServiceAccount -RunLevel Highest
-Register-ScheduledTask -TaskName $GuardianTask -Action $gA -Trigger $gT -Settings $gS -Principal $gP -Description "Museum OS health check every 5 min" -Force | Out-Null
+Register-ScheduledTask -TaskName $GuardianTask -Action $gA -Trigger $gT -Settings $gS -Principal $gP -Description "Curato health check every 5 min" -Force | Out-Null
 
 foreach ($task in @("\Microsoft\Windows\UpdateOrchestrator\Reboot","\Microsoft\Windows\UpdateOrchestrator\Schedule Retry Scan","\Microsoft\Windows\WindowsUpdate\Scheduled Start")) {
     try { Disable-ScheduledTask -TaskName $task -ErrorAction SilentlyContinue | Out-Null } catch { }
@@ -642,7 +642,7 @@ Write-Host "[19/19] Verification..." -ForegroundColor Yellow
 Start-Sleep -Seconds 3
 
 $finalSvc = Get-Service -Name $ServiceName -ErrorAction SilentlyContinue
-if (-not $finalSvc) { $finalSvc = Get-Service -DisplayName "MUSEUMOS*" -ErrorAction SilentlyContinue | Select-Object -First 1 }
+if (-not $finalSvc) { $finalSvc = Get-Service -DisplayName "CURATO*" -ErrorAction SilentlyContinue | Select-Object -First 1 }
 $svcStatus = if ($finalSvc) { "$($finalSvc.Status)" } else { "NOT FOUND" }
 
 $cfgOk = $false

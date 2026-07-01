@@ -1,4 +1,4 @@
-# Museum OS Wake-on-LAN Configuration (Windows)
+# Curato Wake-on-LAN Configuration (Windows)
 # Run as Administrator.
 # This script only applies WOL-related power settings.
 
@@ -50,7 +50,7 @@ Require-Admin
 
 Write-Host ''
 Write-Host '============================================' -ForegroundColor Cyan
-Write-Host '  Museum OS Wake-on-LAN Configuration' -ForegroundColor Cyan
+Write-Host '  Curato Wake-on-LAN Configuration' -ForegroundColor Cyan
 Write-Host '============================================' -ForegroundColor Cyan
 Write-Host ''
 

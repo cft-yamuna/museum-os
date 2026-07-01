@@ -10,8 +10,8 @@ import type { Logger } from '../lib/logger.js';
  * target URL before launching Chrome. Agent writes, shell reads.
  */
 const URL_SIDECAR_FILE = process.platform === 'win32'
-  ? 'C:\\ProgramData\\Museumos\\kiosk-url.txt'
-  : '/tmp/museumos-kiosk-url.txt';
+  ? 'C:\\ProgramData\\Curato\\kiosk-url.txt'
+  : '/tmp/curato-kiosk-url.txt';
 
 export class KioskManager {
   private config: KioskConfig;
@@ -136,7 +136,7 @@ export class KioskManager {
       this.logger.warn('Shell mode: Chrome did not relaunch after 10s — triggering system reboot');
       try {
         if (process.platform === 'win32') {
-          execSync('shutdown /r /t 5 /c "Museum OS: kiosk restart recovery"', { stdio: 'ignore', timeout: 5_000 });
+          execSync('shutdown /r /t 5 /c "Curato: kiosk restart recovery"', { stdio: 'ignore', timeout: 5_000 });
         } else {
           execSync('sudo reboot', { stdio: 'ignore', timeout: 5_000 });
         }
@@ -189,7 +189,7 @@ export class KioskManager {
   private async shellLaunch(targetUrl: string): Promise<KioskStatus> {
     this.currentUrl = targetUrl;
 
-    // Shell mode: Chrome is managed by museumos-shell.bat.
+    // Shell mode: Chrome is managed by curato-shell.bat.
     // Shell reads slug from agent.config.json directly.
     // Agent NEVER kills Chrome on startup - only on explicit navigate().
     if (this.isChromeRunning()) {

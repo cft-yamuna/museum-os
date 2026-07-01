@@ -1,14 +1,14 @@
 [Unit]
-Description=Museum OS Agent - Museum Display Management
-Documentation=https://github.com/sagrkv/museumos-app01
+Description=Curato Agent - Museum Display Management
+Documentation=https://github.com/sagrkv/curato-app01
 After=network-online.target
 Wants=network-online.target
 
 [Service]
 Type=simple
-User=museumos
-Group=museumos
-WorkingDirectory=/opt/museumos/agent
+User=curato
+Group=curato
+WorkingDirectory=/opt/curato/agent
 ExecStart=/usr/bin/node dist/index.js
 Restart=always
 RestartSec=10
@@ -17,11 +17,11 @@ StartLimitBurst=5
 
 # Environment
 Environment=NODE_ENV=production
-EnvironmentFile=-/opt/museumos/agent/.env
+EnvironmentFile=-/opt/curato/agent/.env
 
 # Security hardening
 ProtectSystem=strict
-ReadWritePaths=/opt/museumos/agent /var/log/museumos /tmp
+ReadWritePaths=/opt/curato/agent /var/log/curato /tmp
 PrivateTmp=true
 NoNewPrivileges=true
 ProtectHome=true
@@ -32,7 +32,7 @@ RestrictSUIDSGID=true
 # Logging
 StandardOutput=journal
 StandardError=journal
-SyslogIdentifier=museumos-agent
+SyslogIdentifier=curato-agent
 
 [Install]
 WantedBy=multi-user.target

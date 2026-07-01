@@ -217,7 +217,7 @@ export function requireRole(roles: string[]) {
 }
 
 /**
- * Ranked RBAC (curato-style). A single ordering spans both the museum-os role
+ * Ranked RBAC (curato-style). A single ordering spans both the curato role
  * names and curato's, so routes can express "operator or above" instead of
  * enumerating every role. Higher number = more privilege.
  *

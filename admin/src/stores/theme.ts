@@ -2,7 +2,7 @@ import { create } from 'zustand';
 
 type Theme = 'light' | 'dark';
 
-const STORAGE_KEY = 'museumos_theme';
+const STORAGE_KEY = 'curato_theme';
 
 /** Read the saved theme, defaulting to the rich dark theme. */
 export function getInitialTheme(): Theme {

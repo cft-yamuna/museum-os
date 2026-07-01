@@ -1,4 +1,4 @@
-# Museum OS - Restore Windows Desktop
+# Curato - Restore Windows Desktop
 # Reverses shell replacement: sets explorer.exe back as the Windows shell.
 # Run via RDP with admin account, or from Safe Mode:
 #   powershell -ExecutionPolicy Bypass -File restore-desktop.ps1
@@ -7,7 +7,7 @@
 $ErrorActionPreference = "Stop"
 
 Write-Host ""
-Write-Host "=== Museum OS - Restore Windows Desktop ===" -ForegroundColor Cyan
+Write-Host "=== Curato - Restore Windows Desktop ===" -ForegroundColor Cyan
 Write-Host ""
 
 # Restore HKLM shell

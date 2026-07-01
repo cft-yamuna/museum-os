@@ -1,4 +1,4 @@
-# Museum OS - Power-only setup wrapper
+# Curato - Power-only setup wrapper
 # Kept for backwards compatibility; delegates to scripts/setup-device-power-only.ps1.
 #Requires -RunAsAdministrator
 

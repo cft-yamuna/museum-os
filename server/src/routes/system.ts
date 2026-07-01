@@ -55,10 +55,10 @@ function writeStatus(status: UpdateStatus): void {
 
 /**
  * POST /api/system/update
- * Trigger a self-update. The server runs inside the museumos-app container and
+ * Trigger a self-update. The server runs inside the curato-app container and
  * can't git-pull or rebuild itself, so it records a "requested" status and logs
  * a marker that the host-side update-relay.ps1 watcher acts on:
- *   git fetch -> git pull --ff-only -> docker compose up -d --build museumos-app
+ *   git fetch -> git pull --ff-only -> docker compose up -d --build curato-app
  * The relay then writes progress back to the same status file.
  */
 router.post('/update', authUser, requireRole(['super_admin']), (_req, res) => {
@@ -73,7 +73,7 @@ router.post('/update', authUser, requireRole(['super_admin']), (_req, res) => {
     updatedAt: now,
   });
 
-  // The host relay tails `docker logs museumos-app` for this exact marker.
+  // The host relay tails `docker logs curato-app` for this exact marker.
   console.log(`[SELFUPDATE] requested id=${requestId}`);
 
   sendSuccess(res, { requestId, status: readStatus() });

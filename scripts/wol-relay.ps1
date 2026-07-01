@@ -1,4 +1,4 @@
-# Museum OS - Wake-on-LAN host relay (Windows)
+# Curato - Wake-on-LAN host relay (Windows)
 # ============================================================================
 # WHY: On Docker Desktop for Windows the server runs in a bridge-networked
 # container (so port 3401 is reachable). Bridge networking means the server's
@@ -6,7 +6,7 @@
 # LAN, so Wake-on-LAN does nothing.
 #
 # This relay runs ON the Windows host (which IS on the LAN). It tails the
-# museumos-app container logs; whenever the server logs "[WOL] Target MAC: <mac>"
+# curato-app container logs; whenever the server logs "[WOL] Target MAC: <mac>"
 # it re-sends the magic packet as a real broadcast.
 #
 # IMPORTANT: a WoL magic packet is layer-2. If the host has multiple interfaces
@@ -20,9 +20,9 @@
 # ============================================================================
 
 param(
-    [string]$Container = 'museumos-app',
+    [string]$Container = 'curato-app',
     [int[]]$Ports = @(9, 7),
-    [string]$LogFile = 'C:\ProgramData\MuseumOS-WolRelay\relay.log'
+    [string]$LogFile = 'C:\ProgramData\Curato-WolRelay\relay.log'
 )
 
 $ErrorActionPreference = 'Continue'

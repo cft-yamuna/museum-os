@@ -10,8 +10,8 @@ export interface AppEnvironment {
 }
 
 // localStorage keys — per-slug so multiple devices work in the same browser
-const STORAGE_KEY_DEVICE_ID = 'museumos_device_id';
-const STORAGE_KEY_API_KEY = 'museumos_api_key';
+const STORAGE_KEY_DEVICE_ID = 'curato_device_id';
+const STORAGE_KEY_API_KEY = 'curato_api_key';
 
 function getCurrentSlug(): string {
   if (typeof window === 'undefined') return '';

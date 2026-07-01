@@ -19,8 +19,8 @@ const DEFAULT_CONFIG: WatchdogConfig = {
 
 const CHROME_CACHE_CLEANUP_INTERVAL_MS = 24 * 60 * 60 * 1000; // Once per day
 const CHROME_CACHE_DIR = process.platform === 'win32'
-  ? 'C:\\ProgramData\\Museumos\\chrome-kiosk\\Default\\Cache'
-  : '/tmp/museumos-chrome-cache';
+  ? 'C:\\ProgramData\\Curato\\chrome-kiosk\\Default\\Cache'
+  : '/tmp/curato-chrome-cache';
 
 interface RecoveryStats {
   kioskRestarts: number;
@@ -121,7 +121,7 @@ export class Watchdog {
       try {
         const files = readdirSync(dir);
         for (const file of files) {
-          if (!file.startsWith('museumos-')) continue;
+          if (!file.startsWith('curato-')) continue;
           try {
             const filePath = join(dir, file);
             const stat = statSync(filePath);

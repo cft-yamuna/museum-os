@@ -14,7 +14,7 @@ import { buildDbJsonExportPayload } from './dbJsonTransfer.js';
  * outside Docker. Files can be restored with `npm run db:import:json`.
  */
 
-const FILE_PREFIX = 'museumos-db-';
+const FILE_PREFIX = 'curato-db-';
 const FILE_EXT = '.json';
 const LATEST_FILE = 'latest.json';
 

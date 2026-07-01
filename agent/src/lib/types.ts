@@ -97,7 +97,7 @@ export interface KioskConfig {
   pollIntervalMs: number;
   maxCrashesInWindow: number;
   crashWindowMs: number;
-  /** Shell replacement mode: Chrome is launched by the Windows shell (museumos-shell.bat),
+  /** Shell replacement mode: Chrome is launched by the Windows shell (curato-shell.bat),
    *  not by the agent. Agent only manages URL changes and monitors Chrome via process list. */
   shellMode?: boolean;
 }
@@ -160,7 +160,7 @@ export interface LogEntry {
 // --- Power Schedule ---
 export interface PowerScheduleConfig {
   /** When true, agent enforces local cron shutdown checks from agent.config.json.
-   *  Requires MUSEUMOS_ENABLE_LOCAL_CRON=true in process env.
+   *  Requires CURATO_ENABLE_LOCAL_CRON=true in process env.
    */
   enableLocalCron?: boolean;
   /** Cron expression for shutdown (e.g., "0 19 * * *" = 7 PM daily) */

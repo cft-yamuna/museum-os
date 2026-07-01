@@ -6,7 +6,7 @@ import { pushToAdmins } from './adminWs.js';
 
 /**
  * Unified, brand-agnostic device control — ported from curato-v2's DeviceManager
- * and adapted to museum-os (Knex/Postgres + existing power-cascade + admin WS).
+ * and adapted to curato (Knex/Postgres + existing power-cascade + admin WS).
  *
  * One driver per device (selected by `driver_family`); every command and every
  * status poll goes through the DeviceDriver contract, replacing the per-type
@@ -257,7 +257,7 @@ function telemetryOf(st: DriverStatus | null): Record<string, unknown> | undefin
   };
 }
 
-/** Process-wide singleton (mirrors the other museum-os services). */
+/** Process-wide singleton (mirrors the other curato services). */
 export const deviceManager = new DeviceManager();
 export function startDeviceManager(): void {
   deviceManager.startPolling();

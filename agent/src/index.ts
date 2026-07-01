@@ -60,14 +60,14 @@ function writeProvisioningStatus(status: Record<string, unknown>): void {
   }
 }
 
-/** Copy scripts/museumos-shell.bat → museumos-shell.bat (agent root) if they differ.
+/** Copy scripts/curato-shell.bat → curato-shell.bat (agent root) if they differ.
  *  Covers the OTA chicken-and-egg: old agent code runs install(), so the bat
  *  only gets synced once the NEW agent starts up. */
 function syncShellBat(logger: Logger): void {
   if (process.platform !== 'win32') return;
   try {
-    const src = resolve(process.cwd(), 'scripts', 'museumos-shell.bat');
-    const dst = resolve(process.cwd(), 'museumos-shell.bat');
+    const src = resolve(process.cwd(), 'scripts', 'curato-shell.bat');
+    const dst = resolve(process.cwd(), 'curato-shell.bat');
     if (!existsSync(src)) return;
     const srcBuf = readFileSync(src);
     if (existsSync(dst)) {
@@ -75,7 +75,7 @@ function syncShellBat(logger: Logger): void {
       if (srcBuf.equals(dstBuf)) return;
     }
     copyFileSync(src, dst);
-    logger.info('Synced museumos-shell.bat to install root');
+    logger.info('Synced curato-shell.bat to install root');
   } catch (err) {
     logger.warn('Failed to sync shell bat:', err);
   }
@@ -95,7 +95,7 @@ async function main(): Promise<void> {
   const config = loadConfig();
   const logger = new Logger(config.logLevel, config.logFile);
 
-  logger.info('Museum OS Agent starting...');
+  logger.info('Curato Agent starting...');
 
   // Sync shell bat file on startup (belt-and-suspenders for OTA updates)
   syncShellBat(logger);
@@ -964,7 +964,7 @@ async function main(): Promise<void> {
     process.exit(1);
   });
 
-  logger.info('Museum OS Agent running.');
+  logger.info('Curato Agent running.');
 }
 
 function createPlaceholderScreenMap(totalScreens: number): ScreenMapping[] {

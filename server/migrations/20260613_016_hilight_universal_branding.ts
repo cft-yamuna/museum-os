@@ -9,18 +9,18 @@ export async function up(knex: Knex): Promise<void> {
     .where({ code: 'wipro-museum' })
     .update({
       code: 'hilight-museum',
-      name: 'Museum OS',
+      name: 'Curato',
     });
 
   await knex('sites')
     .where({ name: 'Wipro Museum' })
-    .update({ name: 'Museum OS' });
+    .update({ name: 'Curato' });
 
   await knex('exhibitions')
     .where({ name: 'Wipro Heritage Exhibition' })
     .update({
-      name: 'Museum OS Heritage Exhibition',
-      description: 'Museum OS demo exhibition for heritage content and interactive displays',
+      name: 'Curato Heritage Exhibition',
+      description: 'Curato demo exhibition for heritage content and interactive displays',
     });
 }
 
@@ -37,7 +37,7 @@ export async function down(knex: Knex): Promise<void> {
     });
 
   await knex('exhibitions')
-    .where({ name: 'Museum OS Heritage Exhibition' })
+    .where({ name: 'Curato Heritage Exhibition' })
     .update({
       name: 'Wipro Heritage Exhibition',
       description: 'Celebrating the history and innovation of Wipro',

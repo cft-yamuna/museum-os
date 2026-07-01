@@ -419,7 +419,7 @@ export function Custom01TimelineConfig({ config, onChange, siteId }: ConfigPanel
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'museum-os-timeline-data.json';
+    a.download = 'curato-timeline-data.json';
     a.click();
     URL.revokeObjectURL(url);
   }, [config.timelineData]);

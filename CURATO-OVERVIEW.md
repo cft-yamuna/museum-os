@@ -1,4 +1,4 @@
-# Museum OS — Complete System Documentation
+# Curato — Complete System Documentation
 
 > A single platform to run every screen, kiosk, and audio point in a museum — from one dashboard, on the local network, with no cloud dependency required.
 
@@ -23,11 +23,11 @@ A few things to keep in mind about the current state of the project:
 
 # PART A — Non-Technical Overview
 
-## What Is Museum OS?
+## What Is Curato?
 
-Museum OS is the "operating system" for a museum's displays. A typical museum has dozens of screens, touch kiosks, audio handsets, and projectors spread across galleries. Normally each one is managed by hand — someone walks around with a USB stick, turns screens on and off, and hopes nothing crashed overnight.
+Curato is the "operating system" for a museum's displays. A typical museum has dozens of screens, touch kiosks, audio handsets, and projectors spread across galleries. Normally each one is managed by hand — someone walks around with a USB stick, turns screens on and off, and hopes nothing crashed overnight.
 
-Museum OS replaces all of that with **one web dashboard** that runs on the museum's own network. From a single browser tab a staff member can:
+Curato replaces all of that with **one web dashboard** that runs on the museum's own network. From a single browser tab a staff member can:
 
 - See every screen in the building and whether it's healthy or has a problem.
 - Upload videos, images, and PDFs and push them to any screen.
@@ -104,7 +104,7 @@ Staff pick which experience runs on each screen from the dashboard, and can chan
 
 ## Architecture Overview
 
-Museum OS is a four-component system running on the museum's local network:
+Curato is a four-component system running on the museum's local network:
 
 ```
                  ┌────────────────────────────────────────────┐
@@ -147,7 +147,7 @@ The server runs three separate real-time channels so each audience gets only wha
 
 ## Component 1 — Server (`server/`)
 
-Express + TypeScript API in a Docker container (`museumos-app`), backed by PostgreSQL (`museumos-db`). Runs migrations and seeds on startup.
+Express + TypeScript API in a Docker container (`curato-app`), backed by PostgreSQL (`curato-db`). Runs migrations and seeds on startup.
 
 ### API Route Groups
 | Area | File | Responsibility |
@@ -209,7 +209,7 @@ Unified `deviceManager.command(deviceId, action, args)` routes to a driver based
 `agent`, `pjlink`, `sssp`, `samsung-mdc`, `dali`, `lg-signage`, `epson-escvp21`, `symetrix`, `genelec-smartip`, `curato-controller`, `passive`.
 Drivers live in `server/src/drivers/` and `server/src/services/` (`pjlink.ts`, `sssp.ts`, `dali.ts`, …). The admin code never needs to know the underlying hardware protocol — it just asks for `volume`, `brightness`, `input`, `power`, `restart`, `attest`, etc.
 
-- **`agent`** — Museum OS agent on PCs/kiosks. **This driver is tested and working** (it's the same channel that runs the displays).
+- **`agent`** — Curato agent on PCs/kiosks. **This driver is tested and working** (it's the same channel that runs the displays).
 - **`pjlink`** (`services/pjlink.ts`) — projectors over the PJLink TCP protocol. *Implemented, not hardware-validated.*
 - **`sssp`** (`services/sssp.ts`) — Samsung signage over SSSP HTTP. *Implemented, not hardware-validated.*
 - **`samsung-mdc`** (`drivers/samsung-mdc/`) — Samsung over MDC TCP. *Implemented, not hardware-validated.*
@@ -332,7 +332,7 @@ Node.js daemon on each display PC — Windows Service (via NSSM) or systemd unit
   ```powershell
   powershell -ep bypass -c "irm 'http://<server>:3401/setup.ps1' | iex"
   ```
-- **Windows setup** (`agent/scripts/setup-windows.ps1`): installs Node + Chrome, creates `C:\Program Files\Museumos\Agent\`, downloads + extracts the release, registers the NSSM service, configures kiosk auto-login, installs OpenSSH, and starts the service.
+- **Windows setup** (`agent/scripts/setup-windows.ps1`): installs Node + Chrome, creates `C:\Program Files\Curato\Agent\`, downloads + extracts the release, registers the NSSM service, configures kiosk auto-login, installs OpenSSH, and starts the service.
 - **Linux** (`agent/scripts/install-linux.sh`, `install-rpi.sh`): systemd unit + dedicated user + Chromium deps.
 - **Power-only devices** (`agent/scripts/setup-device-power-only.ps1`): minimal agent (WOL + health + power, no kiosk).
 - **Provisioning service** (`agent/src/services/provisioning.ts`): auto-provisions by recognized IP, else shows a pairing code and polls for approval (600 s timeout). Identity is cached to `agent.config.json` so reboots and updates keep the same device ID.
@@ -384,9 +384,9 @@ These feed the display templates `proximity`, `app01/02-monophone-*`, and `custo
 **Server / Admin / Display** (rebuild + restart the app container after a change):
 ```bash
 # Windows (Docker Desktop) — or just double-click deploy-local.bat
-docker compose --env-file .env.production up -d --build museumos-app
+docker compose --env-file .env.production up -d --build curato-app
 # Linux
-docker compose -f docker-compose.linux.yml --env-file .env.production up -d --build museumos-app
+docker compose -f docker-compose.linux.yml --env-file .env.production up -d --build curato-app
 ```
 Served at `http://localhost:3401`. Fresh clone: run `setup-all.bat` once.
 

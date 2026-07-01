@@ -270,7 +270,7 @@ async function handleConnection(
     ws.send(
       JSON.stringify({
         type: 'connected',
-        payload: { deviceId, message: 'Connected to Museum OS' },
+        payload: { deviceId, message: 'Connected to Curato' },
         timestamp: Date.now(),
       })
     );

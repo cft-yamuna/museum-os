@@ -60,7 +60,7 @@ function getServedUninstallScript(): { script: string; scriptPath: string } {
 function getServedPowerScript(serverUrl: string): { script: string; scriptPath: string } {
   const scriptPath = path.resolve(__dirname, '../../agent/scripts/setup-device-power-only.ps1');
   let script = readFileSync(scriptPath, 'utf-8');
-  script = script.replace(/__MUSEUMOS_SERVER_URL__/g, serverUrl);
+  script = script.replace(/__CURATO_SERVER_URL__/g, serverUrl);
   return { script, scriptPath };
 }
 
@@ -88,11 +88,11 @@ $Server = '${serverUrl}'
 $Slug = '${slug ?? ''}'
 $MainSetupUrl = '${serverUrl}/setup-main.ps1${slugQuery}'
 $SshSetupUrl = '${serverUrl}/ssh.ps1'
-$TempDir = Join-Path $env:TEMP ('museumos-bootstrap-' + [guid]::NewGuid().ToString('N'))
+$TempDir = Join-Path $env:TEMP ('curato-bootstrap-' + [guid]::NewGuid().ToString('N'))
 $MainSetupPath = Join-Path $TempDir 'setup-main.ps1'
 $SshSetupPath = Join-Path $TempDir 'ssh.ps1'
-$ServiceName = 'MuseumosAgent'
-$SetupCompleteFile = 'C:\\Program Files\\Museumos\\Agent\\.museumos-setup-complete'
+$ServiceName = 'CuratoAgent'
+$SetupCompleteFile = 'C:\\Program Files\\Curato\\Agent\\.curato-setup-complete'
 
 function Invoke-DownloadedScript {
     param(
@@ -136,7 +136,7 @@ try {
     New-Item -ItemType Directory -Path $TempDir -Force | Out-Null
 
     Write-Host '==============================================================' -ForegroundColor Cyan
-    Write-Host ' Museum OS Setup Bootstrap' -ForegroundColor Cyan
+    Write-Host ' Curato Setup Bootstrap' -ForegroundColor Cyan
     Write-Host '==============================================================' -ForegroundColor Cyan
     if ($Slug) {
         Write-Host "  Slug: $Slug" -ForegroundColor DarkGray
@@ -210,7 +210,7 @@ function getUninstallBootstrapScript(
 
   return `$ErrorActionPreference = 'Stop'
 $UninstallUrl = '${serverUrl}/uninstall-main.ps1'
-$TempDir = Join-Path $env:TEMP ('museumos-uninstall-' + [guid]::NewGuid().ToString('N'))
+$TempDir = Join-Path $env:TEMP ('curato-uninstall-' + [guid]::NewGuid().ToString('N'))
 $UninstallPath = Join-Path $TempDir 'uninstall-main.ps1'
 $Parameters = @{
 ${parameterEntries.join('\n')}
@@ -220,7 +220,7 @@ try {
     New-Item -ItemType Directory -Path $TempDir -Force | Out-Null
 
     Write-Host '==============================================================' -ForegroundColor Cyan
-    Write-Host ' Museum OS Uninstall / Reset' -ForegroundColor Cyan
+    Write-Host ' Curato Uninstall / Reset' -ForegroundColor Cyan
     Write-Host '==============================================================' -ForegroundColor Cyan
 
     Write-Host '[Download] uninstall-main.ps1' -ForegroundColor Cyan
@@ -266,7 +266,7 @@ function getPowerBootstrapScript(
 
   return `$ErrorActionPreference = 'Stop'
 $PowerUrl = '${serverUrl}/power-main.ps1'
-$TempDir = Join-Path $env:TEMP ('museumos-power-' + [guid]::NewGuid().ToString('N'))
+$TempDir = Join-Path $env:TEMP ('curato-power-' + [guid]::NewGuid().ToString('N'))
 $PowerPath = Join-Path $TempDir 'power-main.ps1'
 $Parameters = @{
 ${parameterEntries.join('\n')}
@@ -276,7 +276,7 @@ try {
     New-Item -ItemType Directory -Path $TempDir -Force | Out-Null
 
     Write-Host '==============================================================' -ForegroundColor Cyan
-    Write-Host ' Museum OS Power-Only Setup' -ForegroundColor Cyan
+    Write-Host ' Curato Power-Only Setup' -ForegroundColor Cyan
     Write-Host '==============================================================' -ForegroundColor Cyan
 
     Write-Host '[Download] power-main.ps1' -ForegroundColor Cyan
@@ -302,6 +302,13 @@ function isDisplayAssetRequest(requestPath: string): boolean {
 
 export function createApp(): express.Application {
   const app = express();
+
+  // --- Proxy ---
+  // Behind nginx (terminates TLS, proxies to 127.0.0.1:3401). Trust the first hop
+  // so req.protocol reflects X-Forwarded-Proto (https) and req.ip uses X-Forwarded-For.
+  // Without this, served scripts (/setup.ps1) inject an http:// $Server, and the
+  // host's http->https 301 downgrades POSTs to GET, breaking /api/auth/login.
+  app.set('trust proxy', 1);
 
   // --- Security ---
   app.use(helmet({
@@ -914,7 +921,7 @@ function Ensure-SshdAdminKeyConfig {
 }
 
 function Install-ServerAuthorizedKeys {
-    $tmpKeys = Join-Path $env:TEMP 'museumos-authorized_keys'
+    $tmpKeys = Join-Path $env:TEMP 'curato-authorized_keys'
     $destDir = 'C:\\ProgramData\\ssh'
     $destKeys = Join-Path $destDir 'administrators_authorized_keys'
     Remove-Item $tmpKeys -Force -ErrorAction SilentlyContinue
@@ -944,7 +951,7 @@ function Install-OpenSshFromZip {
     $zipPath = Join-Path $env:TEMP 'OpenSSH-Win64.zip'
     $extractRoot = Join-Path $env:TEMP ('OpenSSH-Win64-' + [guid]::NewGuid().ToString('N'))
     $targetDir = 'C:\\Program Files\\OpenSSH-Win64'
-    $localZip = 'C:\\Program Files\\Museumos\\Agent\\scripts\\OpenSSH-Win64.zip'
+    $localZip = 'C:\\Program Files\\Curato\\Agent\\scripts\\OpenSSH-Win64.zip'
 
     Remove-Item $zipPath -Force -ErrorAction SilentlyContinue
     Remove-Item $extractRoot -Recurse -Force -ErrorAction SilentlyContinue
@@ -1098,7 +1105,7 @@ if ($s -and $s.Status -eq 'Running') {
   // --- Fix agent config: set shellMode=true, auto-login, restart service ---
   app.get('/fix.ps1', (_req: express.Request, res: express.Response) => {
     res.set('Content-Type', 'text/plain; charset=utf-8');
-    res.send(`$p = "C:\\Program Files\\Museumos\\Agent\\agent.config.json"
+    res.send(`$p = "C:\\Program Files\\Curato\\Agent\\agent.config.json"
 $c = Get-Content $p -Raw | ConvertFrom-Json
 $c.kiosk | Add-Member -NotePropertyName shellMode -NotePropertyValue $true -Force
 $json = $c | ConvertTo-Json -Depth 5
@@ -1124,8 +1131,8 @@ Set-ItemProperty -Path $winlogon -Name 'DefaultDomainName' -Value $env:COMPUTERN
 Set-ItemProperty -Path $winlogon -Name 'DefaultPassword' -Value $KioskPassword
 Write-Host "Auto-login configured for $KioskUsername" -ForegroundColor Green
 taskkill /im chrome.exe /f 2>$null | Out-Null
-net stop MuseumosAgent 2>$null | Out-Null
-net start MuseumosAgent
+net stop CuratoAgent 2>$null | Out-Null
+net start CuratoAgent
 `);
   });
 

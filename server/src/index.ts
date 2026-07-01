@@ -30,7 +30,7 @@ if (!env.S3_ENDPOINT && !fs.existsSync(env.STORAGE_PATH)) {
 
 const server = app.listen(port, async () => {
   console.log('');
-  console.log('  Museum OS Server');
+  console.log('  Curato Server');
   console.log('  ================');
   console.log(`  Environment: ${env.NODE_ENV}`);
   console.log(`  API:         http://localhost:${port}/api`);

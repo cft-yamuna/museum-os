@@ -275,7 +275,7 @@ async function handleConnection(
     ws.send(
       JSON.stringify({
         type: 'connected',
-        payload: { deviceId, message: 'Agent connected to Museum OS' },
+        payload: { deviceId, message: 'Agent connected to Curato' },
         timestamp: Date.now(),
       })
     );

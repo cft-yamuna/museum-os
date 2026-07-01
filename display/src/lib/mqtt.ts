@@ -100,7 +100,7 @@ class MqttManager {
   }
 
   subscribe(controllerId: string, callback: MqttEventCallback): void {
-    const topic = `museumos/devices/${controllerId}/events`;
+    const topic = `curato/devices/${controllerId}/events`;
     let set = this.subscriptions.get(topic);
 
     if (!set) {
@@ -122,7 +122,7 @@ class MqttManager {
   }
 
   unsubscribe(controllerId: string, callback: MqttEventCallback): void {
-    const topic = `museumos/devices/${controllerId}/events`;
+    const topic = `curato/devices/${controllerId}/events`;
     const set = this.subscriptions.get(topic);
 
     if (set) {
@@ -155,7 +155,7 @@ class MqttManager {
   }
 
   private dispatch(event: MqttEvent): void {
-    const topic = `museumos/devices/${event.controllerId}/events`;
+    const topic = `curato/devices/${event.controllerId}/events`;
     const listeners = this.subscriptions.get(topic);
 
     if (listeners) {

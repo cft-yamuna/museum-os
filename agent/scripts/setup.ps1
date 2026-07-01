@@ -1,4 +1,4 @@
-# Museum OS Agent - Device Setup Script (Windows)
+# Curato Agent - Device Setup Script (Windows)
 # Generates agent.config.json for this specific device.
 #
 # Usage (run from agent directory or scripts directory):
@@ -35,7 +35,7 @@ if (-not $InstallDir) {
 }
 
 Write-Host ""
-Write-Host "=== Museum OS Agent - Device Setup ===" -ForegroundColor Cyan
+Write-Host "=== Curato Agent - Device Setup ===" -ForegroundColor Cyan
 Write-Host "  Slug:        $Slug"
 Write-Host "  Server:      $Server"
 Write-Host "  Install dir: $InstallDir"
@@ -60,10 +60,10 @@ function Get-KioskBrowserPath {
 }
 
 # 1. Clear cached identity (CRITICAL - prevents old device credentials leaking)
-$IdentityFile = Join-Path $InstallDir ".museumos-identity.json"
+$IdentityFile = Join-Path $InstallDir ".curato-identity.json"
 if (Test-Path $IdentityFile) {
     Remove-Item $IdentityFile -Force
-    Write-Host "[OK] Cleared old identity cache (.museumos-identity.json)" -ForegroundColor Green
+    Write-Host "[OK] Cleared old identity cache (.curato-identity.json)" -ForegroundColor Green
 } else {
     Write-Host "[OK] No existing identity cache found (clean install)" -ForegroundColor DarkGray
 }
@@ -80,7 +80,7 @@ try {
     exit 1
 }
 
-$ChromeDataDir = "C:\ProgramData\Museumos\chrome-kiosk"
+$ChromeDataDir = "C:\ProgramData\Curato\chrome-kiosk"
 
 # 4. Read template
 $TemplatePath = Join-Path $AgentDir "agent.config.template.json"

@@ -1,12 +1,12 @@
-# Museum OS Guardian - Service Health Monitor
+# Curato Guardian - Service Health Monitor
 # Runs every 5 minutes via Task Scheduler.
 # Restarts the NSSM service if it's down. Checks Chrome kiosk health.
 
-$LogDir = "C:\ProgramData\Museumos\logs"
+$LogDir = "C:\ProgramData\Curato\logs"
 $LogFile = Join-Path $LogDir "guardian.log"
-$ServiceName = "MuseumosAgent"
-$NssmExe = "C:\ProgramData\Museumos\nssm\nssm.exe"
-$ConfigPath = "C:\Program Files\Museumos\Agent\agent.config.json"
+$ServiceName = "CuratoAgent"
+$NssmExe = "C:\ProgramData\Curato\nssm\nssm.exe"
+$ConfigPath = "C:\Program Files\Curato\Agent\agent.config.json"
 
 function Write-GuardianLog($msg) {
     $ts = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
@@ -39,10 +39,10 @@ function Get-BrowserProcessName {
 }
 
 try {
-    # 1. Check Museum OS service
+    # 1. Check Curato service
     $svc = Get-Service -Name $ServiceName -ErrorAction SilentlyContinue
     if (-not $svc) {
-        $svc = Get-Service -DisplayName "MUSEUMOS*" -ErrorAction SilentlyContinue | Select-Object -First 1
+        $svc = Get-Service -DisplayName "CURATO*" -ErrorAction SilentlyContinue | Select-Object -First 1
     }
 
     if (-not $svc) {
@@ -79,7 +79,7 @@ try {
     $browserProcess = Get-BrowserProcessName
     $browser = Get-Process -Name $browserProcess -ErrorAction SilentlyContinue
     if (-not $browser) {
-        $vbsPath = "C:\Program Files\Museumos\Agent\launch-kiosk.vbs"
+        $vbsPath = "C:\Program Files\Curato\Agent\launch-kiosk.vbs"
         if (Test-Path $vbsPath) {
             Start-Sleep -Seconds 10
             $browserRecheck = Get-Process -Name $browserProcess -ErrorAction SilentlyContinue

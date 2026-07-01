@@ -83,8 +83,8 @@ These spelled out gallery names like "Foundation", "Consumer Care", "Wintrol", e
 | `Layer_1-2-g-1-text-2`    | Consumer Care      | 832      |
 | `Layer_1-2-g-1-text-3`    | Factory Experience | 876      |
 | `Layer_1-2-g-1-text-4`    | Wintrol            | 946      |
-| `Layer_1-2-g-1-text-5`    | Spirit of Museum OS  | 986      |
-| `Layer_1-2-g-1-text-6`    | Museum OS Experience | 1066     |
+| `Layer_1-2-g-1-text-5`    | Spirit of Curato  | 986      |
+| `Layer_1-2-g-1-text-6`    | Curato Experience | 1066     |
 | `Layer_1-2-g-1-text-7`    | Prologue           | 1237     |
 | `Layer_1-2-g-1-text-8`    | People Garden      | 1287     |
 | *(none)*                   | IT Story           | —        |

@@ -1,11 +1,11 @@
 #!/bin/bash
-# Museum OS - First-time Setup Script
+# Curato - First-time Setup Script
 # Usage: ./scripts/setup.sh
 
 set -euo pipefail
 
 echo ""
-echo "  Museum OS - First-time Setup"
+echo "  Curato - First-time Setup"
 echo "  ============================"
 echo ""
 
@@ -63,7 +63,7 @@ echo "  Setup complete!"
 echo "  ==============="
 echo ""
 echo "  Default admin credentials:"
-echo "    Email:    admin@museumos.local"
+echo "    Email:    admin@curato.local"
 echo "    Password: admin123"
 echo ""
 echo "  Start the server:"

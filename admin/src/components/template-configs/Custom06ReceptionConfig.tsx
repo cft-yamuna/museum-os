@@ -81,7 +81,7 @@ function WelcomeSlideEditor({ slide, onChange, onRemove, images, siteId }: {
           <div>
             <label className={LABEL_CLS}>Greeting Text</label>
             <input type="text" value={slide.greeting || ''} onChange={(e) => set('greeting', e.target.value)}
-              placeholder='e.g. "Welcome to Museum OS Heritage Museum"' className={INPUT_CLS} />
+              placeholder='e.g. "Welcome to Curato Heritage Museum"' className={INPUT_CLS} />
           </div>
           <div>
             <label className={LABEL_CLS}>Subtitle</label>
@@ -571,7 +571,7 @@ export function Custom06ReceptionConfig({ config, onChange, siteId }: ConfigPane
             <div>
               <label className={LABEL_CLS}>Footer Text</label>
               <input type="text" value={(config.footerText as string) || ''} onChange={(e) => set('footerText', e.target.value)}
-                placeholder="e.g. Museum OS Heritage Museum" className={INPUT_CLS} />
+                placeholder="e.g. Curato Heritage Museum" className={INPUT_CLS} />
             </div>
           </div>
           <div className="flex gap-6">

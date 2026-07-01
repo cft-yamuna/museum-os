@@ -1,4 +1,4 @@
-' Museum OS Kiosk Launcher
+' Curato Kiosk Launcher
 ' Runs at user logon AND at system startup to start the kiosk browser.
 ' Waits for the agent service to be ready before launching Chrome.
 ' If the agent is already managing Chrome, this script exits gracefully.
@@ -7,7 +7,7 @@ Set objShell = CreateObject("WScript.Shell")
 Set objFSO = CreateObject("Scripting.FileSystemObject")
 
 ' --- Configuration ---
-configPath = "C:\Program Files\Museumos\Agent\agent.config.json"
+configPath = "C:\Program Files\Curato\Agent\agent.config.json"
 maxWaitSeconds = 120  ' Max time to wait for agent service
 checkIntervalMs = 5000 ' Check every 5 seconds
 
@@ -50,8 +50,8 @@ Do While waitedMs < (maxWaitSeconds * 1000)
         WScript.Quit 0
     End If
 
-    ' Check if Museum OS service is running
-    Set colServices = objWMI.ExecQuery("SELECT State FROM Win32_Service WHERE DisplayName LIKE 'MUSEUMOS%'")
+    ' Check if Curato service is running
+    Set colServices = objWMI.ExecQuery("SELECT State FROM Win32_Service WHERE DisplayName LIKE 'CURATO%'")
     serviceRunning = False
     For Each svc In colServices
         If LCase(svc.State) = "running" Then
@@ -83,7 +83,7 @@ chromeArgs = "--kiosk --noerrdialogs --disable-infobars --disable-session-crashe
 
 userDataDir = ExtractJsonValue(jsonText, "user-data-dir")
 If userDataDir = "" Then
-    userDataDir = "C:\ProgramData\Museumos\chrome-kiosk"
+    userDataDir = "C:\ProgramData\Curato\chrome-kiosk"
 End If
 chromeArgs = chromeArgs & " --user-data-dir=""" & userDataDir & """"
 

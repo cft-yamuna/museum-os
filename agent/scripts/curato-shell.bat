@@ -1,7 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 REM ================================================================
-REM Museum OS Shell - Replaces explorer.exe as the Windows shell
+REM Curato Shell - Replaces explorer.exe as the Windows shell
 REM ================================================================
 REM SINGLE SOURCE OF TRUTH: agent.config.json
 REM
@@ -14,19 +14,19 @@ REM   5. Launches Chrome fullscreen
 REM   6. If Chrome crashes, relaunches in 3 seconds (infinite loop)
 REM ================================================================
 
-set INSTALL_DIR=C:\Program Files\Museumos\Agent
+set INSTALL_DIR=C:\Program Files\Curato\Agent
 set CONFIG_FILE=%INSTALL_DIR%\agent.config.json
-set URL_SIDECAR=C:\ProgramData\Museumos\kiosk-url.txt
-set MULTI_SIDECAR=C:\ProgramData\Museumos\kiosk-multi.json
+set URL_SIDECAR=C:\ProgramData\Curato\kiosk-url.txt
+set MULTI_SIDECAR=C:\ProgramData\Curato\kiosk-multi.json
 set MULTI_LAUNCHER=%INSTALL_DIR%\scripts\launch-multi-kiosk.ps1
-set CHROME_DATA=C:\ProgramData\Museumos\chrome-kiosk
-set LOG_FILE=C:\ProgramData\Museumos\logs\shell.log
+set CHROME_DATA=C:\ProgramData\Curato\chrome-kiosk
+set LOG_FILE=C:\ProgramData\Curato\logs\shell.log
 
 REM Ensure directories exist
-if not exist "C:\ProgramData\Museumos\logs" mkdir "C:\ProgramData\Museumos\logs"
+if not exist "C:\ProgramData\Curato\logs" mkdir "C:\ProgramData\Curato\logs"
 if not exist "%CHROME_DATA%" mkdir "%CHROME_DATA%"
 
-echo [%date% %time%] ===== Museum OS Shell starting ===== >> "%LOG_FILE%"
+echo [%date% %time%] ===== Curato Shell starting ===== >> "%LOG_FILE%"
 
 REM ----------------------------------------------------------------
 REM Read slug and browser from agent.config.json ONLY

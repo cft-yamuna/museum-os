@@ -77,30 +77,30 @@ export function InstallationGuidePage() {
         <Info>Run these steps on the server PC (192.168.10.100). Open PowerShell as Administrator.</Info>
 
         <Step num={1} title="Start PostgreSQL Database (Docker)">
-          <CopyBlock code={`docker run -d --name museumos-db \\
+          <CopyBlock code={`docker run -d --name curato-db \\
   -e POSTGRES_USER=postgres \\
   -e POSTGRES_PASSWORD=postgres123 \\
-  -e POSTGRES_DB=museumos \\
+  -e POSTGRES_DB=curato \\
   -p 5432:5432 \\
   --restart unless-stopped \\
   postgres:16-alpine`} />
           <p>Verify it's running:</p>
-          <CopyBlock code={'docker ps --filter "name=museumos-db"'} />
+          <CopyBlock code={'docker ps --filter "name=curato-db"'} />
         </Step>
 
         <Step num={2} title="Install Server Dependencies">
-          <CopyBlock code={`cd C:\\Users\\Administrator\\Desktop\\museumos-app01\\server
+          <CopyBlock code={`cd C:\\Users\\Administrator\\Desktop\\curato-app01\\server
 npm install`} />
         </Step>
 
         <Step num={3} title="Configure Environment">
           <p>Make sure <code className="bg-surface-100 px-1.5 py-0.5 rounded text-sm">server\\.env</code> has:</p>
-          <CopyBlock code="DATABASE_URL=postgresql://postgres:postgres123@localhost:5432/museumos" />
+          <CopyBlock code="DATABASE_URL=postgresql://postgres:postgres123@localhost:5432/curato" />
         </Step>
 
         <Step num={4} title="Run Database Migrations">
-          <CopyBlock code={`cd C:\\Users\\Administrator\\Desktop\\museumos-app01\\server
-$env:DATABASE_URL="postgresql://postgres:postgres123@localhost:5432/museumos"
+          <CopyBlock code={`cd C:\\Users\\Administrator\\Desktop\\curato-app01\\server
+$env:DATABASE_URL="postgresql://postgres:postgres123@localhost:5432/curato"
 npx knex migrate:latest --knexfile src/lib/knexfile.ts`} />
           <p>Expected output: <code className="bg-surface-100 px-1.5 py-0.5 rounded text-sm">Batch 1 run: 14 migrations</code></p>
         </Step>
@@ -109,13 +109,13 @@ npx knex migrate:latest --knexfile src/lib/knexfile.ts`} />
           <CopyBlock code="npx knex seed:run --knexfile src/lib/knexfile.ts" />
           <Info>
             Default admin credentials:<br />
-            Email: <strong>admin@museumos.local</strong><br />
+            Email: <strong>admin@curato.local</strong><br />
             Password: <strong>admin123</strong>
           </Info>
         </Step>
 
         <Step num={6} title="Start the Server">
-          <CopyBlock code={`cd C:\\Users\\Administrator\\Desktop\\museumos-app01\\server
+          <CopyBlock code={`cd C:\\Users\\Administrator\\Desktop\\curato-app01\\server
 npm run dev`} />
           <div className="space-y-1 text-base">
             <p>Server URLs:</p>
@@ -197,24 +197,24 @@ npm run dev`} />
       {/* PART C: Database Reference */}
       <Section title="Part C: Database Quick Reference" icon={Database}>
         <Step num={1} title="Start / Stop Database">
-          <CopyBlock code={`docker start museumos-db       # Start DB
-docker stop museumos-db        # Stop DB
-docker ps --filter "name=museumos-db"  # Check status
-docker logs museumos-db        # View DB logs`} />
+          <CopyBlock code={`docker start curato-db       # Start DB
+docker stop curato-db        # Stop DB
+docker ps --filter "name=curato-db"  # Check status
+docker logs curato-db        # View DB logs`} />
         </Step>
 
         <Step num={2} title="Reset Database (keep container)">
-          <CopyBlock code={`cd C:\\Users\\Administrator\\Desktop\\museumos-app01\\server
-$env:DATABASE_URL="postgresql://postgres:postgres123@localhost:5432/museumos"
+          <CopyBlock code={`cd C:\\Users\\Administrator\\Desktop\\curato-app01\\server
+$env:DATABASE_URL="postgresql://postgres:postgres123@localhost:5432/curato"
 npx knex migrate:rollback --all --knexfile src/lib/knexfile.ts
 npx knex migrate:latest --knexfile src/lib/knexfile.ts
 npx knex seed:run --knexfile src/lib/knexfile.ts`} />
         </Step>
 
         <Step num={3} title="Nuke Database (start completely fresh)">
-          <CopyBlock code={`docker stop museumos-db
-docker rm museumos-db
-docker run -d --name museumos-db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres123 -e POSTGRES_DB=museumos -p 5432:5432 --restart unless-stopped postgres:16-alpine
+          <CopyBlock code={`docker stop curato-db
+docker rm curato-db
+docker run -d --name curato-db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres123 -e POSTGRES_DB=curato -p 5432:5432 --restart unless-stopped postgres:16-alpine
 # Then run migrations and seeds again (Part A, Steps 4-5)`} />
         </Step>
       </Section>
@@ -225,7 +225,7 @@ docker run -d --name museumos-db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=
           <div className="bg-surface-50 rounded-xl p-4 space-y-1">
             <h4 className="text-base font-semibold text-surface-700">1. Server (Backend API)</h4>
             <p className="text-sm text-surface-500">Node.js + Express + TypeScript + PostgreSQL | Port 3401</p>
-            <CopyBlock code={`cd C:\\Users\\Administrator\\Desktop\\museumos-app01\\server
+            <CopyBlock code={`cd C:\\Users\\Administrator\\Desktop\\curato-app01\\server
 npm install
 npm run dev          # Development (auto-reload)
 npm run build        # Production build`} />
@@ -234,7 +234,7 @@ npm run build        # Production build`} />
           <div className="bg-surface-50 rounded-xl p-4 space-y-1">
             <h4 className="text-base font-semibold text-surface-700">2. Admin Panel (Web Dashboard)</h4>
             <p className="text-sm text-surface-500">React + Vite + TypeScript + TailwindCSS | Port 5173 (dev)</p>
-            <CopyBlock code={`cd C:\\Users\\Administrator\\Desktop\\museumos-app01\\admin
+            <CopyBlock code={`cd C:\\Users\\Administrator\\Desktop\\curato-app01\\admin
 npm install
 npm run dev          # Development (http://localhost:5173)
 npm run build        # Production build (output: admin/dist/)`} />
@@ -243,7 +243,7 @@ npm run build        # Production build (output: admin/dist/)`} />
           <div className="bg-surface-50 rounded-xl p-4 space-y-1">
             <h4 className="text-base font-semibold text-surface-700">3. Display App (Kiosk/Screen Frontend)</h4>
             <p className="text-sm text-surface-500">React + Vite + TypeScript | Port 5174 (dev)</p>
-            <CopyBlock code={`cd C:\\Users\\Administrator\\Desktop\\museumos-app01\\display
+            <CopyBlock code={`cd C:\\Users\\Administrator\\Desktop\\curato-app01\\display
 npm install
 npm run dev          # Development (http://localhost:5174)
 npm run build        # Production build (output: display/dist/)`} />
@@ -252,7 +252,7 @@ npm run build        # Production build (output: display/dist/)`} />
           <div className="bg-surface-50 rounded-xl p-4 space-y-1">
             <h4 className="text-base font-semibold text-surface-700">4. Agent (Runs on Slave Devices)</h4>
             <p className="text-sm text-surface-500">Node.js + TypeScript | Manages kiosk browser, power commands, health</p>
-            <CopyBlock code={`cd C:\\Users\\Administrator\\Desktop\\museumos-app01\\agent
+            <CopyBlock code={`cd C:\\Users\\Administrator\\Desktop\\curato-app01\\agent
 npm install
 npx tsx src/index.ts          # Manual start
 # Or use setup-device-local.ps1 to install as Windows service`} />
@@ -260,7 +260,7 @@ npx tsx src/index.ts          # Manual start
         </div>
 
         <Step num={0} title="Install All at Once">
-          <CopyBlock code={`cd C:\\Users\\Administrator\\Desktop\\museumos-app01
+          <CopyBlock code={`cd C:\\Users\\Administrator\\Desktop\\curato-app01
 cd server && npm install && cd ..
 cd admin && npm install && cd ..
 cd display && npm install && cd ..
@@ -268,14 +268,14 @@ cd agent && npm install && cd ..`} />
         </Step>
 
         <Step num={0} title="Docker Build (Full Production Image)">
-          <CopyBlock code={`cd C:\\Users\\Administrator\\Desktop\\museumos-app01
-docker build -t museumos-app .
-docker run -d --name museumos-server \\
+          <CopyBlock code={`cd C:\\Users\\Administrator\\Desktop\\curato-app01
+docker build -t curato-app .
+docker run -d --name curato-server \\
   -p 3401:3401 \\
-  -e DATABASE_URL="postgresql://postgres:postgres123@host.docker.internal:5432/museumos" \\
-  -e JWT_SECRET="museumos-dev-secret-key-change-in-production-32chars" \\
+  -e DATABASE_URL="postgresql://postgres:postgres123@host.docker.internal:5432/curato" \\
+  -e JWT_SECRET="curato-dev-secret-key-change-in-production-32chars" \\
   --restart unless-stopped \\
-  museumos-app`} />
+  curato-app`} />
         </Step>
       </Section>
     </div>

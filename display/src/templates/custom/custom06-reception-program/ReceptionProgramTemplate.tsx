@@ -36,7 +36,7 @@ interface ReceptionProgramConfig {
   accentColor: string;             // default '#3b82f6'
   textColor: string;               // default '#ffffff'
   logoUrl?: string;                // museum logo (shown on all screens)
-  footerText?: string;             // e.g. "Museum OS Heritage Museum"
+  footerText?: string;             // e.g. "Curato Heritage Museum"
   hideHeader?: boolean;            // hide top header row (logo + clock)
   hideCenterLine?: boolean;        // hide welcome slide divider line
   disableOpacity?: boolean;        // remove opacity/overlay effects

@@ -1,13 +1,13 @@
 {
-  "name": "museumos-agent",
+  "name": "curato-agent",
   "version": "1.0.66",
-  "description": "Museum OS Agent - system-level daemon for museum display machines",
+  "description": "Curato Agent - system-level daemon for museum display machines",
   "private": false,
   "type": "module",
   "bin": {
     "cms-agent": "bin/cms-agent.js",
-    "museum-os-agent": "bin/cms-agent.js",
-    "museumos-agent": "bin/cms-agent.js"
+    "curato-agent": "bin/cms-agent.js",
+    "curato-agent": "bin/cms-agent.js"
   },
   "files": [
     "bin/",

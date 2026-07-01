@@ -1,5 +1,5 @@
 # ── Device-specific files (generated per installation, NEVER commit) ──
-.museumos-identity.json
+.curato-identity.json
 .agent-update-state.json
 provisioning-status.json
 

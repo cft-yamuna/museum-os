@@ -73,11 +73,11 @@ export function registerMaintenanceCommands(
       return { enabled: false, message: 'Only available on Windows' };
     }
 
-    const shellBat = resolve(process.cwd(), 'museumos-shell.bat');
+    const shellBat = resolve(process.cwd(), 'curato-shell.bat');
     logger.warn(`ENABLE SHELL: Switching Windows shell to ${shellBat}`);
 
     try {
-      // Set shell to museumos-shell.bat
+      // Set shell to curato-shell.bat
       execSync(
         `reg add "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon" /v Shell /d "\\"${shellBat}\\"" /f`,
         { stdio: 'ignore', timeout: 10_000 }

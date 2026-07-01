@@ -102,7 +102,7 @@ export function LoginPage() {
                 required
                 className="w-full rounded-xl border px-4 py-3.5 card-bg text-surface-900 placeholder:text-surface-400 focus:outline-none focus:ring-4 focus:ring-primary-500/10 focus:border-primary-500 transition-all text-base"
                 style={{ borderColor: 'var(--glass-border)' }}
-                placeholder="admin@museumos.local"
+                placeholder="admin@curato.local"
               />
             </div>
 

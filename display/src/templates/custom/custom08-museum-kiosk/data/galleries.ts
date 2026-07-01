@@ -3,7 +3,7 @@ import type { Gallery } from '../types';
 export const galleries: readonly Gallery[] = [
   {
     id: 'hilight-experience',
-    name: 'The Museum OS Ethos',
+    name: 'The Curato Ethos',
     color: 'var(--color-hilight-experience)',
     cardColor: '#963C3C',
     categoryId: 'origin',
@@ -11,7 +11,7 @@ export const galleries: readonly Gallery[] = [
     textGroupId: 'Layer_1-2-g-1-text-6',
     timeToExplore: '15\u201320 min',
     description:
-      'The values and culture that have shaped Museum OS from the beginning.',
+      'The values and culture that have shaped Curato from the beginning.',
     highlightIds: ['hilight-exp-immersive', 'hilight-exp-timeline'],
   },
   {
@@ -24,7 +24,7 @@ export const galleries: readonly Gallery[] = [
     textGroupId: 'Layer_1-2-g-1-text-7',
     timeToExplore: '10\u201315 min',
     description:
-      'Early milestones and pivotal choices that set Museum OS on its path.',
+      'Early milestones and pivotal choices that set Curato on its path.',
     highlightIds: ['prologue-desk', 'prologue-timeline'],
   },
   {
@@ -37,12 +37,12 @@ export const galleries: readonly Gallery[] = [
     textGroupId: 'Layer_1-2-g-1-text-8',
     timeToExplore: '10\u201315 min',
     description:
-      'The people, across generations, who built and shaped Museum OS.',
+      'The people, across generations, who built and shaped Curato.',
     highlightIds: [],
   },
   {
     id: 'it-story',
-    name: 'Museum OS Ltd.',
+    name: 'Curato Ltd.',
     color: 'var(--color-it-story)',
     cardColor: '#0C3C75',
     categoryId: 'businesses',
@@ -55,7 +55,7 @@ export const galleries: readonly Gallery[] = [
   },
   {
     id: 'consumer-care',
-    name: 'Museum OS Consumer Care & Lighting Group',
+    name: 'Curato Consumer Care & Lighting Group',
     color: 'var(--color-consumer-care)',
     cardColor: '#C16E14',
     categoryId: 'businesses',
@@ -76,12 +76,12 @@ export const galleries: readonly Gallery[] = [
     textGroupId: 'Layer_1-2-g-1-text-3',
     timeToExplore: '15\u201320 min',
     description:
-      'An immersive recreation of manufacturing at Museum OS\'s Amalner factory.',
+      'An immersive recreation of manufacturing at Curato\'s Amalner factory.',
     highlightIds: ['factory-line', 'factory-machines'],
   },
   {
     id: 'wintrol',
-    name: 'Museum OS Infrastructure Engineering',
+    name: 'Curato Infrastructure Engineering',
     color: 'var(--color-wintrol)',
     cardColor: '#8484C7',
     categoryId: 'businesses',
@@ -94,7 +94,7 @@ export const galleries: readonly Gallery[] = [
   },
   {
     id: 'spirit-of-hilight',
-    name: 'Spirit of Museum OS',
+    name: 'Spirit of Curato',
     color: 'var(--color-spirit-of-hilight)',
     cardColor: '#0C4728',
     categoryId: 'community',
@@ -102,7 +102,7 @@ export const galleries: readonly Gallery[] = [
     textGroupId: 'Layer_1-2-g-1-text-5',
     timeToExplore: '10\u201315 min',
     description:
-      'How responsibility evolved into a defining part of Museum OS\'s identity.',
+      'How responsibility evolved into a defining part of Curato\'s identity.',
     highlightIds: ['spirit-pillars', 'spirit-values'],
   },
   {
@@ -115,7 +115,7 @@ export const galleries: readonly Gallery[] = [
     textGroupId: 'Layer_1-2-g-1-text-1',
     timeToExplore: '10\u201315 min',
     description:
-      'The Foundation\'s work across education, health, and livelihoods\u2014and its role as the majority shareholder of Museum OS Limited.',
+      'The Foundation\'s work across education, health, and livelihoods\u2014and its role as the majority shareholder of Curato Limited.',
     highlightIds: ['foundation-education', 'foundation-impact'],
   },
 ] as const;

@@ -17,7 +17,7 @@ const panelData: Record<CategoryId, PanelData> = {
   origin: {
     viewingTime: '20-25',
     galleries: [
-      { num: 1, name: 'The Museum OS Ethos', color: '#C96E69' },
+      { num: 1, name: 'The Curato Ethos', color: '#C96E69' },
       { num: 2, name: 'A Very Small Company', color: '#7A4E31' },
       { num: 3, name: 'People Garden', color: '#3A280F' },
     ],
@@ -26,15 +26,15 @@ const panelData: Record<CategoryId, PanelData> = {
     viewingTime: '40-45',
     galleries: [
       { num: 4, name: 'A Factory Experience', color: '#053D32' },
-      { num: 5, name: 'Museum OS Consumer Care & Lighting Group', color: '#C16E14' },
-      { num: 6, name: 'Museum OS Infrastructure Engineering', color: '#8484C7' },
-      { num: 7, name: 'Museum OS Ltd.', color: '#0C3C75' },
+      { num: 5, name: 'Curato Consumer Care & Lighting Group', color: '#C16E14' },
+      { num: 6, name: 'Curato Infrastructure Engineering', color: '#8484C7' },
+      { num: 7, name: 'Curato Ltd.', color: '#0C3C75' },
     ],
   },
   community: {
     viewingTime: '20-25',
     galleries: [
-      { num: 8, name: 'Spirit of Museum OS', color: '#0C4728' },
+      { num: 8, name: 'Spirit of Curato', color: '#0C4728' },
       { num: 9, name: 'Azim Premji Foundation', color: '#094C4C' },
     ],
   },

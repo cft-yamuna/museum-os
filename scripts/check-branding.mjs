@@ -36,13 +36,15 @@ const filesToCheck = [
 ];
 
 const legacyBrandPatterns = [
-  /\bMUSEUMOS\b/,
-  /\bMuseumos\b/,
+  /\bMUSEUM OS\b/,
+  /\bMuseum OS\b/,
+  /museumos/i,
   /\bhiLight\b/,
   /\bHiLight\b/,
   /\bHilight\b/,
   /\bHILIGHT\b/,
   /admin@hilight\.local/,
+  /admin@museumos\.local/,
 ];
 
 const allowedLegacyPatterns = [
@@ -55,7 +57,13 @@ const failures = [];
 
 for (const file of filesToCheck) {
   const absolutePath = join(repoRoot, file);
-  const content = await readFile(absolutePath, 'utf8');
+  let content;
+  try {
+    content = await readFile(absolutePath, 'utf8');
+  } catch (err) {
+    if (err.code === 'ENOENT') continue;
+    throw err;
+  }
   const lines = content.split(/\r?\n/);
 
   lines.forEach((line, index) => {
@@ -69,9 +77,9 @@ for (const file of filesToCheck) {
 }
 
 if (failures.length > 0) {
-  console.error('Legacy visible branding found. Replace it with Museum OS:');
+  console.error('Legacy visible branding found. Replace it with Curato:');
   console.error(failures.join('\n'));
   process.exit(1);
 }
 
-console.log('Museum OS branding check passed.');
+console.log('Curato branding check passed.');

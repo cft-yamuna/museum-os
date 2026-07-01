@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Museum OS Agent - Linux Installer
+# Curato Agent - Linux Installer
 # Run as root:
 #   sudo bash install-linux.sh --slug f-av01 --server http://192.168.10.100:3401
 set -euo pipefail
 
-INSTALL_DIR="/opt/museumos/agent"
-LOG_DIR="/var/log/museumos"
-SERVICE_NAME="museumos-agent"
+INSTALL_DIR="/opt/curato/agent"
+LOG_DIR="/var/log/curato"
+SERVICE_NAME="curato-agent"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 AGENT_DIR="$(dirname "$SCRIPT_DIR")"
 
@@ -60,18 +60,18 @@ if [[ "$NODE_VERSION" -lt 20 ]]; then
 fi
 
 echo ""
-echo "=== Museum OS Agent - Linux Installer ==="
+echo "=== Curato Agent - Linux Installer ==="
 echo "  Device slug : $SLUG"
 echo "  Server URL  : $SERVER"
 echo ""
 
 # --- Create user/group ---
-if ! id -u museumos &> /dev/null; then
-    echo "[1/7] Creating museumos user and group..."
-    groupadd --system museumos
-    useradd --system --gid museumos --home-dir /opt/museumos --shell /usr/sbin/nologin museumos
+if ! id -u curato &> /dev/null; then
+    echo "[1/7] Creating curato user and group..."
+    groupadd --system curato
+    useradd --system --gid curato --home-dir /opt/curato --shell /usr/sbin/nologin curato
 else
-    echo "[1/7] User 'museumos' already exists, skipping."
+    echo "[1/7] User 'curato' already exists, skipping."
 fi
 
 # --- Create directories ---
@@ -102,19 +102,19 @@ bash "$SCRIPT_DIR/setup.sh" \
 
 # --- Set permissions ---
 echo "[6/7] Setting permissions..."
-chown -R museumos:museumos "$INSTALL_DIR"
-chown -R museumos:museumos "$LOG_DIR"
+chown -R curato:curato "$INSTALL_DIR"
+chown -R curato:curato "$LOG_DIR"
 chmod 750 "$INSTALL_DIR"
 chmod 750 "$LOG_DIR"
 
 # --- Install systemd service ---
 echo "[7/7] Installing systemd service..."
-cp "$SCRIPT_DIR/museumos-agent.service" "/etc/systemd/system/${SERVICE_NAME}.service"
+cp "$SCRIPT_DIR/curato-agent.service" "/etc/systemd/system/${SERVICE_NAME}.service"
 systemctl daemon-reload
 systemctl enable "$SERVICE_NAME"
 
 # --- Install logrotate config ---
-cp "$SCRIPT_DIR/museumos-agent.logrotate" "/etc/logrotate.d/${SERVICE_NAME}" 2>/dev/null || true
+cp "$SCRIPT_DIR/curato-agent.logrotate" "/etc/logrotate.d/${SERVICE_NAME}" 2>/dev/null || true
 
 echo ""
 echo "=== Installation Complete ==="
@@ -129,6 +129,6 @@ echo "  Start   :  sudo systemctl start ${SERVICE_NAME}"
 echo "  Status  :  sudo systemctl status ${SERVICE_NAME}"
 echo "  Logs    :  sudo journalctl -u ${SERVICE_NAME} -f"
 echo ""
-echo "The agent will now provision with the Museum OS server."
+echo "The agent will now provision with the Curato server."
 echo "If pairing is needed, a 6-digit code will appear in the logs."
 echo ""

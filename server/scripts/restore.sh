@@ -1,5 +1,5 @@
 #!/bin/bash
-# Museum OS - Database Restore Script
+# Curato - Database Restore Script
 # Usage: ./scripts/restore.sh <backup_file>
 
 set -euo pipefail
@@ -8,12 +8,12 @@ if [ $# -eq 0 ]; then
   echo "Usage: $0 <backup_file.sql.gz>"
   echo ""
   echo "Available backups:"
-  ls -lh ./backups/museumos_*.sql.gz 2>/dev/null || echo "  No backups found"
+  ls -lh ./backups/curato_*.sql.gz 2>/dev/null || echo "  No backups found"
   exit 1
 fi
 
 BACKUP_FILE="$1"
-DB_URL="${DATABASE_URL:-postgresql://museumos:museumos@localhost:5432/museumos}"
+DB_URL="${DATABASE_URL:-postgresql://curato:curato@localhost:5432/curato}"
 
 if [ ! -f "$BACKUP_FILE" ]; then
   echo "Error: Backup file not found: $BACKUP_FILE"

@@ -12,7 +12,7 @@ export const highlights: readonly Highlight[] = [
     galleryId: 'prologue',
     title: 'The Founder\'s Desk',
     description:
-      'A faithful recreation of M.H. Hasham Premji\'s original desk from the Amalner office, where the seeds of Museum OS were first sown in 1945.',
+      'A faithful recreation of M.H. Hasham Premji\'s original desk from the Amalner office, where the seeds of Curato were first sown in 1945.',
     imageSrc: './images/highlights/prologue-highlight.png',
     positionOnMap: { x: 27.5, y: 51.5 },
   },
@@ -21,18 +21,18 @@ export const highlights: readonly Highlight[] = [
     galleryId: 'prologue',
     title: 'Origins Timeline',
     description:
-      'An interactive timeline wall tracing Museum OS\'s journey from Western India Vegetable Products to a multinational corporation.',
+      'An interactive timeline wall tracing Curato\'s journey from Western India Vegetable Products to a multinational corporation.',
     imageSrc: './images/highlights/prologue-highlight.png',
     positionOnMap: { x: 31.0, y: 54.5 },
   },
 
-  /* ─── Museum OS Experience ─── */
+  /* ─── Curato Experience ─── */
   {
     id: 'hilight-exp-immersive',
     galleryId: 'hilight-experience',
     title: 'Immersive Theatre',
     description:
-      'A 270-degree projection experience that takes you through decades of Museum OS\'s transformation, featuring archival footage and interviews.',
+      'A 270-degree projection experience that takes you through decades of Curato\'s transformation, featuring archival footage and interviews.',
     imageSrc: './images/highlights/prologue-highlight.png',
     positionOnMap: { x: 38.5, y: 43.5 },
   },
@@ -41,7 +41,7 @@ export const highlights: readonly Highlight[] = [
     galleryId: 'hilight-experience',
     title: 'Transformation Wall',
     description:
-      'An illuminated display chronicling key business pivots and strategic decisions that shaped modern Museum OS.',
+      'An illuminated display chronicling key business pivots and strategic decisions that shaped modern Curato.',
     imageSrc: './images/highlights/prologue-highlight.png',
     positionOnMap: { x: 41.5, y: 46.5 },
   },
@@ -52,7 +52,7 @@ export const highlights: readonly Highlight[] = [
     galleryId: 'it-story',
     title: 'First Server Room',
     description:
-      'A recreation of Museum OS\'s first server room, showcasing the early hardware that launched the company\'s technology journey.',
+      'A recreation of Curato\'s first server room, showcasing the early hardware that launched the company\'s technology journey.',
     imageSrc: './images/highlights/prologue-highlight.png',
     positionOnMap: { x: 18.5, y: 34.5 },
   },
@@ -61,7 +61,7 @@ export const highlights: readonly Highlight[] = [
     galleryId: 'it-story',
     title: 'Digital Milestones',
     description:
-      'Interactive display of breakthrough moments in Museum OS IT — from the first software export to major global partnerships.',
+      'Interactive display of breakthrough moments in Curato IT — from the first software export to major global partnerships.',
     imageSrc: './images/highlights/prologue-highlight.png',
     positionOnMap: { x: 21.5, y: 37.5 },
   },
@@ -72,7 +72,7 @@ export const highlights: readonly Highlight[] = [
     galleryId: 'consumer-care',
     title: 'Product Heritage Wall',
     description:
-      'A nostalgic collection of iconic Museum OS consumer products through the decades — from Santoor to Museum OS lighting.',
+      'A nostalgic collection of iconic Curato consumer products through the decades — from Santoor to Curato lighting.',
     imageSrc: './images/highlights/prologue-highlight.png',
     positionOnMap: { x: 7.5, y: 44.5 },
   },
@@ -81,7 +81,7 @@ export const highlights: readonly Highlight[] = [
     galleryId: 'consumer-care',
     title: 'Advertising Archives',
     description:
-      'A curated collection of memorable Museum OS consumer brand advertisements spanning five decades.',
+      'A curated collection of memorable Curato consumer brand advertisements spanning five decades.',
     imageSrc: './images/highlights/prologue-highlight.png',
     positionOnMap: { x: 10.5, y: 47.5 },
   },
@@ -92,7 +92,7 @@ export const highlights: readonly Highlight[] = [
     galleryId: 'factory-experience',
     title: 'Assembly Line Walkthrough',
     description:
-      'Walk alongside a recreated production line and experience the precision engineering behind Museum OS\'s manufacturing operations.',
+      'Walk alongside a recreated production line and experience the precision engineering behind Curato\'s manufacturing operations.',
     imageSrc: './images/highlights/prologue-highlight.png',
     positionOnMap: { x: 7.8, y: 50.5 },
   },
@@ -101,18 +101,18 @@ export const highlights: readonly Highlight[] = [
     galleryId: 'factory-experience',
     title: 'Innovation Machines',
     description:
-      'Original machinery and equipment from Museum OS factories, showcasing the evolution of manufacturing technology.',
+      'Original machinery and equipment from Curato factories, showcasing the evolution of manufacturing technology.',
     imageSrc: './images/highlights/prologue-highlight.png',
     positionOnMap: { x: 10.5, y: 53.5 },
   },
 
-  /* ─── Spirit of Museum OS ─── */
+  /* ─── Spirit of Curato ─── */
   {
     id: 'spirit-pillars',
     galleryId: 'spirit-of-hilight',
     title: 'The Three Pillars',
     description:
-      'Monumental installations representing Museum OS\'s three core values: Intensity to Win, Acting with Sensitivity, and Unyielding Integrity.',
+      'Monumental installations representing Curato\'s three core values: Intensity to Win, Acting with Sensitivity, and Unyielding Integrity.',
     imageSrc: './images/highlights/prologue-highlight.png',
     positionOnMap: { x: 32.5, y: 27.5 },
   },
@@ -121,7 +121,7 @@ export const highlights: readonly Highlight[] = [
     galleryId: 'spirit-of-hilight',
     title: 'Values in Action',
     description:
-      'Real stories from Museum OS employees demonstrating how the Spirit of Museum OS guides everyday decisions and actions.',
+      'Real stories from Curato employees demonstrating how the Spirit of Curato guides everyday decisions and actions.',
     imageSrc: './images/highlights/prologue-highlight.png',
     positionOnMap: { x: 35.5, y: 30.5 },
   },
@@ -132,7 +132,7 @@ export const highlights: readonly Highlight[] = [
     galleryId: 'wintrol',
     title: 'Innovation Lab',
     description:
-      'Hands-on stations showcasing cutting-edge technologies being developed at Museum OS — from AI to quantum computing concepts.',
+      'Hands-on stations showcasing cutting-edge technologies being developed at Curato — from AI to quantum computing concepts.',
     imageSrc: './images/highlights/prologue-highlight.png',
     positionOnMap: { x: 21.0, y: 25.0 },
   },
@@ -141,7 +141,7 @@ export const highlights: readonly Highlight[] = [
     galleryId: 'wintrol',
     title: 'Collaboration Canvas',
     description:
-      'An interactive digital canvas where visitors can contribute ideas and see how collaboration fuels innovation at Museum OS.',
+      'An interactive digital canvas where visitors can contribute ideas and see how collaboration fuels innovation at Curato.',
     imageSrc: './images/highlights/prologue-highlight.png',
     positionOnMap: { x: 24.5, y: 28.0 },
   },
@@ -161,7 +161,7 @@ export const highlights: readonly Highlight[] = [
     galleryId: 'foundation',
     title: 'Impact Counter',
     description:
-      'A real-time display showing the cumulative impact of Museum OS\'s philanthropic efforts — lives touched, schools built, communities transformed.',
+      'A real-time display showing the cumulative impact of Curato\'s philanthropic efforts — lives touched, schools built, communities transformed.',
     imageSrc: './images/highlights/prologue-highlight.png',
     positionOnMap: { x: 45.5, y: 32.0 },
   },

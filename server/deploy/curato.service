@@ -1,29 +1,29 @@
 [Unit]
-Description=Museum OS Server
+Description=Curato Server
 After=network.target postgresql.service mosquitto.service
 Wants=postgresql.service
 
 [Service]
 Type=simple
-User=museumos
-Group=museumos
-WorkingDirectory=/opt/museumos/server
+User=curato
+Group=curato
+WorkingDirectory=/opt/curato/server
 ExecStart=/usr/bin/node dist/index.js
 Restart=always
 RestartSec=5
 Environment=NODE_ENV=production
-EnvironmentFile=/opt/museumos/server/.env
+EnvironmentFile=/opt/curato/server/.env
 
 # Security hardening
 NoNewPrivileges=true
 ProtectSystem=strict
 ProtectHome=true
-ReadWritePaths=/opt/museumos/server/storage /opt/museumos/server/backups /opt/museumos/server/logs
+ReadWritePaths=/opt/curato/server/storage /opt/curato/server/backups /opt/curato/server/logs
 
 # Logging
 StandardOutput=journal
 StandardError=journal
-SyslogIdentifier=museumos
+SyslogIdentifier=curato
 
 [Install]
 WantedBy=multi-user.target

@@ -4,8 +4,8 @@ import type { PowerScheduleConfig } from '../lib/types.js';
 import type { Logger } from '../lib/logger.js';
 import type { WsClient } from './websocket.js';
 
-const ENABLE_LOCAL_CRON_ENV = 'MUSEUMOS_ENABLE_LOCAL_CRON';
-const ALLOW_REMOTE_SCHEDULE_UPDATES_ENV = 'MUSEUMOS_ALLOW_REMOTE_POWER_SCHEDULE_UPDATES';
+const ENABLE_LOCAL_CRON_ENV = 'CURATO_ENABLE_LOCAL_CRON';
+const ALLOW_REMOTE_SCHEDULE_UPDATES_ENV = 'CURATO_ALLOW_REMOTE_POWER_SCHEDULE_UPDATES';
 
 type ScheduleUpdateSource = 'remote' | 'local';
 
@@ -233,7 +233,7 @@ export class PowerScheduler {
     switch (platform) {
       case 'windows':
         bin = 'shutdown';
-        args = ['/s', '/t', '5', '/c', `Museum OS scheduled shutdown: ${reason}`];
+        args = ['/s', '/t', '5', '/c', `Curato scheduled shutdown: ${reason}`];
         break;
       case 'darwin':
         bin = 'shutdown';

@@ -31,8 +31,8 @@ async function main(): Promise<void> {
 
 function printUsage(): void {
   console.log('Usage:');
-  console.log('  npm run db:export:json -- --file ./backups/museumos-db.json');
-  console.log('  npm run db:import:json -- --file ./backups/museumos-db.json');
+  console.log('  npm run db:export:json -- --file ./backups/curato-db.json');
+  console.log('  npm run db:import:json -- --file ./backups/curato-db.json');
   console.log('');
   console.log('Notes:');
   console.log('  - Export/import includes application tables in the public schema.');

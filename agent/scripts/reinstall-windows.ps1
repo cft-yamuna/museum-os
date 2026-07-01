@@ -1,7 +1,7 @@
 #Requires -RunAsAdministrator
 <#
 .SYNOPSIS
-    Museum OS Agent - Reinstall (install-windows.ps1 handles cleanup automatically)
+    Curato Agent - Reinstall (install-windows.ps1 handles cleanup automatically)
 .EXAMPLE
     powershell -ExecutionPolicy Bypass -File scripts\reinstall-windows.ps1 -Slug "F-AV04" -Server "http://192.168.10.100:3401" -ShellReplace
 #>

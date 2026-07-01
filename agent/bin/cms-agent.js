@@ -9,7 +9,7 @@ import { createInterface } from 'readline/promises';
 import { stdin as input, stdout as output, cwd, platform, exit } from 'process';
 
 const DEFAULT_SERVER = 'http://192.168.10.100:3401';
-const INSTALL_CONFIG_PATH = 'C:\\Program Files\\Museumos\\Agent\\agent.config.json';
+const INSTALL_CONFIG_PATH = 'C:\\Program Files\\Curato\\Agent\\agent.config.json';
 const PACKAGE_JSON_PATH = resolve(dirname(fileURLToPath(import.meta.url)), '../package.json');
 
 function getVersion() {

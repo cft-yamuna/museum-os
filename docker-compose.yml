@@ -1,14 +1,14 @@
 services:
-  museumos-db:
+  curato-db:
     image: postgres:16-alpine
-    container_name: museumos-db
+    container_name: curato-db
     restart: unless-stopped
     ports:
       - "5432:5432"
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env.production}
-      POSTGRES_DB: ${POSTGRES_DB:-museumos}
+      POSTGRES_DB: ${POSTGRES_DB:-curato}
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -17,19 +17,19 @@ services:
       timeout: 3s
       retries: 5
 
-  museumos-app:
+  curato-app:
     build: .
-    container_name: museumos-app
+    container_name: curato-app
     restart: unless-stopped
     ports:
       - "${PORT:-3401}:${PORT:-3401}"
     depends_on:
-      museumos-db:
+      curato-db:
         condition: service_healthy
     environment:
       NODE_ENV: production
       PORT: ${PORT:-3401}
-      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@museumos-db:5432/${POSTGRES_DB:-museumos}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@curato-db:5432/${POSTGRES_DB:-curato}
       JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env.production}
       JWT_EXPIRY: ${JWT_EXPIRY:-24h}
       CORS_ORIGIN: ${CORS_ORIGIN:-*}
